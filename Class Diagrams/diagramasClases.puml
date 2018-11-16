@@ -1,0 +1,146 @@
+@startuml
+class Dnis [[java:personas.Dnis]] {
+	-int numero
+}
+class Documentos [[java:personas.Documentos]] {
+}
+abstract class Documentos [[java:personas.Documentos]] {
+	-String tipo
+}
+class Emails [[java:personas.Emails]] {
+	-String tipo
+	-String email
+}
+class Cuentas [[java:personas.Cuentas]] {
+	-int idCuenta
+	-String cuenta
+	-String emailCuenta
+	-String[] tipoCuenta
+	-String fraseDeSeguridad
+	-Calendar vencimiento
+	-Calendar alta
+	-Calendar baja
+}
+class Academicos [[java:personas.Academicos]] {
+}
+class Empleados [[java:personas.Empleados]] {
+}
+class Telefonos [[java:personas.Telefonos]] {
+	-String tipo
+	-int numero
+	-int codArea
+	-int codPais
+}
+class Externo [[java:personas.Externo]] {
+}
+class Personas [[java:personas.Personas]] {
+}
+abstract class Empleados [[java:personas.Empleados]] {
+	#int legajo
+	#Calendar fechaIngreso
+	#Calendar fechaBaja
+	#Calendar fechaReingreso
+	#Calendar inicioCargo
+	#String actividad
+	#int antiguedad
+	#String cajaDeAhorro
+	#String cajaJubilacion
+	#String cargo
+	#int codigoAlta
+	#String titulo
+	#int codigoTitulo
+	#int nroJubilacion
+	#int nroSindicato
+	#String obraSocial
+	#int redito
+	#String seguro
+	#int sucursalCtaBanco
+	#int tipoCtaBanco
+	#String unidadContrato
+	#String tipoBco
+}
+class Personas [[java:personas.Personas]] {
+}
+class Persona [[java:personas.Persona]] {
+	+{static}void main(String[] args)
+}
+class Docentes [[java:personas.Docentes]] {
+}
+class Empleados [[java:personas.Empleados]] {
+}
+class Pasaportes [[java:personas.Pasaportes]] {
+	-String numero
+}
+class Documentos [[java:personas.Documentos]] {
+}
+class Cuils [[java:personas.Cuils]] {
+	-int numero
+	+boolean verificar()
+}
+class Documentos [[java:personas.Documentos]] {
+}
+abstract class Personas [[java:personas.Personas]] {
+	#int person
+	#String nombre
+	#String apellido
+	#ArrayList<Documentos> documento
+	#ArrayList<Emails> email
+	#ArrayList<Telefonos> telefono
+	#ArrayList<Direcciones> direccion
+	#File foto
+	#Calendar fechaNacimiento
+	#String estadoCivil
+	#String nacionalidad
+	#String tipoNacionalidad
+	#String sexo
+}
+class Cuentas [[java:personas.Cuentas]] {
+}
+class Alumnos [[java:personas.Alumnos]] {
+}
+class Personas [[java:personas.Personas]] {
+}
+class Listados [[java:personas.Listados]] {
+	+void listarPerson()
+	+void listarPersonFacu()
+	+void buscarAppers()
+	+void buscarPerson()
+	+void buscarPerdoc()
+	+void buscarTargeta()
+	+void buscarUsuarioWeb()
+	+void buscarCatXPerson()
+}
+class Administrativos [[java:personas.Administrativos]] {
+}
+class Empleados [[java:personas.Empleados]] {
+}
+class Direcciones [[java:personas.Direcciones]] {
+	-String tipo
+	-String Calle
+	-int numero
+	-int piso
+	-String departamento
+	-String pais
+	-String provincia
+	-String localidad
+	-String codigoPostal
+}
+
+Documentos <|-- Dnis
+Documentos <|-- Pasaportes
+Documentos <|-- Cuils
+Personas <|-- Alumnos
+Personas <|-- Externo
+Personas <|-- Empleados
+Empleados <|-- Administrativos
+Empleados <|-- Academicos
+Empleados <|-- Docentes
+Personas --> "1" Cuentas : cuenta
+
+Personas "1" *-- "*" Documentos
+Personas "1" *-- "*" Direcciones
+Personas "1" *-- "*" Telefonos
+Personas "1" *-- "*" Emails
+Personas "1" *-- "1" Cuentas
+
+@enduml

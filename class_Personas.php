@@ -1082,13 +1082,11 @@ abstract class Personas
 	 *        	- Objeto encargado de la interaccion con la base de datos.
 	 * @return string - codigo de la nacion
 	 */
-	private function recuNacion($nacion, $db = "")
+	private function recuNacion($nacion, $db)
 	{
-		global $db;
-
 		if (isset ($nacion))
 		{
-			$sql = "SELECT * FROM appgral.country" . $this->db_link . " WHERE TRIM(upper(country)) = TRIM(upper(:country)) OR TRIM(upper(descrip)) = TRIM(upper(:descrip)) OR TRIM(upper(nation)) = TRIM(upper(:nation))";
+			$sql = "SELECT * FROM appgral.country WHERE TRIM(upper(country)) = TRIM(upper(:country)) OR TRIM(upper(descrip)) = TRIM(upper(:descrip)) OR TRIM(upper(nation)) = TRIM(upper(:nation))";
 
 			$parametros = "";
 			$parametros[0] = $nacion;
