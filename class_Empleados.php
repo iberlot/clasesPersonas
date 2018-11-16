@@ -1,0 +1,174 @@
+<?php
+
+/**
+ *
+ * @author iberlot <@> iberlot@usal.edu.ar
+ * @todo 16 nov. 2018
+ * @lenguage PHP
+ * @name class_Empleados.php
+ * @version 0.1 version inicial del archivo.
+ * @package
+ * @project
+ */
+
+/*
+ * Querido programador:
+ *
+ * Cuando escribi este codigo, solo Dios y yo sabiamos como funcionaba.
+ * Ahora, Solo Dios lo sabe!!!
+ *
+ * Asi que, si esta tratando de 'optimizar' esta rutina y fracasa (seguramente),
+ * por favor, incremente el siguiente contador como una advertencia para el
+ * siguiente colega:
+ *
+ * totalHorasPerdidasAqui = 0
+ *
+ */
+abstract class Empleados extends Personas
+{
+
+	/**
+	 * Numero de legajo del area de personal de la persona
+	 *
+	 * @var int @ubicacionBase appgral.catxperson.legajo - NUMBER(8,0)
+	 */
+	protected $legajo = "";
+
+	/**
+	 * Fecha en la que ingresa la persona
+	 *
+	 * @var int @ubicacionBase appgral.catxperson.finicio - DATE
+	 */
+	protected $fechaIngreso = "";
+
+	/**
+	 * Fecha de baja de la persona
+	 *
+	 * @var int @ubicacionBase appgral.catxperson.fbaja - DATE
+	 */
+	protected $fechaBaja = "";
+
+	/**
+	 * Fecha de reingreso
+	 *
+	 * @var string
+	 */
+	protected $reingreso = "";
+
+	/**
+	 * Fecha de inicio en el cargo
+	 *
+	 * @var string
+	 */
+	protected $inicioCargo = "";
+
+	/**
+	 * Actividad de la persona
+	 *
+	 * @var string
+	 */
+	protected $actividad = "";
+
+	/**
+	 * Antiguedad de la persona.
+	 *
+	 * @var string
+	 */
+	protected $antiguedad = "";
+
+	/**
+	 * caja de ahorro
+	 *
+	 * @var string
+	 */
+	protected $cajaDeAhorro = "";
+
+	/**
+	 * Caja jubilatoria
+	 *
+	 * @var string
+	 */
+	protected $cajaJubilacion = "";
+
+	/**
+	 * Cargo
+	 *
+	 * @var string
+	 */
+	protected $cargo = "";
+
+	/**
+	 * Codigo de alta
+	 *
+	 * @var string
+	 */
+	protected $codigoAlta = "";
+
+	/**
+	 * titulo
+	 *
+	 * @var string
+	 */
+	protected $titulo = "";
+
+	/**
+	 * Codigo del titulo
+	 *
+	 * @var string
+	 */
+	protected $codigoTitulo = "";
+	/**
+	 * $nroJubilacion.
+	 *
+	 * @var string
+	 */
+	protected $nroJubilacion = "";
+	/**
+	 * $nroSindicato.
+	 *
+	 * @var string
+	 */
+	protected $nroSindicato = "";
+	/**
+	 * $obraSocial.
+	 *
+	 * @var string
+	 */
+	protected $obraSocial = "";
+	/**
+	 * $redito.
+	 *
+	 * @var string
+	 */
+	protected $redito = "";
+	/**
+	 * $seguro
+	 *
+	 * @var string
+	 */
+	protected $seguro = "";
+	/**
+	 * $sucursalCtaBanco
+	 *
+	 * @var string
+	 */
+	protected $sucursalCtaBanco = "";
+	/**
+	 * $tipoCtaBanco
+	 *
+	 * @var string
+	 */
+	protected $tipoCtaBanco = "";
+	/**
+	 * $unidadContrato
+	 *
+	 * @var string
+	 */
+	protected $unidadContrato = "";
+	/**
+	 * $tipobco
+	 *
+	 * @var string
+	 */
+	protected $tipobco = "";
+}
