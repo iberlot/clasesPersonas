@@ -153,12 +153,14 @@ abstract class Empleados extends Personas
 	 * @var string
 	 */
 	protected $sucursalCtaBanco = "";
+
 	/**
 	 * $tipoCtaBanco
 	 *
 	 * @var string
 	 */
 	protected $tipoCtaBanco = "";
+
 	/**
 	 * $unidadContrato
 	 *
