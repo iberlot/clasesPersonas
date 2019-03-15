@@ -39,155 +39,135 @@ final class listados
 	 */
 	public function listarPerson($db, $datos = "")
 	{
-		try
+		if (isset ($datos['person']) and $datos['person'] != "")
 		{
-			if (isset ($datos['person']) and $datos['person'] != "")
-			{
-				$where[] = " person = :person ";
-				$parametros[] = $datos['person'];
-			}
-
-			if (isset ($datos['lname']) and $datos['lname'] != "")
-			{
-				$where[] = " lname = :lname ";
-				$parametros[] = $datos['lname'];
-			}
-			if (isset ($datos['fname']) and $datos['fname'] != "")
-			{
-				$where[] = " fname = :fname ";
-				$parametros[] = $datos['fname'];
-			}
-			if (isset ($datos['country']) and $datos['country'] != "")
-			{
-				$where[] = " country = :country ";
-				$parametros[] = $datos['country'];
-			}
-			if (isset ($datos['poldiv']) and $datos['poldiv'] != "")
-			{
-				$where[] = " poldiv = :poldiv ";
-				$parametros[] = $datos['poldiv'];
-			}
-			if (isset ($datos['city']) and $datos['city'] != "")
-			{
-				$where[] = " city = :city ";
-				$parametros[] = $datos['city'];
-			}
-			if (isset ($datos['birdate']) and $datos['birdate'] != "")
-			{
-				$where[] = " birdate = :birdate ";
-				$parametros[] = $datos['birdate'];
-			}
-			if (isset ($datos['nation']) and $datos['nation'] != "")
-			{
-				$where[] = " nation = :nation ";
-				$parametros[] = $datos['nation'];
-			}
-			if (isset ($datos['sex']) and $datos['sex'] != "")
-			{
-				$where[] = " sex = :sex ";
-				$parametros[] = $datos['sex'];
-			}
-			if (isset ($datos['marstat']) and $datos['marstat'] != "")
-			{
-				$where[] = " marstat = :marstat ";
-				$parametros[] = $datos['marstat'];
-			}
-			if (isset ($datos['address']) and $datos['address'] != "")
-			{
-				$where[] = " address = :address ";
-				$parametros[] = $datos['address'];
-			}
-			if (isset ($datos['rcountry']) and $datos['rcountry'] != "")
-			{
-				$where[] = " rcountry = :rcountry ";
-				$parametros[] = $datos['rcountry'];
-			}
-			if (isset ($datos['rpoldiv']) and $datos['rpoldiv'] != "")
-			{
-				$where[] = " rpoldiv = :rpoldiv ";
-				$parametros[] = $datos['rpoldiv'];
-			}
-			if (isset ($datos['rcity']) and $datos['rcity'] != "")
-			{
-				$where[] = " rcity = :rcity ";
-				$parametros[] = $datos['rcity'];
-			}
-			if (isset ($datos['telep']) and $datos['telep'] != "")
-			{
-				$where[] = " telep = :telep ";
-				$parametros[] = $datos['telep'];
-			}
-			if (isset ($datos['active']) and $datos['active'] != "")
-			{
-				$where[] = " active = :active ";
-				$parametros[] = $datos['active'];
-			}
-			if (isset ($datos['tnation']) and $datos['tnation'] != "")
-			{
-				$where[] = " tnation = :tnation ";
-				$parametros[] = $datos['tnation'];
-			}
-			if (isset ($datos['incountrysince']) and $datos['incountrysince'] != "")
-			{
-				$where[] = " incountrysince = :incountrysince ";
-				$parametros[] = $datos['incountrysince'];
-			}
-			if (isset ($datos['religion']) and $datos['religion'] != "")
-			{
-				$where[] = " religion = :religion ";
-				$parametros[] = $datos['religion'];
-			}
-			if (isset ($datos['qbrother']) and $datos['qbrother'] != "")
-			{
-				$where[] = " qbrother = :qbrother ";
-				$parametros[] = $datos['qbrother'];
-			}
-			if (isset ($datos['qson']) and $datos['qson'] != "")
-			{
-				$where[] = " qson = :qson ";
-				$parametros[] = $datos['qson'];
-			}
-
-			if ($where != "")
-			{
-				$where = implode (" AND ", $where);
-
-				$where = " AND " . $where;
-			}
-
-			$sql = "SELECT person FROM appgral.person" . $this->db_link . " WHERE 1 = 1 " . $where;
-
-			$result = $db->query ($sql, $esParam = true, $parametros);
-
-			$rst = $db->fetch_all ($result);
-
-			return $rst;
-
-			// if (1 == 1)
-			// {
-			// }
-			// else
-			// {
-			// throw new Exception ('ERROR: No se pudo realizar la insercion en sueldos.valorremu.');
-			// }
+			$where[] = " person = :person ";
+			$parametros[] = $datos['person'];
 		}
-		catch (Exception $e)
+
+		if (isset ($datos['lname']) and $datos['lname'] != "")
 		{
-			if ($db->debug == true)
-			{
-				return __LINE__ . " - " . __FILE__ . " - " . $e->getMessage ();
-			}
-			else
-
-			{
-				return $e->getMessage ();
-			}
-
-			if ($db->dieOnError == true)
-			{
-				exit ();
-			}
+			$where[] = " lname = :lname ";
+			$parametros[] = $datos['lname'];
 		}
+		if (isset ($datos['fname']) and $datos['fname'] != "")
+		{
+			$where[] = " fname = :fname ";
+			$parametros[] = $datos['fname'];
+		}
+		if (isset ($datos['country']) and $datos['country'] != "")
+		{
+			$where[] = " country = :country ";
+			$parametros[] = $datos['country'];
+		}
+		if (isset ($datos['poldiv']) and $datos['poldiv'] != "")
+		{
+			$where[] = " poldiv = :poldiv ";
+			$parametros[] = $datos['poldiv'];
+		}
+		if (isset ($datos['city']) and $datos['city'] != "")
+		{
+			$where[] = " city = :city ";
+			$parametros[] = $datos['city'];
+		}
+		if (isset ($datos['birdate']) and $datos['birdate'] != "")
+		{
+			$where[] = " birdate = :birdate ";
+			$parametros[] = $datos['birdate'];
+		}
+		if (isset ($datos['nation']) and $datos['nation'] != "")
+		{
+			$where[] = " nation = :nation ";
+			$parametros[] = $datos['nation'];
+		}
+		if (isset ($datos['sex']) and $datos['sex'] != "")
+		{
+			$where[] = " sex = :sex ";
+			$parametros[] = $datos['sex'];
+		}
+		if (isset ($datos['marstat']) and $datos['marstat'] != "")
+		{
+			$where[] = " marstat = :marstat ";
+			$parametros[] = $datos['marstat'];
+		}
+		if (isset ($datos['address']) and $datos['address'] != "")
+		{
+			$where[] = " address = :address ";
+			$parametros[] = $datos['address'];
+		}
+		if (isset ($datos['rcountry']) and $datos['rcountry'] != "")
+		{
+			$where[] = " rcountry = :rcountry ";
+			$parametros[] = $datos['rcountry'];
+		}
+		if (isset ($datos['rpoldiv']) and $datos['rpoldiv'] != "")
+		{
+			$where[] = " rpoldiv = :rpoldiv ";
+			$parametros[] = $datos['rpoldiv'];
+		}
+		if (isset ($datos['rcity']) and $datos['rcity'] != "")
+		{
+			$where[] = " rcity = :rcity ";
+			$parametros[] = $datos['rcity'];
+		}
+		if (isset ($datos['telep']) and $datos['telep'] != "")
+		{
+			$where[] = " telep = :telep ";
+			$parametros[] = $datos['telep'];
+		}
+		if (isset ($datos['active']) and $datos['active'] != "")
+		{
+			$where[] = " active = :active ";
+			$parametros[] = $datos['active'];
+		}
+		if (isset ($datos['tnation']) and $datos['tnation'] != "")
+		{
+			$where[] = " tnation = :tnation ";
+			$parametros[] = $datos['tnation'];
+		}
+		if (isset ($datos['incountrysince']) and $datos['incountrysince'] != "")
+		{
+			$where[] = " incountrysince = :incountrysince ";
+			$parametros[] = $datos['incountrysince'];
+		}
+		if (isset ($datos['religion']) and $datos['religion'] != "")
+		{
+			$where[] = " religion = :religion ";
+			$parametros[] = $datos['religion'];
+		}
+		if (isset ($datos['qbrother']) and $datos['qbrother'] != "")
+		{
+			$where[] = " qbrother = :qbrother ";
+			$parametros[] = $datos['qbrother'];
+		}
+		if (isset ($datos['qson']) and $datos['qson'] != "")
+		{
+			$where[] = " qson = :qson ";
+			$parametros[] = $datos['qson'];
+		}
+
+		if ($where != "")
+		{
+			$where = implode (" AND ", $where);
+
+			$where = " AND " . $where;
+		}
+
+		$sql = "SELECT person FROM appgral.person" . $this->db_link . " WHERE 1 = 1 " . $where;
+
+		$result = $db->query ($sql, $esParam = true, $parametros);
+
+		$rst = $db->fetch_all ($result);
+
+		return $rst;
+
+		// if (1 == 1)
+		// {
+		// }
+		// else
+		// {
+		// throw new Exception ('ERROR: No se pudo realizar la insercion en sueldos.valorremu.');
+		// }
 	}
 
 	/**
@@ -202,56 +182,36 @@ final class listados
 	 */
 	public function listarPersonFacu($db, $datos = "")
 	{
-		try
+		if (isset ($datos['facu']) and $datos['facu'] != "")
 		{
-			if (isset ($datos['facu']) and $datos['facu'] != "")
-			{
-				$where[] = " career.facu = :facu ";
-				$parametros[] = $datos['facu'];
-			}
-			if (isset ($datos['career']) and $datos['career'] != "")
-			{
-				$where[] = " carstu.career = :career ";
-				$parametros[] = $datos['career'];
-			}
-			if (isset ($datos['inscdate']) and $datos['inscdate'] != "")
-			{
-				$where[] = " to_char(carstu.inscdate, 'YYYY') = :inscdate ";
-				$parametros[] = $datos['inscdate'];
-			}
-
-			if ($where != "")
-			{
-				$where = implode (" AND ", $where);
-
-				$where = " AND " . $where;
-			}
-
-			$sql = " SELECT carstu.student person FROM studentc.carstu" . $this->db_link . " LEFT JOIN studentc.career ON carstu.career=career.code LEFT JOIN studentc.facu ON career.facu=facu.code WHERE 1 = 1 " . $where;
-
-			$result = $db->query ($sql, $esParam = true, $parametros);
-
-			$rst = $db->fetch_all ($result);
-
-			return $rst;
+			$where[] = " career.facu = :facu ";
+			$parametros[] = $datos['facu'];
 		}
-		catch (Exception $e)
+		if (isset ($datos['career']) and $datos['career'] != "")
 		{
-			if ($db->debug == true)
-			{
-				return __LINE__ . " - " . __FILE__ . " - " . $e->getMessage ();
-			}
-			else
-
-			{
-				return $e->getMessage ();
-			}
-
-			if ($db->dieOnError == true)
-			{
-				exit ();
-			}
+			$where[] = " carstu.career = :career ";
+			$parametros[] = $datos['career'];
 		}
+		if (isset ($datos['inscdate']) and $datos['inscdate'] != "")
+		{
+			$where[] = " to_char(carstu.inscdate, 'YYYY') = :inscdate ";
+			$parametros[] = $datos['inscdate'];
+		}
+
+		if ($where != "")
+		{
+			$where = implode (" AND ", $where);
+
+			$where = " AND " . $where;
+		}
+
+		$sql = " SELECT carstu.student person FROM studentc.carstu" . $this->db_link . " LEFT JOIN studentc.career ON carstu.career=career.code LEFT JOIN studentc.facu ON career.facu=facu.code WHERE 1 = 1 " . $where;
+
+		$result = $db->query ($sql, $esParam = true, $parametros);
+
+		$rst = $db->fetch_all ($result);
+
+		return $rst;
 	}
 
 	/**
@@ -266,48 +226,29 @@ final class listados
 	public function buscarAppers($datosAUsar)
 	{
 		global $db;
-		try
+
+		if ($datosAUsar['person'] != "")
 		{
+			$person = $datosAUsar['person'];
 
-			if ($datosAUsar['person'] != "")
+			$sql = "SELECT * FROM appgral.apers" . $this->db_link . " WHERE person = :person";
+
+			$parametros[0] = $person;
+
+			$result = $db->query ($sql, $esParam = true, $parametros);
+
+			while ($recu = $db->fetch_array ($result))
 			{
-				$person = $datosAUsar['person'];
-
-				$sql = "SELECT * FROM appgral.apers" . $this->db_link . " WHERE person = :person";
-
-				$parametros[0] = $person;
-
-				$result = $db->query ($sql, $esParam = true, $parametros);
-
-				while ($recu = $db->fetch_array ($result))
-				{
-					$persona[$recu['SHORTDES']] = $recu['VAL'];
-				}
-			}
-			else
-			{
-				throw new Exception ('ERROR: El person es obligatorio.');
-			}
-			if ($persona != "")
-			{
-				return $persona;
+				$persona[$recu['SHORTDES']] = $recu['VAL'];
 			}
 		}
-		catch (Exception $e)
+		else
 		{
-			if ($db->debug == true)
-			{
-				return __LINE__ . " - " . __FILE__ . " - " . $e->getMessage ();
-			}
-			else
-			{
-				return $e->getMessage ();
-			}
-
-			if ($db->dieOnError == true)
-			{
-				exit ();
-			}
+			throw new Exception ('ERROR: El person es obligatorio.');
+		}
+		if ($persona != "")
+		{
+			return $persona;
 		}
 	}
 
@@ -438,101 +379,91 @@ final class listados
 	public function buscarPerdoc($datosAUsar)
 	{
 		global $db;
-		try
+		if (isset ($datosAUsar['person']) and $datosAUsar['person'] != "")
 		{
-			if (isset ($datosAUsar['person']) and $datosAUsar['person'] != "")
-			{
-				$person = $datosAUsar['person'];
+			$person = $datosAUsar['person'];
 
-				$sql = "SELECT * FROM appgral.perdoc" . $this->db_link . " WHERE person = :person";
+			$sql = "SELECT * FROM appgral.perdoc" . $this->db_link . " WHERE person = :person";
+
+			$parametros[0] = $person;
+
+			$result = $db->query ($sql, $esParam = true, $parametros);
+
+			if ($result == "")
+			{
+				$sql = "SELECT * FROM appgral.auditaperdoc" . $this->db_link . " WHERE person = :person";
 
 				$parametros[0] = $person;
 
 				$result = $db->query ($sql, $esParam = true, $parametros);
-
-				if ($result == "")
-				{
-					$sql = "SELECT * FROM appgral.auditaperdoc" . $this->db_link . " WHERE person = :person";
-
-					$parametros[0] = $person;
-
-					$result = $db->query ($sql, $esParam = true, $parametros);
-				}
-			}
-			else if (isset ($datosAUsar['docNumero']) and $datosAUsar['docNumero'] != "")
-			{
-				$docNumero = $datosAUsar['docNumero'];
-				$docNumero = str_replace ('.', '', $docNumero);
-				$docNumero = str_replace (' ', '', $docNumero);
-
-				$sql = "SELECT * FROM appgral.perdoc" . $this->db_link . " WHERE LTRIM(LTRIM(docno, '0')) = LTRIM(LTRIM(:docno, '0'))";
-
-				$parametros[0] = $docNumero;
-
-				$result = $db->query ($sql, $esParam = true, $parametros);
-
-				if ($result == "")
-				{
-					$sql = "SELECT * FROM appgral.auditaperdoc" . $this->db_link . " WHERE LTRIM(LTRIM(docno, '0')) = LTRIM(LTRIM(:docno, '0'))";
-
-					$parametros[0] = $docNumero;
-
-					$result = $db->query ($sql, $esParam = true, $parametros);
-				}
-			}
-			else if (isset ($datosAUsar['cuil']) and $datosAUsar['cuil'] != "")
-			{
-				$docNumero = substr ($datosAUsar['cuil'], 2, -1);
-
-				$docNumero = str_replace ('.', '', $docNumero);
-				$docNumero = str_replace (' ', '', $docNumero);
-
-				$sql = "SELECT * FROM appgral.perdoc" . $this->db_link . " WHERE LTRIM(LTRIM(docno, '0')) = LTRIM(LTRIM(:docno, '0'))";
-
-				$parametros[0] = $docNumero;
-
-				$result = $db->query ($sql, $esParam = true, $parametros);
-
-				if ($result == "")
-				{
-					$sql = "SELECT * FROM appgral.auditaperdoc" . $this->db_link . " WHERE LTRIM(LTRIM(docno, '0')) = LTRIM(LTRIM(:docno, '0'))";
-
-					$parametros[0] = $docNumero;
-
-					$result = $db->query ($sql, $esParam = true, $parametros);
-				}
-			}
-			else
-			{
-				throw new Exception ('O person o el numero de doc deben contener algun valor ! ' . ":" . $datosAUsar['person'] . ":D:" . $datosAUsar['docNumero'] . ":");
-			}
-
-			$i = 0;
-
-			while ($recu = $db->fetch_array ($result))
-			{
-				$persona[$i]['person'] = $recu['PERSON'];
-				$persona[$i]['typdoc'] = $recu['TYPDOC'];
-				$persona[$i]['docNumero'] = $recu['DOCNO'];
-
-				$i = $i + 1;
-			}
-
-			if (isset ($persona) and $persona != "")
-			{
-				$resultado = $persona;
-			}
-			else
-			{
-				return 0;
 			}
 		}
-		catch (Exception $e)
+		else if (isset ($datosAUsar['docNumero']) and $datosAUsar['docNumero'] != "")
 		{
-			$db->rollback ();
-			$resultado = false;
+			$docNumero = $datosAUsar['docNumero'];
+			$docNumero = str_replace ('.', '', $docNumero);
+			$docNumero = str_replace (' ', '', $docNumero);
 
-			$this->errores ($e);
+			$sql = "SELECT * FROM appgral.perdoc" . $this->db_link . " WHERE LTRIM(LTRIM(docno, '0')) = LTRIM(LTRIM(:docno, '0'))";
+
+			$parametros[0] = $docNumero;
+
+			$result = $db->query ($sql, $esParam = true, $parametros);
+
+			if ($result == "")
+			{
+				$sql = "SELECT * FROM appgral.auditaperdoc" . $this->db_link . " WHERE LTRIM(LTRIM(docno, '0')) = LTRIM(LTRIM(:docno, '0'))";
+
+				$parametros[0] = $docNumero;
+
+				$result = $db->query ($sql, $esParam = true, $parametros);
+			}
+		}
+		else if (isset ($datosAUsar['cuil']) and $datosAUsar['cuil'] != "")
+		{
+			$docNumero = substr ($datosAUsar['cuil'], 2, -1);
+
+			$docNumero = str_replace ('.', '', $docNumero);
+			$docNumero = str_replace (' ', '', $docNumero);
+
+			$sql = "SELECT * FROM appgral.perdoc" . $this->db_link . " WHERE LTRIM(LTRIM(docno, '0')) = LTRIM(LTRIM(:docno, '0'))";
+
+			$parametros[0] = $docNumero;
+
+			$result = $db->query ($sql, $esParam = true, $parametros);
+
+			if ($result == "")
+			{
+				$sql = "SELECT * FROM appgral.auditaperdoc" . $this->db_link . " WHERE LTRIM(LTRIM(docno, '0')) = LTRIM(LTRIM(:docno, '0'))";
+
+				$parametros[0] = $docNumero;
+
+				$result = $db->query ($sql, $esParam = true, $parametros);
+			}
+		}
+		else
+		{
+			throw new Exception ('O person o el numero de doc deben contener algun valor ! ' . ":" . $datosAUsar['person'] . ":D:" . $datosAUsar['docNumero'] . ":");
+		}
+
+		$i = 0;
+
+		while ($recu = $db->fetch_array ($result))
+		{
+			$persona[$i]['person'] = $recu['PERSON'];
+			$persona[$i]['typdoc'] = $recu['TYPDOC'];
+			$persona[$i]['docNumero'] = $recu['DOCNO'];
+
+			$i = $i + 1;
+		}
+
+		if (isset ($persona) and $persona != "")
+		{
+			$resultado = $persona;
+		}
+		else
+		{
+			return 0;
 		}
 		return $resultado;
 	}
@@ -1003,57 +934,48 @@ final class listados
 	 *        	- person sobre el cual trabajara
 	 * @return boolean
 	 */
-	function modApers($accion, $pattrib, $shortdes, $valor, $person)
+	public function modApers($accion, $pattrib, $shortdes, $valor, $person)
 	{
 		global $db;
 
-		try
+		if (!isset ($valor) or $valor == "")
 		{
-			if (!isset ($valor) or $valor == "")
-			{
-				throw new Exception ('el dato valor no fue correctamene pasado! ');
-			}
-			if (!isset ($shortdes) or $shortdes == "")
-			{
-				throw new Exception ('el dato shortdes no fue correctamene pasado! ');
-			}
-			if (!isset ($pattrib) or $pattrib == "")
-			{
-				throw new Exception ('el dato pattrib no fue correctamene pasado! ');
-			}
-			if (!isset ($person) or $person == "")
-			{
-				throw new Exception ('el dato person no fue correctamene pasado! ');
-			}
-
-			if ($accion == "UPDATE")
-			{
-				$sql = "UPDATE appgral.apers" . $this->db_link . " SET VAL = :valor WHERE PERSON = :person AND PATTRIB = :pattrib AND SHORTDES = :shortdes";
-			}
-			elseif ($accion == "INSERT")
-			{
-				$sql = "INSERT INTO appgral.apers" . $this->db_link . " (val, person, pattrib, shortdes, ordno ) VALUES (:valor, :person, :pattrib, :shortdes, -1 )";
-			}
-
-			$parametros[0] = $valor;
-			$parametros[1] = $person;
-			$parametros[2] = $pattrib;
-			$parametros[3] = $shortdes;
-
-			if ($db->query ($sql, $esParam = true, $parametros))
-			{
-				$resultado = true;
-			}
-			else
-			{
-				throw new Exception ('No pudo realizarse la insercion en appgral.apers! ');
-			}
+			throw new Exception ('el dato valor no fue correctamene pasado! ');
 		}
-		catch (Exception $e)
+		if (!isset ($shortdes) or $shortdes == "")
 		{
-			$resultado = false;
+			throw new Exception ('el dato shortdes no fue correctamene pasado! ');
+		}
+		if (!isset ($pattrib) or $pattrib == "")
+		{
+			throw new Exception ('el dato pattrib no fue correctamene pasado! ');
+		}
+		if (!isset ($person) or $person == "")
+		{
+			throw new Exception ('el dato person no fue correctamene pasado! ');
+		}
 
-			$this->errores ($e);
+		if ($accion == "UPDATE")
+		{
+			$sql = "UPDATE appgral.apers" . $this->db_link . " SET VAL = :valor WHERE PERSON = :person AND PATTRIB = :pattrib AND SHORTDES = :shortdes";
+		}
+		elseif ($accion == "INSERT")
+		{
+			$sql = "INSERT INTO appgral.apers" . $this->db_link . " (val, person, pattrib, shortdes, ordno ) VALUES (:valor, :person, :pattrib, :shortdes, -1 )";
+		}
+
+		$parametros[0] = $valor;
+		$parametros[1] = $person;
+		$parametros[2] = $pattrib;
+		$parametros[3] = $shortdes;
+
+		if ($db->query ($sql, $esParam = true, $parametros))
+		{
+			$resultado = true;
+		}
+		else
+		{
+			throw new Exception ('No pudo realizarse la insercion en appgral.apers! ');
 		}
 		return $resultado;
 	}
@@ -1073,36 +995,78 @@ final class listados
 
 		$persona = "";
 
-		try
+		if ((!isset ($datosAUsar['legajo']) or $datosAUsar['legajo'] == "") and (!isset ($datosAUsar['person']) or $datosAUsar['person'] == ""))
 		{
-			if ((!isset ($datosAUsar['legajo']) or $datosAUsar['legajo'] == "") and (!isset ($datosAUsar['person']) or $datosAUsar['person'] == ""))
-			{
-				throw new Exception ('Debe pasarle a la funcion el person o el legajo! ');
-			}
+			throw new Exception ('Debe pasarle a la funcion el person o el legajo! ');
+		}
 
-			if (isset ($datosAUsar['person']) and $datosAUsar['person'] != "")
+		if (isset ($datosAUsar['person']) and $datosAUsar['person'] != "")
+		{
+			// if((isset($datosAUsar['legajo']) and $datosAUsar['legajo'] != ""))
+			// {
+			// $extraWhere = " AND LTRIM(LTRIM(legajo, '0')) = LTRIM(LTRIM(:legajo, '0')) ";
+			// $parametros[1] = $datosAUsar['legajo'];
+			// }
+			// else
+			// {
+			// $extraWhere = "";
+			// }
+			if ((isset ($datosAUsar['categoria']) and $datosAUsar['categoria'] != ""))
+			{
+				$extraWhere = " AND LTRIM(LTRIM(categoria, '0')) = LTRIM(LTRIM(:categoria, '0')) ";
+				$parametros[1] = $datosAUsar['categoria'];
+			}
+			else
+			{
+				$extraWhere = "";
+			}
+			$sql = "SELECT person, categoria, TO_CHAR(finicio, 'yyyy-mm-dd') finicio, TO_CHAR(fbaja, 'yyyy-mm-dd') fbaja, legajo FROM appgral.catxperson" . $this->db_link . " WHERE LTRIM(LTRIM(person, '0')) = LTRIM(LTRIM(:person, '0'))" . $extraWhere;
+
+			$parametros[0] = $datosAUsar['person'];
+
+			$result = $db->query ($sql, $esParam = true, $parametros);
+
+			$persona = $db->fetch_array ($result);
+
+			if ($persona != "")
+			{
+				if (isset ($persona['PERSON']))
+				{
+					$resultado['person'] = $persona['PERSON'];
+				}
+				if (isset ($persona['LEGAJO']))
+				{
+					$resultado['legajo'] = $persona['LEGAJO'];
+				}
+				if (isset ($persona['CATEGORIA']))
+				{
+					$resultado['categoria'] = $persona['CATEGORIA'];
+				}
+				if (isset ($persona['FINICIO']))
+				{
+					$resultado['fIngreso'] = $persona['FINICIO'];
+				}
+				if (isset ($persona['FBAJA']))
+				{
+					$resultado['fbaja'] = $persona['FBAJA'];
+				}
+			}
+			else
 			{
 				// if((isset($datosAUsar['legajo']) and $datosAUsar['legajo'] != ""))
 				// {
-				// $extraWhere = " AND LTRIM(LTRIM(legajo, '0')) = LTRIM(LTRIM(:legajo, '0')) ";
-				// $parametros[1] = $datosAUsar['legajo'];
-				// }
-				// else
-				// {
-				// $extraWhere = "";
+				// $parametros[2] = $datosAUsar['legajo'];
 				// }
 				if ((isset ($datosAUsar['categoria']) and $datosAUsar['categoria'] != ""))
 				{
-					$extraWhere = " AND LTRIM(LTRIM(categoria, '0')) = LTRIM(LTRIM(:categoria, '0')) ";
-					$parametros[1] = $datosAUsar['categoria'];
+					$parametros[2] = $datosAUsar['categoria'];
 				}
-				else
-				{
-					$extraWhere = "";
-				}
-				$sql = "SELECT person, categoria, TO_CHAR(finicio, 'yyyy-mm-dd') finicio, TO_CHAR(fbaja, 'yyyy-mm-dd') fbaja, legajo FROM appgral.catxperson" . $this->db_link . " WHERE LTRIM(LTRIM(person, '0')) = LTRIM(LTRIM(:person, '0'))" . $extraWhere;
+
+				$sqlTime = "SELECT MAX(mtime) person FROM appgral.catxpersont" . $this->db_link . " WHERE LTRIM(LTRIM(person, '0')) = LTRIM(LTRIM(:person, '0'))";
+				$sql = "SELECT person, categoria, TO_CHAR(finicio, 'yyyy-mm-dd') finicio, TO_CHAR(fbaja, 'yyyy-mm-dd') fbaja FROM appgral.catxpersont" . $this->db_link . " WHERE LTRIM(LTRIM(person, '0')) = LTRIM(LTRIM(:person, '0')) AND mtime IN (" . $sqlTime . ")" . $extraWhere;
 
 				$parametros[0] = $datosAUsar['person'];
+				$parametros[1] = $datosAUsar['person'];
 
 				$result = $db->query ($sql, $esParam = true, $parametros);
 
@@ -1131,58 +1095,49 @@ final class listados
 						$resultado['fbaja'] = $persona['FBAJA'];
 					}
 				}
-				else
+			}
+		}
+		elseif (isset ($datosAUsar['legajo']) and $datosAUsar['legajo'] != "")
+		{
+			// print_r("1");
+			$sql = "SELECT person, categoria, TO_CHAR(finicio, 'yyyy-mm-dd') finicio, TO_CHAR(fbaja, 'yyyy-mm-dd') fbaja, legajo FROM appgral.catxperson" . $this->db_link . " WHERE LTRIM(LTRIM(legajo, '0')) = LTRIM(LTRIM(:legajo, '0'))";
+
+			$parametros[0] = $datosAUsar['legajo'];
+
+			$result = $db->query ($sql, $esParam = true, $parametros);
+
+			$persona = $db->fetch_array ($result);
+
+			if ($persona != "")
+			{
+				if (isset ($persona['PERSON']))
 				{
-					// if((isset($datosAUsar['legajo']) and $datosAUsar['legajo'] != ""))
-					// {
-					// $parametros[2] = $datosAUsar['legajo'];
-					// }
-					if ((isset ($datosAUsar['categoria']) and $datosAUsar['categoria'] != ""))
-					{
-						$parametros[2] = $datosAUsar['categoria'];
-					}
-
-					$sqlTime = "SELECT MAX(mtime) person FROM appgral.catxpersont" . $this->db_link . " WHERE LTRIM(LTRIM(person, '0')) = LTRIM(LTRIM(:person, '0'))";
-					$sql = "SELECT person, categoria, TO_CHAR(finicio, 'yyyy-mm-dd') finicio, TO_CHAR(fbaja, 'yyyy-mm-dd') fbaja FROM appgral.catxpersont" . $this->db_link . " WHERE LTRIM(LTRIM(person, '0')) = LTRIM(LTRIM(:person, '0')) AND mtime IN (" . $sqlTime . ")" . $extraWhere;
-
-					$parametros[0] = $datosAUsar['person'];
-					$parametros[1] = $datosAUsar['person'];
-
-					$result = $db->query ($sql, $esParam = true, $parametros);
-
-					$persona = $db->fetch_array ($result);
-
-					if ($persona != "")
-					{
-						if (isset ($persona['PERSON']))
-						{
-							$resultado['person'] = $persona['PERSON'];
-						}
-						if (isset ($persona['LEGAJO']))
-						{
-							$resultado['legajo'] = $persona['LEGAJO'];
-						}
-						if (isset ($persona['CATEGORIA']))
-						{
-							$resultado['categoria'] = $persona['CATEGORIA'];
-						}
-						if (isset ($persona['FINICIO']))
-						{
-							$resultado['fIngreso'] = $persona['FINICIO'];
-						}
-						if (isset ($persona['FBAJA']))
-						{
-							$resultado['fbaja'] = $persona['FBAJA'];
-						}
-					}
+					$resultado['person'] = $persona['PERSON'];
+				}
+				if (isset ($persona['LEGAJO']))
+				{
+					$resultado['legajo'] = $persona['LEGAJO'];
+				}
+				if (isset ($persona['CATEGORIA']))
+				{
+					$resultado['categoria'] = $persona['CATEGORIA'];
+				}
+				if (isset ($persona['FINICIO']))
+				{
+					$resultado['fIngreso'] = $persona['FINICIO'];
+				}
+				if (isset ($persona['FBAJA']))
+				{
+					$resultado['fbaja'] = $persona['FBAJA'];
 				}
 			}
-			elseif (isset ($datosAUsar['legajo']) and $datosAUsar['legajo'] != "")
+			else
 			{
-				// print_r("1");
-				$sql = "SELECT person, categoria, TO_CHAR(finicio, 'yyyy-mm-dd') finicio, TO_CHAR(fbaja, 'yyyy-mm-dd') fbaja, legajo FROM appgral.catxperson" . $this->db_link . " WHERE LTRIM(LTRIM(legajo, '0')) = LTRIM(LTRIM(:legajo, '0'))";
+				$sqlTime = "SELECT MAX(mtime) person FROM appgral.catxpersont" . $this->db_link . " WHERE LTRIM(LTRIM(legajo, '0')) = LTRIM(LTRIM(:legajo, '0'))";
+				$sql = "SELECT person, categoria, TO_CHAR(finicio, 'yyyy-mm-dd') finicio, TO_CHAR(fbaja, 'yyyy-mm-dd') fbaja FROM appgral.catxpersont" . $this->db_link . " WHERE LTRIM(LTRIM(legajo, '0')) = LTRIM(LTRIM(:legajo, '0')) AND mtime IN (" . $sqlTime . ")";
 
 				$parametros[0] = $datosAUsar['legajo'];
+				$parametros[1] = $datosAUsar['legajo'];
 
 				$result = $db->query ($sql, $esParam = true, $parametros);
 
@@ -1211,51 +1166,9 @@ final class listados
 						$resultado['fbaja'] = $persona['FBAJA'];
 					}
 				}
-				else
-				{
-					$sqlTime = "SELECT MAX(mtime) person FROM appgral.catxpersont" . $this->db_link . " WHERE LTRIM(LTRIM(legajo, '0')) = LTRIM(LTRIM(:legajo, '0'))";
-					$sql = "SELECT person, categoria, TO_CHAR(finicio, 'yyyy-mm-dd') finicio, TO_CHAR(fbaja, 'yyyy-mm-dd') fbaja FROM appgral.catxpersont" . $this->db_link . " WHERE LTRIM(LTRIM(legajo, '0')) = LTRIM(LTRIM(:legajo, '0')) AND mtime IN (" . $sqlTime . ")";
-
-					$parametros[0] = $datosAUsar['legajo'];
-					$parametros[1] = $datosAUsar['legajo'];
-
-					$result = $db->query ($sql, $esParam = true, $parametros);
-
-					$persona = $db->fetch_array ($result);
-
-					if ($persona != "")
-					{
-						if (isset ($persona['PERSON']))
-						{
-							$resultado['person'] = $persona['PERSON'];
-						}
-						if (isset ($persona['LEGAJO']))
-						{
-							$resultado['legajo'] = $persona['LEGAJO'];
-						}
-						if (isset ($persona['CATEGORIA']))
-						{
-							$resultado['categoria'] = $persona['CATEGORIA'];
-						}
-						if (isset ($persona['FINICIO']))
-						{
-							$resultado['fIngreso'] = $persona['FINICIO'];
-						}
-						if (isset ($persona['FBAJA']))
-						{
-							$resultado['fbaja'] = $persona['FBAJA'];
-						}
-					}
-				}
 			}
-
-			return $resultado;
 		}
-		catch (Exception $e)
-		{
-			$resultado = false;
 
-			$this->errores ($e);
-		}
+		return $resultado;
 	}
 }

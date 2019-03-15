@@ -38,7 +38,7 @@ abstract class Documentos
 	 *       <Br>
 	 *       Hay que tener en cuenta que el campo appgral.perdoc.isKey debe se igual a 1
 	 */
-	public $docNumero = "";
+	protected $docNumero = "";
 
 	/**
 	 * Tipo de documento de la persona
@@ -53,7 +53,7 @@ abstract class Documentos
 	 *       <Br>
 	 *       El listado con los tipos de documentos y sus descripciones se encuetran en appgral.tdoc
 	 */
-	public $docTipo = "";
+	protected $docTipo = "";
 
 	// el cuil es un tipo de documento
 	// /**

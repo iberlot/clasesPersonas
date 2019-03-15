@@ -47,6 +47,18 @@
  */
 abstract class Personas
 {
+	/**
+	 *
+	 * @var object objeto inicializado del tipo class_db
+	 */
+	protected $db;
+
+	/**
+	 *
+	 * @var int Numero de person (id de la tabla) de la persona
+	 *      PERSON - NUMBER(8,0)
+	 */
+	protected $person = 0;
 
 	/**
 	 * Apellido de la persona
@@ -73,20 +85,6 @@ abstract class Personas
 	 *           $realname = ucwords($realname);
 	 */
 	protected $nombre = "";
-
-	/**
-	 * XXX convertir a funcion
-	 *
-	 * @var string Nombre completo de la persona (formado de la forma $apellido . " " . $realname)
-	 */
-	// public $nombreCompleto = "";
-
-	/**
-	 *
-	 * @var int Numero de person (id de la tabla) de la persona
-	 *      PERSON - NUMBER(8,0)
-	 */
-	protected $person = "";
 
 	/**
 	 * Direccion de mail de la persona
@@ -206,6 +204,7 @@ abstract class Personas
 	 * @var array|Direcciones
 	 */
 	protected $direccion = array ();
+
 	/*
 	 * ******************************************************************************
 	 * VARIABLES REFERENTES AL AREA DE PERSONAL *
@@ -222,61 +221,61 @@ abstract class Personas
 	 *
 	 * @var string
 	 */
-	public $esposa = "";
+	protected $esposa = "";
 	/**
 	 * $familiarACargo
 	 *
 	 * @var string
 	 */
-	public $familiarACargo = "";
+	protected $familiarACargo = "";
 	/**
 	 * $FamiliaNumerosa
 	 *
 	 * @var string
 	 */
-	public $FamiliaNumerosa = "";
+	protected $FamiliaNumerosa = "";
 	/**
 	 * $hijos
 	 *
 	 * @var string
 	 */
-	public $hijos = "";
+	protected $hijos = "";
 	/**
 	 * $guarderia
 	 *
 	 * @var string
 	 */
-	public $guarderia = "";
+	protected $guarderia = "";
 	/**
 	 * $hijoIncapasitado
 	 *
 	 * @var string
 	 */
-	public $hijoIncapasitado = "";
+	protected $hijoIncapasitado = "";
 	/**
 	 * $prenatal
 	 *
 	 * @var string
 	 */
-	public $prenatal = "";
+	protected $prenatal = "";
 	/**
 	 * $preescolar
 	 *
 	 * @var string
 	 */
-	public $preescolar = "";
+	protected $preescolar = "";
 	/**
 	 * $escuelaMedia
 	 *
 	 * @var string
 	 */
-	public $escuelaMedia = "";
+	protected $escuelaMedia = "";
 	/**
 	 * $escuelaPrimaria
 	 *
 	 * @var string
 	 */
-	public $escuelaPrimaria = "";
+	protected $escuelaPrimaria = "";
 
 	/*
 	 * ******************************************************************************
@@ -296,76 +295,94 @@ abstract class Personas
 	 * Aca empiezan las funciones de la clase
 	 * ************************************************************************
 	 */
+	public function __construct($id = null)
+	{
+		$this->db = Conexion::openConnection ();
+
+		if (!is_null ($id))
+		{
+			// $this->findByPerson ($id);
+		}
+	}
+
 	/**
 	 * Devuelve el nombre y el apellido para un person dado.
 	 *
-	 * @param object $db
-	 *        	- Objeto encargado de la interaccion con la base de datos.
 	 * @param mixed[] $datosAUsar
 	 *        	- Es impresindible que contenga el inice "person" de lo contrario devolvera error.
 	 * @throws Exception - Tanto si no se pasa el person como si no se puede recuperar valor.
 	 * @return string[] - Con los campos LNAME y FNAME.
 	 */
-	public function getNombreYApellido($db, $datosAUsar)
+	public function getNombreYApellido($datosAUsar)
 	{
-		try
+		print_r ("pepinos");
+		print_r ($datosAUsar);
+
+		if (isset ($datosAUsar['person']) and $datosAUsar['person'] != "")
 		{
-			if (isset ($datosAUsar['person']) and $datosAUsar['person'] != "")
+			$where[] = " person = :person ";
+			$parametros[] = $datosAUsar['person'];
+
+			if ($where != "")
 			{
-				$where[] = " person = :person ";
-				$parametros[] = $datosAUsar['person'];
+				$where = implode (" AND ", $where);
 
-				if ($where != "")
-				{
-					$where = implode (" AND ", $where);
+				$where = " AND " . $where;
+			}
 
-					$where = " AND " . $where;
-				}
+			$sql = "SELECT lname, fname FROM appgral.person WHERE 1=1 " . $where;
 
-				$sql = "SELECT lname, fname FROM appgral.person WHERE 1=1 " . $where;
+			if ($result = $this->db->query ($sql, $esParam = true, $parametros))
+			{
+				$rst = $this->db->fetch_array ($result);
 
-				if ($result = $db->query ($sql, $esParam = true, $parametros))
-				{
-					$rst = $db->fetch_array ($result);
-
-					return $rst;
-				}
-				else
-				{
-					throw new Exception ('ERROR: No se pudo realizar la busqueda en appgral.person.');
-				}
+				return $rst;
 			}
 			else
 			{
-				throw new Exception ('ERROR: El person es obligatorio.');
+				throw new Exception ('ERROR: No se pudo realizar la busqueda en appgral.person.');
 			}
 		}
-		catch (Exception $e)
+		else
+		{
+			throw new Exception ('ERROR: El person es obligatorio!!!.');
+		}
+	}
+
+	/**
+	 * En base al person del alumno obtiene la foto
+	 *
+	 * @param int $person
+	 *
+	 * @return string url de la foto
+	 */
+	public function get_Photo($person)
+	{
+		$foto1 = substr ($person, -1, 1);
+
+		$foto2 = substr ($person, -2, 1);
+
+		$foto3 = substr ($person, -3, 1);
+
+		$url_foto = 'http://roma2.usal.edu.ar/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
+
+		if (getimagesize ($url_foto))
 		{
 
-			$this->errores ($e);
-
-			if ($db->debug == true)
-			{
-				return __LINE__ . " - " . __FILE__ . " - " . $e->getMessage ();
-			}
-			else
-
-			{
-				return $e->getMessage ();
-			}
-
-			if ($db->dieOnError == true)
-			{
-				exit ();
-			}
+			$url_foto = '/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
 		}
+		else
+		{
+
+			$url_foto = '/FotosPerson/sinfoto1.jpg';
+		}
+
+		return $url_foto;
 	}
 
 	/*
 	 * ************************************************************************
 	 * Funciones para la creacion de personas
-	 *
 	 * ************************************************************************
 	 */
 
@@ -384,8 +401,6 @@ abstract class Personas
 	 */
 	public function nuevoPerdoc($arrayDatosPersona)
 	{
-		global $db;
-
 		$resultado = true;
 		echo "****************************************";
 		return;
@@ -435,7 +450,7 @@ abstract class Personas
 
 			$sql = "UPDATE appgral.lnumber" . $this->db_link . " SET lnum=lnum+1 WHERE classname = 'intersoft.appgral.schemas.appgral.Person'";
 
-			if (!$db->query ($sql))
+			if (!$this->db->query ($sql))
 			{
 				throw new Exception ('error!');
 			}
@@ -443,12 +458,12 @@ abstract class Personas
 			// Recuperamos el person a utilizar
 			$sql = "SELECT (lnum) lnum FROM appgral.lnumber" . $this->db_link . " WHERE classname = 'intersoft.appgral.schemas.appgral.Person'";
 
-			if (!$result = $db->query ($sql))
+			if (!$result = $this->db->query ($sql))
 			{
 				throw new Exception ('error!');
 			}
 
-			$person = $db->fetch_array ($result);
+			$person = $this->db->fetch_array ($result);
 
 			$person = $person['LNUM'];
 
@@ -459,7 +474,7 @@ abstract class Personas
 			$parametros[1] = $arrayDatosPersona['docTipo'];
 			$parametros[2] = $arrayDatosPersona['docNumero'];
 
-			if ($db->query ($sql, $esParam = true, $parametros))
+			if ($this->db->query ($sql, $esParam = true, $parametros))
 			{
 				return $person;
 			}
@@ -470,7 +485,7 @@ abstract class Personas
 		}
 		catch (Exception $e)
 		{
-			$db->rollback ();
+			$this->db->rollback ();
 			$resultado = false;
 
 			$this->errores ($e);
@@ -485,16 +500,11 @@ abstract class Personas
 	 *        	- Debe contener los siguientes indices de forma obligatoria
 	 *        	person, categoria, fIngreso, fbaja, legajo
 	 *
-	 * @global $db - coneccion a la base de datos.
-	 * @global $_SESSION - Requiere acceder a las siguirenres variables de session 'person' y 'app'.
-	 *
 	 * @throws Exception
 	 * @return boolean
 	 */
 	public function nuevoCatXPerson($arrayDatosPersona)
 	{
-		global $db, $_SESSION;
-
 		$resultado = true;
 
 		try
@@ -629,7 +639,7 @@ abstract class Personas
 
 			$sql = $sql . $sqlCampos . $sqlValores;
 
-			if ($db->query ($sql, $esParam = true, $parametros))
+			if ($this->db->query ($sql, $esParam = true, $parametros))
 			{
 				return $resultado;
 			}
@@ -641,7 +651,7 @@ abstract class Personas
 		}
 		catch (Exception $e)
 		{
-			$db->rollback ();
+			$this->db->rollback ();
 			$resultado = false;
 
 			$this->errores ($e);
@@ -655,15 +665,11 @@ abstract class Personas
 	 *        	- Debe contener los siguientes indices de forma obligatoria
 	 *        	person, legajo
 	 *
-	 * @global $db - coneccion a la base de datos.
-	 * @global $_SESSION - Requiere acceder a las siguirenres variables de session 'person' y 'app'.
-	 *
 	 * @throws Exception
 	 * @return boolean
 	 */
 	public function updateCatXPerson($arrayDatosPersona)
 	{
-		global $db, $_SESSION;
 		$extraWhere = '';
 		$resultado = true;
 
@@ -755,7 +761,7 @@ abstract class Personas
 
 			$sql = "UPDATE appgral.catxperson" . $this->db_link . " SET mtime = SYSDATE" . $campos . " WHERE 1=1 " . $wer . $extraWhere;
 
-			if ($db->query ($sql, $esParam = true, $parametros))
+			if ($this->db->query ($sql, $esParam = true, $parametros))
 			{
 				return $resultado;
 			}
@@ -766,7 +772,7 @@ abstract class Personas
 		}
 		catch (Exception $e)
 		{
-			$db->rollback ();
+			$this->db->rollback ();
 			$resultado = false;
 
 			$this->errores ($e);
@@ -782,13 +788,11 @@ abstract class Personas
 	 *        	person, apellido, realname, country, poldiv, city, birdate, nation, sexo, marstat, rcountry, rpoldiv, rcity, tnation
 	 * @throws Exception
 	 *
-	 * @global $db - coneccion a la base de datos.
 	 *
 	 * @return boolean
 	 */
 	public function inserPerson($arrayDatosPersona)
 	{
-		global $db;
 		$resultado = true;
 
 		try
@@ -877,9 +881,9 @@ abstract class Personas
 			$parametros = "";
 			$parametros[0] = $arrayDatosPersona['person'];
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $this->db->query ($sql, $esParam = true, $parametros);
 
-			$persona = $db->fetch_array ($result);
+			$persona = $this->db->fetch_array ($result);
 
 			if ($persona == "" or $persona == NULL)
 			{
@@ -904,7 +908,7 @@ abstract class Personas
 				$parametros[12] = $arrayDatosPersona['rcity'];
 				$parametros[13] = $arrayDatosPersona['tnation'];
 
-				if ($db->query ($sqlNuevoPer, $esParam = true, $parametros))
+				if ($this->db->query ($sqlNuevoPer, $esParam = true, $parametros))
 				{
 					return true;
 				}
@@ -916,7 +920,7 @@ abstract class Personas
 		}
 		catch (Exception $e)
 		{
-			$db->rollback ();
+			$this->db->rollback ();
 			$resultado = false;
 
 			$this->errores ($e);
@@ -933,13 +937,10 @@ abstract class Personas
 	 *
 	 * @throws Exception
 	 *
-	 * @global $db - coneccion a la base de datos.
-	 *
 	 * @return number
 	 */
 	public function nuevaPersona($arrayDatosPersona)
 	{
-		global $db;
 		$resultado = true;
 
 		try
@@ -1026,12 +1027,12 @@ abstract class Personas
 		}
 		catch (Exception $e)
 		{
-			$db->rollback ();
+			$this->db->rollback ();
 			$resultado = false;
 
 			$this->errores ($e);
 		}
-		$db->commit ();
+		$this->db->commit ();
 		$resultado = $arrayDatosPersona['person'];
 
 		return $resultado;
@@ -1078,11 +1079,11 @@ abstract class Personas
 	 *
 	 * @param string $nacion
 	 *        	- dato a buscar en la tabla appgral.country
-	 * @param object $db
+	 * @param object $this->db
 	 *        	- Objeto encargado de la interaccion con la base de datos.
 	 * @return string - codigo de la nacion
 	 */
-	private function recuNacion($nacion, $db)
+	private function recuNacion($nacion)
 	{
 		if (isset ($nacion))
 		{
@@ -1093,9 +1094,9 @@ abstract class Personas
 			$parametros[1] = $nacion;
 			$parametros[2] = $nacion;
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $this->db->query ($sql, $esParam = true, $parametros);
 
-			$pais = $db->fetch_array ($result);
+			$pais = $this->db->fetch_array ($result);
 
 			$nacion = $pais['COUNTRY'];
 		}
@@ -1106,6 +1107,408 @@ abstract class Personas
 		}
 
 		return $nacion;
+	}
+
+	/*
+	 * *********************************************
+	 * Iniciamos los getters and setters
+	 * *********************************************
+	 */
+	/**
+	 *
+	 * @return string
+	 */
+	public function getApellido()
+	{
+		return $this->apellido;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getNombre()
+	{
+		return $this->nombre;
+	}
+
+	/**
+	 *
+	 * @return number
+	 */
+	public function getPerson()
+	{
+		return $this->person;
+	}
+
+	/**
+	 *
+	 * @return array
+	 */
+	public function getEmail()
+	{
+		return $this->email;
+	}
+
+	/**
+	 *
+	 * @return number
+	 */
+	public function getTelefono()
+	{
+		return $this->telefono;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getFoto_persona()
+	{
+		return $this->foto_persona;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getFechaNacimiento()
+	{
+		return $this->fechaNacimiento;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getEstadoCivil()
+	{
+		return $this->estadoCivil;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getNacionalidad()
+	{
+		return $this->nacionalidad;
+	}
+
+	/**
+	 *
+	 * @return number
+	 */
+	public function getTipoNacionalidad()
+	{
+		return $this->tipoNacionalidad;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getSexo()
+	{
+		return $this->sexo;
+	}
+
+	/**
+	 *
+	 * @return array
+	 */
+	public function getDireccion()
+	{
+		return $this->direccion;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getEsposa()
+	{
+		return $this->esposa;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getFamiliarACargo()
+	{
+		return $this->familiarACargo;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getFamiliaNumerosa()
+	{
+		return $this->FamiliaNumerosa;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getHijos()
+	{
+		return $this->hijos;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getGuarderia()
+	{
+		return $this->guarderia;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getHijoIncapasitado()
+	{
+		return $this->hijoIncapasitado;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getPrenatal()
+	{
+		return $this->prenatal;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getPreescolar()
+	{
+		return $this->preescolar;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getEscuelaMedia()
+	{
+		return $this->escuelaMedia;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getEscuelaPrimaria()
+	{
+		return $this->escuelaPrimaria;
+	}
+
+	/**
+	 *
+	 * @param string $apellido
+	 */
+	public function setApellido($apellido)
+	{
+		$this->apellido = $apellido;
+	}
+
+	/**
+	 *
+	 * @param string $nombre
+	 */
+	public function setNombre($nombre)
+	{
+		$this->nombre = $nombre;
+	}
+
+	/**
+	 *
+	 * @param number $person
+	 */
+	public function setPerson($person)
+	{
+		$this->person = $person;
+	}
+
+	/**
+	 *
+	 * @param array $email
+	 */
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+
+	/**
+	 *
+	 * @param number $telefono
+	 */
+	public function setTelefono($telefono)
+	{
+		$this->telefono = $telefono;
+	}
+
+	/**
+	 *
+	 * @param string $foto_persona
+	 */
+	public function setFoto_persona($foto_persona)
+	{
+		$this->foto_persona = $foto_persona;
+	}
+
+	/**
+	 *
+	 * @param string $fechaNacimiento
+	 */
+	public function setFechaNacimiento($fechaNacimiento)
+	{
+		$this->fechaNacimiento = $fechaNacimiento;
+	}
+
+	/**
+	 *
+	 * @param string $estadoCivil
+	 */
+	public function setEstadoCivil($estadoCivil)
+	{
+		$this->estadoCivil = $estadoCivil;
+	}
+
+	/**
+	 *
+	 * @param string $nacionalidad
+	 */
+	public function setNacionalidad($nacionalidad)
+	{
+		$this->nacionalidad = $nacionalidad;
+	}
+
+	/**
+	 *
+	 * @param number $tipoNacionalidad
+	 */
+	public function setTipoNacionalidad($tipoNacionalidad)
+	{
+		$this->tipoNacionalidad = $tipoNacionalidad;
+	}
+
+	/**
+	 *
+	 * @param string $sexo
+	 */
+	public function setSexo($sexo)
+	{
+		$this->sexo = $sexo;
+	}
+
+	/**
+	 *
+	 * @param
+	 *        	Ambigous <array, Direcciones> $direccion
+	 */
+	public function setDireccion($direccion)
+	{
+		$this->direccion = $direccion;
+	}
+
+	/**
+	 *
+	 * @param string $esposa
+	 */
+	public function setEsposa($esposa)
+	{
+		$this->esposa = $esposa;
+	}
+
+	/**
+	 *
+	 * @param string $familiarACargo
+	 */
+	public function setFamiliarACargo($familiarACargo)
+	{
+		$this->familiarACargo = $familiarACargo;
+	}
+
+	/**
+	 *
+	 * @param string $FamiliaNumerosa
+	 */
+	public function setFamiliaNumerosa($FamiliaNumerosa)
+	{
+		$this->FamiliaNumerosa = $FamiliaNumerosa;
+	}
+
+	/**
+	 *
+	 * @param string $hijos
+	 */
+	public function setHijos($hijos)
+	{
+		$this->hijos = $hijos;
+	}
+
+	/**
+	 *
+	 * @param string $guarderia
+	 */
+	public function setGuarderia($guarderia)
+	{
+		$this->guarderia = $guarderia;
+	}
+
+	/**
+	 *
+	 * @param string $hijoIncapasitado
+	 */
+	public function setHijoIncapasitado($hijoIncapasitado)
+	{
+		$this->hijoIncapasitado = $hijoIncapasitado;
+	}
+
+	/**
+	 *
+	 * @param string $prenatal
+	 */
+	public function setPrenatal($prenatal)
+	{
+		$this->prenatal = $prenatal;
+	}
+
+	/**
+	 *
+	 * @param string $preescolar
+	 */
+	public function setPreescolar($preescolar)
+	{
+		$this->preescolar = $preescolar;
+	}
+
+	/**
+	 *
+	 * @param string $escuelaMedia
+	 */
+	public function setEscuelaMedia($escuelaMedia)
+	{
+		$this->escuelaMedia = $escuelaMedia;
+	}
+
+	/**
+	 *
+	 * @param string $escuelaPrimaria
+	 */
+	public function setEscuelaPrimaria($escuelaPrimaria)
+	{
+		$this->escuelaPrimaria = $escuelaPrimaria;
 	}
 }
 ?>

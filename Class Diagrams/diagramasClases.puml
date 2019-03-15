@@ -1,8 +1,33 @@
 @startuml
+
+
+abstract class Personas {
+	#class_db db
+	#int person
+	#String apellido
+	#String nombre
+	#Array<Documentos> documento
+	#Array<Emails> email
+	#Array<Telefonos> telefono
+	#Array<Direcciones> direccion
+	#File foto_persona
+	#Calendar fechaNacimiento
+	#String estadoCivil
+	#String nacionalidad
+	#String tipoNacionalidad
+	#String sexo
+	
+	#String esposa
+	#String familiarACargo
+	#String F
+	
+	
+	+String getNombreYApellido()
+}
+
+
 class Dnis [[java:personas.Dnis]] {
 	-int numero
-}
-class Documentos [[java:personas.Documentos]] {
 }
 abstract class Documentos [[java:personas.Documentos]] {
 	-String tipo
@@ -23,8 +48,6 @@ class Cuentas [[java:personas.Cuentas]] {
 }
 class Academicos [[java:personas.Academicos]] {
 }
-class Empleados [[java:personas.Empleados]] {
-}
 class Telefonos [[java:personas.Telefonos]] {
 	-String tipo
 	-int numero
@@ -32,8 +55,6 @@ class Telefonos [[java:personas.Telefonos]] {
 	-int codPais
 }
 class Externo [[java:personas.Externo]] {
-}
-class Personas [[java:personas.Personas]] {
 }
 abstract class Empleados [[java:personas.Empleados]] {
 	#int legajo
@@ -58,20 +79,12 @@ abstract class Empleados [[java:personas.Empleados]] {
 	#int tipoCtaBanco
 	#String unidadContrato
 	#String tipoBco
-}
-class Personas [[java:personas.Personas]] {
-}
-class Persona [[java:personas.Persona]] {
-	+{static}void main(String[] args)
+	
 }
 class Docentes [[java:personas.Docentes]] {
 }
-class Empleados [[java:personas.Empleados]] {
-}
 class Pasaportes [[java:personas.Pasaportes]] {
 	-String numero
-}
-class Documentos [[java:personas.Documentos]] {
 }
 class Cuils [[java:personas.Cuils]] {
 	-int numero
@@ -79,26 +92,7 @@ class Cuils [[java:personas.Cuils]] {
 }
 class Documentos [[java:personas.Documentos]] {
 }
-abstract class Personas [[java:personas.Personas]] {
-	#int person
-	#String nombre
-	#String apellido
-	#ArrayList<Documentos> documento
-	#ArrayList<Emails> email
-	#ArrayList<Telefonos> telefono
-	#ArrayList<Direcciones> direccion
-	#File foto
-	#Calendar fechaNacimiento
-	#String estadoCivil
-	#String nacionalidad
-	#String tipoNacionalidad
-	#String sexo
-}
-class Cuentas [[java:personas.Cuentas]] {
-}
 class Alumnos [[java:personas.Alumnos]] {
-}
-class Personas [[java:personas.Personas]] {
 }
 class Listados [[java:personas.Listados]] {
 	+void listarPerson()

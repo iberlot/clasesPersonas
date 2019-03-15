@@ -38,7 +38,7 @@ class Direcciones
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
 	 */
-	public $country = "";
+	protected $country = "";
 
 	/**
 	 * Provincia de nacimiento de la persona
@@ -51,7 +51,7 @@ class Direcciones
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
 	 */
-	public $poldiv = "";
+	protected $poldiv = "";
 
 	/**
 	 * Ciudad de nacimiento de la persona
@@ -64,7 +64,7 @@ class Direcciones
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
 	 */
-	public $city = "";
+	protected $city = "";
 
 	/**
 	 * Pais de residencia de la persona
@@ -77,7 +77,7 @@ class Direcciones
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
 	 */
-	public $rcountry = "";
+	protected $rcountry = "";
 
 	/**
 	 * Provincia de residencia de la persona.
@@ -90,7 +90,7 @@ class Direcciones
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
 	 */
-	public $rpoldiv = "";
+	protected $rpoldiv = "";
 
 	/**
 	 * Ciudad de residencia de la persona
@@ -103,7 +103,7 @@ class Direcciones
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
 	 */
-	public $rcity = "";
+	protected $rcity = "";
 
 	/**
 	 * Calle de la direccion de la persona
@@ -113,7 +113,7 @@ class Direcciones
 	 *      <Br>
 	 *      Siempre que: appgral.apers.pattrib = 'DOMI' y appgral.apers.shortdes = 'CALLE'
 	 */
-	public $direCalle = "";
+	protected $direCalle = "";
 
 	/**
 	 * Numero de la direccion de la persona
@@ -123,7 +123,7 @@ class Direcciones
 	 *      <Br>
 	 *      Siempre que: appgral.apers.pattrib = 'DOMI' y appgral.apers.shortdes = 'NRO'
 	 */
-	public $direNumero = "";
+	protected $direNumero = "";
 
 	/**
 	 * Piso de la direccion de la persona
@@ -133,7 +133,7 @@ class Direcciones
 	 *      <Br>
 	 *      Siempre que: appgral.apers.pattrib = 'DOMI' y appgral.apers.shortdes = 'PISO'
 	 */
-	public $direPiso = "";
+	protected $direPiso = "";
 
 	/**
 	 * Dto de la direccion de la persona
@@ -143,7 +143,7 @@ class Direcciones
 	 *      <Br>
 	 *      Siempre que: appgral.apers.pattrib = 'DOMI' y appgral.apers.shortdes = 'DEPTO'
 	 */
-	public $direDto = "";
+	protected $direDto = "";
 
 	/**
 	 * Codigo postal de la direccion de la persona
@@ -153,7 +153,7 @@ class Direcciones
 	 *      <Br>
 	 *      Siempre que: appgral.apers.pattrib = 'DOMI' y appgral.apers.shortdes = 'CODPOS'
 	 */
-	public $direCodPos = "";
+	protected $direCodPos = "";
 
 	/**
 	 * Direccion en string que une calle numero y muchas veces depto en un solo campo.
@@ -163,5 +163,5 @@ class Direcciones
 	 * @var string <Br>
 	 *      @ubicacionBase sueldos.personal.domicilio - VARCHAR2(30 BYTE)
 	 */
-	public $domicilio = "";
+	protected $domicilio = "";
 }
