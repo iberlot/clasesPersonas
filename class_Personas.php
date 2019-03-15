@@ -315,9 +315,7 @@ abstract class Personas
 	 */
 	public function getNombreYApellido($datosAUsar)
 	{
-		print_r ("pepinos");
-		print_r ($datosAUsar);
-
+		
 		if (isset ($datosAUsar['person']) and $datosAUsar['person'] != "")
 		{
 			$where[] = " person = :person ";
