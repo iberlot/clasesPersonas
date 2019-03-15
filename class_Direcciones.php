@@ -195,16 +195,17 @@ class Direcciones
 			$this->db->dieOnError = true;
 			$this->db->mostrarErrores = true;
 
-			print_r ("xxxxxxxx");
-			if ($recu = $this->db->realizarSelect ("appgral.person", "person = $person"))
+			$buscar['person'] = $person;
+
+			if ($recu = $this->db->realizarSelect ("appgral.person", $buscar))
 			{
 				$this->setCountry ($recu['RCOUNTRY']);
 				$this->setPoldiv ($recu['RPOLDIV']);
 				$this->setCity ($recu['RCITY']);
 
-				print_r ("zzzzzzzzz");
+				$buscar['pattrib'] = 'DOMI';
 
-				if ($recu = $this->db->realizarSelectAll ("appgral.apers", "person = $person AND pattrib='DOMI'"))
+				if ($recu = $this->db->realizarSelectAll ("appgral.apers", $buscar))
 				{
 
 					print_r ("yyyyyyyy");
