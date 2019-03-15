@@ -105,5 +105,149 @@ class Cuentas
 	 *      @ubicacionBase portal.usuario_web.fecha_baja - DATE
 	 */
 	protected $baja = "";
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getCuenta()
+	{
+		return $this->cuenta;
+	}
+
+	/**
+	 *
+	 * @param string $cuenta
+	 */
+	public function setCuenta($cuenta)
+	{
+		$this->cuenta = $cuenta;
+	}
+
+	/**
+	 *
+	 * @return number
+	 */
+	public function getIdCuenta()
+	{
+		return $this->idCuenta;
+	}
+
+	/**
+	 *
+	 * @param number $idCuenta
+	 */
+	public function setIdCuenta($idCuenta)
+	{
+		$this->idCuenta = $idCuenta;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getEmailCuenta()
+	{
+		return $this->emailCuenta;
+	}
+
+	/**
+	 *
+	 * @param string $emailCuenta
+	 */
+	public function setEmailCuenta($emailCuenta)
+	{
+		$this->emailCuenta = $emailCuenta;
+	}
+
+	/**
+	 *
+	 * @return multitype:boolean
+	 */
+	public function getTipoCuenta()
+	{
+		return $this->tipoCuenta;
+	}
+
+	/**
+	 *
+	 * @param multitype:boolean $tipoCuenta
+	 */
+	public function setTipoCuenta($tipoCuenta)
+	{
+		$this->tipoCuenta = $tipoCuenta;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getFraseDeSeguridad()
+	{
+		return $this->fraseDeSeguridad;
+	}
+
+	/**
+	 *
+	 * @param string $fraseDeSeguridad
+	 */
+	public function setFraseDeSeguridad($fraseDeSeguridad)
+	{
+		$this->fraseDeSeguridad = $fraseDeSeguridad;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getVencimiento()
+	{
+		return $this->vencimiento;
+	}
+
+	/**
+	 *
+	 * @param string $vencimiento
+	 */
+	public function setVencimiento($vencimiento)
+	{
+		$this->vencimiento = $vencimiento;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getAlta()
+	{
+		return $this->alta;
+	}
+
+	/**
+	 *
+	 * @param string $alta
+	 */
+	public function setAlta($alta)
+	{
+		$this->alta = $alta;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getBaja()
+	{
+		return $this->baja;
+	}
+
+	/**
+	 *
+	 * @param string $baja
+	 */
+	public function setBaja($baja)
+	{
+		$this->baja = $baja;
+	}
 }
 ?>

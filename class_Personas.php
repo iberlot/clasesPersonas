@@ -1039,6 +1039,48 @@ abstract class Personas
 	}
 
 	/**
+	 * Setea los atributos con los datos recuperados de la tabla appgral.person en base al person pasado
+	 *
+	 * @name buscar_PersonXPerson
+	 *
+	 * @param int $person
+	 *        	person a buscar
+	 */
+	public function buscar_PersonXPerson($person)
+	{
+		$sql = "SELECT * FROM appgral.person" . $this->db_link . " WHERE person = :person";
+
+		$parametros[0] = $person;
+
+		$result = $db->query ($sql, $esParam = true, $parametros);
+
+		if ($recu = $db->fetch_array ($result))
+		{
+			$this->setPerson ($recu['PERSON']);
+			$this->setApellido ($recu['LNAME']);
+			$this->setNombre ($recu['FNAME']);
+			$this->setFechaNacimiento ($recu['BIRDATE']);
+			$this->setNacionalidad ($recu['NATION']);
+			$this->setSexo ($recu['SEX']);
+			$this->setEstadoCivil ($recu['MARSTAT']);
+			$this->setDireccion ($recu['ADDRESS']);
+			$this->setTelefono ($recu['TELEP']);
+			$this->setTipoNacionalidad ($recu['TNATION']);
+			// $this->set( $recu['ACTIVE']);
+			// $this->set( $recu['RCOUNTRY']);
+			// $this->set( $recu['RPOLDIV']);
+			// $this->set( $recu['RCITY']);
+			// $this->set( $recu['INCOUNTRYSINCE']);
+			// $this->set( $recu['RELIGION']);
+			// $this->set( $recu['QBROTHER']);
+			// $this->set( $recu['QSON']);
+			// $this->set($recu['COUNTRY']);
+			// $this->set($recu['POLDIV']);
+			// $this->set($recu['CITY']);
+		}
+	}
+
+	/**
 	 * Comprueva la existencia de un dato distinto de cero.
 	 *
 	 * @param mixed $variable
