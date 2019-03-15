@@ -191,11 +191,14 @@ class Direcciones
 
 		if ($tipo == 0)
 		{
+			print_r ("xxxxxxxx");
 			if ($recu = $this->db->realizarSelect ("appgral.person", "person = $person"))
 			{
 				$this->setCountry ($recu['RCOUNTRY']);
 				$this->setPoldiv ($recu['RPOLDIV']);
 				$this->setCity ($recu['RCITY']);
+
+				print_r ("zzzzzzzzz");
 
 				if ($recu = $this->db->realizarSelectAll ("appgral.apers", "person = $person AND pattrib='DOMI'"))
 				{
