@@ -191,6 +191,10 @@ class Direcciones
 
 		if ($tipo == 0)
 		{
+			$this->db->debug = true;
+			$this->db->dieOnError = true;
+			$this->db->mostrarErrores = true;
+
 			print_r ("xxxxxxxx");
 			if ($recu = $this->db->realizarSelect ("appgral.person", "person = $person"))
 			{
@@ -202,6 +206,8 @@ class Direcciones
 
 				if ($recu = $this->db->realizarSelectAll ("appgral.apers", "person = $person AND pattrib='DOMI'"))
 				{
+
+					print_r ("yyyyyyyy");
 					print_r ($recu);
 					// --PISO DOMI
 					// --CALLE DOMI
