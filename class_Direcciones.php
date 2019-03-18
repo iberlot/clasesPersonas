@@ -10,8 +10,6 @@
  * @name class_direccion.php
  * @version 0.1 version inicial del archivo.
  */
-use function Direcciones\cargar_db_apers;
-
 require_once 'class_conexion.php';
 
 /*
