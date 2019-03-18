@@ -1,10 +1,12 @@
 <?php
 /**
  * Archivo principal de la clase.
+ */
+/**
+ * Documentacion del uso de la clase y sus funciones en proceso.
  *
  * @author iberlot <@> iberlot@usal.edu.ar
  * @since 16 nov. 2018
- * @lenguage PHP
  * @name class_direccion.php
  * @version 0.1 version inicial del archivo.
  */
