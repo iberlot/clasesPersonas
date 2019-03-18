@@ -11,10 +11,13 @@
  * @version 0.1 version inicial del archivo.
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 use function Direcciones\cargar_db_apers;
 
 >>>>>>> a4316ed67d0a6d263ad083f9bfaf9cab60c1768e
+=======
+>>>>>>> 64d744ce8a330698d08d30aafad83e3adcabecdd
 require_once 'class_conexion.php';
 
 /*
