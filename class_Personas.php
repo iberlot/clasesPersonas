@@ -1063,9 +1063,11 @@ abstract class Personas
 			$this->setNacionalidad ($recu['NATION']);
 			$this->setSexo ($recu['SEX']);
 			$this->setEstadoCivil ($recu['MARSTAT']);
-			$this->setDireccion ($recu['ADDRESS']);
+
 			$this->setTelefono ($recu['TELEP']);
 			$this->setTipoNacionalidad ($recu['TNATION']);
+
+			// $this->setDireccion ($recu['ADDRESS']);
 			// $this->set( $recu['ACTIVE']);
 			// $this->set( $recu['RCOUNTRY']);
 			// $this->set( $recu['RPOLDIV']);

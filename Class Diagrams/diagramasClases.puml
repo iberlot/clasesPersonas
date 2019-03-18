@@ -108,16 +108,25 @@ class Administrativos [[java:personas.Administrativos]] {
 }
 class Empleados [[java:personas.Empleados]] {
 }
-class Direcciones [[java:personas.Direcciones]] {
-	-String tipo
-	-String Calle
+class Direcciones {
+	-class_db db
+	-int tipo
+	-String calle
 	-int numero
 	-int piso
 	-String departamento
 	-String pais
-	-String provincia
-	-String localidad
+	-String poldiv
+	-String city
 	-String codigoPostal
+	
+	+void recuperar_dire_person()
+	+void grabar_direccion()
+	-void cargar_db_apers()
+	+String getPais_hf()
+	+String getTipo_hf()
+	+String getPoldiv_hf()
+	+String getCity_hf()
 }
 
 Documentos <|-- Dnis
