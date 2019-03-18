@@ -1,15 +1,15 @@
 <?php
-
 /**
+ * Archivo principal de la clase.
  *
  * @author iberlot <@> iberlot@usal.edu.ar
- * @todo 16 nov. 2018
+ * @since 16 nov. 2018
  * @lenguage PHP
  * @name class_direccion.php
  * @version 0.1 version inicial del archivo.
- * @package
- * @project
  */
+use function Direcciones\cargar_db_apers;
+
 require_once 'class_conexion.php';
 
 /*
@@ -22,12 +22,22 @@ require_once 'class_conexion.php';
  * por favor, incremente el siguiente contador como una advertencia para el
  * siguiente colega:
  *
- * totalHorasPerdidasAqui = 0
+ * totalHorasPerdidasAqui = 10
+ *
+ */
+/**
+ * Clase direcciones, maneja los parametros de las direcciones y agrupa las funciones necesarias para su alta baja y modificacion.
+ *
+ * @author iberlot <@> iberlot@usal.edu.ar
+ * @since 16 nov. 2018
+ * @name Direcciones
+ * @version 0.1 version inicial.
  *
  */
 class Direcciones
 {
 	/**
+	 * Objeto que se encarga de las conecciones a la base de datos.
 	 *
 	 * @var object objeto inicializado del tipo class_db
 	 */
@@ -54,7 +64,7 @@ class Direcciones
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
 	 */
-	protected $country = "";
+	protected $pais = "";
 
 	/**
 	 * Provincia de nacimiento de la persona si tipo es igual 1.
@@ -94,27 +104,27 @@ class Direcciones
 	 *      <Br>
 	 *      Siempre que: appgral.apers.pattrib = 'DOMI' y appgral.apers.shortdes = 'CALLE'
 	 */
-	protected $direCalle = "";
+	protected $calle = "";
 
 	/**
 	 * Numero de la direccion de la persona
 	 *
-	 * @var string <Br>
+	 * @var int <Br>
 	 *      @ubicacionBase appgral.apers.val - VARCHAR2(100 BYTE)
 	 *      <Br>
 	 *      Siempre que: appgral.apers.pattrib = 'DOMI' y appgral.apers.shortdes = 'NRO'
 	 */
-	protected $direNumero = "";
+	protected $numero = 0;
 
 	/**
 	 * Piso de la direccion de la persona
 	 *
-	 * @var string <Br>
+	 * @var int <Br>
 	 *      @ubicacionBase appgral.apers.val - VARCHAR2(100 BYTE)
 	 *      <Br>
 	 *      Siempre que: appgral.apers.pattrib = 'DOMI' y appgral.apers.shortdes = 'PISO'
 	 */
-	protected $direPiso = "";
+	protected $piso = 0;
 
 	/**
 	 * Dto de la direccion de la persona
@@ -124,7 +134,7 @@ class Direcciones
 	 *      <Br>
 	 *      Siempre que: appgral.apers.pattrib = 'DOMI' y appgral.apers.shortdes = 'DEPTO'
 	 */
-	protected $direDto = "";
+	protected $departamento = "";
 
 	/**
 	 * Codigo postal de la direccion de la persona
@@ -134,7 +144,7 @@ class Direcciones
 	 *      <Br>
 	 *      Siempre que: appgral.apers.pattrib = 'DOMI' y appgral.apers.shortdes = 'CODPOS'
 	 */
-	protected $direCodPos = "";
+	protected $codigoPostal = "";
 
 	/**
 	 * Direccion en string que une calle numero y muchas veces depto en un solo campo.
@@ -148,7 +158,7 @@ class Direcciones
 
 	public function __toString()
 	{
-		return $this->direCalle . " " . $this->direNumero . " " . (isset ($this->direPiso) ? $this->direPiso . " " : "") . (isset ($this->direDto) ? $this->direDto . " " : "") . (isset ($this->direCodPos) ? "(CP:" . $this->direCodPos . ") " : "") . $this->city . " " . $this->getPoldiv () . " " . $this->country;
+		return $this->calle . " " . $this->numero . " " . (isset ($this->piso) ? $this->piso . " " : "") . (isset ($this->departamento) ? $this->departamento . " " : "") . (isset ($this->direCodPos) ? "(CP:" . $this->direCodPos . ") " : "") . $this->city . " " . $this->getPoldiv () . " " . $this->pais;
 	}
 
 	public function __construct()
@@ -156,23 +166,23 @@ class Direcciones
 		$this->db = Conexion::openConnection ();
 	}
 
-	public function __construct1($tipo, $country, $poldiv, $city)
+	public function __construct1($tipo, $pais, $poldiv, $city)
 	{
 		$this->db = Conexion::openConnection ();
 
 		$this->setTipo ($tipo);
 		$this->setPoldiv ($poldiv);
-		$this->setCountry ($country);
+		$this->setPais ($pais);
 		$this->setCity ($city);
 	}
 
-	public function __construct2($tipo, $country, $poldiv, $city, $direCalle, $direNumero, $direCodPos = "", $direPiso = "", $direDto = "")
+	public function __construct2($tipo, $pais, $poldiv, $city, $calle, $numero, $codigoPostal = "", $piso = "", $departamento = "")
 	{
 		$this->db = Conexion::openConnection ();
 
 		$this->setTipo ($tipo);
 		$this->setPoldiv ($poldiv);
-		$this->setCountry ($country);
+		$this->setPais ($pais);
 		$this->setCity ($city);
 	}
 
@@ -196,7 +206,7 @@ class Direcciones
 		{
 			if ($recu = $this->db->realizarSelect ("appgral.person", $buscar))
 			{
-				$this->setCountry ($recu['RCOUNTRY']);
+				$this->setPais ($recu['RCOUNTRY']);
 				$this->setPoldiv ($recu['RPOLDIV']);
 				$this->setCity ($recu['RCITY']);
 				$this->setDomicilio ($recu['ADDRESS']);
@@ -242,7 +252,7 @@ class Direcciones
 		{
 			if ($recu = $this->db->realizarSelect ("appgral.person", "person = :person"))
 			{
-				$this->setCountry ($recu['COUNTRY']);
+				$this->setPais ($recu['COUNTRY']);
 				$this->setPoldiv ($recu['POLDIV']);
 				$this->setCity ($recu['CITY']);
 			}
@@ -287,7 +297,7 @@ class Direcciones
 						}
 						elseif ($recu['SHORTDES'][$i] == 'COUNTRY')
 						{
-							$this->setCountry ($recu['VAL'][$i]);
+							$this->setPais ($recu['VAL'][$i]);
 						}
 						elseif ($recu['SHORTDES'][$i] == 'POLDIV')
 						{
@@ -303,6 +313,12 @@ class Direcciones
 		}
 	}
 
+	/**
+	 * Graba los datos modificados de la clase en la base de datos.
+	 *
+	 * @param int $person
+	 * @throws Exception
+	 */
 	public function grabar_direccion($person)
 	{
 		$this->setTipo ($tipo);
@@ -315,9 +331,9 @@ class Direcciones
 		{
 			if ($recu = $this->db->realizarSelect ("appgral.person", $buscar))
 			{
-				if ($this->country != $recu['RCOUNTRY'])
+				if ($this->pais != $recu['RCOUNTRY'])
 				{
-					$datos['RCOUNTRY'] = $this->country;
+					$datos['RCOUNTRY'] = $this->pais;
 				}
 				if ($this->poldiv != $recu['RPOLDIV'])
 				{
@@ -334,6 +350,7 @@ class Direcciones
 				$campos[] = 'VAL';
 
 				$datos2 = array ();
+				$datoViejo = array ();
 
 				if ($recu = $this->db->realizarSelectAll ("appgral.apers", $buscar))
 				{
@@ -341,47 +358,52 @@ class Direcciones
 					{
 						if ($recu['SHORTDES'][$i] == 'PISO')
 						{
-							if ($recu['VAL'][$i] != $this->direPiso)
+							if ($recu['VAL'][$i] != $this->piso)
 							{
-								$datos2['PISO'] = $this->direPiso;
+								$datoViejo['PISO'] = $recu['VAL'][$i];
+								$datos2['PISO'] = $this->piso;
 							}
 						}
 						elseif ($recu['SHORTDES'][$i] == 'CALLE')
 						{
-							if ($recu['VAL'][$i] != $this->direCalle)
+							if ($recu['VAL'][$i] != $this->calle)
 							{
-								$datos2['CALLE'] = $this->direCalle;
+								$datoViejo['CALLE'] = $recu['VAL'][$i];
+								$datos2['CALLE'] = $this->calle;
 							}
 						}
 						elseif ($recu['SHORTDES'][$i] == 'DEPTO')
 						{
-							if ($recu['VAL'][$i] != $this->direDto)
+							if ($recu['VAL'][$i] != $this->departamento)
 							{
-								$datos2['DEPTO'] = $this->direDto;
+								$datoViejo['DEPTO'] = $recu['VAL'][$i];
+								$datos2['DEPTO'] = $this->departamento;
 							}
 						}
 						elseif ($recu['SHORTDES'][$i] == 'NRO')
 						{
-							if ($recu['VAL'][$i] != $this->direNumero)
+							if ($recu['VAL'][$i] != $this->numero)
 							{
-								$datos2['NRO'] = $this->direNumero;
+								$datoViejo['NRO'] = $recu['VAL'][$i];
+								$datos2['NRO'] = $this->numero;
 							}
 						}
 						elseif ($recu['SHORTDES'][$i] == 'CODPOS')
 						{
 							if ($recu['VAL'][$i] != $this->direCodPos)
 							{
+								$datoViejo['CODPOS'] = $recu['VAL'][$i];
 								$datos2['CODPOS'] = $this->direCodPos;
 							}
 						}
 					}
 				}
 
-				if (!isset ($datos2['CODPOS']) and $this->direCodPos != "")
-				{
-					// xxx
-					// $this->db->realizarUpdate($datos, $tabla, $where)
-				}
+				cargar_db_apers ($person, $datos2, $datoViejo, 'DOMI', 'CODPOS', $this->direCodPos);
+				cargar_db_apers ($person, $datos2, $datoViejo, 'DOMI', 'NRO', $this->numero);
+				cargar_db_apers ($person, $datos2, $datoViejo, 'DOMI', 'DEPTO', $this->departamento);
+				cargar_db_apers ($person, $datos2, $datoViejo, 'DOMI', 'CALLE', $this->calle);
+				cargar_db_apers ($person, $datos2, $datoViejo, 'DOMI', 'PISO', $this->piso);
 			}
 			else
 			{
@@ -393,9 +415,9 @@ class Direcciones
 			if ($recu = $this->db->realizarSelect ("appgral.person", "person = :person"))
 			{
 
-				if ($this->country != $recu['COUNTRY'])
+				if ($this->pais != $recu['COUNTRY'])
 				{
-					$datos['COUNTRY'] = $this->country;
+					$datos['COUNTRY'] = $this->pais;
 				}
 				if ($this->poldiv != $recu['POLDIV'])
 				{
@@ -416,6 +438,9 @@ class Direcciones
 			if ($recu = $this->db->realizarSelectAll ("appgral.apers", "person = $person AND pattrib='DOMP'"))
 			{
 
+				$datos2 = array ();
+				$datoViejo = array ();
+
 				$buscar['pattrib'] = 'DOMP';
 				$campos = array ();
 				$campos[] = 'SHORTDES';
@@ -427,44 +452,124 @@ class Direcciones
 					{
 						if ($recu['SHORTDES'][$i] == 'PISO')
 						{
-							$this->setDirePiso ($recu['VAL'][$i]);
+							if ($recu['VAL'][$i] != $this->piso)
+							{
+								$datoViejo['PISO'] = $recu['VAL'][$i];
+								$datos2['PISO'] = $this->piso;
+							}
 						}
 						elseif ($recu['SHORTDES'][$i] == 'CALLE')
 						{
-							$this->setDireCalle ($recu['VAL'][$i]);
+							if ($recu['VAL'][$i] != $this->calle)
+							{
+								$datoViejo['CALLE'] = $recu['VAL'][$i];
+								$datos2['CALLE'] = $this->calle;
+							}
 						}
 						elseif ($recu['SHORTDES'][$i] == 'DEPTO')
 						{
-							$this->setDireNumero ($recu['VAL'][$i]);
+							if ($recu['VAL'][$i] != $this->departamento)
+							{
+								$datoViejo['DEPTO'] = $recu['VAL'][$i];
+								$datos2['DEPTO'] = $this->departamento;
+							}
 						}
 						elseif ($recu['SHORTDES'][$i] == 'NRO')
 						{
-							$this->setDireNumero ($recu['VAL'][$i]);
+							if ($recu['VAL'][$i] != $this->numero)
+							{
+								$datoViejo['NRO'] = $recu['VAL'][$i];
+								$datos2['NRO'] = $this->numero;
+							}
 						}
 						elseif ($recu['SHORTDES'][$i] == 'CODPOS')
 						{
-							$this->setDireCodPos ($recu['VAL'][$i]);
+							if ($recu['VAL'][$i] != $this->direCodPos)
+							{
+								$datoViejo['CODPOS'] = $recu['VAL'][$i];
+								$datos2['CODPOS'] = $this->direCodPos;
+							}
 						}
 						elseif ($recu['SHORTDES'][$i] == 'COUNTRY')
 						{
-							$this->setCountry ($recu['VAL'][$i]);
+							if ($recu['VAL'][$i] != $this->pais)
+							{
+								$datoViejo['COUNTRY'] = $recu['VAL'][$i];
+								$datos2['COUNTRY'] = $this->pais;
+							}
 						}
 						elseif ($recu['SHORTDES'][$i] == 'POLDIV')
 						{
-							$this->setPoldiv ($recu['VAL'][$i]);
+							if ($recu['VAL'][$i] != $this->poldiv)
+							{
+								$datoViejo['POLDIV'] = $recu['VAL'][$i];
+								$datos2['POLDIV'] = $this->poldiv;
+							}
 						}
 						elseif ($recu['SHORTDES'][$i] == 'CITY')
 						{
-							$this->setCity ($recu['VAL'][$i]);
+							if ($recu['VAL'][$i] != $this->city)
+							{
+								$datoViejo['CITY'] = $recu['VAL'][$i];
+								$datos2['CITY'] = $this->city;
+							}
 						}
 					}
 				}
 			}
+
+			cargar_db_apers ($person, $datos2, $datoViejo, 'DOMP', 'CODPOS', $this->direCodPos);
+			cargar_db_apers ($person, $datos2, $datoViejo, 'DOMP', 'NRO', $this->numero);
+			cargar_db_apers ($person, $datos2, $datoViejo, 'DOMP', 'DEPTO', $this->departamento);
+			cargar_db_apers ($person, $datos2, $datoViejo, 'DOMP', 'CALLE', $this->calle);
+			cargar_db_apers ($person, $datos2, $datoViejo, 'DOMP', 'PISO', $this->piso);
+
+			cargar_db_apers ($person, $datos2, $datoViejo, 'DOMP', 'CITY', $this->city);
+			cargar_db_apers ($person, $datos2, $datoViejo, 'DOMP', 'POLDIV', $this->poldiv);
+			cargar_db_apers ($person, $datos2, $datoViejo, 'DOMP', 'COUNTRY', $this->pais);
 		}
 
 		if (!empty ($datos))
 		{
 			$this->db->realizarUpdate ($datos, "appgral.person", $buscar);
+		}
+	}
+
+	/**
+	 * Recive los datos cargados en la base, los catoja con los actuales de la clase y si corresponde realiza el insert o el update
+	 *
+	 * @param int $person
+	 * @param array $datos2
+	 * @param array $datoViejo
+	 * @param string $pattrib
+	 * @param string $shortdes
+	 * @param string $val
+	 */
+	private function cargar_db_apers($person, $datos2, $datoViejo, $pattrib, $shortdes, $val)
+	{
+		$tabla = "appgral.apers";
+
+		$data = array ();
+		$where = array ();
+
+		if (!isset ($datos2[$shortdes]) and $val != "")
+		{
+			$data['PERSON'] = $person;
+			$data['PATTRIB'] = $pattrib;
+			$data['SHORTDES'] = $shortdes;
+			$data['VAL'] = $val;
+
+			$this->db->realizarInsert ($data, $tabla);
+		}
+		elseif (isset ($datos2[$shortdes]) and $val != "" and ($val != $datoViejo[$shortdes]))
+		{
+			$where['PERSON'] = $person;
+			$where['PATTRIB'] = $pattrib;
+			$where['SHORTDES'] = $shortdes;
+
+			$data['VAL'] = $val;
+
+			$this->db->realizarUpdate ($data, $tabla, $where);
 		}
 	}
 
@@ -496,18 +601,18 @@ class Direcciones
 	 *
 	 * @return string
 	 */
-	public function getCountry()
+	public function getPais()
 	{
-		return $this->country;
+		return $this->pais;
 	}
 
 	/**
 	 *
-	 * @param string $country
+	 * @param string $pais
 	 */
-	public function setCountry($country)
+	public function setPais($pais)
 	{
-		$this->country = $country;
+		$this->pais = $pais;
 	}
 
 	/**
@@ -550,90 +655,90 @@ class Direcciones
 	 *
 	 * @return string
 	 */
-	public function getDireCalle()
+	public function getCalle()
 	{
-		return $this->direCalle;
+		return $this->calle;
 	}
 
 	/**
 	 *
-	 * @param string $direCalle
+	 * @param string $calle
 	 */
-	public function setDireCalle($direCalle)
+	public function setCalle($calle)
 	{
-		$this->direCalle = $direCalle;
-	}
-
-	/**
-	 *
-	 * @return string
-	 */
-	public function getDireNumero()
-	{
-		return $this->direNumero;
-	}
-
-	/**
-	 *
-	 * @param string $direNumero
-	 */
-	public function setDireNumero($direNumero)
-	{
-		$this->direNumero = $direNumero;
+		$this->calle = $calle;
 	}
 
 	/**
 	 *
 	 * @return string
 	 */
-	public function getDirePiso()
+	public function getNumero()
 	{
-		return $this->direPiso;
+		return $this->numero;
 	}
 
 	/**
 	 *
-	 * @param string $direPiso
+	 * @param string $numero
 	 */
-	public function setDirePiso($direPiso)
+	public function setNumero($numero)
 	{
-		$this->direPiso = $direPiso;
-	}
-
-	/**
-	 *
-	 * @return string
-	 */
-	public function getDireDto()
-	{
-		return $this->direDto;
-	}
-
-	/**
-	 *
-	 * @param string $direDto
-	 */
-	public function setDireDto($direDto)
-	{
-		$this->direDto = $direDto;
+		$this->numero = $numero;
 	}
 
 	/**
 	 *
 	 * @return string
 	 */
-	public function getDireCodPos()
+	public function getPiso()
 	{
-		return $this->direCodPos;
+		return $this->piso;
 	}
 
 	/**
 	 *
-	 * @param string $direCodPos
+	 * @param string $piso
 	 */
-	public function setDireCodPos($direCodPos)
+	public function setPiso($piso)
 	{
-		$this->direCodPos = $direCodPos;
+		$this->piso = $piso;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getDepartamento()
+	{
+		return $this->departamento;
+	}
+
+	/**
+	 *
+	 * @param string $departamento
+	 */
+	public function setDepartamento($departamento)
+	{
+		$this->departamento = $departamento;
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function getCodigoPostal()
+	{
+		return $this->codigoPostal;
+	}
+
+	/**
+	 *
+	 * @param string $codigoPostal
+	 */
+	public function setCodigoPostal($codigoPostal)
+	{
+		$this->codigoPostal = $codigoPostal;
 	}
 
 	/**
