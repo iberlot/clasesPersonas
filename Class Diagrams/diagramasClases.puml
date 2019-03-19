@@ -123,6 +123,10 @@ class Direcciones {
 	+void recuperar_dire_person()
 	+void grabar_direccion()
 	-void cargar_db_apers()
+	+String getPais_hf()
+	+String getTipo_hf()
+	+String getPoldiv_hf()
+	+String getCity_hf()
 }
 
 Documentos <|-- Dnis

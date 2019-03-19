@@ -55,6 +55,8 @@ class Direcciones
 	 * Tipo de direccion, corresponde a si es la direccion de residencia = 0 (datos que en la base comiensan con r), de nacimiento = 1 o profecional = 2
 	 * Cabe la posibilidad de que en en futuro se creen nuevos tipos de direcciones.
 	 *
+	 * Si se llegaran a agregar tipos hay que recordar modificar las funciones correspondientes (Ej: getTipo_hf y setTipo).
+	 *
 	 * @var integer
 	 */
 	protected $tipo = 0;
@@ -164,16 +166,36 @@ class Direcciones
 	 */
 	protected $domicilio = "";
 
+	// FIXME Falta agregar soporte para los datos de geolocalizacion. Para esto se van a utilizar los parametros latitud y longitud
+
+	/**
+	 * Funcion llamada en caso de hacer una imprecion por pantalla del objeto.
+	 * Va a mostrar la direccion de la persona formateada de la forma CALLE NUMERO PISO DTO (CP) CIUDAD PROVINCIA PAIS
+	 *
+	 * @return string
+	 */
 	public function __toString()
 	{
 		return $this->calle . " " . $this->numero . " " . (isset ($this->piso) ? $this->piso . " " : "") . (isset ($this->departamento) ? $this->departamento . " " : "") . (isset ($this->direCodPos) ? "(CP:" . $this->direCodPos . ") " : "") . $this->city . " " . $this->getPoldiv () . " " . $this->pais;
 	}
 
+	/**
+	 * Constructos de la clase vacia.
+	 * Lo unico que hace es crear la nueva coneccion a la base de datos.
+	 */
 	public function __construct()
 	{
 		$this->db = Conexion::openConnection ();
 	}
 
+	/**
+	 * Constructor de la clase pasandole unicamente los parametros basicos.
+	 *
+	 * @param int $tipo
+	 * @param String $pais
+	 * @param String $poldiv
+	 * @param String $city
+	 */
 	public function __construct1($tipo, $pais, $poldiv, $city)
 	{
 		$this->db = Conexion::openConnection ();
@@ -184,7 +206,23 @@ class Direcciones
 		$this->setCity ($city);
 	}
 
-	public function __construct2($tipo, $pais, $poldiv, $city, $calle, $numero, $codigoPostal = "", $piso = "", $departamento = "")
+	/**
+	 * Constructor de la clase pasandole unicamente los parametros completos.
+	 *
+	 * @param int $tipo
+	 * @param String $pais
+	 * @param String $poldiv
+	 * @param String $city
+	 * @param String $calle
+	 * @param int $numero
+	 * @param string $codigoPostal
+	 *        	- opcional
+	 * @param int $piso
+	 *        	- opcional
+	 * @param string $departamento
+	 *        	- opcional
+	 */
+	public function __construct2($tipo, $pais, $poldiv, $city, $calle, $numero, $codigoPostal = "", $piso = 0, $departamento = "")
 	{
 		$this->db = Conexion::openConnection ();
 
@@ -192,6 +230,21 @@ class Direcciones
 		$this->setPoldiv ($poldiv);
 		$this->setPais ($pais);
 		$this->setCity ($city);
+		$this->setCalle ($calle);
+		$this->setNumero ($numero);
+
+		if ($codigoPostal != "")
+		{
+			$this->setCodigoPostal ($codigoPostal);
+		}
+		if ($piso != 0)
+		{
+			$this->setPiso ($piso);
+		}
+		if ($departamento != "")
+		{
+			$this->setDepartamento ($departamento);
+		}
 	}
 
 	/**
@@ -612,8 +665,9 @@ class Direcciones
 	 */
 
 	/**
+	 * Retorna el tipo de direccion.
 	 *
-	 * @return number
+	 * @return int
 	 */
 	public function getTipo()
 	{
@@ -621,15 +675,53 @@ class Direcciones
 	}
 
 	/**
+	 * Retorna el tipo de direccion formateado para que sea entendible.
 	 *
-	 * @param number $tipo
+	 * @return String
+	 * @throws Exception En caso de no encontrar el tipo.
 	 */
-	public function setTipo($tipo)
+	public function getTipo_hf()
 	{
-		$this->tipo = $tipo;
+		if ($this->tipo == 0)
+		{
+			return "Direccion de residencia";
+		}
+		elseif ($this->tipo == 1)
+		{
+			return "Direccion de nacimiento";
+		}
+		elseif ($this->tipo == 2)
+		{
+			return "Direccion profecional";
+		}
+		else
+		{
+			throw new Exception ('Tipo no encontrado.');
+		}
 	}
 
 	/**
+	 * Carga el valor pasado en el parametro tipo.
+	 * Siempre que el valor pasado este dentro de los permitidos.
+	 *
+	 * @param number $tipo
+	 *        	por el momento puede ser: 0, 1 o 2.
+	 * @throws Exception En caso de querer setear un tipo que no este establesido.
+	 */
+	public function setTipo($tipo)
+	{
+		if ($tipo == 0 or $tipo == 1 or $tipo == 2)
+		{
+			$this->tipo = $tipo;
+		}
+		else
+		{
+			throw new Exception ('Tipo no permitido.');
+		}
+	}
+
+	/**
+	 * Retorna el codigo de pais seteado.
 	 *
 	 * @return string
 	 */
@@ -639,15 +731,53 @@ class Direcciones
 	}
 
 	/**
+	 * Retorna el nombre del pais recuperado de la tabla appgral.country para que sea entendible por la persona.
 	 *
-	 * @param string $pais
+	 * @throws Exception En caso de no encontrar el valor en la tabla retorna un error.
+	 * @return String Nombre del pais.
 	 */
-	public function setPais($pais)
+	public function getPais_hf()
 	{
-		$this->pais = $pais;
+		$buscar = array ();
+		$buscar[] = "descrip";
+
+		$where = array ();
+		$where['country'] = $this->pais;
+
+		if ($pais = $this->db->realizarSelect ("appgral.country", $where, $buscar))
+		{
+			return $pais;
+		}
+		else
+		{
+			throw new Exception ('No se encontro la descripcion del pais.');
+		}
 	}
 
 	/**
+	 * Comprueba que el codigo del pais se encuentre en appgral.country en caso de encontrarlo realiza el seteo.
+	 *
+	 * @throws Exception En caso de no encontrar el valor en la tabla retorna un error.
+	 * @param string $pais
+	 *        	Codigo del pais a setear.
+	 */
+	public function setPais($pais)
+	{
+		$where = array ();
+		$where['country'] = $this->pais;
+
+		if ($this->db->realizarSelect ("appgral.country", $where))
+		{
+			$this->pais = $pais;
+		}
+		else
+		{
+			throw new Exception ('No se encontro el pais en la base.');
+		}
+	}
+
+	/**
+	 * Retorna el codigo de la provincia seteado.
 	 *
 	 * @return string
 	 */
@@ -657,15 +787,70 @@ class Direcciones
 	}
 
 	/**
+	 * Retorna el nombre de la provincia recuperado de la tabla appgral.poldiv para que sea entendible por la persona.
+	 * Para hacerlo usa el parametro pais de la clase si esta definido, y ARG en caso de que no.
 	 *
-	 * @param string $poldiv
+	 * @throws Exception Retorna error en caso de no encontrar la provincia en la base.
+	 * @return String
 	 */
-	public function setPoldiv($poldiv)
+	public function getPoldiv_hf()
 	{
-		$this->poldiv = $poldiv;
+		$buscar = array ();
+		$buscar[] = "descrip";
+
+		$where = array ();
+		if ($this->pais != "")
+		{
+			$where['country'] = $this->pais;
+		}
+		else
+		{
+			$where['country'] = 'ARG';
+		}
+		$where['poldiv'] = $this->poldiv;
+
+		if ($provincia = $this->db->realizarSelect ("appgral.poldiv", $where, $buscar))
+		{
+			return $provincia;
+		}
+		else
+		{
+			throw new Exception ('No se encontro la descripcion de la provincia.');
+		}
 	}
 
 	/**
+	 * Comprueba que el dato pasado por parametro exista en la tabla appgral.poldiv para hacerlo usa el parametro pais de la clase si esta definido, y ARG en caso de que no.
+	 *
+	 * @param String $poldiv
+	 *        	dato con el que setear el parametro
+	 * @throws Exception en caso de que no se encuentre el dato.
+	 */
+	public function setPoldiv($poldiv)
+	{
+		$where = array ();
+		if ($this->pais != "")
+		{
+			$where['country'] = $this->pais;
+		}
+		else
+		{
+			$where['country'] = 'ARG';
+		}
+		$where['poldiv'] = $this->poldiv;
+
+		if ($this->db->realizarSelect ("appgral.poldiv", $where))
+		{
+			$this->poldiv = $poldiv;
+		}
+		else
+		{
+			throw new Exception ('No se encontro el dato suministrado en la base.');
+		}
+	}
+
+	/**
+	 * Retorna el codigo de la ciudad seteado.
 	 *
 	 * @return string
 	 */
@@ -675,15 +860,82 @@ class Direcciones
 	}
 
 	/**
+	 * Retorna el nombre de la ciudad recuperado de la tabla appgral.city para que sea entendible por la persona.
+	 * Para hacerlo usa el parametro pais de la clase si esta definido, y ARG en caso de que no.
+	 * Y el parametro poldiv en caso de estar establecido.
 	 *
-	 * @param string $city
+	 * @throws Exception en caso de que no se encuentre el dato.
+	 * @return String Con la descripcion de la ciudad.
 	 */
-	public function setCity($city)
+	public function getCity_hf()
 	{
-		$this->city = $city;
+		$buscar = array ();
+		$buscar[] = "descrip";
+
+		$where = array ();
+		if ($this->pais != "")
+		{
+			$where['country'] = $this->pais;
+		}
+		else
+		{
+			$where['country'] = 'ARG';
+		}
+		if ($this->poldiv != "")
+		{
+			$where['poldiv'] = $this->poldiv;
+		}
+
+		$where['city'] = $this->city;
+
+		if ($city = $this->db->realizarSelect ("appgral.city", $where, $buscar))
+		{
+			return $city;
+		}
+		else
+		{
+			throw new Exception ('No se encontro la descripcion de la ciudad.');
+		}
 	}
 
 	/**
+	 * Comprueba que el dato pasado por parametro exista en la tabla appgral.city para hacerlo usa el parametro pais de la clase si esta definido, y ARG en caso de que no.
+	 * Y el parametro poldiv en caso de estar establecido.
+	 *
+	 * @param String $city
+	 *        	dato con el que setear el parametro
+	 * @throws Exception en caso de que no se encuentre el dato.
+	 */
+	public function setCity($city)
+	{
+		$where = array ();
+		if ($this->pais != "")
+		{
+			$where['country'] = $this->pais;
+		}
+		else
+		{
+			$where['country'] = 'ARG';
+		}
+		if ($this->poldiv != "")
+		{
+			$where['poldiv'] = $this->poldiv;
+		}
+
+		$where['city'] = $this->city;
+
+		if ($this->db->realizarSelect ("appgral.city", $where))
+		{
+			$this->city = $city;
+		}
+		else
+		{
+			throw new Exception ('No se encontro el dato suministrado en la base.');
+		}
+	}
+
+	/**
+	 * Retorna el valor del parametro calle.
 	 *
 	 * @return string
 	 */
@@ -693,6 +945,7 @@ class Direcciones
 	}
 
 	/**
+	 * Setea un nuevo valor en el parametro calle.
 	 *
 	 * @param string $calle
 	 */
@@ -702,8 +955,9 @@ class Direcciones
 	}
 
 	/**
+	 * Retorna el valor del parametro numero.
 	 *
-	 * @return string
+	 * @return int
 	 */
 	public function getNumero()
 	{
@@ -711,17 +965,26 @@ class Direcciones
 	}
 
 	/**
+	 * Comprueba si el parametro pasado es un numero y si esta todo OK setea numero con ese dato.
 	 *
-	 * @param string $numero
+	 * @param int $numero
 	 */
 	public function setNumero($numero)
 	{
-		$this->numero = $numero;
+		if (is_int ($numero))
+		{
+			$this->numero = $numero;
+		}
+		else
+		{
+			throw new Exception ('El dato debe ser un numero entero.');
+		}
 	}
 
 	/**
+	 * Retorna el valor del parametro piso.
 	 *
-	 * @return string
+	 * @return int
 	 */
 	public function getPiso()
 	{
@@ -729,15 +992,24 @@ class Direcciones
 	}
 
 	/**
+	 * Comprueba si el parametro pasado es un numero y si esta todo OK setea piso con ese dato.
 	 *
 	 * @param string $piso
 	 */
 	public function setPiso($piso)
 	{
-		$this->piso = $piso;
+		if (is_int ($piso))
+		{
+			$this->piso = $piso;
+		}
+		else
+		{
+			throw new Exception ('El dato debe ser un numero entero.');
+		}
 	}
 
 	/**
+	 * Retorna el valor del parametro departamento.
 	 *
 	 * @return string
 	 */
@@ -747,6 +1019,7 @@ class Direcciones
 	}
 
 	/**
+	 * Setea el valor del parametro departamento.
 	 *
 	 * @param string $departamento
 	 */
@@ -756,6 +1029,7 @@ class Direcciones
 	}
 
 	/**
+	 * Retorna el valor del parametro codigoPostal.
 	 *
 	 * @return string
 	 */
@@ -765,6 +1039,8 @@ class Direcciones
 	}
 
 	/**
+	 * Setea el valor del parametro codigoPostal.
+	 * XXX Creo que este parametro tambien deberia chequearse en la base de datos.
 	 *
 	 * @param string $codigoPostal
 	 */
@@ -774,6 +1050,7 @@ class Direcciones
 	}
 
 	/**
+	 * Retorna el valor del parametro domicilio.
 	 *
 	 * @return string
 	 */
@@ -783,6 +1060,7 @@ class Direcciones
 	}
 
 	/**
+	 * Setea el valor del parametro domicilio.
 	 *
 	 * @param string $domicilio
 	 */
