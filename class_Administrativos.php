@@ -37,16 +37,14 @@ class class_Administrativos extends Empleados {
 	protected $edificio;
     //Edificio perteneciente
 	protected $sede;
-        
-        
-        
-    public function __construct($id=null){
+                        
+    public function __construct($person=null){
         
             $this->db = Conexion::openConnection ();
 
-           /* if (!is_null ($id)){
-                    $this->findByPerson ($id);
-            }*/
+           if (!is_null ($id)){
+                    $this->buscar_PersonXPerson($person);
+            }
     }
     
     
@@ -59,27 +57,26 @@ class class_Administrativos extends Empleados {
          $param  = array(
                $person
              );
-
-            $query      = "select * from web.cuenta where CUENTA IN(select cuenta from  "
+             
+         
+            $db2= Conexion::openConnectionPortalWeb();
+                        
+            $query      = "select LPAD(UNIDAD, 2, '0') UNIDAD from web.cuenta where CUENTA IN(select cuenta from  "
                         . "portal.usuario_web where person = :person)";
 
-            $result     =$this->db->query ($query, $esParam = true, $param);
+            $result     =$db2->query($query, $esParam = true, $param);
 
-              while ($fila = $this->db->fetch_array($result)){
-
-			$salida['UNIDADES'] = $result['UNIDAD'];
-			$salida['EDIFICIOS'] = $result['EDIFICIOS'];
-			$salida['SEDES'] = $result['SEDES'];
-                        
+  
+            
+            while ($fila = $db2->fetch_array($result)){
+  
+		$salida[]=$fila['UNIDAD'];
+                
 		}
-                
-                
-                $this->setEdificio($salida['EDIFICIOS']);
-                $this->setSede($salida['SEDES']);
-                $this->setUnidad($salida['UNIDADES']);
-                
-                
-                return $salida['SEDES'];
+
+                $this->setUnidad($salida);
+               
+                return $salida;
                 
     }
     
