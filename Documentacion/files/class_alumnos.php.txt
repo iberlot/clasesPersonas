@@ -88,7 +88,7 @@ class Alumnos extends Personas
 				    AND
 				        person.person =:person";
 
-		$result = $this->db->query ($query, true, $parametros);
+		$result = $this->db->query ($query, $esParam = true, $parametros);
 
 		$this->loadData ($this->db->fetch_array ($result));
 	}
@@ -113,6 +113,7 @@ class Alumnos extends Personas
 				strtoupper ($criterio1),
 				strtoupper ($criterio2),
 				strtoupper ($criterio3)
+
 		);
 
 		$query = "SELECT
@@ -133,7 +134,7 @@ class Alumnos extends Personas
 				            docno LIKE '%' ||:busq3 || '%'
 				    )";
 
-		$result = $this->db->query ($query, true, $parametros);
+		$result = $this->db->query ($query, $esParam = true, $parametros);
 
 		while ($fila = $this->db->fetch_array ($result))
 		{
