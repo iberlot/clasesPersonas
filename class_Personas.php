@@ -273,6 +273,10 @@ abstract class Personas
 	 */
 	protected $escuelaPrimaria = "";
 
+	/**
+	 */
+	protected $credencial;
+
 	/*
 	 * ******************************************************************************
 	 * VARIABLES REFERENTES AL FUNCIONAMIENTO DEL SISTEMA *
