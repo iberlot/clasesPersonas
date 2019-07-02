@@ -115,7 +115,7 @@ class Credenciales
 
 	/**
 	 */
-	public function __construct($db = null)
+	public function __construct($db = null, $person = null)
 	{
 		if (!isset ($db) or empty ($db))
 		{
@@ -133,6 +133,11 @@ class Credenciales
 		else
 		{
 			$this->db = $db;
+		}
+
+		if (isset ($person) and $person != null)
+		{
+			$this->inicializar_con_person ($person);
 		}
 	}
 

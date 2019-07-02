@@ -274,8 +274,10 @@ abstract class Personas
 	protected $escuelaPrimaria = "";
 
 	/**
+	 *
+	 * @var Credenciales
 	 */
-	protected $credencial;
+	protected $credencial = null;
 
 	/*
 	 * ******************************************************************************
@@ -295,9 +297,25 @@ abstract class Personas
 	 * Aca empiezan las funciones de la clase
 	 * ************************************************************************
 	 */
-	public function __construct($person = null)
+	public function __construct($person = null, $db = null)
 	{
-		$this->db = Conexion::openConnection ();
+		if (!isset ($db) or empty ($db))
+		{
+			global $db;
+
+			if (!isset ($db) or empty ($db))
+			{
+				$this->db = Sitios::openConnection ();
+			}
+			else
+			{
+				$this->db = $db;
+			}
+		}
+		else
+		{
+			$this->db = $db;
+		}
 
 		if (!is_null ($person))
 		{
@@ -322,6 +340,12 @@ abstract class Personas
 			$this->preescolar = "";
 			$this->escuelaMedia = "";
 			$this->escuelaPrimaria = "";
+
+			$this->credencial = new Credenciales ($db, $person);
+		}
+		else
+		{
+			$this->credencial = new Credenciales ($db);
 		}
 	}
 
@@ -1069,9 +1093,9 @@ abstract class Personas
 
 		$parametros[0] = $person;
 
-		$result = $db->query ($sql, true, $parametros);
+		$result = $this->db->query ($sql, true, $parametros);
 
-		if ($recu = $db->fetch_array ($result))
+		if ($recu = $this->db->fetch_array ($result))
 		{
 			$this->setPerson ($recu['PERSON']);
 			$this->setApellido ($recu['LNAME']);
@@ -1128,8 +1152,6 @@ abstract class Personas
 	 *
 	 * @param string $nacion
 	 *        	- dato a buscar en la tabla appgral.country
-	 * @param object $this->db
-	 *        	- Objeto encargado de la interaccion con la base de datos.
 	 * @return string - codigo de la nacion
 	 */
 	private function recuNacion($nacion)
@@ -1683,6 +1705,25 @@ abstract class Personas
 				return $valor;
 			}
 		}
+	}
+
+	/**
+	 *
+	 * @return Credenciales el dato de la variable $credencial
+	 */
+	public function getCredencial()
+	{
+		return $this->credencial;
+	}
+
+	/**
+	 *
+	 * @param
+	 *        	Credenciales a cargar en la variable $credencial
+	 */
+	public function setCredencial($credencial)
+	{
+		$this->credencial = $credencial;
 	}
 }
 ?>
