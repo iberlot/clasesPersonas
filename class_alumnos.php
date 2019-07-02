@@ -133,6 +133,21 @@ class Alumnos extends Personas
 				$this->findByPerson ($person);
 			}
 		}
+
+		if ($person != null && trim ($person) != '')
+		{
+
+			if ($centrocosto != null && trim ($centrocosto) != '')
+			{
+
+				$this->findByPerson ($person, $centrocosto);
+			}
+			else
+			{
+
+				$this->findByPerson ($person);
+			}
+		}
 	}
 
 	/**
