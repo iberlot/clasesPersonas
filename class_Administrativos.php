@@ -38,13 +38,13 @@ class class_Administrativos extends Empleados {
     //Edificio perteneciente
 	protected $sede;
                         
-    public function __construct($person=null){
+    public function __construct($db,$person=null){
         
-            $this->db = Conexion::openConnection ();
+            $this->db = $db;
 
-           if (!is_null ($id)){
+          /* if (!is_null ($id)){
                     $this->buscar_PersonXPerson($person);
-            }
+            }*/
     }
     
     
@@ -52,14 +52,14 @@ class class_Administrativos extends Empleados {
      * Obtiene los datos de la tabla web.cuenta , para obtener la unidad , edificio y sede del usuario
      * @param type $person
      */
-    public function obtenerUnidad($person){
+    public function obtenerUnidad($db,$person){
 	
          $param  = array(
                $person
              );
              
          
-            $db2= Conexion::openConnectionPortalWeb();
+            $db2=$db;
                         
             $query      = "select LPAD(UNIDAD, 2, '0') UNIDAD from web.cuenta where CUENTA IN(select cuenta from  "
                         . "portal.usuario_web where person = :person)";
