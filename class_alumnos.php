@@ -160,13 +160,13 @@ class Alumnos extends Personas
 	 */
 	public function findByPerson($person, $centrocosto = null)
 	{
-		$this->set_person ($person);
+		$this->setPerson ($person);
 
 		$anio_actual = date ("Y");
 
 		$parametros = array (
 				$anio_actual,
-				$this->get_person ()
+				$this->person
 		);
 
 		$query = "SELECT DISTINCT
