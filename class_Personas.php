@@ -4,7 +4,7 @@
  * Archivo principar de la clase.
  *
  * @author iberlot <@> ivanberlot@gmail.com
- * @todo FechaC 19/2/2016 - Lenguaje PHP
+ * @since 19/2/2016 - Lenguaje PHP
  *
  * @name class_persona.php
  *
@@ -18,10 +18,6 @@
  * @name class_persona
  *
  * @version 0.1 - Version de inicio
- *
- * @package Classes_USAL
- *
- * @category General
  *
  * @todo El usuario que se conecta a la base debe tener los siguientes permisos -
  *       - SELECT :
@@ -201,7 +197,7 @@ abstract class Personas
 	/**
 	 * Array de objetos Direcciones de la persona
 	 *
-	 * @var array|Direcciones
+	 * @var Direcciones[]
 	 */
 	protected $direccion = array ();
 
@@ -277,6 +273,12 @@ abstract class Personas
 	 */
 	protected $escuelaPrimaria = "";
 
+	/**
+	 *
+	 * @var Credenciales
+	 */
+	protected $credencial = null;
+
 	/*
 	 * ******************************************************************************
 	 * VARIABLES REFERENTES AL FUNCIONAMIENTO DEL SISTEMA *
@@ -295,13 +297,55 @@ abstract class Personas
 	 * Aca empiezan las funciones de la clase
 	 * ************************************************************************
 	 */
-	public function __construct($id = null)
+	public function __construct($person = null, $db = null)
 	{
-		$this->db = Conexion::openConnection ();
-
-		if (!is_null ($id))
+		if (!isset ($db) or empty ($db))
 		{
-			// $this->findByPerson ($id);
+			global $db;
+
+			if (!isset ($db) or empty ($db))
+			{
+				$this->db = Sitios::openConnection ();
+			}
+			else
+			{
+				$this->db = $db;
+			}
+		}
+		else
+		{
+			$this->db = $db;
+		}
+
+		if (!is_null ($person))
+		{
+			$this->buscar_PersonXPerson ($person);
+
+			for($i = 0; $i < 3; $i ++)
+			{
+				$direccion = new Direcciones ($i);
+				$direccion->recuperar_dire_person ($person, $i);
+			}
+			$this->email = array ();
+			$this->telefono = array ();
+			$this->foto_persona = "";
+			$this->direccion = array ();
+			$this->esposa = "";
+			$this->familiarACargo = "";
+			$this->FamiliaNumerosa = "";
+			$this->hijos = "";
+			$this->guarderia = "";
+			$this->hijoIncapasitado = "";
+			$this->prenatal = "";
+			$this->preescolar = "";
+			$this->escuelaMedia = "";
+			$this->escuelaPrimaria = "";
+
+			$this->credencial = new Credenciales ($db, $person);
+		}
+		else
+		{
+			$this->credencial = new Credenciales ($db);
 		}
 	}
 
@@ -315,9 +359,6 @@ abstract class Personas
 	 */
 	public function getNombreYApellido($datosAUsar)
 	{
-		print_r ("pepinos");
-		print_r ($datosAUsar);
-
 		if (isset ($datosAUsar['person']) and $datosAUsar['person'] != "")
 		{
 			$where[] = " person = :person ";
@@ -332,7 +373,7 @@ abstract class Personas
 
 			$sql = "SELECT lname, fname FROM appgral.person WHERE 1=1 " . $where;
 
-			if ($result = $this->db->query ($sql, $esParam = true, $parametros))
+			if ($result = $this->db->query ($sql, true, $parametros))
 			{
 				$rst = $this->db->fetch_array ($result);
 
@@ -474,7 +515,7 @@ abstract class Personas
 			$parametros[1] = $arrayDatosPersona['docTipo'];
 			$parametros[2] = $arrayDatosPersona['docNumero'];
 
-			if ($this->db->query ($sql, $esParam = true, $parametros))
+			if ($this->db->query ($sql, true, $parametros))
 			{
 				return $person;
 			}
@@ -532,7 +573,7 @@ abstract class Personas
 
 					$parametros[$i] = $arrayDatosPersona['person'];
 
-					$i++;
+					$i ++;
 				}
 			}
 			if (!isset ($arrayDatosPersona['categoria']) or $arrayDatosPersona['categoria'] == "")
@@ -549,7 +590,7 @@ abstract class Personas
 
 					$parametros[$i] = $arrayDatosPersona['categoria'];
 
-					$i++;
+					$i ++;
 				}
 			}
 			if (!isset ($arrayDatosPersona['fIngreso']) or $arrayDatosPersona['fIngreso'] == "")
@@ -566,7 +607,7 @@ abstract class Personas
 
 					$parametros[$i] = $arrayDatosPersona['fIngreso'];
 
-					$i++;
+					$i ++;
 				}
 			}
 			if (isset ($arrayDatosPersona['fbaja']) and $arrayDatosPersona['fbaja'] != "")
@@ -579,7 +620,7 @@ abstract class Personas
 
 					$parametros[$i] = $arrayDatosPersona['fbaja'];
 
-					$i++;
+					$i ++;
 				}
 			}
 			if (!isset ($arrayDatosPersona['legajo']) or $arrayDatosPersona['legajo'] == "")
@@ -596,7 +637,7 @@ abstract class Personas
 
 					$parametros[$i] = $arrayDatosPersona['legajo'];
 
-					$i++;
+					$i ++;
 				}
 			}
 			if (!isset ($_SESSION['person']) or $_SESSION['person'] == "")
@@ -613,7 +654,7 @@ abstract class Personas
 
 					$parametros[$i] = $_SESSION['person'];
 
-					$i++;
+					$i ++;
 				}
 			}
 			if (!isset ($_SESSION['app']) or $_SESSION['app'] == "")
@@ -630,7 +671,7 @@ abstract class Personas
 
 					$parametros[$i] = $_SESSION['app'];
 
-					$i++;
+					$i ++;
 				}
 			}
 
@@ -639,7 +680,7 @@ abstract class Personas
 
 			$sql = $sql . $sqlCampos . $sqlValores;
 
-			if ($this->db->query ($sql, $esParam = true, $parametros))
+			if ($this->db->query ($sql, true, $parametros))
 			{
 				return $resultado;
 			}
@@ -686,7 +727,7 @@ abstract class Personas
 			if (isset ($arrayDatosPersona['categoria']) and $this->comprobarExisteDato ($arrayDatosPersona['categoria']))
 			{
 				$parametros[$a] = $arrayDatosPersona['categoria'];
-				$a++;
+				$a ++;
 
 				$campos .= ", categoria = :categoria";
 			}
@@ -694,7 +735,7 @@ abstract class Personas
 			if (isset ($arrayDatosPersona['fIngreso']) and $this->comprobarExisteDato ($arrayDatosPersona['fIngreso']))
 			{
 				$parametros[$a] = $arrayDatosPersona['fIngreso'];
-				$a++;
+				$a ++;
 
 				$campos .= ", finicio = TO_DATE(:finicio, 'YYYY-MM-DD')";
 			}
@@ -702,7 +743,7 @@ abstract class Personas
 			if (isset ($arrayDatosPersona['fbaja']) and $this->comprobarExisteDato ($arrayDatosPersona['fbaja']))
 			{
 				$parametros[$a] = $arrayDatosPersona['fbaja'];
-				$a++;
+				$a ++;
 
 				$campos .= ", fbaja = TO_DATE(:fbaja, 'YYYY-MM-DD')";
 			}
@@ -710,7 +751,7 @@ abstract class Personas
 			if (isset ($arrayDatosPersona['legajo']) and $this->comprobarExisteDato ($arrayDatosPersona['legajo']))
 			{
 				$parametros[$a] = $arrayDatosPersona['legajo'];
-				$a++;
+				$a ++;
 
 				$campos .= ", legajo = :legajo";
 			}
@@ -722,7 +763,7 @@ abstract class Personas
 			else
 			{
 				$parametros[$a] = $_SESSION['person'];
-				$a++;
+				$a ++;
 
 				$campos .= ", muid = :muid";
 			}
@@ -734,7 +775,7 @@ abstract class Personas
 			else
 			{
 				$parametros[$a] = $_SESSION['app'];
-				$a++;
+				$a ++;
 
 				$campos .= ", idaplicacion = :idaplicacion";
 			}
@@ -746,7 +787,7 @@ abstract class Personas
 			else
 			{
 				$parametros[$a] = $arrayDatosPersona['person'];
-				$a++;
+				$a ++;
 
 				$wer = "AND person = :person";
 			}
@@ -756,12 +797,12 @@ abstract class Personas
 				$extraWhere = " AND LTRIM(LTRIM(categoria, '0')) = LTRIM(LTRIM(:categoria, '0')) ";
 				$parametros[$a] = $arrayDatosPersona['categoria'];
 
-				$a++;
+				$a ++;
 			}
 
 			$sql = "UPDATE appgral.catxperson" . $this->db_link . " SET mtime = SYSDATE" . $campos . " WHERE 1=1 " . $wer . $extraWhere;
 
-			if ($this->db->query ($sql, $esParam = true, $parametros))
+			if ($this->db->query ($sql, true, $parametros))
 			{
 				return $resultado;
 			}
@@ -881,7 +922,7 @@ abstract class Personas
 			$parametros = "";
 			$parametros[0] = $arrayDatosPersona['person'];
 
-			$result = $this->db->query ($sql, $esParam = true, $parametros);
+			$result = $this->db->query ($sql, true, $parametros);
 
 			$persona = $this->db->fetch_array ($result);
 
@@ -908,7 +949,7 @@ abstract class Personas
 				$parametros[12] = $arrayDatosPersona['rcity'];
 				$parametros[13] = $arrayDatosPersona['tnation'];
 
-				if ($this->db->query ($sqlNuevoPer, $esParam = true, $parametros))
+				if ($this->db->query ($sqlNuevoPer, true, $parametros))
 				{
 					return true;
 				}
@@ -1048,13 +1089,13 @@ abstract class Personas
 	 */
 	public function buscar_PersonXPerson($person)
 	{
-		$sql = "SELECT * FROM appgral.person" . $this->db_link . " WHERE person = :person";
+		$sql = "SELECT * FROM appgral.person WHERE person = :person";
 
 		$parametros[0] = $person;
 
-		$result = $db->query ($sql, $esParam = true, $parametros);
+		$result = $this->db->query ($sql, true, $parametros);
 
-		if ($recu = $db->fetch_array ($result))
+		if ($recu = $this->db->fetch_array ($result))
 		{
 			$this->setPerson ($recu['PERSON']);
 			$this->setApellido ($recu['LNAME']);
@@ -1064,21 +1105,9 @@ abstract class Personas
 			$this->setSexo ($recu['SEX']);
 			$this->setEstadoCivil ($recu['MARSTAT']);
 
-			$this->setTelefono ($recu['TELEP']);
 			$this->setTipoNacionalidad ($recu['TNATION']);
 
-			// $this->setDireccion ($recu['ADDRESS']);
-			// $this->set( $recu['ACTIVE']);
-			// $this->set( $recu['RCOUNTRY']);
-			// $this->set( $recu['RPOLDIV']);
-			// $this->set( $recu['RCITY']);
-			// $this->set( $recu['INCOUNTRYSINCE']);
-			// $this->set( $recu['RELIGION']);
-			// $this->set( $recu['QBROTHER']);
-			// $this->set( $recu['QSON']);
-			// $this->set($recu['COUNTRY']);
-			// $this->set($recu['POLDIV']);
-			// $this->set($recu['CITY']);
+			// $this->setTelefono ($recu['TELEP']);
 		}
 	}
 
@@ -1123,8 +1152,6 @@ abstract class Personas
 	 *
 	 * @param string $nacion
 	 *        	- dato a buscar en la tabla appgral.country
-	 * @param object $this->db
-	 *        	- Objeto encargado de la interaccion con la base de datos.
 	 * @return string - codigo de la nacion
 	 */
 	private function recuNacion($nacion)
@@ -1138,7 +1165,7 @@ abstract class Personas
 			$parametros[1] = $nacion;
 			$parametros[2] = $nacion;
 
-			$result = $this->db->query ($sql, $esParam = true, $parametros);
+			$result = $this->db->query ($sql, true, $parametros);
 
 			$pais = $this->db->fetch_array ($result);
 
@@ -1553,6 +1580,150 @@ abstract class Personas
 	public function setEscuelaPrimaria($escuelaPrimaria)
 	{
 		$this->escuelaPrimaria = $escuelaPrimaria;
+	}
+
+	public function nuevaDireccion($direccion)
+	{
+		$this->direccion[] = $direccion;
+	}
+
+	/**
+	 * Crea un nuevo objeto direccion y lo agrega al array de direcciones.
+	 *
+	 * @param array $datos
+	 *        	los posibles valores aceptados para los indices del array son:
+	 *        	tipo, pais, poldiv, city, calle, numero, codigoPostal, piso, departamento
+	 */
+	public function nuevaDireccionDatos($datos)
+	{
+		$tipo = 0;
+		$pais = "";
+		$poldiv = "";
+		$city = "";
+		$calle = "";
+		$numero = 0;
+		$codigoPostal = "";
+		$piso = 0;
+		$departamento = "";
+
+		foreach ($datos as $clave => $valor)
+		{
+			if ($valor != "" && $valor != 0)
+			{
+				${$clave} = $valor;
+			}
+		}
+
+		$this->direccion[] = new Direcciones ($tipo, $pais, $poldiv, $city, $calle, $numero, $codigoPostal, $piso, $departamento);
+	}
+
+	/**
+	 * Acualiza los datos de una direccion de la lista.
+	 * Para esto comprueba que la informacion pasada sea diferente de la existente para la direccion.
+	 *
+	 * @param int $index
+	 *        	indice de la direccion en el array de direcciones
+	 * @param array $datos
+	 *        	array con los datos a updetear los posibles valores aceptados para los indices del array son:
+	 *        	tipo, pais, poldiv, city, calle, numero, codigoPostal, piso, departamento
+	 */
+	public function uppdateDireccion($index, $datos)
+	{
+		if (isset ($datos['tipo']) && $datos['tipo'] != 0 && ($datos['tipo']) != $this->direccion[$index]->getTipo ())
+		{
+			$this->direccion[$index]->setTipo ($datos['tipo']);
+		}
+		if (isset ($datos['pais']) && $datos['pais'] != "" && ($datos['pais']) != $this->direccion[$index]->getPais ())
+		{
+			$this->direccion[$index]->setPais ($datos['pais']);
+		}
+		if (isset ($datos['poldiv']) && $datos['poldiv'] != "" && ($datos['poldiv']) != $this->direccion[$index]->getPoldiv ())
+		{
+			$this->direccion[$index]->setPoldiv ($datos['poldiv']);
+		}
+		if (isset ($datos['city']) && $datos['city'] != "" && ($datos['city']) != $this->direccion[$index]->getCity ())
+		{
+			$this->direccion[$index]->setCity ($datos['city']);
+		}
+		if (isset ($datos['calle']) && $datos['calle'] != "" && ($datos['calle']) != $this->direccion[$index]->getCalle ())
+		{
+			$this->direccion[$index]->setCalle ($datos['calle']);
+		}
+		if (isset ($datos['numero']) && $datos['numero'] != 0 && ($datos['numero']) != $this->direccion[$index]->getNumero ())
+		{
+			$this->direccion[$index]->setNumero ($datos['numero']);
+		}
+		if (isset ($datos['codigoPostal']) && $datos['codigoPostal'] != "" && ($datos['codigoPostal']) != $this->direccion[$index]->getCodigoPostal ())
+		{
+			$this->direccion[$index]->setCodigoPostal ($datos['codigoPostal']);
+		}
+		if (isset ($datos['piso']) && $datos['piso'] != 0 && ($datos['piso']) != $this->direccion[$index]->getPiso ())
+		{
+			$this->direccion[$index]->setPiso ($datos['piso']);
+		}
+		if (isset ($datos['departamento']) && $datos['departamento'] != "" && ($datos['departamento']) != $this->direccion[$index]->getDepartamento ())
+		{
+			$this->direccion[$index]->setDepartamento ($datos['departamento']);
+		}
+	}
+
+	/**
+	 * Busca el indice en la lista de una direccion pasandole por parametros la altura y el nombre de la calle.
+	 *
+	 * @param String $calle
+	 *        	Nombre de la calle.
+	 * @param int $numero
+	 *        	Altura de la direccion.
+	 * @return int Entero que representa el indice en el array.
+	 */
+	public function buscarDireccionIndex($calle, $numero)
+	{
+		foreach ($this->direccion as $clave => $valor)
+		{
+			if (strtolower ($valor->getCalle ()) == strtolower ($calle) && trim ($valor->getNumero ()) == trim ($numero))
+			{
+				return $clave;
+			}
+		}
+	}
+
+	/**
+	 * Busca una direccion pasandole por parametros la altura y el nombre de la calle.
+	 *
+	 * @param String $calle
+	 *        	Nombre de la calle.
+	 * @param int $numero
+	 *        	Altura de la direccion.
+	 * @return int Entero que representa el indice en el array.
+	 */
+	public function buscarDireccion($calle, $numero)
+	{
+		foreach ($this->direccion as &$valor)
+		{
+			if (strtolower ($valor->getCalle ()) == strtolower ($calle) && trim ($valor->getNumero ()) == trim ($numero))
+			{
+				return $valor;
+			}
+		}
+	}
+
+	/**
+	 *
+	 * @return Credenciales el dato de la variable $credencial
+	 */
+	public function getCredencial()
+	{
+		return $this->credencial;
+	}
+
+	/**
+	 *
+	 * @param
+	 *        	Credenciales a cargar en la variable $credencial
+	 */
+	public function setCredencial($credencial)
+	{
+		$this->credencial = $credencial;
 	}
 }
 ?>

@@ -3,12 +3,10 @@
 /**
  *
  * @author iberlot <@> iberlot@usal.edu.ar
- * @todo 16 nov. 2018
+ * @since 16 nov. 2018
  * @lenguage PHP
  * @name Personal.php
  * @version 0.1 version inicial del archivo.
- * @package
- * @project
  */
 
 /*
@@ -155,7 +153,7 @@ final class listados
 
 		$sql = "SELECT person FROM appgral.person" . $this->db_link . " WHERE 1 = 1 " . $where;
 
-		$result = $db->query ($sql, $esParam = true, $parametros);
+		$result = $db->query ($sql, true, $parametros);
 
 		$rst = $db->fetch_all ($result);
 
@@ -207,7 +205,7 @@ final class listados
 
 		$sql = " SELECT carstu.student person FROM studentc.carstu" . $this->db_link . " LEFT JOIN studentc.career ON carstu.career=career.code LEFT JOIN studentc.facu ON career.facu=facu.code WHERE 1 = 1 " . $where;
 
-		$result = $db->query ($sql, $esParam = true, $parametros);
+		$result = $db->query ($sql, true, $parametros);
 
 		$rst = $db->fetch_all ($result);
 
@@ -235,7 +233,7 @@ final class listados
 
 			$parametros[0] = $person;
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $db->query ($sql, true, $parametros);
 
 			while ($recu = $db->fetch_array ($result))
 			{
@@ -276,7 +274,7 @@ final class listados
 
 			$parametros[0] = $person;
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $db->query ($sql, true, $parametros);
 		}
 		// En caso de que hayan mandado el nombre o el apellido
 		else if ((isset ($datosAUsar['realname']) and $datosAUsar['realname'] != "") or (isset ($datosAUsar['apellido']) and $datosAUsar['apellido'] != "") or (isset ($datosAUsar['nombreCompleto']) and $datosAUsar['nombreCompleto'] != ""))
@@ -325,7 +323,7 @@ final class listados
 			$parametros[0] = $nombreCompleto;
 			$parametros[1] = $nombreCompleto;
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $db->query ($sql, true, $parametros);
 		}
 
 		$i = 0;
@@ -387,7 +385,7 @@ final class listados
 
 			$parametros[0] = $person;
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $db->query ($sql, true, $parametros);
 
 			if ($result == "")
 			{
@@ -395,7 +393,7 @@ final class listados
 
 				$parametros[0] = $person;
 
-				$result = $db->query ($sql, $esParam = true, $parametros);
+				$result = $db->query ($sql, true, $parametros);
 			}
 		}
 		else if (isset ($datosAUsar['docNumero']) and $datosAUsar['docNumero'] != "")
@@ -408,7 +406,7 @@ final class listados
 
 			$parametros[0] = $docNumero;
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $db->query ($sql, true, $parametros);
 
 			if ($result == "")
 			{
@@ -416,7 +414,7 @@ final class listados
 
 				$parametros[0] = $docNumero;
 
-				$result = $db->query ($sql, $esParam = true, $parametros);
+				$result = $db->query ($sql, true, $parametros);
 			}
 		}
 		else if (isset ($datosAUsar['cuil']) and $datosAUsar['cuil'] != "")
@@ -430,7 +428,7 @@ final class listados
 
 			$parametros[0] = $docNumero;
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $db->query ($sql, true, $parametros);
 
 			if ($result == "")
 			{
@@ -438,7 +436,7 @@ final class listados
 
 				$parametros[0] = $docNumero;
 
-				$result = $db->query ($sql, $esParam = true, $parametros);
+				$result = $db->query ($sql, true, $parametros);
 			}
 		}
 		else
@@ -489,7 +487,7 @@ final class listados
 
 			$parametros[0] = $person;
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $db->query ($sql, true, $parametros);
 		}
 		else if (isset ($datosAUsar['num_tarj']) and $datosAUsar['num_tarj'] != "")
 		{
@@ -500,7 +498,7 @@ final class listados
 			$parametros[0] = $num_tarj;
 			$parametros[1] = $num_tarj;
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $db->query ($sql, true, $parametros);
 		}
 
 		$i = 0;
@@ -536,7 +534,7 @@ final class listados
 
 			$parametros[0] = $estadocredenca;
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $db->query ($sql, true, $parametros);
 
 			$tarjeta = $db->fetch_array ($result);
 
@@ -647,7 +645,7 @@ final class listados
 			$parametros[$f] = $id;
 		}
 
-		$result = $db->query ($sql, $esParam = true, $parametros);
+		$result = $db->query ($sql, true, $parametros);
 
 		while ($recu = $db->fetch_array ($result))
 		{
@@ -700,8 +698,6 @@ final class listados
 	 */
 	public function datosPersona($datosAUsar)
 	{
-		global $db;
-
 		if (isset ($datosAUsar['person']) and ($datosAUsar['person'] != ""))
 		{
 			$person = $this->buscarPerson ($datosAUsar);
@@ -714,7 +710,7 @@ final class listados
 		{
 			$perdoc = $this->buscarPerdoc ($datosAUsar);
 
-			for($i = 0; $i < count ($perdoc); $i++)
+			for($i = 0; $i < count ($perdoc); $i ++)
 			{
 				$persons = $this->buscarPerson ($perdoc[$i]);
 				$person[$i] = $persons[0];
@@ -732,7 +728,7 @@ final class listados
 		{
 			$person = $this->buscarPerson ($datosAUsar);
 
-			for($i = 0; $i < count ($person); $i++)
+			for($i = 0; $i < count ($person); $i ++)
 			{
 				$perdocs = $this->buscarPerdoc ($person[$i]);
 				$perdoc[$i] = $perdocs[0];
@@ -750,7 +746,7 @@ final class listados
 		{
 			$personca = $this->buscarTargeta ($datosAUsar);
 
-			for($i = 0; $i < count ($personca); $i++)
+			for($i = 0; $i < count ($personca); $i ++)
 			{
 				$persons = $this->buscarPerson ($personca[$i]);
 				$person[$i] = $persons[0];
@@ -765,14 +761,14 @@ final class listados
 			}
 		}
 
-		for($i = 0; $i < count ($perdoc); $i++)
+		for($i = 0; $i < count ($perdoc); $i ++)
 		{
 			$persona[$i]['person'] = $perdoc[$i]['person'];
 			$persona[$i]['typdoc'] = $perdoc[$i]['typdoc'];
 			$persona[$i]['docNumero'] = $perdoc[$i]['docNumero'];
 		}
 
-		for($i = 0; $i < count ($person); $i++)
+		for($i = 0; $i < count ($person); $i ++)
 		{
 			if (!isset ($persona[$i]['person']) or $persona[$i]['person'] == "")
 			{
@@ -800,7 +796,7 @@ final class listados
 			$persona[$i]['qson'] = $person[$i]['qson'];
 		}
 
-		for($i = 0; $i < count ($personca); $i++)
+		for($i = 0; $i < count ($personca); $i ++)
 		{
 			if (!isset ($persona[$i]['person']) or $persona[$i]['person'] == "")
 			{
@@ -822,7 +818,7 @@ final class listados
 			$persona[$i]['estadocredenca'] = $personca[$i]['estadocredenca'];
 		}
 
-		for($i = 0; $i < count ($apers); $i++)
+		for($i = 0; $i < count ($apers); $i ++)
 		{
 			if (!isset ($persona[$i]['person']) or $persona[$i]['person'] == "")
 			{
@@ -875,7 +871,7 @@ final class listados
 			}
 		}
 
-		for($i = 0; $i < count ($cuentaWeb); $i++)
+		for($i = 0; $i < count ($cuentaWeb); $i ++)
 		{
 			if (!isset ($persona[$i]['person']) or $persona[$i]['person'] == "")
 			{
@@ -969,7 +965,7 @@ final class listados
 		$parametros[2] = $pattrib;
 		$parametros[3] = $shortdes;
 
-		if ($db->query ($sql, $esParam = true, $parametros))
+		if ($db->query ($sql, true, $parametros))
 		{
 			$resultado = true;
 		}
@@ -1024,7 +1020,7 @@ final class listados
 
 			$parametros[0] = $datosAUsar['person'];
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $db->query ($sql, true, $parametros);
 
 			$persona = $db->fetch_array ($result);
 
@@ -1068,7 +1064,7 @@ final class listados
 				$parametros[0] = $datosAUsar['person'];
 				$parametros[1] = $datosAUsar['person'];
 
-				$result = $db->query ($sql, $esParam = true, $parametros);
+				$result = $db->query ($sql, true, $parametros);
 
 				$persona = $db->fetch_array ($result);
 
@@ -1104,7 +1100,7 @@ final class listados
 
 			$parametros[0] = $datosAUsar['legajo'];
 
-			$result = $db->query ($sql, $esParam = true, $parametros);
+			$result = $db->query ($sql, true, $parametros);
 
 			$persona = $db->fetch_array ($result);
 
@@ -1139,7 +1135,7 @@ final class listados
 				$parametros[0] = $datosAUsar['legajo'];
 				$parametros[1] = $datosAUsar['legajo'];
 
-				$result = $db->query ($sql, $esParam = true, $parametros);
+				$result = $db->query ($sql, true, $parametros);
 
 				$persona = $db->fetch_array ($result);
 

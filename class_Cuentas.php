@@ -4,7 +4,7 @@
  * Clase que se ocupa del manejo de todo lo referente a la cuenta de usuario.
  *
  * @author iberlot <@> iberlot@usal.edu.ar
- * @todo 16 nov. 2018
+ * @since 16 nov. 2018
  * @lenguage PHP
  * @name class_cuentas.php
  * @version 0.1 version inicial del archivo.
@@ -28,7 +28,7 @@
 /**
  *
  * @author iberlot <@> iberlot@usal.edu.ar
- * @todo 16 nov. 2018
+ * @since 16 nov. 2018
  * @name Cuentas
  * @version 2.0
  * @since 2.0 Los campos booleanos $cuentaAcademica, $cuentaAdministrativa, $cuentaAlumno, $cuentaDocente, $cuentaExterno, $cuentaGenerica y $cuentaOperador convierten en una lista que contiene los que correapondan para cada cuenta.

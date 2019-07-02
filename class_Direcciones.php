@@ -10,6 +10,8 @@
  * @name class_direccion.php
  * @version 0.1 version inicial del archivo.
  */
+use function Direcciones\cargar_db_apers;
+
 require_once 'class_conexion.php';
 
 /*
@@ -172,33 +174,6 @@ class Direcciones
 	}
 
 	/**
-	 * Constructos de la clase vacia.
-	 * Lo unico que hace es crear la nueva coneccion a la base de datos.
-	 */
-	public function __construct()
-	{
-		$this->db = Conexion::openConnection ();
-	}
-
-	/**
-	 * Constructor de la clase pasandole unicamente los parametros basicos.
-	 *
-	 * @param int $tipo
-	 * @param String $pais
-	 * @param String $poldiv
-	 * @param String $city
-	 */
-	public function __construct1($tipo, $pais, $poldiv, $city)
-	{
-		$this->db = Conexion::openConnection ();
-
-		$this->setTipo ($tipo);
-		$this->setPoldiv ($poldiv);
-		$this->setPais ($pais);
-		$this->setCity ($city);
-	}
-
-	/**
 	 * Constructor de la clase pasandole unicamente los parametros completos.
 	 *
 	 * @param int $tipo
@@ -214,17 +189,34 @@ class Direcciones
 	 * @param string $departamento
 	 *        	- opcional
 	 */
-	public function __construct2($tipo, $pais, $poldiv, $city, $calle, $numero, $codigoPostal = "", $piso = 0, $departamento = "")
+	public function __construct($tipo = 0, $pais = "", $poldiv = "", $city = "", $calle = "", $numero = 0, $codigoPostal = "", $piso = 0, $departamento = "")
 	{
 		$this->db = Conexion::openConnection ();
 
-		$this->setTipo ($tipo);
-		$this->setPoldiv ($poldiv);
-		$this->setPais ($pais);
-		$this->setCity ($city);
-		$this->setCalle ($calle);
-		$this->setNumero ($numero);
-
+		if ($tipo != 0)
+		{
+			$this->setTipo ($tipo);
+		}
+		if ($poldiv != "")
+		{
+			$this->setPoldiv ($poldiv);
+		}
+		if ($pais != "")
+		{
+			$this->setPais ($pais);
+		}
+		if ($city != "")
+		{
+			$this->setCity ($city);
+		}
+		if ($calle != "")
+		{
+			$this->setCalle ($calle);
+		}
+		if ($numero != 0)
+		{
+			$this->setNumero ($numero);
+		}
 		if ($codigoPostal != "")
 		{
 			$this->setCodigoPostal ($codigoPostal);
@@ -265,13 +257,14 @@ class Direcciones
 				$this->setDomicilio ($recu['ADDRESS']);
 
 				$buscar['pattrib'] = 'DOMI';
-				$campos = array ();
-				$campos[] = 'SHORTDES';
-				$campos[] = 'VAL';
+
+				// $campos = array ();
+				// $campos[] = 'SHORTDES';
+				// $campos[] = 'VAL';
 
 				if ($recu = $this->db->realizarSelectAll ("appgral.apers", $buscar))
 				{
-					for($i = 0; $i <= (count ($recu['SHORTDES']) - 1); $i++)
+					for($i = 0; $i <= (count ($recu['SHORTDES']) - 1); $i ++)
 					{
 						if ($recu['SHORTDES'][$i] == 'PISO')
 						{
@@ -320,13 +313,13 @@ class Direcciones
 			{
 
 				$buscar['pattrib'] = 'DOMP';
-				$campos = array ();
-				$campos[] = 'SHORTDES';
-				$campos[] = 'VAL';
+				// $campos = array ();
+				// $campos[] = 'SHORTDES';
+				// $campos[] = 'VAL';
 
 				if ($recu = $this->db->realizarSelectAll ("appgral.apers", $buscar))
 				{
-					for($i = 0; $i <= (count ($recu['SHORTDES']) - 1); $i++)
+					for($i = 0; $i <= (count ($recu['SHORTDES']) - 1); $i ++)
 					{
 						if ($recu['SHORTDES'][$i] == 'PISO')
 						{
@@ -398,16 +391,16 @@ class Direcciones
 				}
 
 				$buscar['pattrib'] = 'DOMI';
-				$campos = array ();
-				$campos[] = 'SHORTDES';
-				$campos[] = 'VAL';
+				// $campos = array ();
+				// $campos[] = 'SHORTDES';
+				// $campos[] = 'VAL';
 
 				$datos2 = array ();
 				$datoViejo = array ();
 
 				if ($recu = $this->db->realizarSelectAll ("appgral.apers", $buscar))
 				{
-					for($i = 0; $i <= (count ($recu['SHORTDES']) - 1); $i++)
+					for($i = 0; $i <= (count ($recu['SHORTDES']) - 1); $i ++)
 					{
 						if ($recu['SHORTDES'][$i] == 'PISO')
 						{
@@ -495,13 +488,13 @@ class Direcciones
 				$datoViejo = array ();
 
 				$buscar['pattrib'] = 'DOMP';
-				$campos = array ();
-				$campos[] = 'SHORTDES';
-				$campos[] = 'VAL';
+				// $campos = array ();
+				// $campos[] = 'SHORTDES';
+				// $campos[] = 'VAL';
 
 				if ($recu = $this->db->realizarSelectAll ("appgral.apers", $buscar))
 				{
-					for($i = 0; $i <= (count ($recu['SHORTDES']) - 1); $i++)
+					for($i = 0; $i <= (count ($recu['SHORTDES']) - 1); $i ++)
 					{
 						if ($recu['SHORTDES'][$i] == 'PISO')
 						{
