@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Archivo principar de la clase.
  *
@@ -9,6 +8,21 @@
  * @name class_persona.php
  *
  */
+/*
+ * Querido programador:
+ *
+ * Cuando escribi este codigo, solo Dios y yo sabiamos como funcionaba.
+ * Ahora, Solo Dios lo sabe!!!
+ *
+ * Asi que, si esta tratando de 'optimizar' esta rutina y fracasa (seguramente),
+ * por favor, incremente el siguiente contador como una advertencia para el
+ * siguiente colega:
+ *
+ * totalHorasPerdidasAqui = 106
+ *
+ */
+require_once ("class_Documentos.php");
+require_once ("class_credenciales.php");
 
 /**
  * Clase encargada del manejo de todos los datos referentes a la persona.
@@ -27,20 +41,6 @@
  *       - INSERT :
  *       appgral.apers | appgral.perdoc |
  */
-
-/*
- * Querido programador:
- *
- * Cuando escribi este codigo, solo Dios y yo sabiamos como funcionaba.
- * Ahora, Solo Dios lo sabe!!!
- *
- * Asi que, si esta tratando de 'optimizar' esta rutina y fracasa (seguramente),
- * por favor, incremente el siguiente contador como una advertencia para el
- * siguiente colega:
- *
- * totalHorasPerdidasAqui = 106
- *
- */
 abstract class Personas
 {
 	/**
@@ -55,6 +55,12 @@ abstract class Personas
 	 *      PERSON - NUMBER(8,0)
 	 */
 	protected $person = 0;
+
+	/**
+	 *
+	 * @var array Lista de documetos de la persona.
+	 */
+	protected $documentos = array ();
 
 	/**
 	 * Apellido de la persona
@@ -299,11 +305,11 @@ abstract class Personas
 	 */
 	public function __construct($person = null, $db = null)
 	{
-		if (!isset ($db) or empty ($db))
+		if (!isset ($db) or empty ($db) or $db == null)
 		{
 			global $db;
 
-			if (!isset ($db) or empty ($db))
+			if (!isset ($db) or empty ($db) or $db == null)
 			{
 				$this->db = Sitios::openConnection ();
 			}
@@ -1724,6 +1730,45 @@ abstract class Personas
 	public function setCredencial($credencial)
 	{
 		$this->credencial = $credencial;
+	}
+
+	/**
+	 *
+	 * @return array el dato de la variable $documentos
+	 */
+	public function getDocumentos()
+	{
+		return $this->documentos;
+	}
+
+	/**
+	 *
+	 * @param
+	 *        	array a cargar en la variable $documentos
+	 */
+	public function setDocumentos($documentos)
+	{
+		$this->documentos = $documentos;
+	}
+
+	/**
+	 *
+	 * @param Documentos $documento
+	 */
+	public function agregar_documento($documento)
+	{
+		$this->documentos[] = $documento;
+	}
+
+	/**
+	 * Crea un nuevo objeto documento en vase a los parametros pasados y lo agrega al array de documentos.
+	 *
+	 * @param string $tipo_doc
+	 * @param int $nro_doc
+	 */
+	public function nuevo_documneto($tipo_doc, $nro_doc)
+	{
+		$this->documentos[] = new Documentos ($db, $doc_num, $doc_typ);
 	}
 }
 ?>

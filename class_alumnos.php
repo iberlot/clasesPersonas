@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Archivo de la clase Alumnos
  *
@@ -24,7 +23,7 @@
  * totalHorasPerdidasAqui = 0
  *
  */
-require_once ("/web/html/clasesPersonas/class_Personas.php");
+require_once ("class_Personas.php");
 
 /**
  * Clase que maneja los atributos de los alumnos
@@ -118,23 +117,7 @@ class Alumnos extends Personas
 
 	public function __construct($db = null, $person = null, $centrocosto = null)
 	{
-		if (!isset ($db) or empty ($db))
-		{
-			global $db;
-
-			if (!isset ($db) or empty ($db))
-			{
-				$this->db = Sitios::openConnection ();
-			}
-			else
-			{
-				$this->db = $db;
-			}
-		}
-		else
-		{
-			$this->db = $db;
-		}
+		parent::__construct ($db, $person);
 
 		if ($person != null && trim ($person) != '')
 		{
@@ -322,11 +305,11 @@ class Alumnos extends Personas
 		{
 			$arr_asoc = $this->db->fetch_array ($scfaes);
 
-			$this->set_fa ($arr_asoc['FA']);
-			$this->set_es ($arr_asoc['ES']);
-			$this->set_ca ($arr_asoc['CA']);
+			$this->setFa ($arr_asoc['FA']);
+			$this->setEs ($arr_asoc['ES']);
+			$this->setCa ($arr_asoc['CA']);
 
-			return ($this->get_fa () . $this->get_es () . $this->get_ca ());
+			return ($this->getFa () . $this->getEs () . $this->getCa ());
 		}
 
 		return false;
@@ -427,17 +410,14 @@ class Alumnos extends Personas
 	 */
 	public function loadData($fila)
 	{
-		$this->set_person ($fila['PERSON']);
-		$this->set_nombre ($fila['FNAME'] . ' ' . $fila['LNAME']);
-		$this->set_typodoc ($fila['TYPDOC']);
-		$this->set_nrodoc ($fila['DOCNO']);
-		$this->set_carrera ($fila['CAREER']);
-		$this->set_lname ($fila['LNAME']);
-		$this->set_fname ($fila['FNAME']);
-		$this->set_carrera_descrip ($fila['DESCRIP']);
-		$this->set_idcentrocosto ($fila['IDCENTRODECOSTO']);
-		$this->set_plan ($fila['PLAN']);
-		$this->set_carrera_stat ($fila['STAT']);
+		$this->setPerson ($fila['PERSON']);
+		$this->setCarrera ($fila['CAREER']);
+		$this->setApellido ($fila['LNAME']);
+		$this->setNombre ($fila['FNAME']);
+		$this->setCarrera_descrip ($fila['DESCRIP']);
+		$this->setIdcentrocosto ($fila['IDCENTRODECOSTO']);
+		$this->setPlan ($fila['PLAN']);
+		$this->setCarrera_stat ($fila['STAT']);
 
 		/* seteo la faesca del alumno */
 		if (isset ($fila['IDCENTRODECOSTO']))
@@ -445,11 +425,11 @@ class Alumnos extends Personas
 			$this->obtenerSeterarFaesca ($fila['IDCENTRODECOSTO']);
 		}
 
-		$this->set_foto ($this->get_Photo ($fila['PERSON']));
+		$this->setFoto_persona ($this->get_Photo ($fila['PERSON']));
 		// $this->set_foto ($this->get_Photo_alumno ($fila['PERSON']));
 
 		/* en base a la fa obtengo el nomber de la unidad a la cual pertenece el alumno */
-		$this->setDesc_unidad_alumno ($this->obtener_unidad_por_fa ($this->get_fa ()));
+		$this->setDesc_unidad_alumno ($this->obtener_unidad_por_fa ($this->getFa ()));
 	}
 
 	/**
@@ -544,6 +524,12 @@ class Alumnos extends Personas
 		{
 			switch ($this->carrera_stat)
 			{
+				case 0 :
+					return "ANOTADO";
+					break;
+				case 1 :
+					return "CURSADA APROBADA";
+					break;
 				case 2 :
 					return "FINALPASS";
 					break;
@@ -612,13 +598,13 @@ class Alumnos extends Personas
 	 */
 	public function setCarrera_stat($carrera_stat)
 	{
-		if ($carrera_stat > 1 && $carrera_stat < 10)
+		if ($carrera_stat > -1 && $carrera_stat < 11)
 		{
 			$this->carrera_stat = $carrera_stat;
 		}
 		else
 		{
-			throw new Exception ("Codigo de estado de carrera invalido.");
+			throw new Exception ("Codigo de estado de carrera invalido. |" . $carrera_stat . "|");
 		}
 	}
 
@@ -672,5 +658,4 @@ class Alumnos extends Personas
 		$this->desc_unidad_alumno = $desc_unidad_alumno;
 	}
 }
-
 ?>
