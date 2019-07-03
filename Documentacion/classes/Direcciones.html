@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <meta charset="utf-8"/>
-    <title>API Documentation</title>
-    <meta name="author" content=""/>
-    <meta name="description" content=""/>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta charset="utf-8" />
+<title>API Documentation</title>
+<meta name="author" content="" />
+<meta name="description" content="" />
 
-    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/prism.css" rel="stylesheet" media="all"/>
-    <link href="../css/template.css" rel="stylesheet" media="all"/>
-    
-    <!--[if lt IE 9]>
+<link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="../css/prism.css" rel="stylesheet" media="all" />
+<link href="../css/template.css" rel="stylesheet" media="all" />
+
+<!--[if lt IE 9]>
     <script src="../js/html5.js"></script>
     <![endif]-->
-    <script src="../js/jquery-1.11.0.min.js"></script>
-    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.smooth-scroll.js"></script>
-    <script src="../js/prism.min.js"></script>
-    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    <script type="text/javascript">
+<script src="../js/jquery-1.11.0.min.js"></script>
+<script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.smooth-scroll.js"></script>
+<script src="../js/prism.min.js"></script>
+<!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+<script type="text/javascript">
     function loadExternalCodeSnippets() {
         Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
             var src = pre.getAttribute('data-src');
@@ -70,1747 +71,2159 @@
     })
 </script>
 
-    <link rel="shortcut icon" href="../images/favicon.ico"/>
-    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+<link rel="shortcut icon" href="../images/favicon.ico" />
+<link rel="apple-touch-icon" href="../images/apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="72x72"
+	href="../images/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114"
+	href="../images/apple-touch-icon-114x114.png" />
 </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <i class="icon-ellipsis-vertical"></i>
-            </a>
-            <a class="brand" href="../index.html">API Documentation</a>
-
-            <div class="nav-collapse">
-                <ul class="nav pull-right">
-                                        <li class="dropdown" id="charts-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Charts <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../graphs/class.html">
-                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="reports-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Reports <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">114</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">22</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/deprecated.html">
-                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!--<div class="go_to_top">-->
-    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
-    <!--</div>-->
-</div>
-
-<div id="___" class="container-fluid">
-        <section class="row-fluid">
-        <div class="span2 sidebar">
-                                <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-105030197"></a>
-                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
-            </div>
-            <div id="namespace-105030197" class="accordion-body collapse in">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Alumnos.html">Alumnos</a></li>
-                                                    <li class="class"><a href="../classes/Conexion.html">Conexion</a></li>
-                                                    <li class="class"><a href="../classes/Cuentas.html">Cuentas</a></li>
-                                                    <li class="class"><a href="../classes/Direcciones.html">Direcciones</a></li>
-                                                    <li class="class"><a href="../classes/Documentos.html">Documentos</a></li>
-                                                    <li class="class"><a href="../classes/Empleados.html">Empleados</a></li>
-                                                    <li class="class"><a href="../classes/listados.html">listados</a></li>
-                                                    <li class="class"><a href="../classes/Personas.html">Personas</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-        </div>
-    </section>
-    <section class="row-fluid">
-        <div class="span10 offset2">
-            <div class="row-fluid">
-                <div class="span8 content class">
-                    <nav>
-                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
-                                            </nav>
-                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
-
-                    <h1><small>\</small>Direcciones</h1>
-                    <p><em>Clase direcciones, maneja los parametros de las direcciones y agrupa las funciones necesarias para su alta baja y modificacion.</em></p>
-                    
-                    
-                                        
-                    <section id="summary">
-                        <h2>Summary</h2>
-                        <section class="row-fluid heading">
-                            <section class="span4">
-                                <a href="#methods">Methods</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#properties">Properties</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#constants">Constants</a>
-                            </section>
-                        </section>
-                        <section class="row-fluid public">
-                            <section class="span4">
-                                                                    <a href="../classes/Direcciones.html#method___toString" class="">__toString()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method___construct" class="">__construct()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method___construct1" class="">__construct1()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method___construct2" class="">__construct2()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_recuperar_dire_person" class="">recuperar_dire_person()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_grabar_direccion" class="">grabar_direccion()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getTipo" class="">getTipo()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getTipo_hf" class="">getTipo_hf()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_setTipo" class="">setTipo()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getPais" class="">getPais()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getPais_hf" class="">getPais_hf()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_setPais" class="">setPais()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getPoldiv" class="">getPoldiv()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getPoldiv_hf" class="">getPoldiv_hf()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_setPoldiv" class="">setPoldiv()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getCity" class="">getCity()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getCity_hf" class="">getCity_hf()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_setCity" class="">setCity()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getCalle" class="">getCalle()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_setCalle" class="">setCalle()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getNumero" class="">getNumero()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_setNumero" class="">setNumero()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getPiso" class="">getPiso()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_setPiso" class="">setPiso()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getDepartamento" class="">getDepartamento()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_setDepartamento" class="">setDepartamento()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getCodigoPostal" class="">getCodigoPostal()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_setCodigoPostal" class="">setCodigoPostal()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_getDomicilio" class="">getDomicilio()</a><br />
-                                                                    <a href="../classes/Direcciones.html#method_setDomicilio" class="">setDomicilio()</a><br />
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No public properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No constants found</em>
-                                                            </section>
-                        </section>
-                        <section class="row-fluid protected">
-                            <section class="span4">
-                                                                    <em>No protected methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <a href="../classes/Direcciones.html#property_tipo" class="">$tipo</a><br />
-                                                                    <a href="../classes/Direcciones.html#property_pais" class="">$pais</a><br />
-                                                                    <a href="../classes/Direcciones.html#property_poldiv" class="">$poldiv</a><br />
-                                                                    <a href="../classes/Direcciones.html#property_city" class="">$city</a><br />
-                                                                    <a href="../classes/Direcciones.html#property_calle" class="">$calle</a><br />
-                                                                    <a href="../classes/Direcciones.html#property_numero" class="">$numero</a><br />
-                                                                    <a href="../classes/Direcciones.html#property_piso" class="">$piso</a><br />
-                                                                    <a href="../classes/Direcciones.html#property_departamento" class="">$departamento</a><br />
-                                                                    <a href="../classes/Direcciones.html#property_codigoPostal" class="">$codigoPostal</a><br />
-                                                                    <a href="../classes/Direcciones.html#property_domicilio" class="">$domicilio</a><br />
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                        <section class="row-fluid private">
-                            <section class="span4">
-                                                                    <a href="../classes/Direcciones.html#method_cargar_db_apers" class="">cargar_db_apers()</a><br />
-                                                            </section>
-                            <section class="span4">
-                                                                    <a href="../classes/Direcciones.html#property_db" class="">$db</a><br />
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                    </section>
-                </div>
-                <aside class="span4 detailsbar">
-                                        
-                    
-                    <dl>
-                        <dt>File</dt>
-                            <dd><a href="../files/class_Direcciones.html"><div class="path-wrapper">class_Direcciones.php</div></a></dd>
-                                                <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">Default</div></dd>
-                                                <dt>Class hierarchy</dt>
-                            <dd class="hierarchy">
-                                                                                                                                                                    <div class="namespace-wrapper">\Direcciones</div>
-                            </dd>
-
-                        
-                        
-                        
-                        
-                                                                        </dl>
-                    <h2>Tags</h2>
-                    <table class="table table-condensed">
-                                            <tr>
-                            <th>
-                                author
-                            </th>
-                            <td>
-                                                                    <p>iberlot &lt;@&gt; iberlot@usal.edu.ar</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                since
-                            </th>
-                            <td>
-                                                                    <p>nov. 2018</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                name
-                            </th>
-                            <td>
-                                                                    <p>Direcciones</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                version
-                            </th>
-                            <td>
-                                                                    <p>version inicial.</p>
-                                                            </td>
-                        </tr>
-                                        </table>
-                </aside>
-            </div>
-
-                        
-                                    <a id="properties" name="properties"></a>
-            <div class="row-fluid">
-                <div class="span8 content class">
-                    <h2>Properties</h2>
-                </div>
-                <aside class="span4 detailsbar"></aside>
-            </div>
-
-                                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_tipo" name="property_tipo" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$tipo</h3>
-                <pre class="signature">$tipo : integer</pre>
-                <p><em>Tipo de direccion, corresponde a si es la direccion de residencia = 0 (datos que en la base comiensan con r), de nacimiento = 1 o profecional = 2
-Cabe la posibilidad de que en en futuro se creen nuevos tipos de direcciones.</em></p>
-                <p>Si se llegaran a agregar tipos hay que recordar modificar las funciones correspondientes (Ej: getTipo_hf y setTipo).</p>
-
-                                <h4>Type</h4>
-                integer
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_pais" name="property_pais" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$pais</h3>
-                <pre class="signature">$pais : string</pre>
-                <p><em>Pais de nacimiento de la persona si tipo es igual 1.</em></p>
-                <p>Pais de residencia de la persona si tipo es igual 0.</p>
-
-                                <h4>Type</h4>
-                string
-                &mdash; &lt;Br&gt;
-     @ubicacionBase appgral.person.country - VARCHAR2(3 BYTE) si tipo es igual 1.
-     @ubicacionBase appgral.person.rcountry - VARCHAR2(3 BYTE) si tipo es igual 0.
-     &lt;Br&gt;
-     &lt;Br&gt;
-     La tabla de referencia al dato es appgral.country                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                            <p>Este campo es obligatorio a la hora de crear personas.</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_poldiv" name="property_poldiv" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$poldiv</h3>
-                <pre class="signature">$poldiv : string</pre>
-                <p><em>Provincia de nacimiento de la persona si tipo es igual 1.</em></p>
-                <p>Provincia de residencia de la persona si tipo es igual 0.</p>
-
-                                <h4>Type</h4>
-                string
-                &mdash; &lt;Br&gt;
-     @ubicacionBase appgral.person.poldiv - VARCHAR2(3 BYTE) si tipo es igual 1.
-     @ubicacionBase appgral.person.rpoldiv - VARCHAR2(3 BYTE) si tipo es igual 0.
-     &lt;Br&gt;
-     &lt;Br&gt;
-     La tabla de referencia al dato es appgral.poldiv                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                            <p>Este campo es obligatorio a la hora de crear personas.</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_city" name="property_city" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$city</h3>
-                <pre class="signature">$city : string</pre>
-                <p><em>Ciudad de nacimiento de la persona si tipo es igual 1.</em></p>
-                <p>Ciudad de residencia de la persona si tipo es igual 0.</p>
-
-                                <h4>Type</h4>
-                string
-                &mdash; &lt;Br&gt;
-     @ubicacionBase appgral.person.city - VARCHAR2(10 BYTE) si tipo es igual 1.
-     @ubicacionBase appgral.person.rcity - VARCHAR2(10 BYTE) si tipo es igual 0.
-     &lt;Br&gt;
-     &lt;Br&gt;
-     La tabla de referencia al dato es appgral.city                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                            <p>Este campo es obligatorio a la hora de crear personas.</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_calle" name="property_calle" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$calle</h3>
-                <pre class="signature">$calle : string</pre>
-                <p><em>Calle de la direccion de la persona</em></p>
-                
-
-                                <h4>Type</h4>
-                string
-                &mdash; &lt;Br&gt;
-     @ubicacionBase appgral.apers.val - VARCHAR2(100 BYTE)
-     &lt;Br&gt;
-     Siempre que: appgral.apers.pattrib = &#039;DOMI&#039; y appgral.apers.shortdes = &#039;CALLE&#039;                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_numero" name="property_numero" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$numero</h3>
-                <pre class="signature">$numero : integer</pre>
-                <p><em>Numero de la direccion de la persona</em></p>
-                
-
-                                <h4>Type</h4>
-                integer
-                &mdash; &lt;Br&gt;
-     @ubicacionBase appgral.apers.val - VARCHAR2(100 BYTE)
-     &lt;Br&gt;
-     Siempre que: appgral.apers.pattrib = &#039;DOMI&#039; y appgral.apers.shortdes = &#039;NRO&#039;                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_piso" name="property_piso" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$piso</h3>
-                <pre class="signature">$piso : integer</pre>
-                <p><em>Piso de la direccion de la persona</em></p>
-                
-
-                                <h4>Type</h4>
-                integer
-                &mdash; &lt;Br&gt;
-     @ubicacionBase appgral.apers.val - VARCHAR2(100 BYTE)
-     &lt;Br&gt;
-     Siempre que: appgral.apers.pattrib = &#039;DOMI&#039; y appgral.apers.shortdes = &#039;PISO&#039;                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_departamento" name="property_departamento" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$departamento</h3>
-                <pre class="signature">$departamento : string</pre>
-                <p><em>Dto de la direccion de la persona</em></p>
-                
-
-                                <h4>Type</h4>
-                string
-                &mdash; &lt;Br&gt;
-     @ubicacionBase appgral.apers.val - VARCHAR2(100 BYTE)
-     &lt;Br&gt;
-     Siempre que: appgral.apers.pattrib = &#039;DOMI&#039; y appgral.apers.shortdes = &#039;DEPTO&#039;                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_codigoPostal" name="property_codigoPostal" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$codigoPostal</h3>
-                <pre class="signature">$codigoPostal : string</pre>
-                <p><em>Codigo postal de la direccion de la persona</em></p>
-                
-
-                                <h4>Type</h4>
-                string
-                &mdash; &lt;Br&gt;
-     @ubicacionBase appgral.apers.val - VARCHAR2(100 BYTE)
-     &lt;Br&gt;
-     Siempre que: appgral.apers.pattrib = &#039;DOMI&#039; y appgral.apers.shortdes = &#039;CODPOS&#039;                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_domicilio" name="property_domicilio" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$domicilio</h3>
-                <pre class="signature">$domicilio : string</pre>
-                <p><em>Direccion en string que une calle numero y muchas veces depto en un solo campo.</em></p>
-                
-
-                                <h4>Type</h4>
-                string
-                &mdash; &lt;Br&gt;
-     @ubicacionBase sueldos.personal.domicilio - VARCHAR2(30 BYTE)                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                            <p>lo ideal es tratarlo para que quede separado de la forma que corresponde</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_db" name="property_db" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$db</h3>
-                <pre class="signature">$db : object</pre>
-                <p><em>Objeto que se encarga de las conecciones a la base de datos.</em></p>
-                
-
-                                <h4>Type</h4>
-                object
-                &mdash; objeto inicializado del tipo class_db                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                            
-                                    <a id="methods" name="methods"></a>
-            <div class="row-fluid">
-                <div class="span8 content class"><h2>Methods</h2></div>
-                <aside class="span4 detailsbar"></aside>
-            </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method___toString" name="method___toString" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">__toString()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__toString() : string</pre>
-                <p><em>Funcion llamada en caso de hacer una imprecion por pantalla del objeto.</em></p>
-                <p>Va a mostrar la direccion de la persona formateada de la forma CALLE NUMERO PISO DTO (CP) CIUDAD PROVINCIA PAIS</p>
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method___construct" name="method___construct" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">__construct()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
-                <p><em>Constructos de la clase vacia.</em></p>
-                <p>Lo unico que hace es crear la nueva coneccion a la base de datos.</p>
-
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method___construct1" name="method___construct1" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">__construct1()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct1(integer  <span class="argument">$tipo</span>, String  <span class="argument">$pais</span>, String  <span class="argument">$poldiv</span>, String  <span class="argument">$city</span>) </pre>
-                <p><em>Constructor de la clase pasandole unicamente los parametros basicos.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>integer</td>
-                                <td>$tipo </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>String</td>
-                                <td>$pais </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>String</td>
-                                <td>$poldiv </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>String</td>
-                                <td>$city </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method___construct2" name="method___construct2" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">__construct2()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct2(integer  <span class="argument">$tipo</span>, String  <span class="argument">$pais</span>, String  <span class="argument">$poldiv</span>, String  <span class="argument">$city</span>, String  <span class="argument">$calle</span>, integer  <span class="argument">$numero</span>, string  <span class="argument">$codigoPostal = &quot;&quot;</span>, integer  <span class="argument">$piso</span>, string  <span class="argument">$departamento = &quot;&quot;</span>) </pre>
-                <p><em>Constructor de la clase pasandole unicamente los parametros completos.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>integer</td>
-                                <td>$tipo </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>String</td>
-                                <td>$pais </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>String</td>
-                                <td>$poldiv </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>String</td>
-                                <td>$city </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>String</td>
-                                <td>$calle </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>integer</td>
-                                <td>$numero </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$codigoPostal </td>
-                                <td><ul>
-<li>opcional</li>
-</ul></td>
-                            </tr>
-                                                    <tr>
-                                <td>integer</td>
-                                <td>$piso </td>
-                                <td><ul>
-<li>opcional</li>
-</ul></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$departamento </td>
-                                <td><ul>
-<li>opcional</li>
-</ul></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_recuperar_dire_person" name="method_recuperar_dire_person" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">recuperar_dire_person()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">recuperar_dire_person(integer  <span class="argument">$person</span>, \number  <span class="argument">$tipo</span>) </pre>
-                <p><em>Busca los datos de la direccion de una persona en la base basados en el numero de person.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>integer</td>
-                                <td>$person </td>
-                                <td><p>numero de identificacion de la persona.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\number</td>
-                                <td>$tipo </td>
-                                <td><p>tipo de direccion que se va buscar</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\Exception</dt>
-                            <dd></dd>
-                                                                    </dl>
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_grabar_direccion" name="method_grabar_direccion" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">grabar_direccion()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">grabar_direccion(integer  <span class="argument">$person</span>) </pre>
-                <p><em>Graba los datos modificados de la clase en la base de datos.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>integer</td>
-                                <td>$person </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\Exception</dt>
-                            <dd></dd>
-                                                                    </dl>
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getTipo" name="method_getTipo" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getTipo()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getTipo() : integer</pre>
-                <p><em>Retorna el tipo de direccion.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    integer
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getTipo_hf" name="method_getTipo_hf" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getTipo_hf()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getTipo_hf() : String</pre>
-                <p><em>Retorna el tipo de direccion formateado para que sea entendible.</em></p>
-                
-
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\Exception</dt>
-                            <dd><p>En caso de no encontrar el tipo.</p></dd>
-                                                                    </dl>
-                
-                                    <h4>Returns</h4>
-                    String
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setTipo" name="method_setTipo" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setTipo()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setTipo(\number  <span class="argument">$tipo</span>) </pre>
-                <p><em>Carga el valor pasado en el parametro tipo.</em></p>
-                <p>Siempre que el valor pasado este dentro de los permitidos.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\number</td>
-                                <td>$tipo </td>
-                                <td><p>por el momento puede ser: 0, 1 o 2.</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\Exception</dt>
-                            <dd><p>En caso de querer setear un tipo que no este establesido.</p></dd>
-                                                                    </dl>
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getPais" name="method_getPais" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getPais()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getPais() : string</pre>
-                <p><em>Retorna el codigo de pais seteado.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getPais_hf" name="method_getPais_hf" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getPais_hf()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getPais_hf() : String</pre>
-                <p><em>Retorna el nombre del pais recuperado de la tabla appgral.country para que sea entendible por la persona.</em></p>
-                
-
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\Exception</dt>
-                            <dd><p>En caso de no encontrar el valor en la tabla retorna un error.</p></dd>
-                                                                    </dl>
-                
-                                    <h4>Returns</h4>
-                    String
-                                            &mdash; <p>Nombre del pais.</p>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setPais" name="method_setPais" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setPais()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setPais(string  <span class="argument">$pais</span>) </pre>
-                <p><em>Comprueba que el codigo del pais se encuentre en appgral.country en caso de encontrarlo realiza el seteo.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$pais </td>
-                                <td><p>Codigo del pais a setear.</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\Exception</dt>
-                            <dd><p>En caso de no encontrar el valor en la tabla retorna un error.</p></dd>
-                                                                    </dl>
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getPoldiv" name="method_getPoldiv" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getPoldiv()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getPoldiv() : string</pre>
-                <p><em>Retorna el codigo de la provincia seteado.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getPoldiv_hf" name="method_getPoldiv_hf" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getPoldiv_hf()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getPoldiv_hf() : String</pre>
-                <p><em>Retorna el nombre de la provincia recuperado de la tabla appgral.poldiv para que sea entendible por la persona.</em></p>
-                <p>Para hacerlo usa el parametro pais de la clase si esta definido, y ARG en caso de que no.</p>
-
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\Exception</dt>
-                            <dd><p>Retorna error en caso de no encontrar la provincia en la base.</p></dd>
-                                                                    </dl>
-                
-                                    <h4>Returns</h4>
-                    String
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setPoldiv" name="method_setPoldiv" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setPoldiv()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setPoldiv(String  <span class="argument">$poldiv</span>) </pre>
-                <p><em>Comprueba que el dato pasado por parametro exista en la tabla appgral.poldiv para hacerlo usa el parametro pais de la clase si esta definido, y ARG en caso de que no.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>String</td>
-                                <td>$poldiv </td>
-                                <td><p>dato con el que setear el parametro</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\Exception</dt>
-                            <dd><p>en caso de que no se encuentre el dato.</p></dd>
-                                                                    </dl>
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getCity" name="method_getCity" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getCity()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getCity() : string</pre>
-                <p><em>Retorna el codigo de la ciudad seteado.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getCity_hf" name="method_getCity_hf" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getCity_hf()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getCity_hf() : String</pre>
-                <p><em>Retorna el nombre de la ciudad recuperado de la tabla appgral.city para que sea entendible por la persona.</em></p>
-                <p>Para hacerlo usa el parametro pais de la clase si esta definido, y ARG en caso de que no.
-Y el parametro poldiv en caso de estar establecido.</p>
-
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\Exception</dt>
-                            <dd><p>en caso de que no se encuentre el dato.</p></dd>
-                                                                    </dl>
-                
-                                    <h4>Returns</h4>
-                    String
-                                            &mdash; <p>Con la descripcion de la ciudad.</p>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setCity" name="method_setCity" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setCity()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setCity(String  <span class="argument">$city</span>) </pre>
-                <p><em>Comprueba que el dato pasado por parametro exista en la tabla appgral.city para hacerlo usa el parametro pais de la clase si esta definido, y ARG en caso de que no.</em></p>
-                <p>Y el parametro poldiv en caso de estar establecido.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>String</td>
-                                <td>$city </td>
-                                <td><p>dato con el que setear el parametro</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\Exception</dt>
-                            <dd><p>en caso de que no se encuentre el dato.</p></dd>
-                                                                    </dl>
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getCalle" name="method_getCalle" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getCalle()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getCalle() : string</pre>
-                <p><em>Retorna el valor del parametro calle.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setCalle" name="method_setCalle" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setCalle()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setCalle(string  <span class="argument">$calle</span>) </pre>
-                <p><em>Setea un nuevo valor en el parametro calle.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$calle </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getNumero" name="method_getNumero" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getNumero()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getNumero() : integer</pre>
-                <p><em>Retorna el valor del parametro numero.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    integer
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setNumero" name="method_setNumero" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setNumero()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setNumero(integer  <span class="argument">$numero</span>) </pre>
-                <p><em>Comprueba si el parametro pasado es un numero y si esta todo OK setea numero con ese dato.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>integer</td>
-                                <td>$numero </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getPiso" name="method_getPiso" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getPiso()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getPiso() : integer</pre>
-                <p><em>Retorna el valor del parametro piso.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    integer
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setPiso" name="method_setPiso" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setPiso()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setPiso(string  <span class="argument">$piso</span>) </pre>
-                <p><em>Comprueba si el parametro pasado es un numero y si esta todo OK setea piso con ese dato.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$piso </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getDepartamento" name="method_getDepartamento" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getDepartamento()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getDepartamento() : string</pre>
-                <p><em>Retorna el valor del parametro departamento.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setDepartamento" name="method_setDepartamento" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setDepartamento()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setDepartamento(string  <span class="argument">$departamento</span>) </pre>
-                <p><em>Setea el valor del parametro departamento.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$departamento </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getCodigoPostal" name="method_getCodigoPostal" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getCodigoPostal()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getCodigoPostal() : string</pre>
-                <p><em>Retorna el valor del parametro codigoPostal.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setCodigoPostal" name="method_setCodigoPostal" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setCodigoPostal()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setCodigoPostal(string  <span class="argument">$codigoPostal</span>) </pre>
-                <p><em>Setea el valor del parametro codigoPostal.</em></p>
-                <p>XXX Creo que este parametro tambien deberia chequearse en la base de datos.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$codigoPostal </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getDomicilio" name="method_getDomicilio" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getDomicilio()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getDomicilio() : string</pre>
-                <p><em>Retorna el valor del parametro domicilio.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setDomicilio" name="method_setDomicilio" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setDomicilio()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setDomicilio(string  <span class="argument">$domicilio</span>) </pre>
-                <p><em>Setea el valor del parametro domicilio.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$domicilio </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_cargar_db_apers" name="method_cargar_db_apers" class="anchor"></a>
-            <article class="method">
-                <h3 class="private ">cargar_db_apers()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">cargar_db_apers(integer  <span class="argument">$person</span>, array  <span class="argument">$datos2</span>, array  <span class="argument">$datoViejo</span>, string  <span class="argument">$pattrib</span>, string  <span class="argument">$shortdes</span>, string  <span class="argument">$val</span>) </pre>
-                <p><em>Recive los datos cargados en la base, los catoja con los actuales de la clase y si corresponde realiza el insert o el update</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>integer</td>
-                                <td>$person </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>array</td>
-                                <td>$datos2 </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>array</td>
-                                <td>$datoViejo </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$pattrib </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$shortdes </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$val </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    </div>
-    </section>
-
-    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="source-view-label">class_Direcciones.php</h3>
-        </div>
-        <div class="modal-body">
-            <pre data-src="../files/class_Direcciones.php.txt" class="language-php line-numbers"></pre>
-        </div>
-    </div>
-
-    <footer class="row-fluid">
-        <section class="span10 offset2">
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <section class="row-fluid footer-sections">
-                        <section class="span4">
-                                                        <h1><i class="icon-code"></i></h1>
-                            <div>
-                                <ul>
-                                                                    </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-bar-chart"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-pushpin"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../reports/errors.html">Errors</a></li>
-                                    <li><a href="../reports/markers.html">Markers</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-            </section>
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <hr />
-                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 19th, 2019 at 12:19.
-                </section>
-            </section>
-        </section>
-    </footer>
-</div>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <i class="icon-ellipsis-vertical"></i>
+				</a> <a class="brand" href="../index.html">API Documentation</a>
+
+				<div class="nav-collapse">
+					<ul class="nav pull-right">
+						<li class="dropdown" id="charts-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> Charts <b
+								class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="../graphs/class.html"> <i
+										class="icon-list-alt"></i>&#160;Class hierarchy diagram
+								</a></li>
+							</ul></li>
+						<li class="dropdown" id="reports-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> Reports <b
+								class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="../reports/errors.html"> <i
+										class="icon-list-alt"></i>&#160;Errors <span
+										class="label label-info pull-right">114</span>
+								</a></li>
+								<li><a href="../reports/markers.html"> <i
+										class="icon-list-alt"></i>&#160;Markers <span
+										class="label label-info pull-right">22</span>
+								</a></li>
+								<li><a href="../reports/deprecated.html"> <i
+										class="icon-list-alt"></i>&#160;Deprecated <span
+										class="label label-info pull-right">0</span>
+								</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--<div class="go_to_top">-->
+		<!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+		<!--</div>-->
+	</div>
+
+	<div id="___" class="container-fluid">
+		<section class="row-fluid">
+			<div class="span2 sidebar">
+				<div class="accordion" style="margin-bottom: 0">
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle " data-toggle="collapse"
+								data-target="#namespace-105030197"></a> <a
+								href="../namespaces/default.html"
+								style="margin-left: 30px; padding-left: 0">\</a>
+						</div>
+						<div id="namespace-105030197" class="accordion-body collapse in">
+							<div class="accordion-inner">
+
+
+								<ul>
+									<li class="class"><a href="../classes/Alumnos.html">Alumnos</a></li>
+									<li class="class"><a href="../classes/Conexion.html">Conexion</a></li>
+									<li class="class"><a href="../classes/Cuentas.html">Cuentas</a></li>
+									<li class="class"><a href="../classes/Direcciones.html">Direcciones</a></li>
+									<li class="class"><a href="../classes/Documentos.html">Documentos</a></li>
+									<li class="class"><a href="../classes/Empleados.html">Empleados</a></li>
+									<li class="class"><a href="../classes/listados.html">listados</a></li>
+									<li class="class"><a href="../classes/Personas.html">Personas</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<section class="row-fluid">
+			<div class="span10 offset2">
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<nav>
+							<a href="../namespaces/default.html">\</a> <i
+								class="icon-level-up"></i>
+						</nav>
+						<a href="#source-view" role="button" class="pull-right btn"
+							data-toggle="modal"><i class="icon-code"></i></a>
+
+						<h1>
+							<small>\</small>Direcciones
+						</h1>
+						<p>
+							<em>Clase direcciones, maneja los parametros de las
+								direcciones y agrupa las funciones necesarias para su alta baja
+								y modificacion.</em>
+						</p>
+
+
+
+						<section id="summary">
+							<h2>Summary</h2>
+							<section class="row-fluid heading">
+								<section class="span4">
+									<a href="#methods">Methods</a>
+								</section>
+								<section class="span4">
+									<a href="#properties">Properties</a>
+								</section>
+								<section class="span4">
+									<a href="#constants">Constants</a>
+								</section>
+							</section>
+							<section class="row-fluid public">
+								<section class="span4">
+									<a href="../classes/Direcciones.html#method___toString"
+										class="">__toString()</a><br /> <a
+										href="../classes/Direcciones.html#method___construct" class="">__construct()</a><br />
+									<a href="../classes/Direcciones.html#method___construct1"
+										class="">__construct1()</a><br /> <a
+										href="../classes/Direcciones.html#method___construct2"
+										class="">__construct2()</a><br /> <a
+										href="../classes/Direcciones.html#method_recuperar_dire_person"
+										class="">recuperar_dire_person()</a><br /> <a
+										href="../classes/Direcciones.html#method_grabar_direccion"
+										class="">grabar_direccion()</a><br /> <a
+										href="../classes/Direcciones.html#method_getTipo" class="">getTipo()</a><br />
+									<a href="../classes/Direcciones.html#method_getTipo_hf"
+										class="">getTipo_hf()</a><br /> <a
+										href="../classes/Direcciones.html#method_setTipo" class="">setTipo()</a><br />
+									<a href="../classes/Direcciones.html#method_getPais" class="">getPais()</a><br />
+									<a href="../classes/Direcciones.html#method_getPais_hf"
+										class="">getPais_hf()</a><br /> <a
+										href="../classes/Direcciones.html#method_setPais" class="">setPais()</a><br />
+									<a href="../classes/Direcciones.html#method_getPoldiv" class="">getPoldiv()</a><br />
+									<a href="../classes/Direcciones.html#method_getPoldiv_hf"
+										class="">getPoldiv_hf()</a><br /> <a
+										href="../classes/Direcciones.html#method_setPoldiv" class="">setPoldiv()</a><br />
+									<a href="../classes/Direcciones.html#method_getCity" class="">getCity()</a><br />
+									<a href="../classes/Direcciones.html#method_getCity_hf"
+										class="">getCity_hf()</a><br /> <a
+										href="../classes/Direcciones.html#method_setCity" class="">setCity()</a><br />
+									<a href="../classes/Direcciones.html#method_getCalle" class="">getCalle()</a><br />
+									<a href="../classes/Direcciones.html#method_setCalle" class="">setCalle()</a><br />
+									<a href="../classes/Direcciones.html#method_getNumero" class="">getNumero()</a><br />
+									<a href="../classes/Direcciones.html#method_setNumero" class="">setNumero()</a><br />
+									<a href="../classes/Direcciones.html#method_getPiso" class="">getPiso()</a><br />
+									<a href="../classes/Direcciones.html#method_setPiso" class="">setPiso()</a><br />
+									<a href="../classes/Direcciones.html#method_getDepartamento"
+										class="">getDepartamento()</a><br /> <a
+										href="../classes/Direcciones.html#method_setDepartamento"
+										class="">setDepartamento()</a><br /> <a
+										href="../classes/Direcciones.html#method_getCodigoPostal"
+										class="">getCodigoPostal()</a><br /> <a
+										href="../classes/Direcciones.html#method_setCodigoPostal"
+										class="">setCodigoPostal()</a><br /> <a
+										href="../classes/Direcciones.html#method_getDomicilio"
+										class="">getDomicilio()</a><br /> <a
+										href="../classes/Direcciones.html#method_setDomicilio"
+										class="">setDomicilio()</a><br />
+								</section>
+								<section class="span4">
+									<em>No public properties found</em>
+								</section>
+								<section class="span4">
+									<em>No constants found</em>
+								</section>
+							</section>
+							<section class="row-fluid protected">
+								<section class="span4">
+									<em>No protected methods found</em>
+								</section>
+								<section class="span4">
+									<a href="../classes/Direcciones.html#property_tipo" class="">$tipo</a><br />
+									<a href="../classes/Direcciones.html#property_pais" class="">$pais</a><br />
+									<a href="../classes/Direcciones.html#property_poldiv" class="">$poldiv</a><br />
+									<a href="../classes/Direcciones.html#property_city" class="">$city</a><br />
+									<a href="../classes/Direcciones.html#property_calle" class="">$calle</a><br />
+									<a href="../classes/Direcciones.html#property_numero" class="">$numero</a><br />
+									<a href="../classes/Direcciones.html#property_piso" class="">$piso</a><br />
+									<a href="../classes/Direcciones.html#property_departamento"
+										class="">$departamento</a><br /> <a
+										href="../classes/Direcciones.html#property_codigoPostal"
+										class="">$codigoPostal</a><br /> <a
+										href="../classes/Direcciones.html#property_domicilio" class="">$domicilio</a><br />
+								</section>
+								<section class="span4">
+									<em>N/A</em>
+								</section>
+							</section>
+							<section class="row-fluid private">
+								<section class="span4">
+									<a href="../classes/Direcciones.html#method_cargar_db_apers"
+										class="">cargar_db_apers()</a><br />
+								</section>
+								<section class="span4">
+									<a href="../classes/Direcciones.html#property_db" class="">$db</a><br />
+								</section>
+								<section class="span4">
+									<em>N/A</em>
+								</section>
+							</section>
+						</section>
+					</div>
+					<aside class="span4 detailsbar">
+
+
+						<dl>
+							<dt>File</dt>
+							<dd>
+								<a href="../files/class_Direcciones.html"><div
+										class="path-wrapper">class_Direcciones.php</div></a>
+							</dd>
+							<dt>Package</dt>
+							<dd>
+								<div class="namespace-wrapper">Default</div>
+							</dd>
+							<dt>Class hierarchy</dt>
+							<dd class="hierarchy">
+								<div class="namespace-wrapper">\Direcciones</div>
+							</dd>
+
+
+
+
+
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>author</th>
+								<td>
+									<p>iberlot &lt;@&gt; iberlot@usal.edu.ar</p>
+								</td>
+							</tr>
+							<tr>
+								<th>since</th>
+								<td>
+									<p>nov. 2018</p>
+								</td>
+							</tr>
+							<tr>
+								<th>name</th>
+								<td>
+									<p>Direcciones</p>
+								</td>
+							</tr>
+							<tr>
+								<th>version</th>
+								<td>
+									<p>version inicial.</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+
+				<a id="properties" name="properties"></a>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<h2>Properties</h2>
+					</div>
+					<aside class="span4 detailsbar"></aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_tipo" name="property_tipo" class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$tipo</h3>
+							<pre class="signature">$tipo : integer</pre>
+							<p>
+								<em>Tipo de direccion, corresponde a si es la direccion de
+									residencia = 0 (datos que en la base comiensan con r), de
+									nacimiento = 1 o profecional = 2 Cabe la posibilidad de que en
+									en futuro se creen nuevos tipos de direcciones.</em>
+							</p>
+							<p>Si se llegaran a agregar tipos hay que recordar modificar
+								las funciones correspondientes (Ej: getTipo_hf y setTipo).</p>
+
+							<h4>Type</h4>
+							integer
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_pais" name="property_pais" class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$pais</h3>
+							<pre class="signature">$pais : string</pre>
+							<p>
+								<em>Pais de nacimiento de la persona si tipo es igual 1.</em>
+							</p>
+							<p>Pais de residencia de la persona si tipo es igual 0.</p>
+
+							<h4>Type</h4>
+							string &mdash; &lt;Br&gt; @ubicacionBase appgral.person.country -
+							VARCHAR2(3 BYTE) si tipo es igual 1. @ubicacionBase
+							appgral.person.rcountry - VARCHAR2(3 BYTE) si tipo es igual 0.
+							&lt;Br&gt; &lt;Br&gt; La tabla de referencia al dato es
+							appgral.country
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>todo</th>
+								<td>
+									<p>Este campo es obligatorio a la hora de crear personas.</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_poldiv" name="property_poldiv" class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$poldiv</h3>
+							<pre class="signature">$poldiv : string</pre>
+							<p>
+								<em>Provincia de nacimiento de la persona si tipo es igual
+									1.</em>
+							</p>
+							<p>Provincia de residencia de la persona si tipo es igual 0.</p>
+
+							<h4>Type</h4>
+							string &mdash; &lt;Br&gt; @ubicacionBase appgral.person.poldiv -
+							VARCHAR2(3 BYTE) si tipo es igual 1. @ubicacionBase
+							appgral.person.rpoldiv - VARCHAR2(3 BYTE) si tipo es igual 0.
+							&lt;Br&gt; &lt;Br&gt; La tabla de referencia al dato es
+							appgral.poldiv
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>todo</th>
+								<td>
+									<p>Este campo es obligatorio a la hora de crear personas.</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_city" name="property_city" class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$city</h3>
+							<pre class="signature">$city : string</pre>
+							<p>
+								<em>Ciudad de nacimiento de la persona si tipo es igual 1.</em>
+							</p>
+							<p>Ciudad de residencia de la persona si tipo es igual 0.</p>
+
+							<h4>Type</h4>
+							string &mdash; &lt;Br&gt; @ubicacionBase appgral.person.city -
+							VARCHAR2(10 BYTE) si tipo es igual 1. @ubicacionBase
+							appgral.person.rcity - VARCHAR2(10 BYTE) si tipo es igual 0.
+							&lt;Br&gt; &lt;Br&gt; La tabla de referencia al dato es
+							appgral.city
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>todo</th>
+								<td>
+									<p>Este campo es obligatorio a la hora de crear personas.</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_calle" name="property_calle" class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$calle</h3>
+							<pre class="signature">$calle : string</pre>
+							<p>
+								<em>Calle de la direccion de la persona</em>
+							</p>
+
+
+							<h4>Type</h4>
+							string &mdash; &lt;Br&gt; @ubicacionBase appgral.apers.val -
+							VARCHAR2(100 BYTE) &lt;Br&gt; Siempre que: appgral.apers.pattrib
+							= &#039;DOMI&#039; y appgral.apers.shortdes = &#039;CALLE&#039;
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_numero" name="property_numero" class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$numero</h3>
+							<pre class="signature">$numero : integer</pre>
+							<p>
+								<em>Numero de la direccion de la persona</em>
+							</p>
+
+
+							<h4>Type</h4>
+							integer &mdash; &lt;Br&gt; @ubicacionBase appgral.apers.val -
+							VARCHAR2(100 BYTE) &lt;Br&gt; Siempre que: appgral.apers.pattrib
+							= &#039;DOMI&#039; y appgral.apers.shortdes = &#039;NRO&#039;
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_piso" name="property_piso" class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$piso</h3>
+							<pre class="signature">$piso : integer</pre>
+							<p>
+								<em>Piso de la direccion de la persona</em>
+							</p>
+
+
+							<h4>Type</h4>
+							integer &mdash; &lt;Br&gt; @ubicacionBase appgral.apers.val -
+							VARCHAR2(100 BYTE) &lt;Br&gt; Siempre que: appgral.apers.pattrib
+							= &#039;DOMI&#039; y appgral.apers.shortdes = &#039;PISO&#039;
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_departamento" name="property_departamento"
+							class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$departamento</h3>
+							<pre class="signature">$departamento : string</pre>
+							<p>
+								<em>Dto de la direccion de la persona</em>
+							</p>
+
+
+							<h4>Type</h4>
+							string &mdash; &lt;Br&gt; @ubicacionBase appgral.apers.val -
+							VARCHAR2(100 BYTE) &lt;Br&gt; Siempre que: appgral.apers.pattrib
+							= &#039;DOMI&#039; y appgral.apers.shortdes = &#039;DEPTO&#039;
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_codigoPostal" name="property_codigoPostal"
+							class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$codigoPostal</h3>
+							<pre class="signature">$codigoPostal : string</pre>
+							<p>
+								<em>Codigo postal de la direccion de la persona</em>
+							</p>
+
+
+							<h4>Type</h4>
+							string &mdash; &lt;Br&gt; @ubicacionBase appgral.apers.val -
+							VARCHAR2(100 BYTE) &lt;Br&gt; Siempre que: appgral.apers.pattrib
+							= &#039;DOMI&#039; y appgral.apers.shortdes = &#039;CODPOS&#039;
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_domicilio" name="property_domicilio"
+							class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$domicilio</h3>
+							<pre class="signature">$domicilio : string</pre>
+							<p>
+								<em>Direccion en string que une calle numero y muchas veces
+									depto en un solo campo.</em>
+							</p>
+
+
+							<h4>Type</h4>
+							string &mdash; &lt;Br&gt; @ubicacionBase
+							sueldos.personal.domicilio - VARCHAR2(30 BYTE)
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>todo</th>
+								<td>
+									<p>lo ideal es tratarlo para que quede separado de la forma
+										que corresponde</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_db" name="property_db" class="anchor"></a>
+						<article class="property">
+							<h3 class="private ">$db</h3>
+							<pre class="signature">$db : object</pre>
+							<p>
+								<em>Objeto que se encarga de las conecciones a la base de
+									datos.</em>
+							</p>
+
+
+							<h4>Type</h4>
+							object &mdash; objeto inicializado del tipo class_db
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+
+				<a id="methods" name="methods"></a>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<h2>Methods</h2>
+					</div>
+					<aside class="span4 detailsbar"></aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method___toString" name="method___toString" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">__toString()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">__toString() : string</pre>
+							<p>
+								<em>Funcion llamada en caso de hacer una imprecion por
+									pantalla del objeto.</em>
+							</p>
+							<p>Va a mostrar la direccion de la persona formateada de la
+								forma CALLE NUMERO PISO DTO (CP) CIUDAD PROVINCIA PAIS</p>
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method___construct" name="method___construct"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">__construct()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">__construct() </pre>
+							<p>
+								<em>Constructos de la clase vacia.</em>
+							</p>
+							<p>Lo unico que hace es crear la nueva coneccion a la base de
+								datos.</p>
+
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method___construct1" name="method___construct1"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">__construct1()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">__construct1(integer  <span
+									class="argument">$tipo</span>, String  <span class="argument">$pais</span>, String  <span
+									class="argument">$poldiv</span>, String  <span class="argument">$city</span>) </pre>
+							<p>
+								<em>Constructor de la clase pasandole unicamente los
+									parametros basicos.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>integer</td>
+									<td>$tipo</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>String</td>
+									<td>$pais</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>String</td>
+									<td>$poldiv</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>String</td>
+									<td>$city</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method___construct2" name="method___construct2"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">__construct2()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">__construct2(integer  <span
+									class="argument">$tipo</span>, String  <span class="argument">$pais</span>, String  <span
+									class="argument">$poldiv</span>, String  <span class="argument">$city</span>, String  <span
+									class="argument">$calle</span>, integer  <span class="argument">$numero</span>, string  <span
+									class="argument">$codigoPostal = &quot;&quot;</span>, integer  <span
+									class="argument">$piso</span>, string  <span class="argument">$departamento = &quot;&quot;</span>) </pre>
+							<p>
+								<em>Constructor de la clase pasandole unicamente los
+									parametros completos.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>integer</td>
+									<td>$tipo</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>String</td>
+									<td>$pais</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>String</td>
+									<td>$poldiv</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>String</td>
+									<td>$city</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>String</td>
+									<td>$calle</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>integer</td>
+									<td>$numero</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>string</td>
+									<td>$codigoPostal</td>
+									<td><ul>
+											<li>opcional</li>
+										</ul></td>
+								</tr>
+								<tr>
+									<td>integer</td>
+									<td>$piso</td>
+									<td><ul>
+											<li>opcional</li>
+										</ul></td>
+								</tr>
+								<tr>
+									<td>string</td>
+									<td>$departamento</td>
+									<td><ul>
+											<li>opcional</li>
+										</ul></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_recuperar_dire_person"
+							name="method_recuperar_dire_person" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">recuperar_dire_person()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">recuperar_dire_person(integer  <span
+									class="argument">$person</span>, \number  <span
+									class="argument">$tipo</span>) </pre>
+							<p>
+								<em>Busca los datos de la direccion de una persona en la
+									base basados en el numero de person.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>integer</td>
+									<td>$person</td>
+									<td><p>numero de identificacion de la persona.</p></td>
+								</tr>
+								<tr>
+									<td>\number</td>
+									<td>$tipo</td>
+									<td><p>tipo de direccion que se va buscar</p></td>
+								</tr>
+							</table>
+
+							<h4>Throws</h4>
+							<dl>
+								<dt>\Exception</dt>
+								<dd></dd>
+							</dl>
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_grabar_direccion" name="method_grabar_direccion"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">grabar_direccion()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">grabar_direccion(integer  <span
+									class="argument">$person</span>) </pre>
+							<p>
+								<em>Graba los datos modificados de la clase en la base de
+									datos.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>integer</td>
+									<td>$person</td>
+									<td></td>
+								</tr>
+							</table>
+
+							<h4>Throws</h4>
+							<dl>
+								<dt>\Exception</dt>
+								<dd></dd>
+							</dl>
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getTipo" name="method_getTipo" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getTipo()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getTipo() : integer</pre>
+							<p>
+								<em>Retorna el tipo de direccion.</em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							integer
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getTipo_hf" name="method_getTipo_hf" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getTipo_hf()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getTipo_hf() : String</pre>
+							<p>
+								<em>Retorna el tipo de direccion formateado para que sea
+									entendible.</em>
+							</p>
+
+
+
+							<h4>Throws</h4>
+							<dl>
+								<dt>\Exception</dt>
+								<dd>
+									<p>En caso de no encontrar el tipo.</p>
+								</dd>
+							</dl>
+
+							<h4>Returns</h4>
+							String
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setTipo" name="method_setTipo" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setTipo()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setTipo(\number  <span
+									class="argument">$tipo</span>) </pre>
+							<p>
+								<em>Carga el valor pasado en el parametro tipo.</em>
+							</p>
+							<p>Siempre que el valor pasado este dentro de los permitidos.</p>
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>\number</td>
+									<td>$tipo</td>
+									<td><p>por el momento puede ser: 0, 1 o 2.</p></td>
+								</tr>
+							</table>
+
+							<h4>Throws</h4>
+							<dl>
+								<dt>\Exception</dt>
+								<dd>
+									<p>En caso de querer setear un tipo que no este
+										establesido.</p>
+								</dd>
+							</dl>
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getPais" name="method_getPais" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getPais()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getPais() : string</pre>
+							<p>
+								<em>Retorna el codigo de pais seteado.</em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getPais_hf" name="method_getPais_hf" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getPais_hf()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getPais_hf() : String</pre>
+							<p>
+								<em>Retorna el nombre del pais recuperado de la tabla
+									appgral.country para que sea entendible por la persona.</em>
+							</p>
+
+
+
+							<h4>Throws</h4>
+							<dl>
+								<dt>\Exception</dt>
+								<dd>
+									<p>En caso de no encontrar el valor en la tabla retorna un
+										error.</p>
+								</dd>
+							</dl>
+
+							<h4>Returns</h4>
+							String &mdash;
+							<p>Nombre del pais.</p>
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setPais" name="method_setPais" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setPais()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setPais(string  <span
+									class="argument">$pais</span>) </pre>
+							<p>
+								<em>Comprueba que el codigo del pais se encuentre en
+									appgral.country en caso de encontrarlo realiza el seteo.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$pais</td>
+									<td><p>Codigo del pais a setear.</p></td>
+								</tr>
+							</table>
+
+							<h4>Throws</h4>
+							<dl>
+								<dt>\Exception</dt>
+								<dd>
+									<p>En caso de no encontrar el valor en la tabla retorna un
+										error.</p>
+								</dd>
+							</dl>
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getPoldiv" name="method_getPoldiv" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getPoldiv()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getPoldiv() : string</pre>
+							<p>
+								<em>Retorna el codigo de la provincia seteado.</em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getPoldiv_hf" name="method_getPoldiv_hf"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getPoldiv_hf()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getPoldiv_hf() : String</pre>
+							<p>
+								<em>Retorna el nombre de la provincia recuperado de la
+									tabla appgral.poldiv para que sea entendible por la persona.</em>
+							</p>
+							<p>Para hacerlo usa el parametro pais de la clase si esta
+								definido, y ARG en caso de que no.</p>
+
+
+							<h4>Throws</h4>
+							<dl>
+								<dt>\Exception</dt>
+								<dd>
+									<p>Retorna error en caso de no encontrar la provincia en la
+										base.</p>
+								</dd>
+							</dl>
+
+							<h4>Returns</h4>
+							String
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setPoldiv" name="method_setPoldiv" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setPoldiv()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setPoldiv(String  <span
+									class="argument">$poldiv</span>) </pre>
+							<p>
+								<em>Comprueba que el dato pasado por parametro exista en la
+									tabla appgral.poldiv para hacerlo usa el parametro pais de la
+									clase si esta definido, y ARG en caso de que no.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>String</td>
+									<td>$poldiv</td>
+									<td><p>dato con el que setear el parametro</p></td>
+								</tr>
+							</table>
+
+							<h4>Throws</h4>
+							<dl>
+								<dt>\Exception</dt>
+								<dd>
+									<p>en caso de que no se encuentre el dato.</p>
+								</dd>
+							</dl>
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getCity" name="method_getCity" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getCity()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getCity() : string</pre>
+							<p>
+								<em>Retorna el codigo de la ciudad seteado.</em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getCity_hf" name="method_getCity_hf" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getCity_hf()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getCity_hf() : String</pre>
+							<p>
+								<em>Retorna el nombre de la ciudad recuperado de la tabla
+									appgral.city para que sea entendible por la persona.</em>
+							</p>
+							<p>Para hacerlo usa el parametro pais de la clase si esta
+								definido, y ARG en caso de que no. Y el parametro poldiv en caso
+								de estar establecido.</p>
+
+
+							<h4>Throws</h4>
+							<dl>
+								<dt>\Exception</dt>
+								<dd>
+									<p>en caso de que no se encuentre el dato.</p>
+								</dd>
+							</dl>
+
+							<h4>Returns</h4>
+							String &mdash;
+							<p>Con la descripcion de la ciudad.</p>
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setCity" name="method_setCity" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setCity()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setCity(String  <span
+									class="argument">$city</span>) </pre>
+							<p>
+								<em>Comprueba que el dato pasado por parametro exista en la
+									tabla appgral.city para hacerlo usa el parametro pais de la
+									clase si esta definido, y ARG en caso de que no.</em>
+							</p>
+							<p>Y el parametro poldiv en caso de estar establecido.</p>
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>String</td>
+									<td>$city</td>
+									<td><p>dato con el que setear el parametro</p></td>
+								</tr>
+							</table>
+
+							<h4>Throws</h4>
+							<dl>
+								<dt>\Exception</dt>
+								<dd>
+									<p>en caso de que no se encuentre el dato.</p>
+								</dd>
+							</dl>
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getCalle" name="method_getCalle" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getCalle()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getCalle() : string</pre>
+							<p>
+								<em>Retorna el valor del parametro calle.</em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setCalle" name="method_setCalle" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setCalle()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setCalle(string  <span
+									class="argument">$calle</span>) </pre>
+							<p>
+								<em>Setea un nuevo valor en el parametro calle.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$calle</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getNumero" name="method_getNumero" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getNumero()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getNumero() : integer</pre>
+							<p>
+								<em>Retorna el valor del parametro numero.</em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							integer
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setNumero" name="method_setNumero" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setNumero()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setNumero(integer  <span
+									class="argument">$numero</span>) </pre>
+							<p>
+								<em>Comprueba si el parametro pasado es un numero y si esta
+									todo OK setea numero con ese dato.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>integer</td>
+									<td>$numero</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getPiso" name="method_getPiso" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getPiso()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getPiso() : integer</pre>
+							<p>
+								<em>Retorna el valor del parametro piso.</em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							integer
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setPiso" name="method_setPiso" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setPiso()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setPiso(string  <span
+									class="argument">$piso</span>) </pre>
+							<p>
+								<em>Comprueba si el parametro pasado es un numero y si esta
+									todo OK setea piso con ese dato.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$piso</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getDepartamento" name="method_getDepartamento"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getDepartamento()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getDepartamento() : string</pre>
+							<p>
+								<em>Retorna el valor del parametro departamento.</em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setDepartamento" name="method_setDepartamento"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setDepartamento()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setDepartamento(string  <span
+									class="argument">$departamento</span>) </pre>
+							<p>
+								<em>Setea el valor del parametro departamento.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$departamento</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getCodigoPostal" name="method_getCodigoPostal"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getCodigoPostal()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getCodigoPostal() : string</pre>
+							<p>
+								<em>Retorna el valor del parametro codigoPostal.</em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setCodigoPostal" name="method_setCodigoPostal"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setCodigoPostal()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setCodigoPostal(string  <span
+									class="argument">$codigoPostal</span>) </pre>
+							<p>
+								<em>Setea el valor del parametro codigoPostal.</em>
+							</p>
+							<p>XXX Creo que este parametro tambien deberia chequearse en
+								la base de datos.</p>
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$codigoPostal</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getDomicilio" name="method_getDomicilio"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getDomicilio()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getDomicilio() : string</pre>
+							<p>
+								<em>Retorna el valor del parametro domicilio.</em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setDomicilio" name="method_setDomicilio"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setDomicilio()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setDomicilio(string  <span
+									class="argument">$domicilio</span>) </pre>
+							<p>
+								<em>Setea el valor del parametro domicilio.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$domicilio</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_cargar_db_apers" name="method_cargar_db_apers"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="private ">cargar_db_apers()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">cargar_db_apers(integer  <span
+									class="argument">$person</span>, array  <span class="argument">$datos2</span>, array  <span
+									class="argument">$datoViejo</span>, string  <span
+									class="argument">$pattrib</span>, string  <span
+									class="argument">$shortdes</span>, string  <span
+									class="argument">$val</span>) </pre>
+							<p>
+								<em>Recive los datos cargados en la base, los catoja con
+									los actuales de la clase y si corresponde realiza el insert o
+									el update</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>integer</td>
+									<td>$person</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>array</td>
+									<td>$datos2</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>array</td>
+									<td>$datoViejo</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>string</td>
+									<td>$pattrib</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>string</td>
+									<td>$shortdes</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>string</td>
+									<td>$val</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+			</div>
+		</section>
+
+		<div id="source-view" class="modal hide fade" tabindex="-1"
+			role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h3 id="source-view-label">class_Direcciones.php</h3>
+			</div>
+			<div class="modal-body">
+				<pre data-src="../files/class_Direcciones.php.txt"
+					class="language-php line-numbers"></pre>
+			</div>
+		</div>
+
+		<footer class="row-fluid">
+			<section class="span10 offset2">
+				<section class="row-fluid">
+					<section class="span10 offset1">
+						<section class="row-fluid footer-sections">
+							<section class="span4">
+								<h1>
+									<i class="icon-code"></i>
+								</h1>
+								<div>
+									<ul>
+									</ul>
+								</div>
+							</section>
+							<section class="span4">
+								<h1>
+									<i class="icon-bar-chart"></i>
+								</h1>
+								<div>
+									<ul>
+										<li><a href="../graphs/class.html">Class Hierarchy
+												Diagram</a></li>
+									</ul>
+								</div>
+							</section>
+							<section class="span4">
+								<h1>
+									<i class="icon-pushpin"></i>
+								</h1>
+								<div>
+									<ul>
+										<li><a href="../reports/errors.html">Errors</a></li>
+										<li><a href="../reports/markers.html">Markers</a></li>
+									</ul>
+								</div>
+							</section>
+						</section>
+					</section>
+				</section>
+				<section class="row-fluid">
+					<section class="span10 offset1">
+						<hr />
+						Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor
+						</a> and authored on March 19th, 2019 at 12:19.
+					</section>
+				</section>
+			</section>
+		</footer>
+	</div>
 
 </body>
 </html>

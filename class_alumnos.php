@@ -33,7 +33,7 @@ require_once ("class_Personas.php");
  * @since 7 mar. 2019
  * @lenguage PHP
  * @name Alumnos
- *
+ *      
  * @version 1.1 Se elimino el parametro id, este es equivalente al person de la clase padre. iberlot <@> iberlot@usal.edu.ar 2/7/19
  */
 class Alumnos extends Personas
@@ -198,7 +198,7 @@ class Alumnos extends Personas
 	 *        	String con el dato a buscar en lname, fname o docno
 	 * @param
 	 *        	array de enteros con las faescas a usar de limitadores en la busqueda.
-	 *
+	 *        	
 	 * @return array[Alumnos] array con los alumnos que entran en esas categorias. En caso de no haber encontrado ningun resultado retornara false.
 	 */
 	public function findByProps($criterio, $fa = null)
@@ -346,7 +346,7 @@ class Alumnos extends Personas
 	 * base a un plan especifico una carrera y un alumno
 	 *
 	 * @version 0.2 Se elimino el parametro person que se le pasaba a la funcion, como estamos en una clase deberia usar el person del objeto creado. iberlot <@> iberlot@usal.edu.ar 2/7/19
-	 *
+	 *         
 	 * @param int $carrera
 	 * @param int $plan
 	 * @param array $estados
@@ -360,12 +360,12 @@ class Alumnos extends Personas
 	 *        	COURLOST, 8
 	 *        	COURFAIL 9
 	 *        	CURSADAABANDONADA 10
-	 *
+	 *        	
 	 * @param number $cuatrimestre
 	 *        	-->
 	 *        	esta serteado en menos dos , por que existen cuatrimestres -1 0 y 1
-	 *
-	 *
+	 *        	
+	 *        	
 	 * @return array de materias q no estan en el listado que le pasamos para excluir
 	 */
 	public function MateriasAprxPlanCarrera($carrera, $plan, $estados, $cuatrimestre = -2)

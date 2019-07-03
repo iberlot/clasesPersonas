@@ -40,7 +40,7 @@ class Documentos
 	 *      @ubicacionBase appgral.perdoc.docno - VARCHAR2(30 BYTE)
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
-	 *
+	 *      
 	 *       <Br>
 	 *       Hay que tener en cuenta que el campo appgral.perdoc.isKey debe se igual a 1
 	 */
@@ -53,7 +53,7 @@ class Documentos
 	 *      @ubicacionBase appgral.perdoc.typdoc - VARCHAR2(10 BYTE)
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
-	 *
+	 *      
 	 *       <Br>
 	 *       Hay que tener en cuenta que el campo appgral.perdoc.isKey debe se igual a 1
 	 *       <Br>

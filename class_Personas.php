@@ -28,11 +28,11 @@ require_once ("class_credenciales.php");
  * Clase encargada del manejo de todos los datos referentes a la persona.
  *
  * @author iberlot <@> ivanberlot@gmail.com
- *
+ *        
  * @name class_persona
- *
+ *      
  * @version 0.1 - Version de inicio
- *
+ *         
  * @todo El usuario que se conecta a la base debe tener los siguientes permisos -
  *       - SELECT :
  *       portal.usuario_web | appgral.apers | appgral.person | appgral.perdoc | appgral.personca | interfaz.estadocredenca | appgral.lnumber
@@ -69,7 +69,7 @@ abstract class Personas
 	 *      @ubicacionBase appgral.person.lname - VARCHAR2(50 BYTE)
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
-	 *
+	 *      
 	 * @internal Este dato siempre tiene que estar en mayuscula.
 	 *           $apellido = strtoupper($apellido);
 	 */
@@ -82,7 +82,7 @@ abstract class Personas
 	 *      @ubicacionBase appgral.person.fname - VARCHAR2(50 BYTE)
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
-	 *
+	 *      
 	 * @internal Este campo deberia tener la primer letra en mayuscula y el resto siempre en minuscula
 	 *           $realname = ucwords($realname);
 	 */
@@ -118,7 +118,7 @@ abstract class Personas
 	 *      substr($person, - 1)."/".substr($person, - 2, 1)."/".substr($person, - 3, 1)."/".$person.".jpg";
 	 *      ?>
 	 *      </code>
-	 *
+	 *     
 	 * @example para el Person 112469 quedaria:
 	 *          9/6/4/112469.jpg
 	 */
@@ -131,7 +131,7 @@ abstract class Personas
 	 *      @ubicacionBase appgral.person.birdate - DATE
 	 *
 	 * @todo el formato correcto para pasar este dato deberia ser 'RRRR-MM-DD' o su equivalente Año-mes-dia.
-	 *
+	 *      
 	 * @todo Este campo es obligatorio a la hora de crear personas.
 	 */
 	protected $fechaNacimiento = "";
@@ -151,7 +151,7 @@ abstract class Personas
 	 *      5 = Union de hecho
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
-	 *
+	 *      
 	 */
 	protected $estadoCivil = "";
 
@@ -162,7 +162,7 @@ abstract class Personas
 	 *      @ubicacionBase appgral.person.nation - VARCHAR2(3 BYTE)
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
-	 *
+	 *      
 	 *       <Br>
 	 *       La tabla de referencia al dato es appgral.country.
 	 *       Mas espesificamente appgral.country.nation
@@ -182,7 +182,7 @@ abstract class Personas
 	 *      3 = Por Opcion
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
-	 *
+	 *      
 	 */
 	protected $tipoNacionalidad = "";
 
@@ -438,12 +438,12 @@ abstract class Personas
 	 *
 	 * @param array $arrayDatosPersona
 	 *        	Tiene como indices obligatorios docNumero y docTipo.
-	 *
+	 *        	
 	 * @todo adicionalmente updatea el registro en appgral.lnumber para generarle el nuevo person.
-	 *
+	 *      
 	 * @throws Exception
 	 * @return int|boolean - el person en caso de realizarce todo sin problema y false si no.array
-	 *
+	 *        
 	 *         En caso de que el parametro docTipo sea numerico realiza la siguiente convecion ( 1=LE, 2=LC, 7=DNI )
 	 */
 	public function nuevoPerdoc($arrayDatosPersona)
@@ -546,7 +546,7 @@ abstract class Personas
 	 * @param mixed[] $arrayDatosPersona
 	 *        	- Debe contener los siguientes indices de forma obligatoria
 	 *        	person, categoria, fIngreso, fbaja, legajo
-	 *
+	 *        	
 	 * @throws Exception
 	 * @return boolean
 	 */
@@ -711,7 +711,7 @@ abstract class Personas
 	 * @param array $arrayDatosPersona
 	 *        	- Debe contener los siguientes indices de forma obligatoria
 	 *        	person, legajo
-	 *
+	 *        	
 	 * @throws Exception
 	 * @return boolean
 	 */
@@ -981,7 +981,7 @@ abstract class Personas
 	 * @param mixed[] $arrayDatosPersona
 	 *        	- Debe contener los siguientes indices de forma obligatoria
 	 *        	person, apellido, realname, country, poldiv, city, birdate, nation, sexo, marstat, rcountry, rpoldiv, rcity, tnation
-	 *
+	 *        	
 	 * @throws Exception
 	 *
 	 * @return number
@@ -1089,7 +1089,7 @@ abstract class Personas
 	 * Setea los atributos con los datos recuperados de la tabla appgral.person en base al person pasado
 	 *
 	 * @name buscar_PersonXPerson
-	 *
+	 *      
 	 * @param int $person
 	 *        	person a buscar
 	 */
