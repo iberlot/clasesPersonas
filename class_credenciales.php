@@ -572,7 +572,7 @@ class Credenciales
 	 * @param
 	 *        	int a cargar en la variable $nrodechip
 	 */
-	public function set_nuevo_Nrodechip($nrodechip)
+	public function set_Nrodechip($nrodechip)
 	{
 		$this->nrodechip = $nrodechip;
 	}
