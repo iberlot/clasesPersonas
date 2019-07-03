@@ -301,7 +301,7 @@ class Credenciales
 		$parametros = array ();
 		$parametros[] = $person;
 
-		$this->db->query ($sql, true, $parametros);
+		$result = $this->db->query ($sql, true, $parametros);
 
 		if ($fila = $this->db->fetch_array ($result))
 		{
