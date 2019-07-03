@@ -385,12 +385,6 @@ class Credenciales
 		$parametros[] = $this->nrodechip;
 		$parametros[] = $this->tipo_credencial;
 
-		print_r ($sql);
-		print_r ("<Br><Br>");
-		print_r ($parametros);
-		print_r ("<Br><Br>");
-		print_r ($this->db);
-
 		if ($this->db->query ($sql, true, $parametros))
 		{
 			return true;
