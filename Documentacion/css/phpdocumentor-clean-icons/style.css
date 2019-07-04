@@ -1,10 +1,12 @@
 @font-face {
 	font-family: 'phpdocumentor-clean-icons';
-	src:url('fonts/phpdocumentor-clean-icons.eot');
-	src:url('fonts/phpdocumentor-clean-icons.eot?#iefix') format('embedded-opentype'),
+	src: url('fonts/phpdocumentor-clean-icons.eot');
+	src: url('fonts/phpdocumentor-clean-icons.eot?#iefix')
+		format('embedded-opentype'),
 		url('fonts/phpdocumentor-clean-icons.woff') format('woff'),
 		url('fonts/phpdocumentor-clean-icons.ttf') format('truetype'),
-		url('fonts/phpdocumentor-clean-icons.svg#phpdocumentor-clean-icons') format('svg');
+		url('fonts/phpdocumentor-clean-icons.svg#phpdocumentor-clean-icons')
+		format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -37,12 +39,15 @@ you can use the generic selector below, but it's slower:
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 }
+
 .icon-trait:before {
 	content: "\e000";
 }
+
 .icon-interface:before {
 	content: "\e001";
 }
+
 .icon-class:before {
 	content: "\e002";
 }

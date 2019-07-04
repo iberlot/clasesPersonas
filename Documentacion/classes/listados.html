@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <meta charset="utf-8"/>
-    <title>API Documentation</title>
-    <meta name="author" content=""/>
-    <meta name="description" content=""/>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta charset="utf-8" />
+<title>API Documentation</title>
+<meta name="author" content="" />
+<meta name="description" content="" />
 
-    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/prism.css" rel="stylesheet" media="all"/>
-    <link href="../css/template.css" rel="stylesheet" media="all"/>
-    
-    <!--[if lt IE 9]>
+<link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="../css/prism.css" rel="stylesheet" media="all" />
+<link href="../css/template.css" rel="stylesheet" media="all" />
+
+<!--[if lt IE 9]>
     <script src="../js/html5.js"></script>
     <![endif]-->
-    <script src="../js/jquery-1.11.0.min.js"></script>
-    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.smooth-scroll.js"></script>
-    <script src="../js/prism.min.js"></script>
-    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    <script type="text/javascript">
+<script src="../js/jquery-1.11.0.min.js"></script>
+<script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.smooth-scroll.js"></script>
+<script src="../js/prism.min.js"></script>
+<!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+<script type="text/javascript">
     function loadExternalCodeSnippets() {
         Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
             var src = pre.getAttribute('data-src');
@@ -70,794 +71,909 @@
     })
 </script>
 
-    <link rel="shortcut icon" href="../images/favicon.ico"/>
-    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+<link rel="shortcut icon" href="../images/favicon.ico" />
+<link rel="apple-touch-icon" href="../images/apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="72x72"
+	href="../images/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114"
+	href="../images/apple-touch-icon-114x114.png" />
 </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <i class="icon-ellipsis-vertical"></i>
-            </a>
-            <a class="brand" href="../index.html">API Documentation</a>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <i class="icon-ellipsis-vertical"></i>
+				</a> <a class="brand" href="../index.html">API Documentation</a>
 
-            <div class="nav-collapse">
-                <ul class="nav pull-right">
-                                        <li class="dropdown" id="charts-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Charts <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../graphs/class.html">
-                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="reports-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Reports <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">114</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">22</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/deprecated.html">
-                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!--<div class="go_to_top">-->
-    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
-    <!--</div>-->
-</div>
+				<div class="nav-collapse">
+					<ul class="nav pull-right">
+						<li class="dropdown" id="charts-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> Charts <b
+								class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="../graphs/class.html"> <i
+										class="icon-list-alt"></i>&#160;Class hierarchy diagram
+								</a></li>
+							</ul></li>
+						<li class="dropdown" id="reports-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> Reports <b
+								class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="../reports/errors.html"> <i
+										class="icon-list-alt"></i>&#160;Errors <span
+										class="label label-info pull-right">114</span>
+								</a></li>
+								<li><a href="../reports/markers.html"> <i
+										class="icon-list-alt"></i>&#160;Markers <span
+										class="label label-info pull-right">22</span>
+								</a></li>
+								<li><a href="../reports/deprecated.html"> <i
+										class="icon-list-alt"></i>&#160;Deprecated <span
+										class="label label-info pull-right">0</span>
+								</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--<div class="go_to_top">-->
+		<!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+		<!--</div>-->
+	</div>
 
-<div id="___" class="container-fluid">
-        <section class="row-fluid">
-        <div class="span2 sidebar">
-                                <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1814757198"></a>
-                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
-            </div>
-            <div id="namespace-1814757198" class="accordion-body collapse in">
-                <div class="accordion-inner">
+	<div id="___" class="container-fluid">
+		<section class="row-fluid">
+			<div class="span2 sidebar">
+				<div class="accordion" style="margin-bottom: 0">
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle " data-toggle="collapse"
+								data-target="#namespace-1814757198"></a> <a
+								href="../namespaces/default.html"
+								style="margin-left: 30px; padding-left: 0">\</a>
+						</div>
+						<div id="namespace-1814757198" class="accordion-body collapse in">
+							<div class="accordion-inner">
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Alumnos.html">Alumnos</a></li>
-                                                    <li class="class"><a href="../classes/Conexion.html">Conexion</a></li>
-                                                    <li class="class"><a href="../classes/Cuentas.html">Cuentas</a></li>
-                                                    <li class="class"><a href="../classes/Direcciones.html">Direcciones</a></li>
-                                                    <li class="class"><a href="../classes/Documentos.html">Documentos</a></li>
-                                                    <li class="class"><a href="../classes/Empleados.html">Empleados</a></li>
-                                                    <li class="class"><a href="../classes/listados.html">listados</a></li>
-                                                    <li class="class"><a href="../classes/Personas.html">Personas</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 
-        </div>
-    </section>
-    <section class="row-fluid">
-        <div class="span10 offset2">
-            <div class="row-fluid">
-                <div class="span8 content class">
-                    <nav>
-                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
-                                            </nav>
-                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+								<ul>
+									<li class="class"><a href="../classes/Alumnos.html">Alumnos</a></li>
+									<li class="class"><a href="../classes/Conexion.html">Conexion</a></li>
+									<li class="class"><a href="../classes/Cuentas.html">Cuentas</a></li>
+									<li class="class"><a href="../classes/Direcciones.html">Direcciones</a></li>
+									<li class="class"><a href="../classes/Documentos.html">Documentos</a></li>
+									<li class="class"><a href="../classes/Empleados.html">Empleados</a></li>
+									<li class="class"><a href="../classes/listados.html">listados</a></li>
+									<li class="class"><a href="../classes/Personas.html">Personas</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                    <h1><small>\</small>listados</h1>
-                    <p><em></em></p>
-                    
-                    
-                                        
-                    <section id="summary">
-                        <h2>Summary</h2>
-                        <section class="row-fluid heading">
-                            <section class="span4">
-                                <a href="#methods">Methods</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#properties">Properties</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#constants">Constants</a>
-                            </section>
-                        </section>
-                        <section class="row-fluid public">
-                            <section class="span4">
-                                                                    <a href="../classes/listados.html#method_listarPerson" class="">listarPerson()</a><br />
-                                                                    <a href="../classes/listados.html#method_listarPersonFacu" class="">listarPersonFacu()</a><br />
-                                                                    <a href="../classes/listados.html#method_buscarAppers" class="">buscarAppers()</a><br />
-                                                                    <a href="../classes/listados.html#method_buscarPerson" class="">buscarPerson()</a><br />
-                                                                    <a href="../classes/listados.html#method_buscarPerdoc" class="">buscarPerdoc()</a><br />
-                                                                    <a href="../classes/listados.html#method_buscarTargeta" class="">buscarTargeta()</a><br />
-                                                                    <a href="../classes/listados.html#method_buscarUsuarioWeb" class="">buscarUsuarioWeb()</a><br />
-                                                                    <a href="../classes/listados.html#method_datosPersona" class="">datosPersona()</a><br />
-                                                                    <a href="../classes/listados.html#method_modApers" class="">modApers()</a><br />
-                                                                    <a href="../classes/listados.html#method_buscarCatXPerson" class="">buscarCatXPerson()</a><br />
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No public properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No constants found</em>
-                                                            </section>
-                        </section>
-                        <section class="row-fluid protected">
-                            <section class="span4">
-                                                                    <em>No protected methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No protected properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                        <section class="row-fluid private">
-                            <section class="span4">
-                                                                    <em>No private methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No private properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                    </section>
-                </div>
-                <aside class="span4 detailsbar">
-                                                                <span class="label label-info">final</span>
-                    
-                    
-                    <dl>
-                        <dt>File</dt>
-                            <dd><a href="../files/class_Listados.html"><div class="path-wrapper">class_Listados.php</div></a></dd>
-                                                <dt>Class hierarchy</dt>
-                            <dd class="hierarchy">
-                                                                                                                                                                    <div class="namespace-wrapper">\listados</div>
-                            </dd>
+			</div>
+		</section>
+		<section class="row-fluid">
+			<div class="span10 offset2">
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<nav>
+							<a href="../namespaces/default.html">\</a> <i
+								class="icon-level-up"></i>
+						</nav>
+						<a href="#source-view" role="button" class="pull-right btn"
+							data-toggle="modal"><i class="icon-code"></i></a>
 
-                        
-                        
-                        
-                        
-                                                                        </dl>
-                    <h2>Tags</h2>
-                    <table class="table table-condensed">
-                                            <tr>
-                            <th>
-                                author
-                            </th>
-                            <td>
-                                                                    <p>iberlot &lt;@&gt; iberlot@usal.edu.ar</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                todo
-                            </th>
-                            <td>
-                                                                    <p>16 nov. 2018</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                lenguage
-                            </th>
-                            <td>
-                                                                    <p>PHP</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                name
-                            </th>
-                            <td>
-                                                                    <p>Personal.php</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                version
-                            </th>
-                            <td>
-                                                                    <p>version inicial del archivo.</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                project
-                            </th>
-                            <td>
-                                                                    
-                                                            </td>
-                        </tr>
-                                        </table>
-                </aside>
-            </div>
+						<h1>
+							<small>\</small>listados
+						</h1>
+						<p>
+							<em></em>
+						</p>
 
-                        
-                        
-                                    <a id="methods" name="methods"></a>
-            <div class="row-fluid">
-                <div class="span8 content class"><h2>Methods</h2></div>
-                <aside class="span4 detailsbar"></aside>
-            </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_listarPerson" name="method_listarPerson" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">listarPerson()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">listarPerson(object  <span class="argument">$db</span>, array&lt;mixed,mixed&gt;  <span class="argument">$datos = &quot;&quot;</span>) : array&lt;mixed,integer&gt;</pre>
-                <p><em>Realiza un listado con todos los persons que cumplan una determinada condicion.</em></p>
-                
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>object</td>
-                                <td>$db </td>
-                                <td><ul>
-<li>Objeto encargado de la interaccion con la base de datos.</li>
-</ul></td>
-                            </tr>
-                                                    <tr>
-                                <td>array&lt;mixed,mixed&gt;</td>
-                                <td>$datos </td>
-                                <td><ul>
-<li>Datos extra con los que realizar la busqueda, puede ser cualquier dato de la tabla, con el indice igual al nombre del campo en minuscula.</li>
-</ul></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    array&lt;mixed,integer&gt;
-                                            &mdash; <ul>
-<li>array con todos los persons resultantes</li>
-</ul>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            name
-                        </th>
-                        <td>
-                                                                                            <p>listarPerson</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
+						<section id="summary">
+							<h2>Summary</h2>
+							<section class="row-fluid heading">
+								<section class="span4">
+									<a href="#methods">Methods</a>
+								</section>
+								<section class="span4">
+									<a href="#properties">Properties</a>
+								</section>
+								<section class="span4">
+									<a href="#constants">Constants</a>
+								</section>
+							</section>
+							<section class="row-fluid public">
+								<section class="span4">
+									<a href="../classes/listados.html#method_listarPerson" class="">listarPerson()</a><br />
+									<a href="../classes/listados.html#method_listarPersonFacu"
+										class="">listarPersonFacu()</a><br /> <a
+										href="../classes/listados.html#method_buscarAppers" class="">buscarAppers()</a><br />
+									<a href="../classes/listados.html#method_buscarPerson" class="">buscarPerson()</a><br />
+									<a href="../classes/listados.html#method_buscarPerdoc" class="">buscarPerdoc()</a><br />
+									<a href="../classes/listados.html#method_buscarTargeta"
+										class="">buscarTargeta()</a><br /> <a
+										href="../classes/listados.html#method_buscarUsuarioWeb"
+										class="">buscarUsuarioWeb()</a><br /> <a
+										href="../classes/listados.html#method_datosPersona" class="">datosPersona()</a><br />
+									<a href="../classes/listados.html#method_modApers" class="">modApers()</a><br />
+									<a href="../classes/listados.html#method_buscarCatXPerson"
+										class="">buscarCatXPerson()</a><br />
+								</section>
+								<section class="span4">
+									<em>No public properties found</em>
+								</section>
+								<section class="span4">
+									<em>No constants found</em>
+								</section>
+							</section>
+							<section class="row-fluid protected">
+								<section class="span4">
+									<em>No protected methods found</em>
+								</section>
+								<section class="span4">
+									<em>No protected properties found</em>
+								</section>
+								<section class="span4">
+									<em>N/A</em>
+								</section>
+							</section>
+							<section class="row-fluid private">
+								<section class="span4">
+									<em>No private methods found</em>
+								</section>
+								<section class="span4">
+									<em>No private properties found</em>
+								</section>
+								<section class="span4">
+									<em>N/A</em>
+								</section>
+							</section>
+						</section>
+					</div>
+					<aside class="span4 detailsbar">
+						<span class="label label-info">final</span>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_listarPersonFacu" name="method_listarPersonFacu" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">listarPersonFacu()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">listarPersonFacu(object  <span class="argument">$db</span>, array&lt;mixed,mixed&gt;  <span class="argument">$datos = &quot;&quot;</span>) : array&lt;mixed,integer&gt;</pre>
-                <p><em>Realiza un listado con todos los persons que cumplan una determinada condicion de carrera o facultad.</em></p>
-                
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>object</td>
-                                <td>$db </td>
-                                <td><ul>
-<li>Objeto encargado de la interaccion con la base de datos.</li>
-</ul></td>
-                            </tr>
-                                                    <tr>
-                                <td>array&lt;mixed,mixed&gt;</td>
-                                <td>$datos </td>
-                                <td><ul>
-<li>Datos extra con los que realizar la busqueda, puede ser cualquier dato de la tabla, con el indice igual al nombre del campo en minuscula.</li>
-</ul></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    array&lt;mixed,integer&gt;
-                                            &mdash; <ul>
-<li>array con todos los persons resultantes</li>
-</ul>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            name
-                        </th>
-                        <td>
-                                                                                            <p>listarPersonFacu</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
+						<dl>
+							<dt>File</dt>
+							<dd>
+								<a href="../files/class_Listados.html"><div
+										class="path-wrapper">class_Listados.php</div></a>
+							</dd>
+							<dt>Class hierarchy</dt>
+							<dd class="hierarchy">
+								<div class="namespace-wrapper">\listados</div>
+							</dd>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_buscarAppers" name="method_buscarAppers" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">buscarAppers()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">buscarAppers(array&lt;mixed,mixed&gt;  <span class="argument">$datosAUsar</span>) : Array</pre>
-                <p><em>Devuelve un array con los valores de apers usando los SHORTDES como claves.</em></p>
-                
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>array&lt;mixed,mixed&gt;</td>
-                                <td>$datosAUsar </td>
-                                <td><ul>
-<li>Requiere que dentro de los datos enviados este si o si el person de la persona</li>
-</ul></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    Array
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            name
-                        </th>
-                        <td>
-                                                                                            <p>buscarAppers</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_buscarPerson" name="method_buscarPerson" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">buscarPerson()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">buscarPerson(array&lt;mixed,string&gt;  <span class="argument">$datosAUsar</span>) : array</pre>
-                <p><em>Devuelve los datos de la tabla person, la busqueda puede realizarse por nro de person, por nombre, apellido o nombre y apellido
-En caso de que no recupere ningun dato devuelve 0</em></p>
-                
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>array&lt;mixed,string&gt;</td>
-                                <td>$datosAUsar </td>
-                                <td><ul>
-<li>'person' o 'realname'</li>
-</ul></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    array
-                                            &mdash; <ul>
-<li>'person' 'lname' 'fname' 'country' 'poldiv' 'city' 'birdate' 'nation' 'sex' 'marstat' 'address' 'rcountry' 'rpoldiv' 'rcity' 'telep' 'active' 'tnation' 'incountrysince' 'religion' 'qbrother' 'qson'</li>
-</ul>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            name
-                        </th>
-                        <td>
-                                                                                            <p>buscarPerson</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_buscarPerdoc" name="method_buscarPerdoc" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">buscarPerdoc()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">buscarPerdoc(array&lt;mixed,mixed&gt;  <span class="argument">$datosAUsar</span>) : array&lt;mixed,mixed&gt;</pre>
-                <p><em>Recibe un array con el person o el numero de documento y devuelve otro con los datos de la tabla perdoc</em></p>
-                
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>author</th>
+								<td>
+									<p>iberlot &lt;@&gt; iberlot@usal.edu.ar</p>
+								</td>
+							</tr>
+							<tr>
+								<th>todo</th>
+								<td>
+									<p>16 nov. 2018</p>
+								</td>
+							</tr>
+							<tr>
+								<th>lenguage</th>
+								<td>
+									<p>PHP</p>
+								</td>
+							</tr>
+							<tr>
+								<th>name</th>
+								<td>
+									<p>Personal.php</p>
+								</td>
+							</tr>
+							<tr>
+								<th>version</th>
+								<td>
+									<p>version inicial del archivo.</p>
+								</td>
+							</tr>
+							<tr>
+								<th>project</th>
+								<td></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>array&lt;mixed,mixed&gt;</td>
-                                <td>$datosAUsar </td>
-                                <td><ul>
-<li>'person' o 'docno' o 'cuil'</li>
-</ul></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    array&lt;mixed,mixed&gt;
-                                            &mdash; <ul>
-<li>con los siguientes parametros: person, typdoc, docNumero</li>
-</ul>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            name
-                        </th>
-                        <td>
-                                                                                            <p>buscarPerdoc</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_buscarTargeta" name="method_buscarTargeta" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">buscarTargeta()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">buscarTargeta(array&lt;mixed,mixed&gt;  <span class="argument">$datosAUsar</span>) : array&lt;mixed,mixed&gt;</pre>
-                <p><em>Devuelve todos los datos relacionados a la tarjeta de la persona.</em></p>
-                
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>array&lt;mixed,mixed&gt;</td>
-                                <td>$datosAUsar </td>
-                                <td><ul>
-<li>'person' o 'num_tarj'</li>
-</ul></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    array&lt;mixed,mixed&gt;
-                                            &mdash; <ul>
-<li>'person' 'estadocredencialca' 'email' 'codigoisic' 'nrodechip' 'sca_fecha' 'sca_categoria' 'sca_lote' 'tipo_formulario' 'nrodechip_dec' 'fecha_chip' 'motivo' 'tipo_credencial'</li>
-</ul>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            name
-                        </th>
-                        <td>
-                                                                                            <p>buscarTargeta</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
+				<a id="methods" name="methods"></a>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<h2>Methods</h2>
+					</div>
+					<aside class="span4 detailsbar"></aside>
+				</div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_buscarUsuarioWeb" name="method_buscarUsuarioWeb" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">buscarUsuarioWeb()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">buscarUsuarioWeb(array&lt;mixed,mixed&gt;  <span class="argument">$datosAUsar</span>) : array</pre>
-                <p><em>Busca los datos de la tabla usuario_web para una persona X.</em></p>
-                
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_listarPerson" name="method_listarPerson"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">listarPerson()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">listarPerson(object  <span
+									class="argument">$db</span>, array&lt;mixed,mixed&gt;  <span
+									class="argument">$datos = &quot;&quot;</span>) : array&lt;mixed,integer&gt;</pre>
+							<p>
+								<em>Realiza un listado con todos los persons que cumplan
+									una determinada condicion.</em>
+							</p>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>array&lt;mixed,mixed&gt;</td>
-                                <td>$datosAUsar </td>
-                                <td><ul>
-<li>'person' o 'docno' o 'altaDeLaCuenta' o 'vtoDeLaCuenta' o 'cuenta' o 'idCuenta'</li>
-</ul></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    array
-                                            &mdash; <ul>
-<li>'docno' 'docnoCuenta' 'tipoDocCuenta' 'cuenta' 'nombreCompleto' 'fecha_altaCuenta' 'fecha_vencCuenta' 'fecha_bajaCuenta' 'frase' 'email' 'uid_cCuenta' 'uid_mCuenta' 'fecha_mCuenta' 'academicoCuenta' 'administrativoCuenta' 'alumnoCuenta' 'docenteCuenta' 'genericoCuenta' 'operadorCuenta' 'externoCuenta' 'ultimocambioclaveCuenta' 'ultimoacceso' 'ultimaaplicacion' 'ultimoip' 'person'</li>
-</ul>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            name
-                        </th>
-                        <td>
-                                                                                            <p>buscarUsuarioWeb -</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_datosPersona" name="method_datosPersona" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">datosPersona()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">datosPersona(array&lt;mixed,mixed&gt;  <span class="argument">$datosAUsar</span>) : array&lt;mixed,mixed&gt;</pre>
-                <p><em>Recibe algun parametro de busqueda y en base a eso recupera los datos de esa persona en las diferentes tablas</em></p>
-                
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>object</td>
+									<td>$db</td>
+									<td><ul>
+											<li>Objeto encargado de la interaccion con la base de
+												datos.</li>
+										</ul></td>
+								</tr>
+								<tr>
+									<td>array&lt;mixed,mixed&gt;</td>
+									<td>$datos</td>
+									<td><ul>
+											<li>Datos extra con los que realizar la busqueda, puede
+												ser cualquier dato de la tabla, con el indice igual al
+												nombre del campo en minuscula.</li>
+										</ul></td>
+								</tr>
+							</table>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>array&lt;mixed,mixed&gt;</td>
-                                <td>$datosAUsar </td>
-                                <td><ul>
-<li>'person' o 'docno' o 'realname' o 'apellido' o 'nombreCompleto' o 'num_tarj'</li>
-</ul></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    array&lt;mixed,mixed&gt;
-                                            &mdash; <p>-</p>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            name
-                        </th>
-                        <td>
-                                                                                            <p>datosPersona</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_modApers" name="method_modApers" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">modApers()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">modApers(string  <span class="argument">$accion</span>, mixed  <span class="argument">$pattrib</span>, mixed  <span class="argument">$shortdes</span>, mixed  <span class="argument">$valor</span>, integer  <span class="argument">$person</span>) : boolean</pre>
-                <p><em>Se encargara de las acciones a realizar sobre los campos de la tabla apers</em></p>
-                
+							<h4>Returns</h4>
+							array&lt;mixed,integer&gt; &mdash;
+							<ul>
+								<li>array con todos los persons resultantes</li>
+							</ul>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$accion </td>
-                                <td><ul>
-<li>Puede ser UPDATE o INSERT dependiendo de esto es la accion que realizara la funcion</li>
-</ul></td>
-                            </tr>
-                                                    <tr>
-                                <td>mixed</td>
-                                <td>$pattrib </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>mixed</td>
-                                <td>$shortdes </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>mixed</td>
-                                <td>$valor </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td>integer</td>
-                                <td>$person </td>
-                                <td><ul>
-<li>person sobre el cual trabajara</li>
-</ul></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    boolean
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>name</th>
+								<td>
+									<p>listarPerson</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_buscarCatXPerson" name="method_buscarCatXPerson" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">buscarCatXPerson()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">buscarCatXPerson(array  <span class="argument">$datosAUsar</span>) : boolean|array</pre>
-                <p><em>Busca el legajo de la persona o el person asociado a un legajo</em></p>
-                
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_listarPersonFacu" name="method_listarPersonFacu"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">listarPersonFacu()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">listarPersonFacu(object  <span
+									class="argument">$db</span>, array&lt;mixed,mixed&gt;  <span
+									class="argument">$datos = &quot;&quot;</span>) : array&lt;mixed,integer&gt;</pre>
+							<p>
+								<em>Realiza un listado con todos los persons que cumplan
+									una determinada condicion de carrera o facultad.</em>
+							</p>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>array</td>
-                                <td>$datosAUsar </td>
-                                <td><p>Tiene como indices obligatorios legajo o person.</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    boolean|array
-                                            &mdash; <ul>
-<li>En caso de no encontrar nada devolvera false. Si recupera datos devuelve un array con el person, el legajo, la categoria, la fecha de ingreso y la de baja.</li>
-</ul>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
 
-                                                                    </div>
-    </section>
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>object</td>
+									<td>$db</td>
+									<td><ul>
+											<li>Objeto encargado de la interaccion con la base de
+												datos.</li>
+										</ul></td>
+								</tr>
+								<tr>
+									<td>array&lt;mixed,mixed&gt;</td>
+									<td>$datos</td>
+									<td><ul>
+											<li>Datos extra con los que realizar la busqueda, puede
+												ser cualquier dato de la tabla, con el indice igual al
+												nombre del campo en minuscula.</li>
+										</ul></td>
+								</tr>
+							</table>
 
-    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="source-view-label">class_Listados.php</h3>
-        </div>
-        <div class="modal-body">
-            <pre data-src="../files/class_Listados.php.txt" class="language-php line-numbers"></pre>
-        </div>
-    </div>
 
-    <footer class="row-fluid">
-        <section class="span10 offset2">
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <section class="row-fluid footer-sections">
-                        <section class="span4">
-                                                        <h1><i class="icon-code"></i></h1>
-                            <div>
-                                <ul>
-                                                                    </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-bar-chart"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-pushpin"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../reports/errors.html">Errors</a></li>
-                                    <li><a href="../reports/markers.html">Markers</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-            </section>
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <hr />
-                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 19th, 2019 at 12:19.
-                </section>
-            </section>
-        </section>
-    </footer>
-</div>
+							<h4>Returns</h4>
+							array&lt;mixed,integer&gt; &mdash;
+							<ul>
+								<li>array con todos los persons resultantes</li>
+							</ul>
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>name</th>
+								<td>
+									<p>listarPersonFacu</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_buscarAppers" name="method_buscarAppers"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">buscarAppers()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">buscarAppers(array&lt;mixed,mixed&gt;  <span
+									class="argument">$datosAUsar</span>) : Array</pre>
+							<p>
+								<em>Devuelve un array con los valores de apers usando los
+									SHORTDES como claves.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>array&lt;mixed,mixed&gt;</td>
+									<td>$datosAUsar</td>
+									<td><ul>
+											<li>Requiere que dentro de los datos enviados este si o
+												si el person de la persona</li>
+										</ul></td>
+								</tr>
+							</table>
+
+
+							<h4>Returns</h4>
+							Array
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>name</th>
+								<td>
+									<p>buscarAppers</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_buscarPerson" name="method_buscarPerson"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">buscarPerson()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">buscarPerson(array&lt;mixed,string&gt;  <span
+									class="argument">$datosAUsar</span>) : array</pre>
+							<p>
+								<em>Devuelve los datos de la tabla person, la busqueda
+									puede realizarse por nro de person, por nombre, apellido o
+									nombre y apellido En caso de que no recupere ningun dato
+									devuelve 0</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>array&lt;mixed,string&gt;</td>
+									<td>$datosAUsar</td>
+									<td><ul>
+											<li>'person' o 'realname'</li>
+										</ul></td>
+								</tr>
+							</table>
+
+
+							<h4>Returns</h4>
+							array &mdash;
+							<ul>
+								<li>'person' 'lname' 'fname' 'country' 'poldiv' 'city'
+									'birdate' 'nation' 'sex' 'marstat' 'address' 'rcountry'
+									'rpoldiv' 'rcity' 'telep' 'active' 'tnation' 'incountrysince'
+									'religion' 'qbrother' 'qson'</li>
+							</ul>
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>name</th>
+								<td>
+									<p>buscarPerson</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_buscarPerdoc" name="method_buscarPerdoc"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">buscarPerdoc()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">buscarPerdoc(array&lt;mixed,mixed&gt;  <span
+									class="argument">$datosAUsar</span>) : array&lt;mixed,mixed&gt;</pre>
+							<p>
+								<em>Recibe un array con el person o el numero de documento
+									y devuelve otro con los datos de la tabla perdoc</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>array&lt;mixed,mixed&gt;</td>
+									<td>$datosAUsar</td>
+									<td><ul>
+											<li>'person' o 'docno' o 'cuil'</li>
+										</ul></td>
+								</tr>
+							</table>
+
+
+							<h4>Returns</h4>
+							array&lt;mixed,mixed&gt; &mdash;
+							<ul>
+								<li>con los siguientes parametros: person, typdoc,
+									docNumero</li>
+							</ul>
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>name</th>
+								<td>
+									<p>buscarPerdoc</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_buscarTargeta" name="method_buscarTargeta"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">buscarTargeta()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">buscarTargeta(array&lt;mixed,mixed&gt;  <span
+									class="argument">$datosAUsar</span>) : array&lt;mixed,mixed&gt;</pre>
+							<p>
+								<em>Devuelve todos los datos relacionados a la tarjeta de
+									la persona.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>array&lt;mixed,mixed&gt;</td>
+									<td>$datosAUsar</td>
+									<td><ul>
+											<li>'person' o 'num_tarj'</li>
+										</ul></td>
+								</tr>
+							</table>
+
+
+							<h4>Returns</h4>
+							array&lt;mixed,mixed&gt; &mdash;
+							<ul>
+								<li>'person' 'estadocredencialca' 'email' 'codigoisic'
+									'nrodechip' 'sca_fecha' 'sca_categoria' 'sca_lote'
+									'tipo_formulario' 'nrodechip_dec' 'fecha_chip' 'motivo'
+									'tipo_credencial'</li>
+							</ul>
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>name</th>
+								<td>
+									<p>buscarTargeta</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_buscarUsuarioWeb" name="method_buscarUsuarioWeb"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">buscarUsuarioWeb()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">buscarUsuarioWeb(array&lt;mixed,mixed&gt;  <span
+									class="argument">$datosAUsar</span>) : array</pre>
+							<p>
+								<em>Busca los datos de la tabla usuario_web para una
+									persona X.</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>array&lt;mixed,mixed&gt;</td>
+									<td>$datosAUsar</td>
+									<td><ul>
+											<li>'person' o 'docno' o 'altaDeLaCuenta' o
+												'vtoDeLaCuenta' o 'cuenta' o 'idCuenta'</li>
+										</ul></td>
+								</tr>
+							</table>
+
+
+							<h4>Returns</h4>
+							array &mdash;
+							<ul>
+								<li>'docno' 'docnoCuenta' 'tipoDocCuenta' 'cuenta'
+									'nombreCompleto' 'fecha_altaCuenta' 'fecha_vencCuenta'
+									'fecha_bajaCuenta' 'frase' 'email' 'uid_cCuenta' 'uid_mCuenta'
+									'fecha_mCuenta' 'academicoCuenta' 'administrativoCuenta'
+									'alumnoCuenta' 'docenteCuenta' 'genericoCuenta'
+									'operadorCuenta' 'externoCuenta' 'ultimocambioclaveCuenta'
+									'ultimoacceso' 'ultimaaplicacion' 'ultimoip' 'person'</li>
+							</ul>
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>name</th>
+								<td>
+									<p>buscarUsuarioWeb -</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_datosPersona" name="method_datosPersona"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">datosPersona()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">datosPersona(array&lt;mixed,mixed&gt;  <span
+									class="argument">$datosAUsar</span>) : array&lt;mixed,mixed&gt;</pre>
+							<p>
+								<em>Recibe algun parametro de busqueda y en base a eso
+									recupera los datos de esa persona en las diferentes tablas</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>array&lt;mixed,mixed&gt;</td>
+									<td>$datosAUsar</td>
+									<td><ul>
+											<li>'person' o 'docno' o 'realname' o 'apellido' o
+												'nombreCompleto' o 'num_tarj'</li>
+										</ul></td>
+								</tr>
+							</table>
+
+
+							<h4>Returns</h4>
+							array&lt;mixed,mixed&gt; &mdash;
+							<p>-</p>
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>name</th>
+								<td>
+									<p>datosPersona</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_modApers" name="method_modApers" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">modApers()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">modApers(string  <span
+									class="argument">$accion</span>, mixed  <span class="argument">$pattrib</span>, mixed  <span
+									class="argument">$shortdes</span>, mixed  <span
+									class="argument">$valor</span>, integer  <span class="argument">$person</span>) : boolean</pre>
+							<p>
+								<em>Se encargara de las acciones a realizar sobre los
+									campos de la tabla apers</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$accion</td>
+									<td><ul>
+											<li>Puede ser UPDATE o INSERT dependiendo de esto es la
+												accion que realizara la funcion</li>
+										</ul></td>
+								</tr>
+								<tr>
+									<td>mixed</td>
+									<td>$pattrib</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>mixed</td>
+									<td>$shortdes</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>mixed</td>
+									<td>$valor</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>integer</td>
+									<td>$person</td>
+									<td><ul>
+											<li>person sobre el cual trabajara</li>
+										</ul></td>
+								</tr>
+							</table>
+
+
+							<h4>Returns</h4>
+							boolean
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_buscarCatXPerson" name="method_buscarCatXPerson"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">buscarCatXPerson()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">buscarCatXPerson(array  <span
+									class="argument">$datosAUsar</span>) : boolean|array</pre>
+							<p>
+								<em>Busca el legajo de la persona o el person asociado a un
+									legajo</em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>array</td>
+									<td>$datosAUsar</td>
+									<td><p>Tiene como indices obligatorios legajo o
+											person.</p></td>
+								</tr>
+							</table>
+
+
+							<h4>Returns</h4>
+							boolean|array &mdash;
+							<ul>
+								<li>En caso de no encontrar nada devolvera false. Si
+									recupera datos devuelve un array con el person, el legajo, la
+									categoria, la fecha de ingreso y la de baja.</li>
+							</ul>
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+			</div>
+		</section>
+
+		<div id="source-view" class="modal hide fade" tabindex="-1"
+			role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h3 id="source-view-label">class_Listados.php</h3>
+			</div>
+			<div class="modal-body">
+				<pre data-src="../files/class_Listados.php.txt"
+					class="language-php line-numbers"></pre>
+			</div>
+		</div>
+
+		<footer class="row-fluid">
+			<section class="span10 offset2">
+				<section class="row-fluid">
+					<section class="span10 offset1">
+						<section class="row-fluid footer-sections">
+							<section class="span4">
+								<h1>
+									<i class="icon-code"></i>
+								</h1>
+								<div>
+									<ul>
+									</ul>
+								</div>
+							</section>
+							<section class="span4">
+								<h1>
+									<i class="icon-bar-chart"></i>
+								</h1>
+								<div>
+									<ul>
+										<li><a href="../graphs/class.html">Class Hierarchy
+												Diagram</a></li>
+									</ul>
+								</div>
+							</section>
+							<section class="span4">
+								<h1>
+									<i class="icon-pushpin"></i>
+								</h1>
+								<div>
+									<ul>
+										<li><a href="../reports/errors.html">Errors</a></li>
+										<li><a href="../reports/markers.html">Markers</a></li>
+									</ul>
+								</div>
+							</section>
+						</section>
+					</section>
+				</section>
+				<section class="row-fluid">
+					<section class="span10 offset1">
+						<hr />
+						Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor
+						</a> and authored on March 19th, 2019 at 12:19.
+					</section>
+				</section>
+			</section>
+		</footer>
+	</div>
 
 </body>
 </html>

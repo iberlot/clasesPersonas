@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <meta charset="utf-8"/>
-    <title>API Documentation</title>
-    <meta name="author" content=""/>
-    <meta name="description" content=""/>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta charset="utf-8" />
+<title>API Documentation</title>
+<meta name="author" content="" />
+<meta name="description" content="" />
 
-    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/prism.css" rel="stylesheet" media="all"/>
-    <link href="../css/template.css" rel="stylesheet" media="all"/>
-    
-    <!--[if lt IE 9]>
+<link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="../css/prism.css" rel="stylesheet" media="all" />
+<link href="../css/template.css" rel="stylesheet" media="all" />
+
+<!--[if lt IE 9]>
     <script src="../js/html5.js"></script>
     <![endif]-->
-    <script src="../js/jquery-1.11.0.min.js"></script>
-    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.smooth-scroll.js"></script>
-    <script src="../js/prism.min.js"></script>
-    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    <script type="text/javascript">
+<script src="../js/jquery-1.11.0.min.js"></script>
+<script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.smooth-scroll.js"></script>
+<script src="../js/prism.min.js"></script>
+<!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+<script type="text/javascript">
     function loadExternalCodeSnippets() {
         Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
             var src = pre.getAttribute('data-src');
@@ -70,986 +71,1197 @@
     })
 </script>
 
-    <link rel="shortcut icon" href="../images/favicon.ico"/>
-    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+<link rel="shortcut icon" href="../images/favicon.ico" />
+<link rel="apple-touch-icon" href="../images/apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="72x72"
+	href="../images/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114"
+	href="../images/apple-touch-icon-114x114.png" />
 </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <i class="icon-ellipsis-vertical"></i>
-            </a>
-            <a class="brand" href="../index.html">API Documentation</a>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <i class="icon-ellipsis-vertical"></i>
+				</a> <a class="brand" href="../index.html">API Documentation</a>
 
-            <div class="nav-collapse">
-                <ul class="nav pull-right">
-                                        <li class="dropdown" id="charts-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Charts <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../graphs/class.html">
-                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="reports-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Reports <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">114</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">22</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/deprecated.html">
-                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!--<div class="go_to_top">-->
-    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
-    <!--</div>-->
-</div>
+				<div class="nav-collapse">
+					<ul class="nav pull-right">
+						<li class="dropdown" id="charts-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> Charts <b
+								class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="../graphs/class.html"> <i
+										class="icon-list-alt"></i>&#160;Class hierarchy diagram
+								</a></li>
+							</ul></li>
+						<li class="dropdown" id="reports-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> Reports <b
+								class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="../reports/errors.html"> <i
+										class="icon-list-alt"></i>&#160;Errors <span
+										class="label label-info pull-right">114</span>
+								</a></li>
+								<li><a href="../reports/markers.html"> <i
+										class="icon-list-alt"></i>&#160;Markers <span
+										class="label label-info pull-right">22</span>
+								</a></li>
+								<li><a href="../reports/deprecated.html"> <i
+										class="icon-list-alt"></i>&#160;Deprecated <span
+										class="label label-info pull-right">0</span>
+								</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--<div class="go_to_top">-->
+		<!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+		<!--</div>-->
+	</div>
 
-<div id="___" class="container-fluid">
-        <section class="row-fluid">
-        <div class="span2 sidebar">
-                                <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1747425703"></a>
-                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
-            </div>
-            <div id="namespace-1747425703" class="accordion-body collapse in">
-                <div class="accordion-inner">
+	<div id="___" class="container-fluid">
+		<section class="row-fluid">
+			<div class="span2 sidebar">
+				<div class="accordion" style="margin-bottom: 0">
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle " data-toggle="collapse"
+								data-target="#namespace-1747425703"></a> <a
+								href="../namespaces/default.html"
+								style="margin-left: 30px; padding-left: 0">\</a>
+						</div>
+						<div id="namespace-1747425703" class="accordion-body collapse in">
+							<div class="accordion-inner">
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Alumnos.html">Alumnos</a></li>
-                                                    <li class="class"><a href="../classes/Conexion.html">Conexion</a></li>
-                                                    <li class="class"><a href="../classes/Cuentas.html">Cuentas</a></li>
-                                                    <li class="class"><a href="../classes/Direcciones.html">Direcciones</a></li>
-                                                    <li class="class"><a href="../classes/Documentos.html">Documentos</a></li>
-                                                    <li class="class"><a href="../classes/Empleados.html">Empleados</a></li>
-                                                    <li class="class"><a href="../classes/listados.html">listados</a></li>
-                                                    <li class="class"><a href="../classes/Personas.html">Personas</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 
-        </div>
-    </section>
-    <section class="row-fluid">
-        <div class="span10 offset2">
-            <div class="row-fluid">
-                <div class="span8 content class">
-                    <nav>
-                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
-                                            </nav>
-                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+								<ul>
+									<li class="class"><a href="../classes/Alumnos.html">Alumnos</a></li>
+									<li class="class"><a href="../classes/Conexion.html">Conexion</a></li>
+									<li class="class"><a href="../classes/Cuentas.html">Cuentas</a></li>
+									<li class="class"><a href="../classes/Direcciones.html">Direcciones</a></li>
+									<li class="class"><a href="../classes/Documentos.html">Documentos</a></li>
+									<li class="class"><a href="../classes/Empleados.html">Empleados</a></li>
+									<li class="class"><a href="../classes/listados.html">listados</a></li>
+									<li class="class"><a href="../classes/Personas.html">Personas</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                    <h1><small>\</small>Cuentas</h1>
-                    <p><em></em></p>
-                    
-                    
-                                        
-                    <section id="summary">
-                        <h2>Summary</h2>
-                        <section class="row-fluid heading">
-                            <section class="span4">
-                                <a href="#methods">Methods</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#properties">Properties</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#constants">Constants</a>
-                            </section>
-                        </section>
-                        <section class="row-fluid public">
-                            <section class="span4">
-                                                                    <a href="../classes/Cuentas.html#method_getCuenta" class="">getCuenta()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_setCuenta" class="">setCuenta()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_getIdCuenta" class="">getIdCuenta()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_setIdCuenta" class="">setIdCuenta()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_getEmailCuenta" class="">getEmailCuenta()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_setEmailCuenta" class="">setEmailCuenta()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_getTipoCuenta" class="">getTipoCuenta()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_setTipoCuenta" class="">setTipoCuenta()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_getFraseDeSeguridad" class="">getFraseDeSeguridad()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_setFraseDeSeguridad" class="">setFraseDeSeguridad()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_getVencimiento" class="">getVencimiento()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_setVencimiento" class="">setVencimiento()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_getAlta" class="">getAlta()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_setAlta" class="">setAlta()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_getBaja" class="">getBaja()</a><br />
-                                                                    <a href="../classes/Cuentas.html#method_setBaja" class="">setBaja()</a><br />
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No public properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No constants found</em>
-                                                            </section>
-                        </section>
-                        <section class="row-fluid protected">
-                            <section class="span4">
-                                                                    <em>No protected methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <a href="../classes/Cuentas.html#property_idCuenta" class="">$idCuenta</a><br />
-                                                                    <a href="../classes/Cuentas.html#property_emailCuenta" class="">$emailCuenta</a><br />
-                                                                    <a href="../classes/Cuentas.html#property_tipoCuenta" class="">$tipoCuenta</a><br />
-                                                                    <a href="../classes/Cuentas.html#property_fraseDeSeguridad" class="">$fraseDeSeguridad</a><br />
-                                                                    <a href="../classes/Cuentas.html#property_vencimiento" class="">$vencimiento</a><br />
-                                                                    <a href="../classes/Cuentas.html#property_alta" class="">$alta</a><br />
-                                                                    <a href="../classes/Cuentas.html#property_baja" class="">$baja</a><br />
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                        <section class="row-fluid private">
-                            <section class="span4">
-                                                                    <em>No private methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No private properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                    </section>
-                </div>
-                <aside class="span4 detailsbar">
-                                        
-                    
-                    <dl>
-                        <dt>File</dt>
-                            <dd><a href="../files/class_Cuentas.html"><div class="path-wrapper">class_Cuentas.php</div></a></dd>
-                                                <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">Default</div></dd>
-                                                <dt>Class hierarchy</dt>
-                            <dd class="hierarchy">
-                                                                                                                                                                    <div class="namespace-wrapper">\Cuentas</div>
-                            </dd>
+			</div>
+		</section>
+		<section class="row-fluid">
+			<div class="span10 offset2">
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<nav>
+							<a href="../namespaces/default.html">\</a> <i
+								class="icon-level-up"></i>
+						</nav>
+						<a href="#source-view" role="button" class="pull-right btn"
+							data-toggle="modal"><i class="icon-code"></i></a>
 
-                        
-                        
-                        
-                        
-                                                                        </dl>
-                    <h2>Tags</h2>
-                    <table class="table table-condensed">
-                                            <tr>
-                            <th>
-                                author
-                            </th>
-                            <td>
-                                                                    <p>iberlot &lt;@&gt; iberlot@usal.edu.ar</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                todo
-                            </th>
-                            <td>
-                                                                    <p>16 nov. 2018</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                name
-                            </th>
-                            <td>
-                                                                    <p>Cuentas</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                version
-                            </th>
-                            <td>
-                                                                    
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                since
-                            </th>
-                            <td>
-                                                                    <p>Los campos booleanos $cuentaAcademica, $cuentaAdministrativa, $cuentaAlumno, $cuentaDocente, $cuentaExterno, $cuentaGenerica y $cuentaOperador convierten en una lista que contiene los que correapondan para cada cuenta.</p>
-                                                                    <p>version inicial</p>
-                                                            </td>
-                        </tr>
-                                        </table>
-                </aside>
-            </div>
+						<h1>
+							<small>\</small>Cuentas
+						</h1>
+						<p>
+							<em></em>
+						</p>
 
-                        
-                                    <a id="properties" name="properties"></a>
-            <div class="row-fluid">
-                <div class="span8 content class">
-                    <h2>Properties</h2>
-                </div>
-                <aside class="span4 detailsbar"></aside>
-            </div>
 
-                                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_idCuenta" name="property_idCuenta" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$idCuenta</h3>
-                <pre class="signature">$idCuenta : integer</pre>
-                <p><em>Id de la Cuenta de la persona.</em></p>
-                
 
-                                <h4>Type</h4>
-                integer
-                &mdash; &lt;Br&gt;
-     @ubicacionBase portal.usuario_web.id - NUMBER(10,0)                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+						<section id="summary">
+							<h2>Summary</h2>
+							<section class="row-fluid heading">
+								<section class="span4">
+									<a href="#methods">Methods</a>
+								</section>
+								<section class="span4">
+									<a href="#properties">Properties</a>
+								</section>
+								<section class="span4">
+									<a href="#constants">Constants</a>
+								</section>
+							</section>
+							<section class="row-fluid public">
+								<section class="span4">
+									<a href="../classes/Cuentas.html#method_getCuenta" class="">getCuenta()</a><br />
+									<a href="../classes/Cuentas.html#method_setCuenta" class="">setCuenta()</a><br />
+									<a href="../classes/Cuentas.html#method_getIdCuenta" class="">getIdCuenta()</a><br />
+									<a href="../classes/Cuentas.html#method_setIdCuenta" class="">setIdCuenta()</a><br />
+									<a href="../classes/Cuentas.html#method_getEmailCuenta"
+										class="">getEmailCuenta()</a><br /> <a
+										href="../classes/Cuentas.html#method_setEmailCuenta" class="">setEmailCuenta()</a><br />
+									<a href="../classes/Cuentas.html#method_getTipoCuenta" class="">getTipoCuenta()</a><br />
+									<a href="../classes/Cuentas.html#method_setTipoCuenta" class="">setTipoCuenta()</a><br />
+									<a href="../classes/Cuentas.html#method_getFraseDeSeguridad"
+										class="">getFraseDeSeguridad()</a><br /> <a
+										href="../classes/Cuentas.html#method_setFraseDeSeguridad"
+										class="">setFraseDeSeguridad()</a><br /> <a
+										href="../classes/Cuentas.html#method_getVencimiento" class="">getVencimiento()</a><br />
+									<a href="../classes/Cuentas.html#method_setVencimiento"
+										class="">setVencimiento()</a><br /> <a
+										href="../classes/Cuentas.html#method_getAlta" class="">getAlta()</a><br />
+									<a href="../classes/Cuentas.html#method_setAlta" class="">setAlta()</a><br />
+									<a href="../classes/Cuentas.html#method_getBaja" class="">getBaja()</a><br />
+									<a href="../classes/Cuentas.html#method_setBaja" class="">setBaja()</a><br />
+								</section>
+								<section class="span4">
+									<em>No public properties found</em>
+								</section>
+								<section class="span4">
+									<em>No constants found</em>
+								</section>
+							</section>
+							<section class="row-fluid protected">
+								<section class="span4">
+									<em>No protected methods found</em>
+								</section>
+								<section class="span4">
+									<a href="../classes/Cuentas.html#property_idCuenta" class="">$idCuenta</a><br />
+									<a href="../classes/Cuentas.html#property_emailCuenta" class="">$emailCuenta</a><br />
+									<a href="../classes/Cuentas.html#property_tipoCuenta" class="">$tipoCuenta</a><br />
+									<a href="../classes/Cuentas.html#property_fraseDeSeguridad"
+										class="">$fraseDeSeguridad</a><br /> <a
+										href="../classes/Cuentas.html#property_vencimiento" class="">$vencimiento</a><br />
+									<a href="../classes/Cuentas.html#property_alta" class="">$alta</a><br />
+									<a href="../classes/Cuentas.html#property_baja" class="">$baja</a><br />
+								</section>
+								<section class="span4">
+									<em>N/A</em>
+								</section>
+							</section>
+							<section class="row-fluid private">
+								<section class="span4">
+									<em>No private methods found</em>
+								</section>
+								<section class="span4">
+									<em>No private properties found</em>
+								</section>
+								<section class="span4">
+									<em>N/A</em>
+								</section>
+							</section>
+						</section>
+					</div>
+					<aside class="span4 detailsbar">
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_emailCuenta" name="property_emailCuenta" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$emailCuenta</h3>
-                <pre class="signature">$emailCuenta : string</pre>
-                <p><em>Direccion de mail relacionada a la cuenta de la persona.</em></p>
-                
 
-                                <h4>Type</h4>
-                string
-                &mdash; &lt;Br&gt;
-     @ubicacionBase portal.usuario_web.email - VARCHAR2(200 BYTE)                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+						<dl>
+							<dt>File</dt>
+							<dd>
+								<a href="../files/class_Cuentas.html"><div
+										class="path-wrapper">class_Cuentas.php</div></a>
+							</dd>
+							<dt>Package</dt>
+							<dd>
+								<div class="namespace-wrapper">Default</div>
+							</dd>
+							<dt>Class hierarchy</dt>
+							<dd class="hierarchy">
+								<div class="namespace-wrapper">\Cuentas</div>
+							</dd>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_tipoCuenta" name="property_tipoCuenta" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$tipoCuenta</h3>
-                <pre class="signature">$tipoCuenta : array&lt;mixed,boolean&gt;</pre>
-                <p><em>Array con las diferentes posibilidades de tipo de cuenta.</em></p>
-                
 
-                                <h4>Type</h4>
-                array&lt;mixed,boolean&gt;
-                &mdash; Va a tener los tipos de cuenta como indices y true o false segun corresponda.                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_fraseDeSeguridad" name="property_fraseDeSeguridad" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$fraseDeSeguridad</h3>
-                <pre class="signature">$fraseDeSeguridad : string</pre>
-                <p><em>Frace de seguridad de la cuenta de la persona utilizada
-para la recuperacion de contraseñas.</em></p>
-                
 
-                                <h4>Type</h4>
-                string
-                &mdash; &lt;Br&gt;
-     @ubicacionBase portal.usuario_web.frase - VARCHAR2(250 BYTE)                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_vencimiento" name="property_vencimiento" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$vencimiento</h3>
-                <pre class="signature">$vencimiento : string</pre>
-                <p><em>Fecha de vencimiento de la cuenta de la persona</em></p>
-                
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<th>author</th>
+								<td>
+									<p>iberlot &lt;@&gt; iberlot@usal.edu.ar</p>
+								</td>
+							</tr>
+							<tr>
+								<th>todo</th>
+								<td>
+									<p>16 nov. 2018</p>
+								</td>
+							</tr>
+							<tr>
+								<th>name</th>
+								<td>
+									<p>Cuentas</p>
+								</td>
+							</tr>
+							<tr>
+								<th>version</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>since</th>
+								<td>
+									<p>Los campos booleanos $cuentaAcademica,
+										$cuentaAdministrativa, $cuentaAlumno, $cuentaDocente,
+										$cuentaExterno, $cuentaGenerica y $cuentaOperador convierten
+										en una lista que contiene los que correapondan para cada
+										cuenta.</p>
+									<p>version inicial</p>
+								</td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                                <h4>Type</h4>
-                string
-                &mdash; - Date $vencimiento
-     @ubicacionBase portal.usuario_web.fecha_venc - DATE                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_alta" name="property_alta" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$alta</h3>
-                <pre class="signature">$alta : string</pre>
-                <p><em>Fecha de alta de la cuenta de la persona</em></p>
-                
+				<a id="properties" name="properties"></a>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<h2>Properties</h2>
+					</div>
+					<aside class="span4 detailsbar"></aside>
+				</div>
 
-                                <h4>Type</h4>
-                string
-                &mdash; - Date $alta
-     @ubicacionBase portal.usuario_web.fecha_alta - DATE                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_idCuenta" name="property_idCuenta" class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$idCuenta</h3>
+							<pre class="signature">$idCuenta : integer</pre>
+							<p>
+								<em>Id de la Cuenta de la persona.</em>
+							</p>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_baja" name="property_baja" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$baja</h3>
-                <pre class="signature">$baja : string</pre>
-                <p><em>Fecha de baja de la cuenta de la persona</em></p>
-                
 
-                                <h4>Type</h4>
-                string
-                &mdash; - Date $baja
-     @ubicacionBase portal.usuario_web.fecha_baja - DATE                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+							<h4>Type</h4>
+							integer &mdash; &lt;Br&gt; @ubicacionBase portal.usuario_web.id -
+							NUMBER(10,0)
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                                            
-                                    <a id="methods" name="methods"></a>
-            <div class="row-fluid">
-                <div class="span8 content class"><h2>Methods</h2></div>
-                <aside class="span4 detailsbar"></aside>
-            </div>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_emailCuenta" name="property_emailCuenta"
+							class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$emailCuenta</h3>
+							<pre class="signature">$emailCuenta : string</pre>
+							<p>
+								<em>Direccion de mail relacionada a la cuenta de la
+									persona.</em>
+							</p>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getCuenta" name="method_getCuenta" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getCuenta()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getCuenta() : string</pre>
-                <p><em></em></p>
-                
 
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+							<h4>Type</h4>
+							string &mdash; &lt;Br&gt; @ubicacionBase portal.usuario_web.email
+							- VARCHAR2(200 BYTE)
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setCuenta" name="method_setCuenta" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setCuenta()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setCuenta(string  <span class="argument">$cuenta</span>) </pre>
-                <p><em></em></p>
-                
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_tipoCuenta" name="property_tipoCuenta"
+							class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$tipoCuenta</h3>
+							<pre class="signature">$tipoCuenta : array&lt;mixed,boolean&gt;</pre>
+							<p>
+								<em>Array con las diferentes posibilidades de tipo de
+									cuenta.</em>
+							</p>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$cuenta </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getIdCuenta" name="method_getIdCuenta" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getIdCuenta()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getIdCuenta() : \number</pre>
-                <p><em></em></p>
-                
+							<h4>Type</h4>
+							array&lt;mixed,boolean&gt; &mdash; Va a tener los tipos de cuenta
+							como indices y true o false segun corresponda.
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                
-                
-                                    <h4>Returns</h4>
-                    \number
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_fraseDeSeguridad" name="property_fraseDeSeguridad"
+							class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$fraseDeSeguridad</h3>
+							<pre class="signature">$fraseDeSeguridad : string</pre>
+							<p>
+								<em>Frace de seguridad de la cuenta de la persona utilizada
+									para la recuperacion de contraseñas.</em>
+							</p>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setIdCuenta" name="method_setIdCuenta" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setIdCuenta()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setIdCuenta(\number  <span class="argument">$idCuenta</span>) </pre>
-                <p><em></em></p>
-                
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\number</td>
-                                <td>$idCuenta </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+							<h4>Type</h4>
+							string &mdash; &lt;Br&gt; @ubicacionBase portal.usuario_web.frase
+							- VARCHAR2(250 BYTE)
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getEmailCuenta" name="method_getEmailCuenta" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getEmailCuenta()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getEmailCuenta() : string</pre>
-                <p><em></em></p>
-                
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_vencimiento" name="property_vencimiento"
+							class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$vencimiento</h3>
+							<pre class="signature">$vencimiento : string</pre>
+							<p>
+								<em>Fecha de vencimiento de la cuenta de la persona</em>
+							</p>
 
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setEmailCuenta" name="method_setEmailCuenta" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setEmailCuenta()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setEmailCuenta(string  <span class="argument">$emailCuenta</span>) </pre>
-                <p><em></em></p>
-                
+							<h4>Type</h4>
+							string &mdash; - Date $vencimiento @ubicacionBase
+							portal.usuario_web.fecha_venc - DATE
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$emailCuenta </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_alta" name="property_alta" class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$alta</h3>
+							<pre class="signature">$alta : string</pre>
+							<p>
+								<em>Fecha de alta de la cuenta de la persona</em>
+							</p>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getTipoCuenta" name="method_getTipoCuenta" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getTipoCuenta()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getTipoCuenta() : \multitype:boolean</pre>
-                <p><em></em></p>
-                
 
-                
-                
-                                    <h4>Returns</h4>
-                    \multitype:boolean
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+							<h4>Type</h4>
+							string &mdash; - Date $alta @ubicacionBase
+							portal.usuario_web.fecha_alta - DATE
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setTipoCuenta" name="method_setTipoCuenta" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setTipoCuenta()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setTipoCuenta(\multitype:boolean  <span class="argument">$tipoCuenta</span>) </pre>
-                <p><em></em></p>
-                
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="property_baja" name="property_baja" class="anchor"></a>
+						<article class="property">
+							<h3 class="protected ">$baja</h3>
+							<pre class="signature">$baja : string</pre>
+							<p>
+								<em>Fecha de baja de la cuenta de la persona</em>
+							</p>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\multitype:boolean</td>
-                                <td>$tipoCuenta </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getFraseDeSeguridad" name="method_getFraseDeSeguridad" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getFraseDeSeguridad()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getFraseDeSeguridad() : string</pre>
-                <p><em></em></p>
-                
+							<h4>Type</h4>
+							string &mdash; - Date $baja @ubicacionBase
+							portal.usuario_web.fecha_baja - DATE
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setFraseDeSeguridad" name="method_setFraseDeSeguridad" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setFraseDeSeguridad()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setFraseDeSeguridad(string  <span class="argument">$fraseDeSeguridad</span>) </pre>
-                <p><em></em></p>
-                
+				<a id="methods" name="methods"></a>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<h2>Methods</h2>
+					</div>
+					<aside class="span4 detailsbar"></aside>
+				</div>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$fraseDeSeguridad </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getCuenta" name="method_getCuenta" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getCuenta()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getCuenta() : string</pre>
+							<p>
+								<em></em>
+							</p>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getVencimiento" name="method_getVencimiento" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getVencimiento()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getVencimiento() : string</pre>
-                <p><em></em></p>
-                
 
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setVencimiento" name="method_setVencimiento" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setVencimiento()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setVencimiento(string  <span class="argument">$vencimiento</span>) </pre>
-                <p><em></em></p>
-                
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$vencimiento </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+							<h4>Returns</h4>
+							string
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getAlta" name="method_getAlta" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getAlta()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getAlta() : string</pre>
-                <p><em></em></p>
-                
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setCuenta" name="method_setCuenta" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setCuenta()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setCuenta(string  <span
+									class="argument">$cuenta</span>) </pre>
+							<p>
+								<em></em>
+							</p>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setAlta" name="method_setAlta" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setAlta()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setAlta(string  <span class="argument">$alta</span>) </pre>
-                <p><em></em></p>
-                
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$alta </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$cuenta</td>
+									<td></td>
+								</tr>
+							</table>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getBaja" name="method_getBaja" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getBaja()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getBaja() : string</pre>
-                <p><em></em></p>
-                
 
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setBaja" name="method_setBaja" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setBaja()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setBaja(string  <span class="argument">$baja</span>) </pre>
-                <p><em></em></p>
-                
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$baja </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getIdCuenta" name="method_getIdCuenta"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getIdCuenta()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getIdCuenta() : \number</pre>
+							<p>
+								<em></em>
+							</p>
 
-                                                                    </div>
-    </section>
 
-    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="source-view-label">class_Cuentas.php</h3>
-        </div>
-        <div class="modal-body">
-            <pre data-src="../files/class_Cuentas.php.txt" class="language-php line-numbers"></pre>
-        </div>
-    </div>
 
-    <footer class="row-fluid">
-        <section class="span10 offset2">
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <section class="row-fluid footer-sections">
-                        <section class="span4">
-                                                        <h1><i class="icon-code"></i></h1>
-                            <div>
-                                <ul>
-                                                                    </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-bar-chart"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-pushpin"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../reports/errors.html">Errors</a></li>
-                                    <li><a href="../reports/markers.html">Markers</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-            </section>
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <hr />
-                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 19th, 2019 at 12:19.
-                </section>
-            </section>
-        </section>
-    </footer>
-</div>
+
+							<h4>Returns</h4>
+							\number
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setIdCuenta" name="method_setIdCuenta"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setIdCuenta()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setIdCuenta(\number  <span
+									class="argument">$idCuenta</span>) </pre>
+							<p>
+								<em></em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>\number</td>
+									<td>$idCuenta</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getEmailCuenta" name="method_getEmailCuenta"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getEmailCuenta()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getEmailCuenta() : string</pre>
+							<p>
+								<em></em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setEmailCuenta" name="method_setEmailCuenta"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setEmailCuenta()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setEmailCuenta(string  <span
+									class="argument">$emailCuenta</span>) </pre>
+							<p>
+								<em></em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$emailCuenta</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getTipoCuenta" name="method_getTipoCuenta"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getTipoCuenta()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getTipoCuenta() : \multitype:boolean</pre>
+							<p>
+								<em></em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							\multitype:boolean
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setTipoCuenta" name="method_setTipoCuenta"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setTipoCuenta()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setTipoCuenta(\multitype:boolean  <span
+									class="argument">$tipoCuenta</span>) </pre>
+							<p>
+								<em></em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>\multitype:boolean</td>
+									<td>$tipoCuenta</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getFraseDeSeguridad"
+							name="method_getFraseDeSeguridad" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getFraseDeSeguridad()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getFraseDeSeguridad() : string</pre>
+							<p>
+								<em></em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setFraseDeSeguridad"
+							name="method_setFraseDeSeguridad" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setFraseDeSeguridad()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setFraseDeSeguridad(string  <span
+									class="argument">$fraseDeSeguridad</span>) </pre>
+							<p>
+								<em></em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$fraseDeSeguridad</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getVencimiento" name="method_getVencimiento"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getVencimiento()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getVencimiento() : string</pre>
+							<p>
+								<em></em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setVencimiento" name="method_setVencimiento"
+							class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setVencimiento()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setVencimiento(string  <span
+									class="argument">$vencimiento</span>) </pre>
+							<p>
+								<em></em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$vencimiento</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getAlta" name="method_getAlta" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getAlta()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getAlta() : string</pre>
+							<p>
+								<em></em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setAlta" name="method_setAlta" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setAlta()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setAlta(string  <span
+									class="argument">$alta</span>) </pre>
+							<p>
+								<em></em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$alta</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_getBaja" name="method_getBaja" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">getBaja()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">getBaja() : string</pre>
+							<p>
+								<em></em>
+							</p>
+
+
+
+
+							<h4>Returns</h4>
+							string
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span8 content class">
+						<a id="method_setBaja" name="method_setBaja" class="anchor"></a>
+						<article class="method">
+							<h3 class="public ">setBaja()</h3>
+							<a href="#source-view" role="button" class="pull-right btn"
+								data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i
+								class="icon-code"></i></a>
+							<pre class="signature" style="margin-right: 54px;">setBaja(string  <span
+									class="argument">$baja</span>) </pre>
+							<p>
+								<em></em>
+							</p>
+
+
+							<h4>Parameters</h4>
+							<table class="table table-condensed table-hover">
+								<tr>
+									<td>string</td>
+									<td>$baja</td>
+									<td></td>
+								</tr>
+							</table>
+
+
+
+						</article>
+					</div>
+					<aside class="span4 detailsbar">
+						<h1>
+							<i class="icon-arrow-down"></i>
+						</h1>
+						<dl>
+						</dl>
+						<h2>Tags</h2>
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="2"><em>None found</em></td>
+							</tr>
+						</table>
+					</aside>
+				</div>
+
+			</div>
+		</section>
+
+		<div id="source-view" class="modal hide fade" tabindex="-1"
+			role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h3 id="source-view-label">class_Cuentas.php</h3>
+			</div>
+			<div class="modal-body">
+				<pre data-src="../files/class_Cuentas.php.txt"
+					class="language-php line-numbers"></pre>
+			</div>
+		</div>
+
+		<footer class="row-fluid">
+			<section class="span10 offset2">
+				<section class="row-fluid">
+					<section class="span10 offset1">
+						<section class="row-fluid footer-sections">
+							<section class="span4">
+								<h1>
+									<i class="icon-code"></i>
+								</h1>
+								<div>
+									<ul>
+									</ul>
+								</div>
+							</section>
+							<section class="span4">
+								<h1>
+									<i class="icon-bar-chart"></i>
+								</h1>
+								<div>
+									<ul>
+										<li><a href="../graphs/class.html">Class Hierarchy
+												Diagram</a></li>
+									</ul>
+								</div>
+							</section>
+							<section class="span4">
+								<h1>
+									<i class="icon-pushpin"></i>
+								</h1>
+								<div>
+									<ul>
+										<li><a href="../reports/errors.html">Errors</a></li>
+										<li><a href="../reports/markers.html">Markers</a></li>
+									</ul>
+								</div>
+							</section>
+						</section>
+					</section>
+				</section>
+				<section class="row-fluid">
+					<section class="span10 offset1">
+						<hr />
+						Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor
+						</a> and authored on March 19th, 2019 at 12:19.
+					</section>
+				</section>
+			</section>
+		</footer>
+	</div>
 
 </body>
 </html>
