@@ -185,6 +185,9 @@ class Alumnos extends Personas
 			array_push ($parametros, $centrocosto);
 		}
 
+		print_r ($query);
+		print_r ($parametros);
+
 		$result = $this->db->query ($query, true, $parametros);
 
 		$this->loadData ($this->db->fetch_array ($result));
