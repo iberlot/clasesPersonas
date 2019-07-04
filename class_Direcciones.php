@@ -34,7 +34,7 @@ require_once 'class_conexion.php';
  * @since 16 nov. 2018
  * @name Direcciones
  * @version 0.1 version inicial.
- *
+ *         
  */
 class Direcciones
 {
@@ -154,7 +154,7 @@ class Direcciones
 	 * Direccion en string que une calle numero y muchas veces depto en un solo campo.
 	 *
 	 * @todo lo ideal es tratarlo para que quede separado de la forma que corresponde
-	 *
+	 *      
 	 * @var string <Br>
 	 *      @ubicacionBase sueldos.personal.domicilio - VARCHAR2(30 BYTE)
 	 */

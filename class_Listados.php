@@ -218,7 +218,7 @@ final class listados
 	 * @name buscarAppers
 	 * @param mixed[] $datosAUsar
 	 *        	- Requiere que dentro de los datos enviados este si o si el person de la persona
-	 *
+	 *        	
 	 * @return Array
 	 */
 	public function buscarAppers($datosAUsar)
@@ -255,10 +255,10 @@ final class listados
 	 * En caso de que no recupere ningun dato devuelve 0
 	 *
 	 * @name buscarPerson
-	 *
+	 *      
 	 * @param string[] $datosAUsar
 	 *        	- 'person' o 'realname'
-	 *
+	 *        	
 	 * @return array - 'person' 'lname' 'fname' 'country' 'poldiv' 'city' 'birdate' 'nation' 'sex' 'marstat' 'address' 'rcountry' 'rpoldiv' 'rcity' 'telep' 'active' 'tnation' 'incountrysince' 'religion' 'qbrother' 'qson'
 	 */
 	public function buscarPerson($datosAUsar)
@@ -470,7 +470,7 @@ final class listados
 	 * Devuelve todos los datos relacionados a la tarjeta de la persona.
 	 *
 	 * @name buscarTargeta
-	 *
+	 *      
 	 * @param mixed[] $datosAUsar
 	 *        	- 'person' o 'num_tarj'
 	 * @return mixed[] - 'person' 'estadocredencialca' 'email' 'codigoisic' 'nrodechip' 'sca_fecha' 'sca_categoria' 'sca_lote' 'tipo_formulario' 'nrodechip_dec' 'fecha_chip' 'motivo' 'tipo_credencial'
@@ -559,7 +559,7 @@ final class listados
 	 * Busca los datos de la tabla usuario_web para una persona X.
 	 *
 	 * @name buscarUsuarioWeb -
-	 *
+	 *      
 	 * @param mixed[] $datosAUsar
 	 *        	- 'person' o 'docno' o 'altaDeLaCuenta' o 'vtoDeLaCuenta' o 'cuenta' o 'idCuenta'
 	 * @return array - 'docno' 'docnoCuenta' 'tipoDocCuenta' 'cuenta' 'nombreCompleto' 'fecha_altaCuenta' 'fecha_vencCuenta' 'fecha_bajaCuenta' 'frase' 'email' 'uid_cCuenta' 'uid_mCuenta' 'fecha_mCuenta' 'academicoCuenta' 'administrativoCuenta' 'alumnoCuenta' 'docenteCuenta' 'genericoCuenta' 'operadorCuenta' 'externoCuenta' 'ultimocambioclaveCuenta' 'ultimoacceso' 'ultimaaplicacion' 'ultimoip' 'person'

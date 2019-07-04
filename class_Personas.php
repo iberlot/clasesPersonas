@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Archivo principar de la clase.
  *
@@ -9,6 +8,21 @@
  * @name class_persona.php
  *
  */
+/*
+ * Querido programador:
+ *
+ * Cuando escribi este codigo, solo Dios y yo sabiamos como funcionaba.
+ * Ahora, Solo Dios lo sabe!!!
+ *
+ * Asi que, si esta tratando de 'optimizar' esta rutina y fracasa (seguramente),
+ * por favor, incremente el siguiente contador como una advertencia para el
+ * siguiente colega:
+ *
+ * totalHorasPerdidasAqui = 106
+ *
+ */
+require_once ("class_Documentos.php");
+require_once ("class_credenciales.php");
 
 /**
  * Clase encargada del manejo de todos los datos referentes a la persona.
@@ -27,20 +41,6 @@
  *       - INSERT :
  *       appgral.apers | appgral.perdoc |
  */
-
-/*
- * Querido programador:
- *
- * Cuando escribi este codigo, solo Dios y yo sabiamos como funcionaba.
- * Ahora, Solo Dios lo sabe!!!
- *
- * Asi que, si esta tratando de 'optimizar' esta rutina y fracasa (seguramente),
- * por favor, incremente el siguiente contador como una advertencia para el
- * siguiente colega:
- *
- * totalHorasPerdidasAqui = 106
- *
- */
 abstract class Personas
 {
 	/**
@@ -55,6 +55,12 @@ abstract class Personas
 	 *      PERSON - NUMBER(8,0)
 	 */
 	protected $person = 0;
+
+	/**
+	 *
+	 * @var array Lista de documetos de la persona.
+	 */
+	protected $documentos = array ();
 
 	/**
 	 * Apellido de la persona
@@ -273,6 +279,12 @@ abstract class Personas
 	 */
 	protected $escuelaPrimaria = "";
 
+	/**
+	 *
+	 * @var Credenciales
+	 */
+	protected $credencial = null;
+
 	/*
 	 * ******************************************************************************
 	 * VARIABLES REFERENTES AL FUNCIONAMIENTO DEL SISTEMA *
@@ -291,9 +303,25 @@ abstract class Personas
 	 * Aca empiezan las funciones de la clase
 	 * ************************************************************************
 	 */
-	public function __construct($person = null)
+	public function __construct($person = null, $db = null)
 	{
-		$this->db = Conexion::openConnection ();
+		if (!isset ($db) or empty ($db) or $db == null)
+		{
+			global $db;
+
+			if (!isset ($db) or empty ($db) or $db == null)
+			{
+				$this->db = Sitios::openConnection ();
+			}
+			else
+			{
+				$this->db = $db;
+			}
+		}
+		else
+		{
+			$this->db = $db;
+		}
 
 		if (!is_null ($person))
 		{
@@ -318,6 +346,12 @@ abstract class Personas
 			$this->preescolar = "";
 			$this->escuelaMedia = "";
 			$this->escuelaPrimaria = "";
+
+			$this->credencial = new Credenciales ($db, $person);
+		}
+		else
+		{
+			$this->credencial = new Credenciales ($db);
 		}
 	}
 
@@ -415,9 +449,8 @@ abstract class Personas
 	public function nuevoPerdoc($arrayDatosPersona)
 	{
 		$resultado = true;
-		echo "****************************************";
+		// echo "****************************************";
 		return;
-		// print_r($arrayDatosPersona);
 
 		try
 		{
@@ -1065,9 +1098,9 @@ abstract class Personas
 
 		$parametros[0] = $person;
 
-		$result = $db->query ($sql, true, $parametros);
+		$result = $this->db->query ($sql, true, $parametros);
 
-		if ($recu = $db->fetch_array ($result))
+		if ($recu = $this->db->fetch_array ($result))
 		{
 			$this->setPerson ($recu['PERSON']);
 			$this->setApellido ($recu['LNAME']);
@@ -1124,8 +1157,6 @@ abstract class Personas
 	 *
 	 * @param string $nacion
 	 *        	- dato a buscar en la tabla appgral.country
-	 * @param object $this->db
-	 *        	- Objeto encargado de la interaccion con la base de datos.
 	 * @return string - codigo de la nacion
 	 */
 	private function recuNacion($nacion)
@@ -1679,6 +1710,64 @@ abstract class Personas
 				return $valor;
 			}
 		}
+	}
+
+	/**
+	 *
+	 * @return Credenciales el dato de la variable $credencial
+	 */
+	public function getCredencial()
+	{
+		return $this->credencial;
+	}
+
+	/**
+	 *
+	 * @param
+	 *        	Credenciales a cargar en la variable $credencial
+	 */
+	public function setCredencial($credencial)
+	{
+		$this->credencial = $credencial;
+	}
+
+	/**
+	 *
+	 * @return array el dato de la variable $documentos
+	 */
+	public function getDocumentos()
+	{
+		return $this->documentos;
+	}
+
+	/**
+	 *
+	 * @param
+	 *        	array a cargar en la variable $documentos
+	 */
+	public function setDocumentos($documentos)
+	{
+		$this->documentos = $documentos;
+	}
+
+	/**
+	 *
+	 * @param Documentos $documento
+	 */
+	public function agregar_documento($documento)
+	{
+		$this->documentos[] = $documento;
+	}
+
+	/**
+	 * Crea un nuevo objeto documento en vase a los parametros pasados y lo agrega al array de documentos.
+	 *
+	 * @param string $tipo_doc
+	 * @param int $nro_doc
+	 */
+	public function nuevo_documneto($tipo_doc, $nro_doc)
+	{
+		$this->documentos[] = new Documentos ($db, $doc_num, $doc_typ);
 	}
 }
 ?>
