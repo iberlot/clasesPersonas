@@ -149,7 +149,7 @@ class Alumnos extends Personas
 
 		$parametros = array (
 				$anio_actual,
-				$this->person
+				$this->getPerson ()
 		);
 
 		$query = "SELECT DISTINCT
@@ -184,9 +184,6 @@ class Alumnos extends Personas
 			$query .= " AND ccalu.idcentrodecosto = :centrocosto";
 			array_push ($parametros, $centrocosto);
 		}
-
-		print_r ($query);
-		print_r ($parametros);
 
 		$result = $this->db->query ($query, true, $parametros);
 
