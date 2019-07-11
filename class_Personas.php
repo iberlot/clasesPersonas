@@ -22,6 +22,7 @@
  *
  */
 require_once ("class_Documentos.php");
+require_once ("class_Direcciones.php");
 require_once ("class_credenciales.php");
 
 /**

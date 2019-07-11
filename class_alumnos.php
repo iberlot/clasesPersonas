@@ -117,7 +117,7 @@ class Alumnos extends Personas
 
 	public function __construct($db = null, $person = null, $centrocosto = null)
 	{
-		parent::__construct ($db, $person);
+		parent::__construct ($person, $db);
 
 		if ($person != null && trim ($person) != '')
 		{
@@ -147,10 +147,9 @@ class Alumnos extends Personas
 
 		$anio_actual = date ("Y");
 
-		$parametros = array (
-				$anio_actual,
-				$this->getPerson ()
-		);
+		$parametros = array ();
+		$parametros[] = $anio_actual;
+		$parametros[] = $person;
 
 		$query = "SELECT DISTINCT
 				    carstu.career,
@@ -182,7 +181,7 @@ class Alumnos extends Personas
 		if ($centrocosto != null)
 		{
 			$query .= " AND ccalu.idcentrodecosto = :centrocosto";
-			array_push ($parametros, $centrocosto);
+			$parametros[] = $centrocosto;
 		}
 
 		$result = $this->db->query ($query, true, $parametros);
