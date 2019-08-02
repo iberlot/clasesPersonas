@@ -50,7 +50,7 @@ class Formularios
 
 			$query = "select DESCRIPCION from interfaz.tipo_alumno where TIPO_ALUMNO = LPAD(:tipo, 2, '0')";
 
-			$result = $this->db->query ($query, $esParam = true, $parametros);
+			$result = $this->db->query ($query, true, $parametros);
 
 			if ($result)
 			{
@@ -75,7 +75,7 @@ class Formularios
                         FORMULARIO.IDTIPOFORM = tipo_alumno.TIPO_ALUMNO
                         WHERE FORMULARIO.id = :id ";
 
-			$result = $this->db->query ($query, $esParam = true, $parametros);
+			$result = $this->db->query ($query, true, $parametros);
 
 			if ($result)
 			{
@@ -90,7 +90,7 @@ class Formularios
 	/**
 	 * Salvar formulario en la tabla TESORERIA.FORMULARIO.
 	 *
-	 * @param type $datos
+	 * @param array $datos
 	 *        	datos para insertar en la tabla.
 	 *        	El array de datos se maneja con indices y valores ej:$datos['PERSON'] ='alumno'
 	 *
@@ -109,7 +109,8 @@ class Formularios
 		// $db = Conexion::openConnection();
 		$datos['ID'] = 'TESORERIA.FORMULARIO_SEQ.nextval';
 
-		$insercion = $this->db->realizarInsert ($datos, 'FORMULARIO');
+		// $insercion = $this->db->realizarInsert ($datos, 'FORMULARIO');
+		$this->db->realizarInsert ($datos, 'FORMULARIO');
 
 		$id_insertado = $this->db->insert_id ('ID', 'FORMULARIO');
 
@@ -199,7 +200,7 @@ class Formularios
 
 			$f = date ('d/m/y H-m-s');
 
-			$formato_hora = '';
+			// $formato_hora = '';
 
 			$tabla = 'FORMULARIOHIST';
 
@@ -240,36 +241,59 @@ class Formularios
 	 * Obtiene los formularios por unidad
 	 *
 	 *
-	 * @param type $unidades
+	 * @param int $unidades
 	 * @return array con datos de los forms
 	 */
 	public function getFormByUnidad($unidades, $estado_omitir = null)
 	{
-		$query = "SELECT FORMULARIO.*  ,FORMULARIOTESORERIA.CONCEPTO , FORMULARIOTESORERIA.FECHAVENC
-            ,FORMULARIOTESORERIA.IMPORTE ,person.LNAME , person.FNAME ,  perdoc.typdoc,
-        perdoc.docno ,facu.SDESC ,CAREER.DESCRIP,
-        (SELECT person.LNAME ||' '|| person.FNAME FROM appgral.person WHERE PERSON = FORMULARIO.PERSON)  creador
-        from FORMULARIO
-        JOIN appgral.person ON person.person = FORMULARIO.STUDENT
-        JOIN appgral.perdoc ON person.person = perdoc.person
-        JOIN studentc.facu ON FORMULARIO.fa= facu.code
-        FULL JOIN FORMULARIOTESORERIA ON  FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
-        JOIN studentc.CAREER ON FORMULARIO.fa || LPAD(FORMULARIO.CA, 2, '0')= CAREER.code
-        WHERE 1=1  ";
+		$query = "SELECT
+		    formulario.*,
+		    formulariotesoreria.concepto,
+		    formulariotesoreria.fechavenc,
+		    formulariotesoreria.importe,
+		    person.lname,
+		    person.fname,
+		    perdoc.typdoc,
+		    perdoc.docno,
+		    facu.sdesc,
+		    career.descrip,
+		    (
+		        SELECT
+		            person.lname
+		             || ' '
+		             || person.fname
+		        FROM
+		            appgral.person
+		        WHERE
+		            person = formulario.person
+		    ) creador
+		FROM
+		    formulario
+		    JOIN appgral.person ON person.person = formulario.student
+		    JOIN appgral.perdoc ON person.person = perdoc.person
+		    JOIN studentc.facu ON formulario.fa = facu.code
+		    FULL JOIN formulariotesoreria ON formulario.id = formulariotesoreria.idformulario
+		    JOIN studentc.career ON formulario.fa || lpad(
+		        formulario.ca,
+		        2,
+		        '0'
+		    ) = career.code
+		WHERE
+		    1 = 1";
 
 		if ($unidades != -1 && $unidades != '')
 		{
-			$query .= "and LPAD(FORMULARIO.FA, 2, '0') IN( $unidades ) ";
+			$query .= "AND LPAD(formulario.fa, 2, '0') IN ( $unidades ) ";
 		}
 
 		if ($estado_omitir != null)
 		{
-			$query .= " and IDESTADO != $estado_omitir ";
+			$query .= " AND idestado != $estado_omitir ";
 		}
 
-		$query .= "order by FORMULARIO.ID desc";
+		$query .= "ORDER BY formulario.id DESC";
 
-		$result = $this->db->query ($query, $esParam = FALSE);
+		$result = $this->db->query ($query);
 
 		while ($fila = $this->db->fetch_array ($result))
 		{
@@ -288,7 +312,7 @@ class Formularios
 	 * Obtiene los formularios por unidad
 	 *
 	 *
-	 * @param type $unidades
+	 * @param INT $unidades
 	 * @return array con datos de los forms
 	 */
 	public function getFormsByAlumno($STUDENT, $estado_omitir = null)
@@ -313,7 +337,7 @@ class Formularios
 
 		$query .= " order by FORMULARIO.ID desc";
 
-		$result = $this->db->query ($query, $esParam = FALSE);
+		$result = $this->db->query ($query);
 
 		while ($fila = $this->db->fetch_array ($result))
 		{
@@ -370,7 +394,7 @@ class Formularios
             FULL JOIN FORMULARIOTESORERIA ON FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
             WHERE FORMULARIO.ID = :id";
 
-		$result = $this->db->query ($query, $esParam = true, $parametros);
+		$result = $this->db->query ($query, true, $parametros);
 
 		$form = $this->db->fetch_array ($result);
 
@@ -386,7 +410,7 @@ class Formularios
 
 			$query_nombre = "select DESCRIPCION from interfaz.tipo_alumno where TIPO_ALUMNO = LPAD(:tipo, 2, '0')";
 
-			$result_nombre = $this->db->query ($query_nombre, $esParam = true, $parametros_nombre);
+			$result_nombre = $this->db->query ($query_nombre, true, $parametros_nombre);
 
 			$arr_asoc = $this->db->fetch_array ($result_nombre);
 
@@ -419,7 +443,7 @@ class Formularios
 
 		$query = " select DESCRIPCION from interfaz.tipo_alumno WHERE LPAD(TIPO_ALUMNO, 2, '0') =LPAD(:tipo_alumno, 2, '0') ";
 
-		$result = $this->db->query ($query, $esParam = true, $parametros);
+		$result = $this->db->query ($query, true, $parametros);
 
 		$form = $this->db->fetch_array ($result);
 
@@ -433,13 +457,12 @@ class Formularios
 	 *
 	 * @param string $tipo
 	 *        	-->id de tipo formulario
-	 * @return html
+	 * @return string html
 	 *
 	 */
 	public function template_html($tipo, $data = null, $lectura = 0)
 	{
-		$fecha_actual = date ("d/m/Y");
-
+		// $fecha_actual = date ("d/m/Y");
 		$template = '';
 
 		// Id tipos form , menosres de 100 son tipos de alumnos, formularios de cobranza
@@ -839,7 +862,7 @@ class Formularios
                 FORMULARIOHIST.COMENTARIO,
                 FORMULARIOHIST.PERSON ,person.LNAME , person.FNAME from FORMULARIOHIST " . "JOIN appgral.person  " . "on FORMULARIOHIST.PERSON=person.person " . "WHERE FORMULARIOHIST.IDFORMULARIO = :idform order by id desc";
 
-		$result = $this->db->query ($query, $esParam = true, $parametros);
+		$result = $this->db->query ($query, true, $parametros);
 
 		while ($fila = $this->db->fetch_array ($result))
 		{
@@ -856,7 +879,7 @@ class Formularios
 	 *
 	 * Obtiene las materias que tiene cargadas un form
 	 *
-	 * @param numeric $IDFORMULARIO
+	 * @param int $IDFORMULARIO
 	 * @return array
 	 *
 	 */
@@ -870,7 +893,7 @@ class Formularios
 
 		$query = " select * from FORMULARIOMATERIAS " . "WHERE IDFORMULARIO = :idform order by id desc";
 		$fila = '';
-		$result = $this->db->query ($query, $esParam = true, $parametros);
+		$result = $this->db->query ($query, true, $parametros);
 
 		while ($fila = $this->db->fetch_array ($result))
 		{

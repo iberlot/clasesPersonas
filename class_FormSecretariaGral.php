@@ -85,7 +85,7 @@ class FormsSecretariaGral extends Formularios
 	 * Obtiene el form de la tabla form , y tambien de form de secretaria
 	 *
 	 * @param int $id
-	 * @return type
+	 * @return array
 	 */
 	public function getFormById($id)
 	{
