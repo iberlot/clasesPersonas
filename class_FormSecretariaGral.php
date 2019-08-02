@@ -68,7 +68,7 @@ class FormsSecretariaGral extends Formularios
                         FORMULARIOS.ID = FORMULARIOSECGRAL.IDFORMULARIO
                         WHERE FORMULARIOS.id = :id ";
 
-			$result = $this->db->query ($query, $esParam = true, $parametros);
+			$result = $this->db->query ($query, true, $parametros);
 
 			if ($result)
 			{
@@ -84,7 +84,7 @@ class FormsSecretariaGral extends Formularios
 	 *
 	 * Obtiene el form de la tabla form , y tambien de form de secretaria
 	 *
-	 * @param type $id
+	 * @param int $id
 	 * @return type
 	 */
 	public function getFormById($id)
@@ -95,22 +95,22 @@ class FormsSecretariaGral extends Formularios
 
 		// $this->db = Conexion::openConnection();
 
-		$query = "SELECT FORMULARIO.* ,
-                FORMULARIOSECGRAL.IDFORMULARIO,
-                FORMULARIOSECGRAL.PRESENTADOA,
-                FORMULARIOSECGRAL.TITULOSECUNDARIO,
-                FORMULARIOSECGRAL.EXPEDIDOPOR,
-                FORMULARIOSECGRAL.EMAILPERSONAL,
-                FORMULARIOSECGRAL.CELULAR,
-                FORMULARIOSECGRAL.OBLIGACADEAPROB,
-                FORMULARIOSECGRAL.EQUIVALENCIASOLI,
-                FORMULARIOSECGRAL.IDDOCUMEN1,
-                FORMULARIOSECGRAL.IDDOCUMEN2
-                FROM FORMULARIO JOIN tesoreria.FORMULARIOSECGRAL ON
-                FORMULARIO.ID = FORMULARIOSECGRAL.IDFORMULARIO
-                WHERE FORMULARIO.id = :id ";
+		$query = "SELECT formulario.* ,
+	                formulariosecgral.idformulario,
+	                formulariosecgral.presentadoa,
+	                formulariosecgral.titulosecundario,
+	                formulariosecgral.expedidopor,
+	                formulariosecgral.emailpersonal,
+	                formulariosecgral.celular,
+	                formulariosecgral.obligacadeaprob,
+	                formulariosecgral.equivalenciasoli,
+	                formulariosecgral.iddocumen1,
+	                formulariosecgral.iddocumen2
+                FROM formulario
+				JOIN tesoreria.formulariosecgral ON formulario.id = formulariosecgral.idformulario
+                WHERE formulario.id = :id ";
 
-		$result = $this->db->query ($query, $esParam = true, $parametros);
+		$result = $this->db->query ($query, true, $parametros);
 
 		$form = $this->db->fetch_array ($result);
 
@@ -122,19 +122,17 @@ class FormsSecretariaGral extends Formularios
 	}
 
 	/**
-	 *
 	 * En base al tipo de form que recibimos , mostramos
 	 * el template correspondiente
 	 *
 	 * @param string $tipo
-	 *        	-->id de tipo formulario
-	 * @return html
+	 *        	--> id de tipo formulario
+	 * @return string con el html
 	 *
 	 */
 	public function template_html($tipo, $data = null, $lectura = 0)
 	{
-		$fecha_actual = date ("d/m/Y");
-
+		// $fecha_actual = date ("d/m/Y");
 		$template = '';
 
 		// Id tipos form , menosres de 100 son tipos de alumnos, formularios de cobranza
