@@ -59,7 +59,7 @@ abstract class Personas
 
 	/**
 	 *
-	 * @var array Lista de documetos de la persona.
+	 * @var array[Documentos] Lista de documetos de la persona.
 	 */
 	protected $documentos = array ();
 
@@ -92,7 +92,7 @@ abstract class Personas
 	/**
 	 * Direccion de mail de la persona
 	 *
-	 * @var array <Br>
+	 * @var array[string] <Br>
 	 *      @ubicacionBase appgral.apers.val - VARCHAR2(100 BYTE)
 	 *      Siempre que: appgral.apers.pattrib = 'TELE' y appgral.apers.shortdes = 'E-MAIL'
 	 */
@@ -101,7 +101,7 @@ abstract class Personas
 	/**
 	 * Numero de telefono de la persona
 	 *
-	 * @var int <Br>
+	 * @var array[int] <Br>
 	 *      @ubicacionBase appgral.apers.val - VARCHAR2(100 BYTE)
 	 *      <Br>
 	 *      Siempre que: appgral.apers.pattrib = 'TELE' y appgral.apers.shortdes = 'NUMERO'
@@ -204,7 +204,7 @@ abstract class Personas
 	/**
 	 * Array de objetos Direcciones de la persona
 	 *
-	 * @var Direcciones[]
+	 * @var array[Direcciones]
 	 */
 	protected $direccion = array ();
 
