@@ -62,7 +62,7 @@ class class_Administrativos extends Empleados
 
 		$query = "select LPAD(UNIDAD, 2, '0') UNIDAD from web.cuenta where CUENTA IN(select cuenta from  " . "portal.usuario_web where person = :person)";
 
-		$result = $db2->query ($query, $esParam = true, $param);
+		$result = $db2->query ($query, true, $param);
 
 		while ($fila = $db2->fetch_array ($result))
 		{
