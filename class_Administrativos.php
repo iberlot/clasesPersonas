@@ -14,10 +14,9 @@
  *
  */
 
-
-
 /**
  * Description of class_Administrativos
+ *
  * @author lquiroga <@> lquiroga@usal.edu.ar
  * @author iberlot <@> iberlot@usal.edu.ar
  * @since 15 mar. 2019
@@ -25,92 +24,89 @@
  * @lenguage PHP
  * @name class_Empleados.php
  *
- * 
+ *
  */
-class class_Administrativos extends Empleados {
-    
-        
-    
-    //Unidad academica
+class class_Administrativos extends Empleados
+{
+
+	// Unidad academica
 	protected $unidad;
-    //Edificio perteneciente
+	// Edificio perteneciente
 	protected $edificio;
-    //Edificio perteneciente
+	// Edificio perteneciente
 	protected $sede;
-                        
-    public function __construct($db,$person=null){
-        
-            $this->db = $db;
 
-          /* if (!is_null ($id)){
-                    $this->buscar_PersonXPerson($person);
-            }*/
-    }
-    
-    
-    /**
-     * Obtiene los datos de la tabla web.cuenta , para obtener la unidad , edificio y sede del usuario
-     * @param type $person
-     */
-    public function obtenerUnidad($db,$person){
-	
-         $param  = array(
-               $person
-             );
-             
-         
-            $db2=$db;
-                        
-            $query      = "select LPAD(UNIDAD, 2, '0') UNIDAD from web.cuenta where CUENTA IN(select cuenta from  "
-                        . "portal.usuario_web where person = :person)";
+	public function __construct($db, $person = null)
+	{
+		$this->db = $db;
 
-            $result     =$db2->query($query, $esParam = true, $param);
+		/*
+		 * if (!is_null ($id)){
+		 * $this->buscar_PersonXPerson($person);
+		 * }
+		 */
+	}
 
-  
-            
-            while ($fila = $db2->fetch_array($result)){
-  
-		$salida[]=$fila['UNIDAD'];
-                
+	/**
+	 * Obtiene los datos de la tabla web.cuenta , para obtener la unidad , edificio y sede del usuario
+	 *
+	 * @param int $person
+	 */
+	public function obtenerUnidad($db, $person)
+	{
+		$param = array (
+				$person
+		);
+
+		$db2 = $db;
+
+		$query = "select LPAD(UNIDAD, 2, '0') UNIDAD from web.cuenta where CUENTA IN(select cuenta from  " . "portal.usuario_web where person = :person)";
+
+		$result = $db2->query ($query, $esParam = true, $param);
+
+		while ($fila = $db2->fetch_array ($result))
+		{
+
+			$salida[] = $fila['UNIDAD'];
 		}
 
-                $this->setUnidad($salida);
-               
-                return $salida;
-                
-    }
-    
-    
- 
-    
-    /*
-    * *********************************************
-    * Iniciamos los getters and setters
-    * *********************************************
-    */
-    
-     function getUnidad() {
-        return $this->unidad;
-    }
+		$this->setUnidad ($salida);
 
-    function getEdificio() {
-        return $this->edificio;
-    }
+		return $salida;
+	}
 
-    function getSede() {
-        return $this->sede;
-    }
+	/*
+	 * *********************************************
+	 * Iniciamos los getters and setters
+	 * *********************************************
+	 */
+	function getUnidad()
+	{
+		return $this->unidad;
+	}
 
-    function setUnidad($unidad) {
-        $this->unidad = $unidad;
-    }
+	function getEdificio()
+	{
+		return $this->edificio;
+	}
 
-    function setEdificio($edificio) {
-        $this->edificio = $edificio;
-    }
+	function getSede()
+	{
+		return $this->sede;
+	}
 
-    function setSede($sede) {
-        $this->sede = $sede;
-    }
+	function setUnidad($unidad)
+	{
+		$this->unidad = $unidad;
+	}
 
+	function setEdificio($edificio)
+	{
+		$this->edificio = $edificio;
+	}
+
+	function setSede($sede)
+	{
+		$this->sede = $sede;
+	}
 }
