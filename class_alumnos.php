@@ -8,9 +8,9 @@
  * @lenguage PHP
  * @name class_alumnos.php
  * @version 0.1 version inicial del archivo.
- */
-
-/*
+ *
+ *
+ *
  * Querido programador:
  *
  * Cuando escribi este codigo, solo Dios y yo sabiamos como funcionaba.
@@ -115,6 +115,15 @@ class Alumnos extends Personas
 	 */
 	protected $desc_unidad_alumno;
 
+	/**
+	 * Constructor de la clase Alumnos.
+	 *
+	 * @param class_db $db
+	 *        	- Objeto de coneccion a la base.
+	 * @param int $person
+	 *        	- Numero identificatorio de la persona.
+	 * @param int $centrocosto
+	 */
 	public function __construct($db = null, $person = null, $centrocosto = null)
 	{
 		parent::__construct ($person, $db);
@@ -376,7 +385,7 @@ class Alumnos extends Personas
 						AND stusubj.stat IN (" . $estados . ")";
 
 		$parametros = array (
-				$person,
+				$this->person,
 				$carrera,
 				$plan
 		);
@@ -638,9 +647,10 @@ class Alumnos extends Personas
 	}
 
 	/**
+	 * Seter del parametro plan
 	 *
-	 * @param
-	 *        	int a cargar en la variable $plan
+	 * @param int $plan
+	 *        	a cargar en la variable plan de la clase
 	 */
 	public function setPlan($plan)
 	{
@@ -648,6 +658,7 @@ class Alumnos extends Personas
 	}
 
 	/**
+	 * Seter del parametro desc_unidad_alumno
 	 *
 	 * @param
 	 *        	string a cargar en la variable $desc_unidad_alumno

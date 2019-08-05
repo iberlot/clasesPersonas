@@ -117,17 +117,16 @@ class Credenciales
 	 */
 	public function __construct($db = null, $person = null)
 	{
-		if (!isset ($db) or empty ($db))
+		if (!isset ($db) or empty ($db) or $db == null)
 		{
-			global $db;
+			if (!$this->db = Sitios::openConnection ())
+			{
+				global $db;
 
-			if (!isset ($db) or empty ($db))
-			{
-				$this->db = Sitios::openConnection ();
-			}
-			else
-			{
-				$this->db = $db;
+				if (isset ($db) and !empty ($db) and $db != null)
+				{
+					$this->db = $db;
+				}
 			}
 		}
 		else
@@ -408,11 +407,11 @@ class Credenciales
 				    estadocredencialca,
 				    codigoisic,
 				    nrodechip,
-				    TO_CHAR(sca_fecha,'dd/mm/yyyy'),
+				    TO_CHAR(sca_fecha,'dd/mm/yyyy') sca_fecha,
 				    sca_categoria,
 				    sca_lote,
 				    tipo_formulario,
-				    TO_CHAR(fecha_chip,'dd/mm/yyyy'),
+				    TO_CHAR(fecha_chip,'dd/mm/yyyy') fecha_chip,
 				    motivo,
 				    tipo_credencial
 				FROM
@@ -431,7 +430,7 @@ class Credenciales
 		{
 			$this->setEstadocredencialca ($fila['ESTADOCREDENCIALCA']);
 			$this->setCodigoisic ($fila['CODIGOISIC']);
-			$this->setNroDeChip ($fila['NRODECHIP']);
+			$this->set_Nrodechip ($fila['NRODECHIP']);
 			$this->setSca_fecha ($fila['SCA_FECHA']);
 			$this->setSca_categoria ($fila['SCA_CATEGORIA']);
 			$this->setSca_lote ($fila['SCA_LOTE']);

@@ -2,15 +2,15 @@
 
 /**
  * Archivo de la clase Sucursales
- * 
- * 
+ *
+ *
  * @author lquiroga - lquiroga@gmail.com
- * 
+ *
  * @since 25 jun. 2019
  * @lenguage PHP
  * @name class_caja.php
  * @version 0.1 version inicial del archivo.
- * 
+ *
 
  * Querido programador:
  *
@@ -23,129 +23,139 @@
  *
  * totalHorasPerdidasAqui = 0
  *
- * 
+ *
  * Manejo de caja del sistema tesoreria
  */
-class SucursalesCajas {
+class SucursalesCajas
+{
+	protected $db;
+	protected $idsucursal;
+	protected $nombre;
+	protected $direccion;
+	protected $localidad;
+	protected $telefono;
 
-    protected $db;
-    protected $idsucursal;
-    protected $nombre;
-    protected $direccion;
-    protected $localidad;
-    protected $telefono;
+	function __construct($db, $idsucursal = null)
+	{
+		$this->db = $db;
+	}
 
-    function __construct($db, $idsucursal = null) {
+	function getAll()
+	{
+		$query = " select * from SUCURSALESCAJAS";
 
-        $this->db = $db;
-    }
-    
-    
+		$result = $this->db->query ($query);
 
-    function getAll() {
+		while ($fila = $this->db->fetch_array ($result))
+		{
 
-        $query = " select * from SUCURSALESCAJAS";
+			$salida[] = $fila;
+		}
 
-        $result = $this->db->query($query);
+		return $salida;
+	}
 
-        while ($fila = $this->db->fetch_array($result)) {
+	/**
+	 *
+	 * @FIXME para esta funcion deberia exisitr una clase aparte
+	 * @return array
+	 */
+	function getAllItemsMenu()
+	{
+		$query = " SELECT * FROM opcionesmenucajatesoreria";
 
-            $salida[] = $fila;
-        }
+		$result = $this->db->query ($query);
 
-        return $salida;
-    }
-    
-    /**
-     * @FIXME para esta funcion deberia exisitr una clase aparte
-     * @return type
-     */
-    function getAllItemsMenu() {
+		while ($fila = $this->db->fetch_array ($result))
+		{
 
-        $query = " select * from OPCIONESMENUCAJATESORERIA";
+			$salida[] = $fila;
+		}
 
-        $result = $this->db->query($query);
+		return $salida;
+	}
 
-        while ($fila = $this->db->fetch_array($result)) {
+	/**
+	 * loadData
+	 * Carga propiedades del objeta que vienen desde la DB
+	 *
+	 * IDSUCURSAL
+	 * NOMBRE
+	 * DIRECCION
+	 * LOCALIDAD
+	 * TELEFONO
+	 *
+	 * @param array $fila
+	 *        	return objet sucursales
+	 */
+	public function loadData($fila)
+	{
+		$this->setIdsucursal ($fila['IDSUCURSAL']);
+		$this->setNombre ($fila['NOMBRE']);
+		$this->setDireccion ($fila['DIRECCION']);
+		$this->setLocalidad ($fila['LOCALIDAD']);
+		$this->setTelefono ($fila['TELEFONO']);
+	}
 
-            $salida[] = $fila;
-        }
+	/* * GETTERS* */
+	function getDb()
+	{
+		return $this->db;
+	}
 
-        return $salida;
-    }
+	function getIdsucursal()
+	{
+		return $this->idsucursal;
+	}
 
-    /**
-     * loadData
-     * Carga propiedades del objeta que vienen desde la DB
-     * 
-     * IDSUCURSAL
-     * NOMBRE
-     * DIRECCION
-     * LOCALIDAD
-     * TELEFONO
-     *
-     * @param array $fila
-     *        	return objet sucursales 
-     */
-    public function loadData($fila) {
+	function getNombre()
+	{
+		return $this->nombre;
+	}
 
-        $this->setIdsucursal($fila['IDSUCURSAL']);
-        $this->setNombre($fila['NOMBRE']);
-        $this->setDireccion($fila['DIRECCION']);
-        $this->setLocalidad($fila['LOCALIDAD']);
-        $this->setTelefono($fila['TELEFONO']);
-    }
+	function getDireccion()
+	{
+		return $this->direccion;
+	}
 
-    /*     * GETTERS* */
+	function getLocalidad()
+	{
+		return $this->localidad;
+	}
 
-    function getDb() {
-        return $this->db;
-    }
+	function getTelefono()
+	{
+		return $this->telefono;
+	}
 
-    function getIdsucursal() {
-        return $this->idsucursal;
-    }
+	/* * GETTERS* */
+	function setDb($db)
+	{
+		$this->db = $db;
+	}
 
-    function getNombre() {
-        return $this->nombre;
-    }
+	function setIdsucursal($idsucursal)
+	{
+		$this->idsucursal = $idsucursal;
+	}
 
-    function getDireccion() {
-        return $this->direccion;
-    }
+	function setNombre($nombre)
+	{
+		$this->nombre = $nombre;
+	}
 
-    function getLocalidad() {
-        return $this->localidad;
-    }
+	function setDireccion($direccion)
+	{
+		$this->direccion = $direccion;
+	}
 
-    function getTelefono() {
-        return $this->telefono;
-    }
+	function setLocalidad($localidad)
+	{
+		$this->localidad = $localidad;
+	}
 
-    /*     * GETTERS* */
-
-    function setDb($db) {
-        $this->db = $db;
-    }
-
-    function setIdsucursal($idsucursal) {
-        $this->idsucursal = $idsucursal;
-    }
-
-    function setNombre($nombre) {
-        $this->nombre = $nombre;
-    }
-
-    function setDireccion($direccion) {
-        $this->direccion = $direccion;
-    }
-
-    function setLocalidad($localidad) {
-        $this->localidad = $localidad;
-    }
-
-    function setTelefono($telefono) {
-        $this->telefono = $telefono;
-    }
-
+	function setTelefono($telefono)
+	{
+		$this->telefono = $telefono;
+	}
 }

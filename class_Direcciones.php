@@ -10,7 +10,8 @@
  * @name class_direccion.php
  * @version 0.1 version inicial del archivo.
  */
-//use function Direcciones\cargar_db_apers;
+// use function Direcciones\cargar_db_apers;
+use function Direcciones\cargar_db_apers;
 
 require_once 'class_conexion.php';
 
@@ -189,9 +190,24 @@ class Direcciones
 	 * @param string $departamento
 	 *        	- opcional
 	 */
-	public function __construct($tipo = 0, $pais = "", $poldiv = "", $city = "", $calle = "", $numero = 0, $codigoPostal = "", $piso = 0, $departamento = "")
+	public function __construct($tipo = 0, $pais = "", $poldiv = "", $city = "", $calle = "", $numero = 0, $codigoPostal = "", $piso = 0, $departamento = "", $db = null)
 	{
-		$this->db = Conexion::openConnection ();
+		if (!isset ($db) or empty ($db) or $db == null)
+		{
+			if (!$this->db = Sitios::openConnection ())
+			{
+				global $db;
+
+				if (isset ($db) and !empty ($db) and $db != null)
+				{
+					$this->db = $db;
+				}
+			}
+		}
+		else
+		{
+			$this->db = $db;
+		}
 
 		if ($tipo != 0)
 		{
@@ -268,23 +284,23 @@ class Direcciones
 					{
 						if ($recu['SHORTDES'][$i] == 'PISO')
 						{
-							$this->setDirePiso ($recu['VAL'][$i]);
+							$this->setPiso ($recu['VAL'][$i]);
 						}
 						elseif ($recu['SHORTDES'][$i] == 'CALLE')
 						{
-							$this->setDireCalle ($recu['VAL'][$i]);
+							$this->setCalle ($recu['VAL'][$i]);
 						}
 						elseif ($recu['SHORTDES'][$i] == 'DEPTO')
 						{
-							$this->setDireNumero ($recu['VAL'][$i]);
+							$this->setDepartamento ($recu['VAL'][$i]);
 						}
 						elseif ($recu['SHORTDES'][$i] == 'NRO')
 						{
-							$this->setDireNumero ($recu['VAL'][$i]);
+							$this->setNumero ($recu['VAL'][$i]);
 						}
 						elseif ($recu['SHORTDES'][$i] == 'CODPOS')
 						{
-							$this->setDireCodPos ($recu['VAL'][$i]);
+							$this->setCodigoPostal ($recu['VAL'][$i]);
 						}
 					}
 				}
@@ -296,7 +312,7 @@ class Direcciones
 		}
 		elseif ($tipo == 1)
 		{
-			if ($recu = $this->db->realizarSelect ("appgral.person", "person = :person"))
+			if ($recu = $this->db->realizarSelect ("appgral.person", $buscar))
 			{
 				$this->setPais ($recu['COUNTRY']);
 				$this->setPoldiv ($recu['POLDIV']);
@@ -309,50 +325,47 @@ class Direcciones
 		}
 		elseif ($tipo == 2)
 		{
-			if ($recu = $this->db->realizarSelectAll ("appgral.apers", "person = $person AND pattrib='DOMP'"))
+
+			$buscar['pattrib'] = 'DOMP';
+			// $campos = array ();
+			// $campos[] = 'SHORTDES';
+			// $campos[] = 'VAL';
+
+			if ($recu = $this->db->realizarSelectAll ("appgral.apers", $buscar))
 			{
-
-				$buscar['pattrib'] = 'DOMP';
-				// $campos = array ();
-				// $campos[] = 'SHORTDES';
-				// $campos[] = 'VAL';
-
-				if ($recu = $this->db->realizarSelectAll ("appgral.apers", $buscar))
+				for($i = 0; $i <= (count ($recu['SHORTDES']) - 1); $i ++)
 				{
-					for($i = 0; $i <= (count ($recu['SHORTDES']) - 1); $i ++)
+					if ($recu['SHORTDES'][$i] == 'PISO')
 					{
-						if ($recu['SHORTDES'][$i] == 'PISO')
-						{
-							$this->setDirePiso ($recu['VAL'][$i]);
-						}
-						elseif ($recu['SHORTDES'][$i] == 'CALLE')
-						{
-							$this->setDireCalle ($recu['VAL'][$i]);
-						}
-						elseif ($recu['SHORTDES'][$i] == 'DEPTO')
-						{
-							$this->setDireNumero ($recu['VAL'][$i]);
-						}
-						elseif ($recu['SHORTDES'][$i] == 'NRO')
-						{
-							$this->setDireNumero ($recu['VAL'][$i]);
-						}
-						elseif ($recu['SHORTDES'][$i] == 'CODPOS')
-						{
-							$this->setDireCodPos ($recu['VAL'][$i]);
-						}
-						elseif ($recu['SHORTDES'][$i] == 'COUNTRY')
-						{
-							$this->setPais ($recu['VAL'][$i]);
-						}
-						elseif ($recu['SHORTDES'][$i] == 'POLDIV')
-						{
-							$this->setPoldiv ($recu['VAL'][$i]);
-						}
-						elseif ($recu['SHORTDES'][$i] == 'CITY')
-						{
-							$this->setCity ($recu['VAL'][$i]);
-						}
+						$this->setDirePiso ($recu['VAL'][$i]);
+					}
+					elseif ($recu['SHORTDES'][$i] == 'CALLE')
+					{
+						$this->setDireCalle ($recu['VAL'][$i]);
+					}
+					elseif ($recu['SHORTDES'][$i] == 'DEPTO')
+					{
+						$this->setDireNumero ($recu['VAL'][$i]);
+					}
+					elseif ($recu['SHORTDES'][$i] == 'NRO')
+					{
+						$this->setDireNumero ($recu['VAL'][$i]);
+					}
+					elseif ($recu['SHORTDES'][$i] == 'CODPOS')
+					{
+						$this->setDireCodPos ($recu['VAL'][$i]);
+					}
+					elseif ($recu['SHORTDES'][$i] == 'COUNTRY')
+					{
+						$this->setPais ($recu['VAL'][$i]);
+					}
+					elseif ($recu['SHORTDES'][$i] == 'POLDIV')
+					{
+						$this->setPoldiv ($recu['VAL'][$i]);
+					}
+					elseif ($recu['SHORTDES'][$i] == 'CITY')
+					{
+						$this->setCity ($recu['VAL'][$i]);
 					}
 				}
 			}
@@ -725,7 +738,7 @@ class Direcciones
 	public function setPais($pais)
 	{
 		$where = array ();
-		$where['country'] = $this->pais;
+		$where['country'] = $pais;
 
 		if ($this->db->realizarSelect ("appgral.country", $where))
 		{
@@ -798,7 +811,7 @@ class Direcciones
 		{
 			$where['country'] = 'ARG';
 		}
-		$where['poldiv'] = $this->poldiv;
+		$where['poldiv'] = $poldiv;
 
 		if ($this->db->realizarSelect ("appgral.poldiv", $where))
 		{
@@ -883,7 +896,7 @@ class Direcciones
 			$where['poldiv'] = $this->poldiv;
 		}
 
-		$where['city'] = $this->city;
+		$where['city'] = $city;
 
 		if ($this->db->realizarSelect ("appgral.city", $where))
 		{
@@ -932,13 +945,15 @@ class Direcciones
 	 */
 	public function setNumero($numero)
 	{
+		$numero = $numero + 0;
+
 		if (is_int ($numero))
 		{
 			$this->numero = $numero;
 		}
 		else
 		{
-			throw new Exception ('El dato debe ser un numero entero.');
+			throw new Exception ($numero . 'El dato debe ser un numero entero.');
 		}
 	}
 
@@ -959,6 +974,8 @@ class Direcciones
 	 */
 	public function setPiso($piso)
 	{
+		$piso = $piso + 0;
+
 		if (is_int ($piso))
 		{
 			$this->piso = $piso;

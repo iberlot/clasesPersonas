@@ -30,7 +30,7 @@ require_once ("class_credenciales.php");
  *
  * @author iberlot <@> ivanberlot@gmail.com
  *
- * @name class_persona
+ * @name Personas
  *
  * @version 0.1 - Version de inicio
  *
@@ -308,15 +308,14 @@ abstract class Personas
 	{
 		if (!isset ($db) or empty ($db) or $db == null)
 		{
-			global $db;
+			if (!$this->db = Sitios::openConnection ())
+			{
+				global $db;
 
-			if (!isset ($db) or empty ($db) or $db == null)
-			{
-				$this->db = Sitios::openConnection ();
-			}
-			else
-			{
-				$this->db = $db;
+				if (isset ($db) and !empty ($db) and $db != null)
+				{
+					$this->db = $db;
+				}
 			}
 		}
 		else
@@ -333,6 +332,7 @@ abstract class Personas
 				$direccion = new Direcciones ($i);
 				$direccion->recuperar_dire_person ($person, $i);
 			}
+
 			$this->email = array ();
 			$this->telefono = array ();
 			$this->foto_persona = "";

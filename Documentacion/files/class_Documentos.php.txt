@@ -24,7 +24,13 @@
  * totalHorasPerdidasAqui = 0
  *
  */
-abstract class Documentos
+
+/**
+ *
+ * @author iberlot
+ *         FIXME esta clase deberia ser abstracta y servir de padre a clases como cuil dni pasaporte y que cada una aporte las funcionalidades requeridas.
+ */
+class Documentos
 {
 
 	/**
@@ -34,7 +40,7 @@ abstract class Documentos
 	 *      @ubicacionBase appgral.perdoc.docno - VARCHAR2(30 BYTE)
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
-	 *
+	 *      
 	 *       <Br>
 	 *       Hay que tener en cuenta que el campo appgral.perdoc.isKey debe se igual a 1
 	 */
@@ -47,7 +53,7 @@ abstract class Documentos
 	 *      @ubicacionBase appgral.perdoc.typdoc - VARCHAR2(10 BYTE)
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
-	 *
+	 *      
 	 *       <Br>
 	 *       Hay que tener en cuenta que el campo appgral.perdoc.isKey debe se igual a 1
 	 *       <Br>
@@ -66,6 +72,30 @@ abstract class Documentos
 	// * y que el campo appgral.perdoc.typdoc = 'CUIL'
 	// */
 	// public $cuil = "";
+	public function __construct($db = null, $doc_num, $doc_typ)
+	{
+		if (!isset ($db) or empty ($db) or $db == null)
+		{
+			global $db;
+
+			if (!isset ($db) or empty ($db) or $db == null)
+			{
+				$this->db = Sitios::openConnection ();
+			}
+			else
+			{
+				$this->db = $db;
+			}
+		}
+		else
+		{
+			$this->db = $db;
+		}
+
+		$this->setDocTipo ($doc_typ);
+
+		$this->setDocNumero ($doc_num);
+	}
 
 	/**
 	 * Revisarlo e implementarlo en class persona
@@ -86,7 +116,7 @@ abstract class Documentos
 		$digitos = str_split ($cuit);
 		$digito = array_pop ($digitos);
 
-		for($i = 0; $i < count ($digitos); $i++)
+		for($i = 0; $i < count ($digitos); $i ++)
 		{
 			$acumulado += $digitos[9 - $i] * (2 + ($i % 6));
 		}
@@ -94,5 +124,56 @@ abstract class Documentos
 		$verif = $verif == 11 ? 0 : $verif;
 
 		return $digito == $verif;
+	}
+
+	/**
+	 *
+	 * @return string el dato de la variable $docNumero
+	 */
+	public function getDocNumero()
+	{
+		return $this->docNumero;
+	}
+
+	/**
+	 *
+	 * @return string el dato de la variable $docTipo
+	 */
+	public function getDocTipo()
+	{
+		return $this->docTipo;
+	}
+
+	/**
+	 *
+	 * @param
+	 *        	string a cargar en la variable $docNumero
+	 */
+	public function setDocNumero($docNumero)
+	{
+		$this->docNumero = $docNumero;
+	}
+
+	/**
+	 *
+	 * @param
+	 *        	string a cargar en la variable $docTipo
+	 */
+	public function setDocTipo($docTipo)
+	{
+		$docTipo = strtoupper ($docTipo);
+
+		$sql = "SELECT typdoc FROM appgral.tdoc";
+		$result = $this->db->query ($sql);
+		$recu = $this->db->fetch_all ($result);
+
+		if (in_array ($docTipo, $recu))
+		{
+			$this->docTipo = $docTipo;
+		}
+		else
+		{
+			throw new Exception ("Tipo de documento no valido.");
+		}
 	}
 }
