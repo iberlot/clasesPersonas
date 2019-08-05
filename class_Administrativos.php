@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Archivo que contiene la cales Administrativos
+ */
+
 /*
  * Querido programador:
  *
@@ -22,14 +26,17 @@
  * @since 15 mar. 2019
  * @version 1.0
  * @lenguage PHP
- * @name class_Empleados.php
- *
- *
+ * @name class_Administrativos
  */
 class class_Administrativos extends Empleados
 {
 
 	// Unidad academica
+	/**
+	 * Unidad a la que pertenece el Administrativo
+	 *
+	 * @var unknown
+	 */
 	protected $unidad;
 	// Edificio perteneciente
 	protected $edificio;
@@ -60,7 +67,7 @@ class class_Administrativos extends Empleados
 
 		$db2 = $db;
 
-		$query = "select LPAD(UNIDAD, 2, '0') UNIDAD from web.cuenta where CUENTA IN(select cuenta from  " . "portal.usuario_web where person = :person)";
+		$query = "SELECT LPAD(unidad, 2, '0') unidad FROM web.cuenta WHERE cuenta IN(SELECT cuenta FROM portal.usuario_web WHERE person = :person)";
 
 		$result = $db2->query ($query, true, $param);
 

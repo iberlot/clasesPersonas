@@ -617,36 +617,6 @@ class Alumnos extends Personas
 	}
 
 	/**
-	 *
-	 * @param
-	 *        	int a cargar en la variable $fa
-	 */
-	public function setFa($fa)
-	{
-		$this->fa = $fa;
-	}
-
-	/**
-	 *
-	 * @param
-	 *        	int a cargar en la variable $es
-	 */
-	public function setEs($es)
-	{
-		$this->es = $es;
-	}
-
-	/**
-	 *
-	 * @param
-	 *        	int a cargar en la variable $ca
-	 */
-	public function setCa($ca)
-	{
-		$this->ca = $ca;
-	}
-
-	/**
 	 * Seter del parametro plan
 	 *
 	 * @param int $plan
@@ -658,14 +628,47 @@ class Alumnos extends Personas
 	}
 
 	/**
-	 * Seter del parametro desc_unidad_alumno
+	 * Seter del parametro desc_unidad_alumno.
 	 *
-	 * @param
-	 *        	string a cargar en la variable $desc_unidad_alumno
+	 * @param string $desc_unidad_alumno
+	 *        	dato a cargar en la variable.
 	 */
 	public function setDesc_unidad_alumno($desc_unidad_alumno)
 	{
 		$this->desc_unidad_alumno = $desc_unidad_alumno;
+	}
+
+	/**
+	 * Setter del parametro $fa de la clase.
+	 *
+	 * @param number $fa
+	 *        	dato a cargar en la variable.
+	 */
+	public function setFa($fa)
+	{
+		$this->fa = $fa;
+	}
+
+	/**
+	 * Setter del parametro $es de la clase.
+	 *
+	 * @param number $es
+	 *        	dato a cargar en la variable.
+	 */
+	public function setEs($es)
+	{
+		$this->es = $es;
+	}
+
+	/**
+	 * Setter del parametro $ca de la clase.
+	 *
+	 * @param number $ca
+	 *        	dato a cargar en la variable.
+	 */
+	public function setCa($ca)
+	{
+		$this->ca = $ca;
 	}
 }
 ?>
