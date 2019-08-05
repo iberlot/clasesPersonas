@@ -31,27 +31,51 @@
 class class_Administrativos extends Empleados
 {
 
-	// Unidad academica
 	/**
 	 * Unidad a la que pertenece el Administrativo
 	 *
-	 * @var unknown
+	 * @var int
 	 */
 	protected $unidad;
-	// Edificio perteneciente
+
+	/**
+	 * Edificio a la que pertenece el Administrativo
+	 *
+	 * @var int
+	 */
 	protected $edificio;
-	// Edificio perteneciente
+
+	/**
+	 * Sede a la que pertenece el Administrativo
+	 *
+	 * @var int
+	 */
 	protected $sede;
 
-	public function __construct($db, $person = null)
+	/**
+	 * Constructor de la clase.
+	 *
+	 * @param class_db $db
+	 * @param int $person
+	 */
+	public function __construct($db = null, $person = null)
 	{
-		$this->db = $db;
+		if (!isset ($db) or empty ($db) or $db == null)
+		{
+			if (!$this->db = Sitios::openConnection ())
+			{
+				global $db;
 
-		/*
-		 * if (!is_null ($id)){
-		 * $this->buscar_PersonXPerson($person);
-		 * }
-		 */
+				if (isset ($db) and !empty ($db) and $db != null)
+				{
+					$this->db = $db;
+				}
+			}
+		}
+		else
+		{
+			$this->db = $db;
+		}
 	}
 
 	/**
@@ -87,32 +111,65 @@ class class_Administrativos extends Empleados
 	 * Iniciamos los getters and setters
 	 * *********************************************
 	 */
-	function getUnidad()
+	/**
+	 * Retorna el valor del atributo $unidad
+	 *
+	 * @return number $unidad el dato de la variable.
+	 */
+	public function getUnidad()
 	{
 		return $this->unidad;
 	}
 
-	function getEdificio()
+	/**
+	 * Retorna el valor del atributo $edificio
+	 *
+	 * @return number $edificio el dato de la variable.
+	 */
+	public function getEdificio()
 	{
 		return $this->edificio;
 	}
 
-	function getSede()
+	/**
+	 * Retorna el valor del atributo $sede
+	 *
+	 * @return number $sede el dato de la variable.
+	 */
+	public function getSede()
 	{
 		return $this->sede;
 	}
 
-	function setUnidad($unidad)
+	/**
+	 * Setter del parametro $unidad de la clase.
+	 *
+	 * @param number $unidad
+	 *        	dato a cargar en la variable.
+	 */
+	public function setUnidad($unidad)
 	{
 		$this->unidad = $unidad;
 	}
 
-	function setEdificio($edificio)
+	/**
+	 * Setter del parametro $edificio de la clase.
+	 *
+	 * @param number $edificio
+	 *        	dato a cargar en la variable.
+	 */
+	public function setEdificio($edificio)
 	{
 		$this->edificio = $edificio;
 	}
 
-	function setSede($sede)
+	/**
+	 * Setter del parametro $sede de la clase.
+	 *
+	 * @param number $sede
+	 *        	dato a cargar en la variable.
+	 */
+	public function setSede($sede)
 	{
 		$this->sede = $sede;
 	}
