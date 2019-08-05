@@ -245,7 +245,7 @@ class Alumnos extends Personas
                      JOIN tesoreria.ccalu ON person.person = ccalu.person and centrodecosto.idcentrodecosto = ccalu.idcentrodecosto";
 
 			$where = "AND facu IN( " . $unidades . " )
-						GROUP BY centrodecosto.idcentrodecosto, ccalu.person, person.lname, person.fname,facu";
+			 GROUP BY centrodecosto.idcentrodecosto, person.person, person.lname, person.fname,facu";
 		}
 
 		$query = "SELECT
@@ -381,8 +381,8 @@ class Alumnos extends Personas
 		$query = "SELECT stusubj.subject, course.quarter, stusubj.stat
 				  FROM studentc.stusubj
         		  JOIN studentc.course ON stusubj.course = course.code
-				  WHERE stusubj.student=:person AND stusubj.career=:carrera AND stusubj.plan= :plan
-						AND stusubj.stat IN (" . $estados . ")";
+				  WHERE stusubj.student=:person AND 
+                                  stusubj.career=:carrera AND stusubj.plan=:plan AND stusubj.stat IN (" . $estados . ")";
 
 		$parametros = array (
 				$this->person,
