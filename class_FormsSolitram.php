@@ -15,9 +15,9 @@
 // require_once ("Carreras.php");
 // require_once ("Alumnos.php");
 require_once ("/web/html/classesUSAL/class_Personas.php");
-require_once ("/web/html/classes/class_derechos_varios.php");
-require_once ("/web/html/classes/class_alumnos.php");
-require_once ("/web/html/classes/class_carreras.php");
+require_once ("/web/html/classesUSAL/class_derechos_varios.php");
+require_once ("/web/html/classesUSAL/class_alumnos.php");
+require_once ("/web/html/classesUSAL/class_carreras.php");
 
 class Formularios
 {
