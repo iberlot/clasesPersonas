@@ -40,7 +40,7 @@ class Documentos
 	 *      @ubicacionBase appgral.perdoc.docno - VARCHAR2(30 BYTE)
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
-	 *      
+	 *
 	 *       <Br>
 	 *       Hay que tener en cuenta que el campo appgral.perdoc.isKey debe se igual a 1
 	 */
@@ -53,7 +53,7 @@ class Documentos
 	 *      @ubicacionBase appgral.perdoc.typdoc - VARCHAR2(10 BYTE)
 	 *
 	 * @todo Este campo es obligatorio a la hora de crear personas.
-	 *      
+	 *
 	 *       <Br>
 	 *       Hay que tener en cuenta que el campo appgral.perdoc.isKey debe se igual a 1
 	 *       <Br>
@@ -72,19 +72,18 @@ class Documentos
 	// * y que el campo appgral.perdoc.typdoc = 'CUIL'
 	// */
 	// public $cuil = "";
-	public function __construct($db = null, $doc_num, $doc_typ)
+	public function __construct($doc_num, $doc_typ, $db = null)
 	{
 		if (!isset ($db) or empty ($db) or $db == null)
 		{
-			global $db;
+			if (!$this->db = Sitios::openConnection ())
+			{
+				global $db;
 
-			if (!isset ($db) or empty ($db) or $db == null)
-			{
-				$this->db = Sitios::openConnection ();
-			}
-			else
-			{
-				$this->db = $db;
+				if (isset ($db) and !empty ($db) and $db != null)
+				{
+					$this->db = $db;
+				}
 			}
 		}
 		else
@@ -167,13 +166,13 @@ class Documentos
 		$result = $this->db->query ($sql);
 		$recu = $this->db->fetch_all ($result);
 
-		if (in_array ($docTipo, $recu))
+		if (in_array ($docTipo, $recu['TYPDOC']))
 		{
 			$this->docTipo = $docTipo;
 		}
 		else
 		{
-			throw new Exception ("Tipo de documento no valido.");
+			throw new Exception ("Tipo de documento no valido. " . $docTipo . ". ");
 		}
 	}
 }

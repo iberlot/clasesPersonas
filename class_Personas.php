@@ -333,6 +333,14 @@ abstract class Personas
 				$direccion->recuperar_dire_person ($person, $i);
 			}
 
+			$docs = array ();
+			$docs = $this->buscar_perdoc_person ($person);
+
+			for($i = 0; $i < count ($docs); $i ++)
+			{
+				$this->documentos[] = new Documentos ($docs[$i]['docNumero'], $docs[$i]['typdoc']);
+			}
+
 			$this->email = array ();
 			$this->telefono = array ();
 			$this->foto_persona = "";
@@ -426,6 +434,50 @@ abstract class Personas
 		}
 
 		return $url_foto;
+	}
+
+	/**
+	 * Busca un todos los documentos de una persona.
+	 *
+	 * @param int $person
+	 * @return array retorna un array con todos los tipo y numero de una perona
+	 */
+	public function buscar_perdoc_person($person)
+	{
+		$sql = "SELECT * FROM appgral.perdoc WHERE person = :person";
+
+		$parametros = array ();
+		$parametros[] = $person;
+
+		$result = $this->db->query ($sql, true, $parametros);
+
+		if (!isset ($result) or $result == "" or $result == null)
+		{
+			$sql = "SELECT * FROM appgral.auditaperdoc WHERE person = :person";
+
+			$parametros[0] = $person;
+
+			$result = $this->db->query ($sql, true, $parametros);
+		}
+
+		$i = 0;
+
+		while ($recu = $this->db->fetch_array ($result))
+		{
+			$persona[$i]['typdoc'] = $recu['TYPDOC'];
+			$persona[$i]['docNumero'] = $recu['DOCNO'];
+
+			$i = $i ++;
+		}
+
+		if (isset ($persona) and $persona != "")
+		{
+			return $persona;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 	/*
@@ -1739,6 +1791,15 @@ abstract class Personas
 	public function getDocumentos()
 	{
 		return $this->documentos;
+	}
+
+	/**
+	 *
+	 * @return array el dato de la variable $documentos
+	 */
+	public function getDoc()
+	{
+		return $this->documentos[0];
 	}
 
 	/**
