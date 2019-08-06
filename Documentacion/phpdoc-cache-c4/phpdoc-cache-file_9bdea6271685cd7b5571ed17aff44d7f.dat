@@ -255,17 +255,17 @@ class FormsSecretariaGral extends Formularios
 
 				$estados = '2,3';
 
-				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->get_person (), $alumno->get_carrera (), $alumno->get_plan (), $estados);
+				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->getPerson (), $alumno->getCarrera (), $alumno->getPlan (), $estados);
 			}
 			else
 			{
 
 				$estados = '2,3';
 
-				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->get_person (), $alumno->get_carrera (), $alumno->get_plan (), $estados);
+				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->getPerson (), $alumno->getCarrera (), $alumno->getPlan (), $estados);
 			}
 
-			$materias = $carrera->getMateriasPorPlan ($alumno->get_carrera (), $alumno->get_plan (), $aprobadas);
+			$materias = $carrera->getMateriasPorPlan ($alumno->getCarrera (), $alumno->getPlan (), $aprobadas);
 
 			// Si no hay data devuelve el select de materias
 			if (!$data)

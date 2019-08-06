@@ -681,7 +681,7 @@ class Formularios
 
 				$estados = '1';
 
-				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->get_person (), $alumno->get_carrera (), $alumno->get_plan (), $estados);
+				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->getPerson (), $alumno->getCarrera (), $alumno->getPlan (), $estados);
 			}
 			else if ($tipo == '05')
 			{
@@ -689,7 +689,7 @@ class Formularios
 				// cursadas del 1 cuat--->materias del primer o segundo cuatri !no anuales
 				$estados = '0';
 
-				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->get_person (), $alumno->get_carrera (), $alumno->get_plan (), $estados, 0);
+				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->getPerson (), $alumno->getCarrera (), $alumno->getPlan (), $estados, 0);
 			}
 			else if ($tipo == '06')
 			{
@@ -697,17 +697,17 @@ class Formularios
 				// cursadas del 2 cuat--->materias del primer o segundo cuatri !no anuales
 				$estados = '0';
 
-				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->get_person (), $alumno->get_carrera (), $alumno->get_plan (), $estados, 1);
+				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->getPerson (), $alumno->getCarrera (), $alumno->getPlan (), $estados, 1);
 			}
 			else
 			{
 
 				$estados = '2,3';
 
-				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->get_person (), $alumno->get_carrera (), $alumno->get_plan (), $estados);
+				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->getPerson (), $alumno->getCarrera (), $alumno->getPlan (), $estados);
 			}
 
-			$materias = $carrera->getMateriasPorPlan ($alumno->get_carrera (), $alumno->get_plan (), $aprobadas);
+			$materias = $carrera->getMateriasPorPlan ($alumno->getCarrera (), $alumno->getPlan (), $aprobadas);
 
 			// Si no hay data devuelve el select de materias
 			if ($aprobadas != "")
@@ -716,7 +716,7 @@ class Formularios
 				if (!$data)
 				{
 
-					$materias = $carrera->getMateriasPorPlan ($alumno->get_carrera (), $alumno->get_plan (), $aprobadas);
+					$materias = $carrera->getMateriasPorPlan ($alumno->getCarrera (), $alumno->getPlan (), $aprobadas);
 
 					$template .= '<input type="hidden" value="90" name="tipoform">' . '<label for="check"> Se matricula como alumno/a a egresar o complementario, debiendo rendir ' . 'solo ex&aacute;menes finales, correspondientes a las siguientes asignaturas: </label> <br/>' . '<ul id="listado_materias">';
 
@@ -1039,12 +1039,12 @@ class Formularios
 		return $this->estado;
 	}
 
-	function get_PERSON()
+	function getPerson()
 	{
 		return $this->PERSON;
 	}
 
-	function get_person_aprobo()
+	function getPerson_aprobo()
 	{
 		return $this->PERSON_aprobo;
 	}
