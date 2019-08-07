@@ -37,124 +37,131 @@ require_once ("class_Personas.php");
  *
  * @version 1.1 Se elimino el parametro id, este es equivalente al person de la clase padre. iberlot <@> iberlot@usal.edu.ar 2/7/19
  */
-class Alumnos extends Personas {
-    // FIXME La clase tiene un error de implementacion a corregir en la brevedad, las carreres deberian implementarse por medio de otra clase y asociarlas por medio de una lista al alumno. Con la forma actual un alumno podria tener una sola carrera. . iberlot <@> iberlot@usal.edu.ar 2/7/19
+class Alumnos extends Personas
+{
+	// FIXME La clase tiene un error de implementacion a corregir en la brevedad, las carreres deberian implementarse por medio de otra clase y asociarlas por medio de una lista al alumno. Con la forma actual un alumno podria tener una sola carrera. . iberlot <@> iberlot@usal.edu.ar 2/7/19
 
-    /**
-     * Identificador del centro de costo.
-     *
-     * @var int
-     */
-    protected $idcentrocosto;
+	/**
+	 * Identificador del centro de costo.
+	 *
+	 * @var int
+	 */
+	protected $idcentrocosto;
 
-    /**
-     * Descripcion de la carrera.
-     *
-     * @var string
-     */
-    protected $carrera_descrip;
+	/**
+	 * Descripcion de la carrera.
+	 *
+	 * @var string
+	 */
+	protected $carrera_descrip;
 
-    /**
-     * Identificador de la carrera.
-     *
-     * @var int
-     */
-    protected $carrera;
+	/**
+	 * Identificador de la carrera.
+	 *
+	 * @var int
+	 */
+	protected $carrera;
 
-    /**
-     * Identificador del estado de la carrera.
-     * Los valores posibles son:
-     * FINALPASS, 2
-     * EQUIVAL, 3
-     * POSTPONED, 4
-     * COUREXAM, 5
-     * PREEXAM, 6
-     * FAILED, 7
-     * COURLOST, 8
-     * COURFAIL 9
-     * CURSADAABANDONADA 10
-     *
-     * XXX En el set realiza una comprovacion asi que hay que actualizarlo si llega el caso.
-     *
-     * @var int
-     */
-    protected $carrera_stat;
+	/**
+	 * Identificador del estado de la carrera.
+	 * Los valores posibles son:
+	 * FINALPASS, 2
+	 * EQUIVAL, 3
+	 * POSTPONED, 4
+	 * COUREXAM, 5
+	 * PREEXAM, 6
+	 * FAILED, 7
+	 * COURLOST, 8
+	 * COURFAIL 9
+	 * CURSADAABANDONADA 10
+	 *
+	 * XXX En el set realiza una comprovacion asi que hay que actualizarlo si llega el caso.
+	 *
+	 * @var int
+	 */
+	protected $carrera_stat;
 
-    /**
-     * Identificador de la facultad.
-     *
-     * @var int
-     */
-    protected $fa;
+	/**
+	 * Identificador de la facultad.
+	 *
+	 * @var int
+	 */
+	protected $fa;
 
-    /**
-     * Identificador de la cede.
-     *
-     * @var int
-     */
-    protected $es;
+	/**
+	 * Identificador de la cede.
+	 *
+	 * @var int
+	 */
+	protected $es;
 
-    /**
-     * Identificador de la carrera.
-     *
-     * @var int
-     */
-    protected $ca;
+	/**
+	 * Identificador de la carrera.
+	 *
+	 * @var int
+	 */
+	protected $ca;
 
-    /**
-     * Identificador del plan.
-     *
-     * @var int
-     */
-    protected $plan;
+	/**
+	 * Identificador del plan.
+	 *
+	 * @var int
+	 */
+	protected $plan;
 
-    /**
-     * Descripcion de la unidad.
-     *
-     * @var string
-     */
-    protected $desc_unidad_alumno;
+	/**
+	 * Descripcion de la unidad.
+	 *
+	 * @var string
+	 */
+	protected $desc_unidad_alumno;
 
-    /**
-     * Constructor de la clase Alumnos.
-     *
-     * @param class_db $db
-     *        	- Objeto de coneccion a la base.
-     * @param int $person
-     *        	- Numero identificatorio de la persona.
-     * @param int $centrocosto
-     */
-    public function __construct($db = null, $person = null, $centrocosto = null) {
-        parent::__construct($person, $db);
+	/**
+	 * Constructor de la clase Alumnos.
+	 *
+	 * @param class_db $db
+	 *        	- Objeto de coneccion a la base.
+	 * @param int $person
+	 *        	- Numero identificatorio de la persona.
+	 * @param int $centrocosto
+	 */
+	public function __construct($db = null, $person = null, $centrocosto = null)
+	{
+		parent::__construct ($person, $db);
 
-        if ($person != null && trim($person) != '') {
+		if ($person != null && trim ($person) != '')
+		{
 
-            if ($centrocosto != null && trim($centrocosto) != '') {
+			if ($centrocosto != null && trim ($centrocosto) != '')
+			{
 
-                $this->findByPerson($person, $centrocosto);
-            } else {
+				$this->findByPerson ($person, $centrocosto);
+			}
+			else
+			{
 
-                $this->findByPerson($person);
-            }
-        }
-    }
+				$this->findByPerson ($person);
+			}
+		}
+	}
 
-    /**
-     * findByPerson busca alumno por person
-     *
-     * @param int $person
-     *        	id person
-     */
-    public function findByPerson($person, $centrocosto = null) {
-        $this->setPerson($person);
+	/**
+	 * findByPerson busca alumno por person
+	 *
+	 * @param int $person
+	 *        	id person
+	 */
+	public function findByPerson($person, $centrocosto = null)
+	{
+		$this->setPerson ($person);
 
-        $anio_actual = date("Y");
+		$anio_actual = date ("Y");
 
-        $parametros = array();
-        $parametros[] = $anio_actual;
-        $parametros[] = $person;
+		$parametros = array ();
+		$parametros[] = $anio_actual;
+		$parametros[] = $person;
 
-        $query = "SELECT DISTINCT
+		$query = "SELECT DISTINCT
                     carstu.career,
                     carstu.branch,
                     perdoc.typdoc,
@@ -179,66 +186,70 @@ class Alumnos extends Personas {
 				    AND
 				        person.person =:person";
 
-        // JOIN interfaz.aux_ccalu ON perdoc.docno = aux_ccalu.nrodoc
+		// JOIN interfaz.aux_ccalu ON perdoc.docno = aux_ccalu.nrodoc
 
-        if ($centrocosto != null) {
-            $query .= " AND ccalu.idcentrodecosto = :centrocosto";
-            $parametros[] = $centrocosto;
-        }
+		if ($centrocosto != null)
+		{
+			$query .= " AND ccalu.idcentrodecosto = :centrocosto";
+			$parametros[] = $centrocosto;
+		}
 
-        $result = $this->db->query($query, true, $parametros);
+		$result = $this->db->query ($query, true, $parametros);
 
-        $this->loadData($this->db->fetch_array($result));
-    }
+		$this->loadData ($this->db->fetch_array ($result));
+	}
 
-    /**
-     * En base a un criterio de busqueda (apellido , dni o nombre) devuelve alumno en objeto
-     * dentro de un array
-     *
-     * @param string $criterio
-     *        	String con el dato a buscar en lname, fname o docno
-     * @param
-     *        	array de enteros con las faescas a usar de limitadores en la busqueda.
-     *
-     * @return array[Alumnos] array con los alumnos que entran en esas categorias. En caso de no haber encontrado ningun resultado retornara false.
-     */
-    public function findByProps($criterio, $fa = null) {
-        $anio_actual = date("Y");
+	/**
+	 * En base a un criterio de busqueda (apellido , dni o nombre) devuelve alumno en objeto
+	 * dentro de un array
+	 *
+	 * @param string $criterio
+	 *        	String con el dato a buscar en lname, fname o docno
+	 * @param
+	 *        	array de enteros con las faescas a usar de limitadores en la busqueda.
+	 *
+	 * @return array[Alumnos] array con los alumnos que entran en esas categorias. En caso de no haber encontrado ningun resultado retornara false.
+	 */
+	public function findByProps($criterio, $fa = null)
+	{
+		$anio_actual = date ("Y");
 
-        $criterio1 = $criterio2 = $criterio3 = $criterio;
+		$criterio1 = $criterio2 = $criterio3 = $criterio;
 
-        $parametros = array(
-            $anio_actual,
-            strtoupper($criterio1),
-            strtoupper($criterio2),
-            strtoupper($criterio3)
-        );
+		$parametros = array (
+				$anio_actual,
+				strtoupper ($criterio1),
+				strtoupper ($criterio2),
+				strtoupper ($criterio3)
+		);
 
-        $select = "";
-        $join = "";
-        $where = "";
+		$select = "";
+		$join = "";
+		$where = "";
 
-        if ($fa != null) {
-            $unidades = "";
+		if ($fa != null)
+		{
+			$unidades = "";
 
-            foreach ($fa as $row) {
-                $unidades .= $row . ',';
-            }
-            $unidades .= '00';
+			foreach ($fa as $row)
+			{
+				$unidades .= $row . ',';
+			}
+			$unidades .= '00';
 
-            $select = ", LPAD(career.facu, 2, '0') facu,
+			$select = ", LPAD(career.facu, 2, '0') facu,
                          centrodecosto.idcentrodecosto ";
 
-            $join = "JOIN studentc.carstu ON person.person = carstu.student
+			$join = "JOIN studentc.carstu ON person.person = carstu.student
                      JOIN studentc.career ON carstu.career = career.code
                      JOIN contaduria.centrodecosto ON centrodecosto.fa||centrodecosto.ca = career.code and centrodecosto.es = carstu.BRANCH
                      JOIN tesoreria.ccalu ON person.person = ccalu.person and centrodecosto.idcentrodecosto = ccalu.idcentrodecosto";
 
-            $where = "AND facu IN( " . $unidades . " )
+			$where = "AND facu IN( " . $unidades . " )
 			 GROUP BY centrodecosto.idcentrodecosto, person.person, person.lname, person.fname,facu";
-        }
+		}
 
-        $query = "SELECT
+		$query = "SELECT
 				    person.person,
 				    person.lname,
 				    person.fname
@@ -258,371 +269,408 @@ class Alumnos extends Personas {
 				            docno LIKE '%' ||:busq3 || '%'
 				    )" . $where;
 
-        $result = $this->db->query($query, true, $parametros);
+		$result = $this->db->query ($query, true, $parametros);
 
-        while ($fila = $this->db->fetch_array($result)) {
-            if (isset($fila['IDCENTRODECOSTO'])) {
-                $alumno = new Alumnos($this->db, $fila['PERSON'], $fila['IDCENTRODECOSTO']);
+		while ($fila = $this->db->fetch_array ($result))
+		{
+			if (isset ($fila['IDCENTRODECOSTO']))
+			{
+				$alumno = new Alumnos ($this->db, $fila['PERSON'], $fila['IDCENTRODECOSTO']);
 
-                $salida[] = $alumno;
-            } else {
-                $alumno = new Alumnos($this->db, $fila['PERSON']);
+				$salida[] = $alumno;
+			}
+			else
+			{
+				$alumno = new Alumnos ($this->db, $fila['PERSON']);
 
-                $salida[] = $alumno;
-            }
-        }
+				$salida[] = $alumno;
+			}
+		}
 
-        if (empty($salida)) {
-            return false;
-        }
-        return $salida;
-    }
+		if (empty ($salida))
+		{
+			return false;
+		}
+		return $salida;
+	}
 
-    /**
-     * En base al centrocosto seteo la faesca fa-es-ca.
-     *
-     * @param int $idcentrocosto
-     * @return string String con la faesca en caso de no encontrarla retornara false.
-     */
-    public function obtenerSeterarFaesca($idcentrocosto) {
-        $param = array(
-            $idcentrocosto
-        );
+	/**
+	 * En base al centrocosto seteo la faesca fa-es-ca.
+	 *
+	 * @param int $idcentrocosto
+	 * @return string String con la faesca en caso de no encontrarla retornara false.
+	 */
+	public function obtenerSeterarFaesca($idcentrocosto)
+	{
+		$param = array (
+				$idcentrocosto
+		);
 
-        $query = "SELECT * FROM contaduria.centrodecosto WHERE idcentrodecosto = :centrocosto";
+		$query = "SELECT * FROM contaduria.centrodecosto WHERE idcentrodecosto = :centrocosto";
 
-        $scfaes = $this->db->query($query, true, $param);
+		$scfaes = $this->db->query ($query, true, $param);
 
-        if ($scfaes) {
-            $arr_asoc = $this->db->fetch_array($scfaes);
+		if ($scfaes)
+		{
+			$arr_asoc = $this->db->fetch_array ($scfaes);
 
-            $this->setFa($arr_asoc['FA']);
-            $this->setEs($arr_asoc['ES']);
-            $this->setCa($arr_asoc['CA']);
+			$this->setFa ($arr_asoc['FA']);
+			$this->setEs ($arr_asoc['ES']);
+			$this->setCa ($arr_asoc['CA']);
 
-            return ($this->getFa() . $this->getEs() . $this->getCa());
-        }
+			return ($this->getFa () . $this->getEs () . $this->getCa ());
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    /**
-     * En base a la facultad obtengo el nombre de la misma
-     *
-     * @param int $fa
-     * @return string Nombre de la facultad en caso de no encontrarla retornara false.
-     */
-    public function obtener_unidad_por_fa($fa) {
-        $param = array(
-            $fa
-        );
+	/**
+	 * En base a la facultad obtengo el nombre de la misma
+	 *
+	 * @param int $fa
+	 * @return string Nombre de la facultad en caso de no encontrarla retornara false.
+	 */
+	public function obtener_unidad_por_fa($fa)
+	{
+		$param = array (
+				$fa
+		);
 
-        $query = "SELECT sdesc FROM studentc.facu WHERE LPAD(code, 2, '0') = LPAD(:fa, 2, '0') ";
+		$query = "SELECT sdesc FROM studentc.facu WHERE LPAD(code, 2, '0') = LPAD(:fa, 2, '0') ";
 
-        $scfaes = $this->db->query($query, true, $param);
+		$scfaes = $this->db->query ($query, true, $param);
 
-        if ($scfaes) {
-            $arr_asoc = $this->db->fetch_array($scfaes);
+		if ($scfaes)
+		{
+			$arr_asoc = $this->db->fetch_array ($scfaes);
 
-            return ($arr_asoc['SDESC']);
-        }
+			return ($arr_asoc['SDESC']);
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    /**
-     * MateriasAprxPlanCarrera muestra las materias aprobadas en
-     * base a un plan especifico una carrera y un alumno
-     *
-     * @version 0.2 Se elimino el parametro person que se le pasaba a la funcion, como estamos en una clase deberia usar el person del objeto creado. iberlot <@> iberlot@usal.edu.ar 2/7/19
-     *
-     * @param int $carrera
-     * @param int $plan
-     * @param array $estados
-     *        	Los estados posibles son:
-     *        	FINALPASS, 2
-     *        	EQUIVAL, 3
-     *        	POSTPONED, 4
-     *        	COUREXAM, 5
-     *        	PREEXAM, 6
-     *        	FAILED, 7
-     *        	COURLOST, 8
-     *        	COURFAIL 9
-     *        	CURSADAABANDONADA 10
-     *
-     * @param number $cuatrimestre
-     *        	-->
-     *        	esta serteado en menos dos , por que existen cuatrimestres -1 0 y 1
-     *
-     *
-     * @return array de materias q no estan en el listado que le pasamos para excluir
-     */
-    public function MateriasAprxPlanCarrera($carrera, $plan, $estados, $cuatrimestre = -2) {
-        $query = "SELECT stusubj.subject, course.quarter, stusubj.stat
+	/**
+	 * MateriasAprxPlanCarrera muestra las materias aprobadas en
+	 * base a un plan especifico una carrera y un alumno
+	 *
+	 * @version 0.2 Se elimino el parametro person que se le pasaba a la funcion, como estamos en una clase deberia usar el person del objeto creado. iberlot <@> iberlot@usal.edu.ar 2/7/19
+	 *
+	 * @param int $carrera
+	 * @param int $plan
+	 * @param array $estados
+	 *        	Los estados posibles son:
+	 *        	FINALPASS, 2
+	 *        	EQUIVAL, 3
+	 *        	POSTPONED, 4
+	 *        	COUREXAM, 5
+	 *        	PREEXAM, 6
+	 *        	FAILED, 7
+	 *        	COURLOST, 8
+	 *        	COURFAIL 9
+	 *        	CURSADAABANDONADA 10
+	 *
+	 * @param number $cuatrimestre
+	 *        	-->
+	 *        	esta serteado en menos dos , por que existen cuatrimestres -1 0 y 1
+	 *
+	 *
+	 * @return array de materias q no estan en el listado que le pasamos para excluir
+	 */
+	public function MateriasAprxPlanCarrera($carrera, $plan, $estados, $cuatrimestre = -2)
+	{
+		$query = "SELECT stusubj.subject, course.quarter, stusubj.stat
 				  FROM studentc.stusubj
         		  JOIN studentc.course ON stusubj.course = course.code
-				  WHERE stusubj.student=:person AND 
+				  WHERE stusubj.student=:person AND
                                   stusubj.career=:carrera AND stusubj.plan=:plan AND stusubj.stat IN (" . $estados . ")";
 
-        $parametros = array(
-            $this->person,
-            $carrera,
-            $plan
-        );
+		$parametros = array (
+				$this->person,
+				$carrera,
+				$plan
+		);
 
-        if ($cuatrimestre != -2) {
-            $query .= "AND course.quarter = :cuatri";
+		if ($cuatrimestre != -2)
+		{
+			$query .= "AND course.quarter = :cuatri";
 
-            $parametros[] = $cuatrimestre;
-        }
+			$parametros[] = $cuatrimestre;
+		}
 
-        $subjectMaterias = $this->db->query($query, true, $parametros);
+		$subjectMaterias = $this->db->query ($query, true, $parametros);
 
-        $subject_x_estado = array();
+		$subject_x_estado = array ();
 
-        while ($fila = $this->db->fetch_array($subjectMaterias)) {
-            $subject_x_estado[] = $fila['SUBJECT'];
-        }
+		while ($fila = $this->db->fetch_array ($subjectMaterias))
+		{
+			$subject_x_estado[] = $fila['SUBJECT'];
+		}
 
-        return $subject_x_estado;
-    }
+		return $subject_x_estado;
+	}
 
-    /**
-     * loadData
-     * Carga propiedades del objeta que vienen desde la DB
-     *
-     * @param array $fila
-     *        	return objet alumno
-     */
-    public function loadData($fila) {
-        $this->setPerson($fila['PERSON']);
-        $this->setCarrera($fila['CAREER']);
-        $this->setApellido($fila['LNAME']);
-        $this->setNombre($fila['FNAME']);
-        $this->setCarrera_descrip($fila['DESCRIP']);
-        $this->setIdcentrocosto($fila['IDCENTRODECOSTO']);
-        $this->setPlan($fila['PLAN']);
-        $this->setCarrera_stat($fila['STAT']);
+	/**
+	 * loadData
+	 * Carga propiedades del objeta que vienen desde la DB
+	 *
+	 * @param array $fila
+	 *        	return objet alumno
+	 */
+	public function loadData($fila)
+	{
+		$this->setPerson ($fila['PERSON']);
+		$this->setCarrera ($fila['CAREER']);
+		$this->setApellido ($fila['LNAME']);
+		$this->setNombre ($fila['FNAME']);
+		$this->setCarrera_descrip ($fila['DESCRIP']);
+		$this->setIdcentrocosto ($fila['IDCENTRODECOSTO']);
+		$this->setPlan ($fila['PLAN']);
+		$this->setCarrera_stat ($fila['STAT']);
 
-        /* seteo la faesca del alumno */
-        if (isset($fila['IDCENTRODECOSTO'])) {
-            $this->obtenerSeterarFaesca($fila['IDCENTRODECOSTO']);
-        }
+		/* seteo la faesca del alumno */
+		if (isset ($fila['IDCENTRODECOSTO']))
+		{
+			$this->obtenerSeterarFaesca ($fila['IDCENTRODECOSTO']);
+		}
 
-        $this->setFoto_persona($this->get_Photo($fila['PERSON']));
-        // $this->set_foto ($this->get_Photo_alumno ($fila['PERSON']));
+		$this->setFoto_persona ($this->get_Photo ($fila['PERSON']));
+		// $this->set_foto ($this->get_Photo_alumno ($fila['PERSON']));
 
-        /* en base a la fa obtengo el nomber de la unidad a la cual pertenece el alumno */
-        $this->setDesc_unidad_alumno($this->obtener_unidad_por_fa($this->getFa()));
-    }
+		/* en base a la fa obtengo el nomber de la unidad a la cual pertenece el alumno */
+		$this->setDesc_unidad_alumno ($this->obtener_unidad_por_fa ($this->getFa ()));
+	}
 
-    /**
-     *
-     * @return int el dato de la variable $idcentrocosto
-     */
-    public function getIdcentrocosto() {
-        return $this->idcentrocosto;
-    }
+	/**
+	 *
+	 * @return int el dato de la variable $idcentrocosto
+	 */
+	public function getIdcentrocosto()
+	{
+		return $this->idcentrocosto;
+	}
 
-    /**
-     *
-     * @return string el dato de la variable $carrera_descrip
-     */
-    public function getCarrera_descrip() {
-        return $this->carrera_descrip;
-    }
+	/**
+	 *
+	 * @return string el dato de la variable $carrera_descrip
+	 */
+	public function getCarrera_descrip()
+	{
+		return $this->carrera_descrip;
+	}
 
-    /**
-     *
-     * @return int el dato de la variable $carrera
-     */
-    public function getCarrera() {
-        return $this->carrera;
-    }
+	/**
+	 *
+	 * @return int el dato de la variable $carrera
+	 */
+	public function getCarrera()
+	{
+		return $this->carrera;
+	}
 
-    /**
-     *
-     * @return int el dato de la variable $carrera_stat
-     */
-    public function getCarrera_stat() {
-        return $this->carrera_stat;
-    }
+	/**
+	 *
+	 * @return int el dato de la variable $carrera_stat
+	 */
+	public function getCarrera_stat()
+	{
+		return $this->carrera_stat;
+	}
 
-    /**
-     *
-     * @return int el dato de la variable $fa
-     */
-    public function getFa() {
-        return $this->fa;
-    }
+	/**
+	 *
+	 * @return int el dato de la variable $fa
+	 */
+	public function getFa()
+	{
+		return $this->fa;
+	}
 
-    /**
-     *
-     * @return int el dato de la variable $es
-     */
-    public function getEs() {
-        return $this->es;
-    }
+	/**
+	 *
+	 * @return int el dato de la variable $es
+	 */
+	public function getEs()
+	{
+		return $this->es;
+	}
 
-    /**
-     *
-     * @return int el dato de la variable $ca
-     */
-    public function getCa() {
-        return $this->ca;
-    }
+	/**
+	 *
+	 * @return int el dato de la variable $ca
+	 */
+	public function getCa()
+	{
+		return $this->ca;
+	}
 
-    /**
-     *
-     * @return int el dato de la variable $plan
-     */
-    public function getPlan() {
-        return $this->plan;
-    }
+	/**
+	 *
+	 * @return int el dato de la variable $plan
+	 */
+	public function getPlan()
+	{
+		return $this->plan;
+	}
 
-    /**
-     *
-     * @return string el dato de la variable $desc_unidad_alumno
-     */
-    public function getDesc_unidad_alumno() {
-        return $this->desc_unidad_alumno;
-    }
+	/**
+	 *
+	 * @return string el dato de la variable $desc_unidad_alumno
+	 */
+	public function getDesc_unidad_alumno()
+	{
+		return $this->desc_unidad_alumno;
+	}
 
-    /**
-     * Retorna la descripcion asociada a cada estado de la carrera.
-     *
-     * @return string
-     */
-    public function get_descripcion_estado_carrera() {
-        if ($this->carrera_stat != "") {
-            switch ($this->carrera_stat) {
-                case 0 :
-                    return "ANOTADO";
-                    break;
-                case 1 :
-                    return "CURSADA APROBADA";
-                    break;
-                case 2 :
-                    return "FINALPASS";
-                    break;
-                case 3 :
-                    return "EQUIVAL";
-                    break;
-                case 4 :
-                    return "POSTPONED";
-                    break;
-                case 5 :
-                    return "COUREXAM";
-                    break;
-                case 6 :
-                    return "FINALPASS";
-                    break;
-                case 7 :
-                    return "FAILED";
-                    break;
-                case 8 :
-                    return "COURLOST";
-                    break;
-                case 9 :
-                    return "COURFAIL";
-                    break;
-                case 10 :
-                    return "CURSADAABANDONADA";
-                    break;
-            }
-        }
-    }
+	/**
+	 * Retorna la descripcion asociada a cada estado de la carrera.
+	 *
+	 * @return string
+	 */
+	public function get_descripcion_estado_carrera()
+	{
+		if ($this->carrera_stat != "")
+		{
+			switch ($this->carrera_stat)
+			{
+				case 0 :
+					return "ANOTADO";
+					break;
+				case 1 :
+					return "CURSADA APROBADA";
+					break;
+				case 2 :
+					return "FINALPASS";
+					break;
+				case 3 :
+					return "EQUIVAL";
+					break;
+				case 4 :
+					return "POSTPONED";
+					break;
+				case 5 :
+					return "COUREXAM";
+					break;
+				case 6 :
+					return "FINALPASS";
+					break;
+				case 7 :
+					return "FAILED";
+					break;
+				case 8 :
+					return "COURLOST";
+					break;
+				case 9 :
+					return "COURFAIL";
+					break;
+				case 10 :
+					return "CURSADAABANDONADA";
+					break;
+			}
+		}
+	}
 
-    /**
-     *
-     * @param
-     *        	int a cargar en la variable $idcentrocosto
-     */
-    public function setIdcentrocosto($idcentrocosto) {
-        $this->idcentrocosto = $idcentrocosto;
-    }
+	/**
+	 *
+	 * @param
+	 *        	int a cargar en la variable $idcentrocosto
+	 */
+	public function setIdcentrocosto($idcentrocosto)
+	{
+		$this->idcentrocosto = $idcentrocosto;
+	}
 
-    /**
-     *
-     * @param
-     *        	string a cargar en la variable $carrera_descrip
-     */
-    public function setCarrera_descrip($carrera_descrip) {
-        $this->carrera_descrip = $carrera_descrip;
-    }
+	/**
+	 *
+	 * @param
+	 *        	string a cargar en la variable $carrera_descrip
+	 */
+	public function setCarrera_descrip($carrera_descrip)
+	{
+		$this->carrera_descrip = $carrera_descrip;
+	}
 
-    /**
-     *
-     * @param
-     *        	int a cargar en la variable $carrera
-     */
-    public function setCarrera($carrera) {
-        $this->carrera = $carrera;
-    }
+	/**
+	 *
+	 * @param
+	 *        	int a cargar en la variable $carrera
+	 */
+	public function setCarrera($carrera)
+	{
+		$this->carrera = $carrera;
+	}
 
-    /**
-     *
-     * @param
-     *        	int a cargar en la variable $carrera_stat
-     */
-    public function setCarrera_stat($carrera_stat) {
-        if ($carrera_stat > -1 && $carrera_stat < 11) {
-            $this->carrera_stat = $carrera_stat;
-        } else {
-            throw new Exception("Codigo de estado de carrera invalido. |" . $carrera_stat . "|");
-        }
-    }
+	/**
+	 *
+	 * @param int $carrera_stat
+	 *        	cargar en la variable
+	 */
+	public function setCarrera_stat($carrera_stat)
+	{
+		if ($carrera_stat > -1 && $carrera_stat < 11)
+		{
+			$this->carrera_stat = $carrera_stat;
+		}
+		else
+		{
+			throw new Exception ("Codigo de estado de carrera invalido. |" . $carrera_stat . "|");
+		}
+	}
 
-    /**
-     * Seter del parametro plan
-     *
-     * @param int $plan
-     *        	a cargar en la variable plan de la clase
-     */
-    public function setPlan($plan) {
-        $this->plan = $plan;
-    }
+	/**
+	 * Seter del parametro plan
+	 *
+	 * @param int $plan
+	 *        	a cargar en la variable plan de la clase
+	 */
+	public function setPlan($plan)
+	{
+		$this->plan = $plan;
+	}
 
-    /**
-     * Seter del parametro desc_unidad_alumno.
-     *
-     * @param string $desc_unidad_alumno
-     *        	dato a cargar en la variable.
-     */
-    public function setDesc_unidad_alumno($desc_unidad_alumno) {
-        $this->desc_unidad_alumno = $desc_unidad_alumno;
-    }
+	/**
+	 * Seter del parametro desc_unidad_alumno.
+	 *
+	 * @param string $desc_unidad_alumno
+	 *        	dato a cargar en la variable.
+	 */
+	public function setDesc_unidad_alumno($desc_unidad_alumno)
+	{
+		$this->desc_unidad_alumno = $desc_unidad_alumno;
+	}
 
-    /**
-     * Setter del parametro $fa de la clase.
-     *
-     * @param number $fa
-     *        	dato a cargar en la variable.
-     */
-    public function setFa($fa) {
-        $this->fa = $fa;
-    }
+	/**
+	 * Setter del parametro $fa de la clase.
+	 *
+	 * @param number $fa
+	 *        	dato a cargar en la variable.
+	 */
+	public function setFa($fa)
+	{
+		$this->fa = $fa;
+	}
 
-    /**
-     * Setter del parametro $es de la clase.
-     *
-     * @param number $es
-     *        	dato a cargar en la variable.
-     */
-    public function setEs($es) {
-        $this->es = $es;
-    }
+	/**
+	 * Setter del parametro $es de la clase.
+	 *
+	 * @param number $es
+	 *        	dato a cargar en la variable.
+	 */
+	public function setEs($es)
+	{
+		$this->es = $es;
+	}
 
-    /**
-     * Setter del parametro $ca de la clase.
-     *
-     * @param number $ca
-     *        	dato a cargar en la variable.
-     */
-    public function setCa($ca) {
-        $this->ca = $ca;
-    }
-
+	/**
+	 * Setter del parametro $ca de la clase.
+	 *
+	 * @param number $ca
+	 *        	dato a cargar en la variable.
+	 */
+	public function setCa($ca)
+	{
+		$this->ca = $ca;
+	}
 }
 
 ?>

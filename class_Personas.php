@@ -422,18 +422,14 @@ abstract class Personas
 
 		$url_foto = 'http://roma2.usal.edu.ar/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
 
-		if (getimagesize ($url_foto))
+		if (file_exists ($url_foto) and (getimagesize ($url_foto)))
 		{
-
-			$url_foto = '/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
+			return '/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
 		}
 		else
 		{
-
-			$url_foto = '/FotosPerson/sinfoto1.jpg';
+			return '/FotosPerson/sinfoto1.jpg';
 		}
-
-		return $url_foto;
 	}
 
 	/**
@@ -1218,10 +1214,10 @@ abstract class Personas
 		{
 			$sql = "SELECT * FROM appgral.country WHERE TRIM(upper(country)) = TRIM(upper(:country)) OR TRIM(upper(descrip)) = TRIM(upper(:descrip)) OR TRIM(upper(nation)) = TRIM(upper(:nation))";
 
-			$parametros = "";
-			$parametros[0] = $nacion;
-			$parametros[1] = $nacion;
-			$parametros[2] = $nacion;
+			$parametros = array ();
+			$parametros[] = $nacion;
+			$parametros[] = $nacion;
+			$parametros[] = $nacion;
 
 			$result = $this->db->query ($sql, true, $parametros);
 
@@ -1830,6 +1826,66 @@ abstract class Personas
 	public function nuevo_documneto($tipo_doc, $nro_doc)
 	{
 		$this->documentos[] = new Documentos ($db, $doc_num, $doc_typ);
+	}
+
+	/**
+	 * Busca y retorna los persons de las personas cuyo nombre, apellido, person, num de documento o numero de tarjeta coincidan con el strin buscado.
+	 *
+	 * @param string $dato
+	 *        	dato a buscar.
+	 * @return resource|boolean retorna un array con los persons de todas las personas que cumplan con los parametros o false en caso de no encontrar ninguna.
+	 */
+	public function buscar_persona($dato)
+	{
+		$parametros = array ();
+		$where = "";
+
+		// if (is_int (str_replace (' ', '', str_replace ('.', '', $dato)) + 0))
+		if (is_numeric ($dato))
+		{
+			// print_r (str_replace (' ', '', str_replace ('.', '', $dato)) + 0);
+			// print_r (str_replace (' ', '', $dato) + 0);
+			// print_r ($dato + 0);
+			// print_r ($dato);
+
+			$where .= " person.person LIKE :person ";
+			$where .= " OR LTRIM(LTRIM(perdoc.docno, '0')) LIKE LTRIM(LTRIM(:docno, '0')) ";
+			$where .= " OR LTRIM(LTRIM(personca.nrodechip, '0')) LIKE LTRIM(LTRIM(:tarjeta, '0')) ";
+
+			$dato = str_replace ('.', '', $dato);
+			$dato = str_replace (' ', '', $dato);
+
+			$parametros[] = $dato;
+			$parametros[] = $dato;
+			$parametros[] = $dato;
+		}
+		else
+		{
+			$where .= " UPPER(person.lname) LIKE UPPER(:lname) ";
+			$where .= " OR UPPER(person.fname) LIKE UPPER(:fname) ";
+
+			$dato = "%" . $dato . "%";
+
+			$parametros[] = $dato;
+			$parametros[] = $dato;
+		}
+		$where = ($where != "") ? " AND " . $where : "";
+
+		$sql = "SELECT * FROM appgral.person
+					INNER JOIN appgral.perdoc ON perdoc.person = person.person
+					INNER JOIN appgral.personca ON personca.person = person.person
+				WHERE 1 = 1 " . $where;
+
+		$result = $this->db->query ($sql, true, $parametros);
+
+		if ($datos = $this->db->fetch_all ($result))
+		{
+			return $datos['PERSON'];
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 ?>

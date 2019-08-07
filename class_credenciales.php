@@ -326,7 +326,7 @@ class Credenciales
 	 * @throws Exception Mensaje de excepcion en caso de no poder realizar el update.
 	 * @return boolean Retorna true en caso de realizar el update correctamente.
 	 */
-	function update_personca_basic($person)
+	public function update_personca_basic($person)
 	{
 		$sql = "UPDATE appgral.personca SET nrodechip = :tarjeta, tipo_credencial = :tipo WHERE person =:person";
 
@@ -354,7 +354,7 @@ class Credenciales
 	 * @throws Exception En caso de que la tarjeta se encuentre registrada se retorna una excepcion.
 	 * @return boolean True en caso de que se encuentre disponible el numero de tarjeta.
 	 */
-	function comprobar_tarjeta_unica($numTarjeta)
+	public function comprobar_tarjeta_unica($numTarjeta)
 	{
 		$sql = "SELECT * FROM appgral.personca WHERE nrodechip = :tarjeta";
 
@@ -374,6 +374,34 @@ class Credenciales
 	}
 
 	/**
+	 * Busca el numero de la tarjeta en la base.
+	 *
+	 *
+	 * @param int $numTarjeta
+	 *        	numero de tarjeta a comprobar
+	 * @throws Exception En caso de que la tarjeta se encuentre registrada se retorna una excepcion.
+	 * @return boolean false en caso de que no se encuentre el numero de tarjeta y el person de la persona en caso de encontrarse.
+	 */
+	public function buscar_tarjeta($numTarjeta)
+	{
+		$sql = "SELECT * FROM appgral.personca WHERE nrodechip = :tarjeta";
+
+		$parametros = array ();
+		$parametros[] = $numTarjeta;
+
+		$result = $this->db->query ($sql, true, $parametros);
+
+		$fila = $this->db->fetch_array ($result);
+
+		if (!empty ($fila))
+		{
+			return $fila['PERSON'];
+		}
+
+		return false;
+	}
+
+	/**
 	 * Inserta los datos de una persona en personca se le pasa el person y usa el resto de los datos de los parametros de la clase.
 	 *
 	 * @param int $person
@@ -381,7 +409,7 @@ class Credenciales
 	 * @throws Exception Mensaje de excepcion en caso de no poder realizar el insert.
 	 * @return boolean Retorna true en caso de realizar la insercion correctamente.
 	 */
-	function insertar_personca_basic($person)
+	public function insertar_personca_basic($person)
 	{
 		$sql = "INSERT INTO appgral.personca (person, nrodechip, tipo_credencial) VALUES (:person, :tarjeta,:tipo)";
 
