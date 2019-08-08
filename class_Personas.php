@@ -420,9 +420,10 @@ abstract class Personas
 
 		$foto3 = substr ($person, -3, 1);
 
-		$url_foto = 'http://roma2.usal.edu.ar/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
+		// $url_foto = 'http://roma2.usal.edu.ar/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
+		$url_foto = $_SERVER['HTTP_REFERER'] . 'FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
 
-		if (file_exists ($url_foto) and (getimagesize ($url_foto)))
+		if (@getimagesize ($url_foto))
 		{
 			return '/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
 		}
