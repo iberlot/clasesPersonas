@@ -156,9 +156,16 @@ class Alumnos extends Personas
 
 		$anio_actual = date ("Y");
 
+<<<<<<< Updated upstream
 		$parametros = array ();
 		$parametros[] = $anio_actual;
 		$parametros[] = $person;
+=======
+		$parametros = array (
+				$anio_actual,
+				$this->getPerson ()
+		);
+>>>>>>> Stashed changes
 
 		$query = "SELECT DISTINCT
 				    carstu.career,
@@ -323,6 +330,7 @@ class Alumnos extends Personas
 		return false;
 	}
 
+<<<<<<< Updated upstream
 	/**
 	 * En base a la facultad obtengo el nombre de la misma
 	 *
@@ -330,6 +338,10 @@ class Alumnos extends Personas
 	 * @return string Nombre de la facultad en caso de no encontrarla retornara false.
 	 */
 	public function obtener_unidad_por_fa($fa)
+=======
+	/* SETTER Y GEGTTERS */
+	function getPerson()
+>>>>>>> Stashed changes
 	{
 		$param = array (
 				$fa
@@ -449,11 +461,15 @@ class Alumnos extends Personas
 		return $this->idcentrocosto;
 	}
 
+<<<<<<< Updated upstream
 	/**
 	 *
 	 * @return string el dato de la variable $carrera_descrip
 	 */
 	public function getCarrera_descrip()
+=======
+	function getCarrera()
+>>>>>>> Stashed changes
 	{
 		return $this->carrera_descrip;
 	}
@@ -485,11 +501,15 @@ class Alumnos extends Personas
 		return $this->fa;
 	}
 
+<<<<<<< Updated upstream
 	/**
 	 *
 	 * @return int el dato de la variable $es
 	 */
 	public function getEs()
+=======
+	function getCarrera_descrip()
+>>>>>>> Stashed changes
 	{
 		return $this->es;
 	}

@@ -456,6 +456,7 @@ abstract class Personas
 		$sql = "SELECT * FROM appgral.perdoc WHERE person = :person";
 
 		$parametros = array ();
+                
 		$parametros[] = $person;
 
 		$result = $this->db->query ($sql, true, $parametros);
@@ -474,6 +475,7 @@ abstract class Personas
 		while ($recu = $this->db->fetch_array ($result)){
                     
 			$persona[$i]['typdoc'] = $recu['TYPDOC'];
+                        
 			$persona[$i]['docNumero'] = $recu['DOCNO'];
 
 			$i = $i ++;
@@ -509,7 +511,7 @@ abstract class Personas
 	public function nuevoPerdoc($arrayDatosPersona)
 	{
 		$resultado = true;
-		// echo "****************************************";
+		//echo"****************************************";
 		return;
 
 		try
