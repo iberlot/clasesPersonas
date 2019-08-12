@@ -31,6 +31,7 @@ class Formularios
 	protected $html_template;
 	protected $nombre_form;
 	protected $IDDERECHOVARIO;
+        protected $nrotramitebpmn;
 
 	public function __construct($db, $tipo = null, $id = null)
 	{
@@ -960,6 +961,12 @@ class Formularios
 		{
 			$this->set_IDDERECHOVARIO ($fila['IDDERECHOVARIO']);
 		}
+                
+                   
+		if (isset ($fila['NROTRAMITEBPMN']))
+		{
+			$this->setNrotramitebpmn($fila['NROTRAMITEBPMN']);
+		}
 	}
 
 	/**
@@ -1009,10 +1016,30 @@ class Formularios
 	{
 		$this->IDDERECHOVARIO = $IDDERECHOVARIO;
 	}
+        
+        /**
+	 *
+	 * @param
+	 *        	mixed a cargar en la variable nrotramitebpmn
+	 */
+	public function setNrotramitebpmn($Nrotramitebpmn)
+	{
+		$this->nrotramitebpmn = $Nrotramitebpmn;
+	}
 
 	/**
 	 * ******GETTERS*******
 	 */
+        
+        /**
+	 *
+	 * @return mixed el dato de la variable nrotramitebpmn
+	 */
+	public function getNrotramitebpmn()
+	{
+		return $this->nrotramitebpmn;
+	}
+        
 	function get_idderechovario()
 	{
 		return $this->IDDERECHOVARIO;
