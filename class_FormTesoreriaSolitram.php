@@ -31,6 +31,7 @@ require_once ("/web/html/classes/class_files.php");
  */
 class FormTesoreriaSolitram extends Formularios
 {
+	// FIXME hay que comentar y cambiar las variables para que esten con minuscula
 	protected $db;
 	protected $FECHAVENC;
 	protected $STUDENT;
