@@ -406,42 +406,45 @@ abstract class Personas
 	}
 
 	/**
-         * 
+	 *
 	 * En base al person del alumno obtiene la foto
 	 *
 	 * @param int $person
 	 *
 	 * @return string url de la foto
-         * 
+	 *
 	 */
-	public function get_Photo($person){
-            
+	public function get_Photo($person)
+	{
 		$foto1 = substr ($person, -1, 1);
 
 		$foto2 = substr ($person, -2, 1);
 
 		$foto3 = substr ($person, -3, 1);
 
-		//$url_foto = 'http://roma2.usal.edu.ar/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
+		// $url_foto = 'http://roma2.usal.edu.ar/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
 
-                $url_foto = 'http://'.$_SERVER['HTTP_HOST'] . '/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
-                
-                //@FIXME no funciona el file_exists , se le puso el arroba al get image para ocultar los warning
-                //Si nos devuelve el peso de la img es por que existe , no funciona el file_exists                  
-                /*  
-                var_dump($url_foto);
-                echo('--');                
-                var_dump(file_exists($url_foto));
-                echo('--');                
-                var_dump(file_exists('/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg'));                
-                echo('</br>');
-                echo('</br>');
-                */  
-                
-		if (@getimagesize($url_foto)){
-                    return '/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
-		}else{       
-                    return '/FotosPerson/sinfoto1.jpg';
+		$url_foto = 'http://' . $_SERVER['HTTP_HOST'] . '/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
+
+		// @FIXME no funciona el file_exists , se le puso el arroba al get image para ocultar los warning
+		// Si nos devuelve el peso de la img es por que existe , no funciona el file_exists
+		/*
+		 * var_dump($url_foto);
+		 * echo('--');
+		 * var_dump(file_exists($url_foto));
+		 * echo('--');
+		 * var_dump(file_exists('/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg'));
+		 * echo('</br>');
+		 * echo('</br>');
+		 */
+
+		if (@getimagesize ($url_foto))
+		{
+			return '/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
+		}
+		else
+		{
+			return '/FotosPerson/sinfoto1.jpg';
 		}
 	}
 
@@ -451,8 +454,8 @@ abstract class Personas
 	 * @param int $person
 	 * @return array retorna un array con todos los tipo y numero de una perona
 	 */
-	public function buscar_perdoc_person($person){
-            
+	public function buscar_perdoc_person($person)
+	{
 		$sql = "SELECT * FROM appgral.perdoc WHERE person = :person";
 
 		$parametros = array ();
@@ -461,8 +464,9 @@ abstract class Personas
 
 		$result = $this->db->query ($sql, true, $parametros);
 
-		if (!isset ($result) or $result == "" or $result == null){
-                    
+		if (!isset ($result) or $result == "" or $result == null)
+		{
+
 			$sql = "SELECT * FROM appgral.auditaperdoc WHERE person = :person";
 
 			$parametros[0] = $person;
@@ -472,8 +476,9 @@ abstract class Personas
 
 		$i = 0;
 
-		while ($recu = $this->db->fetch_array ($result)){
-                    
+		while ($recu = $this->db->fetch_array ($result))
+		{
+
 			$persona[$i]['typdoc'] = $recu['TYPDOC'];
                         
 			$persona[$i]['docNumero'] = $recu['DOCNO'];
@@ -481,10 +486,13 @@ abstract class Personas
 			$i = $i ++;
 		}
 
-		if (isset ($persona) and $persona != ""){
-                    
+		if (isset ($persona) and $persona != "")
+		{
+
 			return $persona;
-		}else{
+		}
+		else
+		{
 			return 0;
 		}
 	}
@@ -1804,7 +1812,7 @@ abstract class Personas
 
 	/**
 	 *
-	 * @return array el dato de la variable $documentos
+	 * @return string el dato de la primer posicion de la variable $documentos
 	 */
 	public function getDoc()
 	{
@@ -1876,6 +1884,8 @@ abstract class Personas
 		{
 			$where .= " UPPER(person.lname) LIKE UPPER(:lname) ";
 			$where .= " OR UPPER(person.fname) LIKE UPPER(:fname) ";
+
+			$dato = str_replace (' ', "%", $dato);
 
 			$dato = "%" . $dato . "%";
 
