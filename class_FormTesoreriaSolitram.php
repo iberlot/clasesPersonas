@@ -4,13 +4,8 @@ require_once ("/web/html/classesUSAL/class_derechos_varios.php");
 require_once ("/web/html/classesUSAL/class_alumnos.php");
 require_once ("/web/html/classesUSAL/class_carreras.php");
 require_once ("/web/html/classesUSAL/class_FormsSolitram.php");
-<<<<<<< Updated upstream
 require_once ("/web/html/classes/class_Session.php");
 require_once ("/web/html/classes/class_files.php");
-=======
-require_once ("/web/html/classesUSAL/class_Session.php");
-require_once ("/web/html/classesUSAL/class_files.php");
->>>>>>> Stashed changes
 
 /**
  *

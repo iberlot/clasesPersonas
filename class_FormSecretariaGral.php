@@ -372,7 +372,7 @@ class FormsSecretariaGral extends Formularios
 
                                     <p class="mat_seleccionada mat_seleccionada_' . $row["SUBJECT"] . '"> ' . $row["SUBJECT"] . ' - A&ntilde;o: ' . $row["YR"] . ' - ' . $row["SDESC"] . '  <span title="' . $row["SDESC"] . '"  class="quitar_materia">
                                     </span></p>';
-=======
+
 
 									// $html_mat_sel.='<input id="hidde_'.$row["SUBJECT"].'" type="hidden" name="materias[]" value="'.$row["SUBJECT"].'" />';
 								}
