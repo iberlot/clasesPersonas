@@ -426,7 +426,11 @@ class Alumnos extends Personas
 		$this->setCarrera_descrip ($fila['DESCRIP']);
 		$this->setIdcentrocosto ($fila['IDCENTRODECOSTO']);
 		$this->setPlan ($fila['PLAN']);
-		$this->setCarrera_stat ($fila['STAT']);
+
+		if (isset ($fila['STAT']))
+		{
+			$this->setCarrera_stat ($fila['STAT']);
+		}
 
 		/* seteo la faesca del alumno */
 		if (isset ($fila['IDCENTRODECOSTO']))
@@ -613,7 +617,7 @@ class Alumnos extends Personas
 		}
 		else
 		{
-			throw new Exception ("Codigo de estado de carrera invalido. |" . $carrera_stat . "|");
+			throw new Exception ("Codigo de estado de carrera invalido. |" . $carrera_stat . "|" . $this->person . "|");
 		}
 	}
 
