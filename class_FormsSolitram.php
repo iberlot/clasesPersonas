@@ -280,6 +280,37 @@ class Formularios
 		    ) = career.code
 		WHERE
 		    1 = 1";
+            /*
+		$query = "SELECT
+		    formulario.*,
+		    person.lname,
+		    person.fname,
+		    perdoc.typdoc,
+		    perdoc.docno,
+		    facu.sdesc,
+		    career.descrip,
+		    (
+		        SELECT
+		            person.lname
+		             || ' '
+		             || person.fname
+		        FROM
+		            appgral.person
+		        WHERE
+		            person = formulario.person
+		    ) creador
+		FROM
+		    formulario
+		    JOIN appgral.person ON person.person = formulario.student
+		    JOIN appgral.perdoc ON person.person = perdoc.person
+		    JOIN studentc.facu ON formulario.fa = facu.code
+		    JOIN studentc.career ON formulario.fa || lpad(
+		        formulario.ca,
+		        2,
+		        '0'
+		    ) = career.code
+		WHERE
+		    1 = 1";*/
 
 		if ($unidades != -1 && $unidades != '')
 		{
@@ -317,7 +348,7 @@ class Formularios
 	 */
 	public function getFormsByAlumno($STUDENT, $estado_omitir = null)
 	{
-		$query = "SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO , FORMULARIOTESORERIA.FECHAVENC
+	/*$query = "SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO , FORMULARIOTESORERIA.FECHAVENC
         ,FORMULARIOTESORERIA.IMPORTE ,person.LNAME , person.FNAME ,  perdoc.typdoc,
         perdoc.docno ,facu.SDESC ,CAREER.DESCRIP,
         (SELECT person.LNAME ||' '|| person.FNAME FROM appgral.person WHERE PERSON = FORMULARIO.PERSON)  creador
@@ -326,6 +357,16 @@ class Formularios
         JOIN appgral.perdoc ON person.person = perdoc.person
         JOIN studentc.facu ON FORMULARIO.fa= facu.code
         FULL JOIN FORMULARIOTESORERIA ON  FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
+        JOIN studentc.CAREER ON FORMULARIO.fa || LPAD(FORMULARIO.CA, 2, '0')= CAREER.code
+        WHERE FORMULARIO.STUDENT = $STUDENT";*/
+            
+		$query = "SELECT FORMULARIO.* , person.LNAME , person.FNAME ,  perdoc.typdoc,
+        perdoc.docno ,facu.SDESC ,CAREER.DESCRIP,
+        (SELECT person.LNAME ||' '|| person.FNAME FROM appgral.person WHERE PERSON = FORMULARIO.PERSON)  creador
+        from FORMULARIO
+        JOIN appgral.person ON person.person = FORMULARIO.STUDENT
+        JOIN appgral.perdoc ON person.person = perdoc.person
+        JOIN studentc.facu ON FORMULARIO.fa= facu.code
         JOIN studentc.CAREER ON FORMULARIO.fa || LPAD(FORMULARIO.CA, 2, '0')= CAREER.code
         WHERE FORMULARIO.STUDENT = $STUDENT";
 
@@ -388,11 +429,14 @@ class Formularios
 
 		// $this->db = Conexion::openConnection();
 
-		$query = " SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO ,
-            FORMULARIOTESORERIA.FECHAVENC
-            ,FORMULARIOTESORERIA.IMPORTE from FORMULARIO
-            FULL JOIN FORMULARIOTESORERIA ON FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
-            WHERE FORMULARIO.ID = :id";
+		/*$query = " SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO ,
+                FORMULARIOTESORERIA.FECHAVENC
+                ,FORMULARIOTESORERIA.IMPORTE from FORMULARIO
+                LEFT FULL JOIN FORMULARIOTESORERIA ON FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
+                WHERE FORMULARIO.ID = :id";
+*/
+		$query = " SELECT FORMULARIO.*  from FORMULARIO               
+                WHERE FORMULARIO.ID = :id";
 
 		$result = $this->db->query ($query, true, $parametros);
 

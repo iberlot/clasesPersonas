@@ -158,7 +158,6 @@ class Alumnos extends Personas
 		$anio_actual = date ("Y");
 
 		$parametros = array ();
-		$parametros[] = $anio_actual;
 		$parametros[] = $person;
 
 		$query = "SELECT DISTINCT
@@ -166,8 +165,8 @@ class Alumnos extends Personas
                     carstu.branch,
                     perdoc.typdoc,
                     perdoc.docno,
-                    ccalu.idcentrodecosto,
-                    ccalu.person,
+                    centrodecosto.idcentrodecosto,
+                    person.person,
                     person.lname,
                     person.fname,
                     carstu.career,
@@ -180,17 +179,15 @@ class Alumnos extends Personas
                     JOIN studentc.carstu ON person.person = carstu.student
                     JOIN studentc.career ON carstu.career = career.code
                     JOIN contaduria.centrodecosto ON centrodecosto.fa||centrodecosto.ca = career.code and centrodecosto.es = carstu.BRANCH
-                    JOIN tesoreria.ccalu ON person.person = ccalu.person and centrodecosto.idcentrodecosto = ccalu.idcentrodecosto
+                    FULL JOIN tesoreria.ccalu ON person.person = ccalu.person and centrodecosto.idcentrodecosto = ccalu.idcentrodecosto
 				WHERE
-				        ccalu.aniocc =:anio
-				    AND
 				        person.person =:person";
 
 		// JOIN interfaz.aux_ccalu ON perdoc.docno = aux_ccalu.nrodoc
 
 		if ($centrocosto != null)
 		{
-			$query .= " AND ccalu.idcentrodecosto = :centrocosto";
+			$query .= " AND centrodecosto.idcentrodecosto = :centrocosto";
 			$parametros[] = $centrocosto;
 		}
 
@@ -402,8 +399,7 @@ class Alumnos extends Personas
 
 		$subject_x_estado = array ();
 
-		while ($fila = $this->db->fetch_array ($subjectMaterias))
-		{
+		while ($fila = $this->db->fetch_array ($subjectMaterias)){
 			$subject_x_estado[] = $fila['SUBJECT'];
 		}
 
