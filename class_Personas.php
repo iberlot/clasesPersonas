@@ -995,6 +995,7 @@ abstract class Personas
 			$sql = "SELECT * FROM appgral.person" . $this->db_link . " WHERE person = :person";
 
 			$parametros = "";
+                        
 			$parametros[0] = $arrayDatosPersona['person'];
 
 			$result = $this->db->query ($sql, true, $parametros);

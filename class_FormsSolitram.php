@@ -964,9 +964,9 @@ class Formularios
 			$this->set_fecha_crecion ($fila['FECHAC']);
 		}
 
-		if (isset ($fila['PERSON']))
+		if (isset ($fila['STUDENT']))
 		{
-			$this->set_STUDENT ($fila['PERSON']);
+			$this->set_STUDENT ($fila['STUDENT']);
 		}
 
 		$this->set_tipo_form ($fila['IDTIPOFORM']);
@@ -976,9 +976,9 @@ class Formularios
 			$this->set_estado ($fila['ESTADO']);
 		}
 
-		if (isset ($fila['PERSONCREO']))
+		if (isset ($fila['PERSON']))
 		{
-			$this->set_PERSON ($fila['PERSONCREO']);
+			$this->set_PERSON ($fila['PERSON']);
 		}
 
 		if (isset ($fila['PERSONAPROBO']))
