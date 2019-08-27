@@ -348,7 +348,7 @@ class Formularios
 	 */
 	public function getFormsByAlumno($STUDENT, $estado_omitir = null)
 	{
-	/*$query = "SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO , FORMULARIOTESORERIA.FECHAVENC
+	$query = "SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO , FORMULARIOTESORERIA.FECHAVENC
         ,FORMULARIOTESORERIA.IMPORTE ,person.LNAME , person.FNAME ,  perdoc.typdoc,
         perdoc.docno ,facu.SDESC ,CAREER.DESCRIP,
         (SELECT person.LNAME ||' '|| person.FNAME FROM appgral.person WHERE PERSON = FORMULARIO.PERSON)  creador
@@ -358,9 +358,9 @@ class Formularios
         JOIN studentc.facu ON FORMULARIO.fa= facu.code
         FULL JOIN FORMULARIOTESORERIA ON  FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
         JOIN studentc.CAREER ON FORMULARIO.fa || LPAD(FORMULARIO.CA, 2, '0')= CAREER.code
-        WHERE FORMULARIO.STUDENT = $STUDENT";*/
+        WHERE FORMULARIO.STUDENT = $STUDENT";
             
-		$query = "SELECT FORMULARIO.* , person.LNAME , person.FNAME ,  perdoc.typdoc,
+		/*$query = "SELECT FORMULARIO.* , person.LNAME , person.FNAME ,  perdoc.typdoc,
         perdoc.docno ,facu.SDESC ,CAREER.DESCRIP,
         (SELECT person.LNAME ||' '|| person.FNAME FROM appgral.person WHERE PERSON = FORMULARIO.PERSON)  creador
         from FORMULARIO
@@ -368,7 +368,7 @@ class Formularios
         JOIN appgral.perdoc ON person.person = perdoc.person
         JOIN studentc.facu ON FORMULARIO.fa= facu.code
         JOIN studentc.CAREER ON FORMULARIO.fa || LPAD(FORMULARIO.CA, 2, '0')= CAREER.code
-        WHERE FORMULARIO.STUDENT = $STUDENT";
+        WHERE FORMULARIO.STUDENT = $STUDENT";*/
 
 		// Si exite $estado_omitir pedimos las que no estan en ese estado (por ejemplo pedimos todos los no aprobados)
 		if ($estado_omitir != null)
@@ -429,14 +429,14 @@ class Formularios
 
 		// $this->db = Conexion::openConnection();
 
-		/*$query = " SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO ,
+		$query = " SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO ,
                 FORMULARIOTESORERIA.FECHAVENC
                 ,FORMULARIOTESORERIA.IMPORTE from FORMULARIO
-                LEFT FULL JOIN FORMULARIOTESORERIA ON FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
+                FULL JOIN FORMULARIOTESORERIA ON FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
                 WHERE FORMULARIO.ID = :id";
-*/
-		$query = " SELECT FORMULARIO.*  from FORMULARIO               
-                WHERE FORMULARIO.ID = :id";
+
+		/*$query = " SELECT FORMULARIO.*  from FORMULARIO               
+                WHERE FORMULARIO.ID = :id";*/
 
 		$result = $this->db->query ($query, true, $parametros);
 
@@ -586,7 +586,63 @@ class Formularios
 
 					// FROM GENERICO QUE PUEDE CREAR TESORERIA
 					case '58' :
-						$template .= '<input type="hidden" value="58" name="tipoform">' . '<label>Concepto</label><br/>' . '<select name="concepto">' . '<option value="05">05 - Arancel a&ntilde;o ant.  </option>' . '<option value="05">05 - Transporte a&ntilde;o ant</option>' . '<option value="02">02 - Arancel           </option>' . '<option value="02">02 - Curso de verano   </option>' . '<option value="02">02 - Transporte        </option>' . '<option value="02">02 - Practicas         </option>' . '<option value="09">09 - Matricula a&ntilde;o ant.</option>' . '<option value="01">01 - Matricula         </option>' . '<option value="03">03 - Total matricula   </option>' . '<option value="04">04 - Cuota plan        </option>' . '<option value="04">04 - Moratoria arancel </option>' . '<option value="06">06 - A.cuenta          </option>' . '<option value="07">07 - Plan pago a&ntilde;o ant.</option>' . '<option value="07">07 - Morat.ant.aran.   </option>' . '<option value="08">08 - Cuota plan. matr. </option>' . '<option value="08">08 - Morat. matricula  </option>' . '<option value="89">89 - Cta.pla.ma.egre   </option>' . '<option value="68">68 - Cta.pl.mat.egr.ant</option>' . '<option value="63">63 - Mat.nuevo a&ntilde;o     </option>' . '<option value="32">32 - Cuot.adic.inter   </option>' . '<option value="67">67 - Dev.prestamo      </option>' . '<option value="68">68 - Plan.matr.ant.    </option>' . '<option value="68">68 - Morat.ant.matr.   </option>' . '<option value="91">91 - Curso ingreso     </option>' . '<option value="80">80 - Curso de ingles   </option>' . '<option value="81">81 - Curso ingles p.t. </option>' . '<option value="92">92 - Cuota ingreso     </option>' . '<option value="90">90 - Matr. a egresar   </option>' . '<option value="97">97 - Comision cheques  </option>' . '<option value="98">98 - Pago en sede      </option>' . '<option value="61">61 - Anticipo mutuos   </option>' . '<option value="62">62 - Mutuo serie a     </option>' . '<option value="64">64 - Mutuo serie b     </option>' . '<option value="66">66 - Mutuo serie 1     </option>' . '<option value="60">60 - Interes claus.4�  </option>' . '<option value="65">65 - Actualizacion     </option>' . '<option value="40">40 - Mutuo serie c     </option>' . '<option value="41">41 - Anticip.mutuo c   </option>' . '<option value="42">42 - Cuo.mat.prox. a&ntilde;o </option>' . '<option value="43">43 - Arancel prox. a&ntilde;o </option>' . '<option value="44">44 - Devoluc.mutuos 1  </option>' . '<option value="36">36 - Alojamiento       </option>' . '<option value="35">35 - Derecho especif.  </option>' . '<option value="45">45 - Cursos extraordin.</option>' . '<option value="39">39 - Materia           </option>' . '</select>' . '<label for"importe">Importe</label><input type="number" name="importe" step="0.01"/><br/>' . '<label for"importeFT">Fuera de t&eacute;rmino</label><input type="number" name="importeFT" step="0.01" value=0/><br/>' . '<label for"importeR">Recargo</label><input type="number" name="importeR" step="0.01" value=0/><br/>' . '<label>Fecha de vencimiento</label><br/>' . '<input type="date" style="width: 100% !important;" value="' . date ("Y-m-d") . '" name="fecha_1" id="fecha_1" class="valid fecha" aria-invalid="true">' . '<br/>';
+						$template .= '<input type="hidden" value="58" name="tipoform">' 
+                                                . '<label>Concepto</label><br/>' 
+                                                . '<select name="concepto" id="concepto" >' 
+                                                . '<option value="05">05 - Arancel a&ntilde;o ant.  </option>' 
+                                                . '<option value="05">05 - Transporte a&ntilde;o ant</option>' 
+                                                . '<option value="02">02 - Arancel           </option>' 
+                                                . '<option value="02">02 - Curso de verano   </option>' 
+                                                . '<option value="02">02 - Transporte        </option>' 
+                                                . '<option value="02">02 - Practicas         </option>' 
+                                                . '<option value="09">09 - Matricula a&ntilde;o ant.</option>' 
+                                                . '<option value="01">01 - Matricula         </option>' 
+                                                . '<option value="03">03 - Total matricula   </option>' 
+                                                . '<option value="04">04 - Cuota plan        </option>' 
+                                                . '<option value="04">04 - Moratoria arancel </option>' 
+                                                . '<option value="06">06 - A.cuenta          </option>' 
+                                                . '<option value="07">07 - Plan pago a&ntilde;o ant.</option>' 
+                                                . '<option value="07">07 - Morat.ant.aran.   </option>' 
+                                                . '<option value="08">08 - Cuota plan. matr. </option>' 
+                                                . '<option value="08">08 - Morat. matricula  </option>' 
+                                                . '<option value="89">89 - Cta.pla.ma.egre   </option>' 
+                                                . '<option value="68">68 - Cta.pl.mat.egr.ant</option>' 
+                                                . '<option value="63">63 - Mat.nuevo a&ntilde;o     </option>' 
+                                                . '<option value="32">32 - Cuot.adic.inter   </option>' 
+                                                . '<option value="67">67 - Dev.prestamo      </option>' 
+                                                . '<option value="68">68 - Plan.matr.ant.    </option>' 
+                                                . '<option value="68">68 - Morat.ant.matr.   </option>' 
+                                                . '<option value="91">91 - Curso ingreso     </option>' 
+                                                . '<option value="80">80 - Curso de ingles   </option>' 
+                                                . '<option value="81">81 - Curso ingles p.t. </option>' 
+                                                . '<option value="92">92 - Cuota ingreso     </option>' 
+                                                . '<option value="90">90 - Matr. a egresar   </option>' 
+                                                . '<option value="97">97 - Comision cheques  </option>' 
+                                                . '<option value="98">98 - Pago en sede      </option>' 
+                                                . '<option value="61">61 - Anticipo mutuos   </option>' 
+                                                . '<option value="62">62 - Mutuo serie a     </option>' 
+                                                . '<option value="64">64 - Mutuo serie b     </option>' 
+                                                . '<option value="66">66 - Mutuo serie 1     </option>' 
+                                                . '<option value="60">60 - Interes claus.4�  </option>' 
+                                                . '<option value="65">65 - Actualizacion     </option>' 
+                                                . '<option value="40">40 - Mutuo serie c     </option>' 
+                                                . '<option value="41">41 - Anticip.mutuo c   </option>' 
+                                                . '<option value="42">42 - Cuo.mat.prox. a&ntilde;o </option>' 
+                                                . '<option value="43">43 - Arancel prox. a&ntilde;o </option>' . '<option value="44">44 - Devoluc.mutuos 1  </option>' . '<option value="36">36 - Alojamiento       </option>' 
+                                                . '<option value="35">35 - Derecho especif.  </option>' 
+                                                . '<option value="45">45 - Cursos extraordin.</option>' . '<option value="39">39 - Materia           </option>' 
+                                                . '</select>' . '<label for"importe">Importe</label>'
+                                                . '<input type="number" name="importe" step="0.01"/><br/>' 
+                                                . '<label for="importe_error" id="importe_error" ></label>' 
+                                                . '<label for"importeFT">Fuera de t&eacute;rmino</label>'
+                                                . '<input type="number" name="importeFT" step="0.01" value=0/><br/>' 
+                                                . '<label for"importeR">Recargo</label>'
+                                                . '<input type="number" name="importeR" step="0.01" id="importeR" value=0/><br/>' 
+                                                . '<label for="importeR_error" id="importeR_error" ></label>' 
+                                                . '<label>Fecha de vencimiento</label><br/>' 
+                                                . '<input type="date" style="width: 100% !important;" value="' . date ("Y-m-d") . '" name="fecha_1" id="fecha_1" class="valid fecha" aria-invalid="true">'
+                                                . '<label for="fecha_1_error" id="fecha_1_error" ></label>'  
+                                                . '<br/>';
 
 						break;
 
@@ -594,9 +650,8 @@ class Formularios
 
 						break;
 				}
-			}
-			else
-			{
+                                
+			}else{
 				/* * ******SI HAY DATA MUESTRO LOS FORMS CON LOS DATOS********** */
 				switch ($tipo)
 				{
@@ -657,7 +712,14 @@ class Formularios
 					// FROM GENERICO QUE PUEDE CREAR TESORERIA
 					case '58' :
 
-						$template .= '<input type="hidden" value="58" name="tipoform">' . '<label>Concepto</label><br/>' . '<input type="text" name="concepto"  value="' . $data["CONCEPTO"] . '"/><br/>' . '<label>Importe</label><br/>' . '<input type="number" name="importe"  value="' . $data["IMPORTE"] . '" /><br/>' . '<label>Fecha de vencimiento</label><br/>' . '<input type="date" style="width: 100% !important;" value="' . date ("Y-m-d") . '" name="fecha_1" id="fecha_1" class="valid fecha" aria-invalid="true">' . '<br/>';
+						$template .= '<input type="hidden" value="58" name="tipoform">' 
+                                                . '<label>Concepto</label><br/>' 
+                                                . '<input type="text" name="concepto"  value="' . $data["CONCEPTO"] . '"/><br/>' 
+                                                . '<label>Importe</label><br/>' 
+                                                . '<input type="number" name="importe"  value="' . $data["IMPORTE"] . '" /><br/>' 
+                                                . '<label>Fecha de vencimiento</label><br/>' 
+                                                . '<input type="date" style="width: 100% !important;" value="' . date ("Y-m-d") . '" name="fecha_1" id="fecha_1" class="valid fecha" aria-invalid="true">' 
+                                                . '<br/>';
 
 						break;
 
