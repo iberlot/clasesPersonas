@@ -154,8 +154,7 @@ class Alumnos extends Personas
 	public function findByPerson($person, $centrocosto = null)
 	{
 		$this->setPerson ($person);
-
-		$anio_actual = date ("Y");
+		// $anio_actual = date ("Y");
 
 		$parametros = array ();
 		$parametros[] = $person;
@@ -399,7 +398,8 @@ class Alumnos extends Personas
 
 		$subject_x_estado = array ();
 
-		while ($fila = $this->db->fetch_array ($subjectMaterias)){
+		while ($fila = $this->db->fetch_array ($subjectMaterias))
+		{
 			$subject_x_estado[] = $fila['SUBJECT'];
 		}
 
