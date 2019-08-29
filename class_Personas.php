@@ -343,7 +343,7 @@ abstract class Personas
 
 			$this->email = array ();
 			$this->telefono = array ();
-			$this->foto_persona = "";
+			$this->foto_persona = $this->get_Photo ($person);
 			$this->direccion = array ();
 			$this->esposa = "";
 			$this->familiarACargo = "";

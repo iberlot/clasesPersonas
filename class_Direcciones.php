@@ -11,6 +11,8 @@
  * @version 0.1 version inicial del archivo.
  */
 // use function Direcciones\cargar_db_apers;
+use function Direcciones\cargar_db_apers;
+
 require_once 'class_conexion.php';
 
 /*
@@ -972,15 +974,15 @@ class Direcciones
 	 */
 	public function setPiso($piso)
 	{
-		$piso = $piso + 0;
-
+		// $piso = $piso + 0;
 		if (is_int ($piso))
 		{
 			$this->piso = $piso;
 		}
 		else
 		{
-			throw new Exception ('El dato debe ser un numero entero.');
+			// FIXME se saca hasta que se arregle la inconsistencia en la base hay pisos no numericos
+			// throw new Exception ('El dato debe ser un numero entero.');
 		}
 	}
 

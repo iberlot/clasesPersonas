@@ -578,6 +578,24 @@ class Credenciales
 	}
 
 	/**
+	 * Retorna la descripcion del dato del parametro tipo_credencial
+	 *
+	 * @return string "ISIC", "Blanca", "Sin tarjeta";
+	 */
+	public function getTipo_credencial_desc()
+	{
+		switch ($this->tipo_credencial)
+		{
+			case 1 :
+				return "ISIC";
+			case 2 :
+				return "Blanca";
+			default :
+				return "Sin tarjeta";
+		}
+	}
+
+	/**
 	 * Setter del atributo $estadocredencialca
 	 *
 	 * @param int $estadocredencialca
