@@ -357,6 +357,12 @@ abstract class Personas
 			$this->escuelaPrimaria = "";
 
 			$this->credencial = new Credenciales ($db, $person);
+
+			// print_r ("<Br /><Br />");
+			// print_r ($person);
+			// print_r ("<Br /><Br />");
+			// print_r ($this);
+			// print_r ("<Br /><Br />");
 		}
 		else
 		{
@@ -459,7 +465,7 @@ abstract class Personas
 		$sql = "SELECT * FROM appgral.perdoc WHERE person = :person";
 
 		$parametros = array ();
-                
+
 		$parametros[] = $person;
 
 		$result = $this->db->query ($sql, true, $parametros);
@@ -480,7 +486,7 @@ abstract class Personas
 		{
 
 			$persona[$i]['typdoc'] = $recu['TYPDOC'];
-                        
+
 			$persona[$i]['docNumero'] = $recu['DOCNO'];
 
 			$i = $i ++;
@@ -519,7 +525,7 @@ abstract class Personas
 	public function nuevoPerdoc($arrayDatosPersona)
 	{
 		$resultado = true;
-		//echo"****************************************";
+		// echo"****************************************";
 		return;
 
 		try
@@ -995,7 +1001,7 @@ abstract class Personas
 			$sql = "SELECT * FROM appgral.person" . $this->db_link . " WHERE person = :person";
 
 			$parametros = "";
-                        
+
 			$parametros[0] = $arrayDatosPersona['person'];
 
 			$result = $this->db->query ($sql, true, $parametros);
@@ -1173,7 +1179,7 @@ abstract class Personas
 
 		if ($recu = $this->db->fetch_array ($result))
 		{
-			$this->setPerson ($recu['PERSON']);
+			$this->setPerson ($person);
 			$this->setApellido ($recu['LNAME']);
 			$this->setNombre ($recu['FNAME']);
 			$this->setFechaNacimiento ($recu['BIRDATE']);
@@ -1862,14 +1868,8 @@ abstract class Personas
 		$parametros = array ();
 		$where = "";
 
-		// if (is_int (str_replace (' ', '', str_replace ('.', '', $dato)) + 0))
 		if (is_numeric ($dato))
 		{
-			// print_r (str_replace (' ', '', str_replace ('.', '', $dato)) + 0);
-			// print_r (str_replace (' ', '', $dato) + 0);
-			// print_r ($dato + 0);
-			// print_r ($dato);
-
 			$where .= " person.person LIKE :person ";
 			$where .= " OR LTRIM(LTRIM(perdoc.docno, '0')) LIKE LTRIM(LTRIM(:docno, '0')) ";
 			$where .= " OR LTRIM(LTRIM(personca.nrodechip, '0')) LIKE LTRIM(LTRIM(:tarjeta, '0')) ";
@@ -1895,9 +1895,9 @@ abstract class Personas
 		}
 		$where = ($where != "") ? " AND " . $where : "";
 
-		$sql = "SELECT * FROM appgral.person
+		$sql = "SELECT person.person FROM appgral.person
 					INNER JOIN appgral.perdoc ON perdoc.person = person.person
-					INNER JOIN appgral.personca ON personca.person = person.person
+					FULL JOIN appgral.personca ON personca.person = person.person
 				WHERE 1 = 1 " . $where;
 
 		$result = $this->db->query ($sql, true, $parametros);

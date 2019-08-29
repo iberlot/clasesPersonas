@@ -415,13 +415,34 @@ class Alumnos extends Personas
 	 */
 	public function loadData($fila)
 	{
-		$this->setPerson ($fila['PERSON']);
-		$this->setCarrera ($fila['CAREER']);
-		$this->setApellido ($fila['LNAME']);
-		$this->setNombre ($fila['FNAME']);
-		$this->setCarrera_descrip ($fila['DESCRIP']);
-		$this->setIdcentrocosto ($fila['IDCENTRODECOSTO']);
-		$this->setPlan ($fila['PLAN']);
+		if ($fila['PERSON'] != "")
+		{
+			$this->setPerson ($fila['PERSON']);
+		}
+		if ($fila['CAREER'] != "")
+		{
+			$this->setCarrera ($fila['CAREER']);
+		}
+		if ($fila['LNAME'] != "")
+		{
+			$this->setApellido ($fila['LNAME']);
+		}
+		if ($fila['FNAME'] != "")
+		{
+			$this->setNombre ($fila['FNAME']);
+		}
+		if ($fila['DESCRIP'] != "")
+		{
+			$this->setCarrera_descrip ($fila['DESCRIP']);
+		}
+		if ($fila['IDCENTRODECOSTO'] != "")
+		{
+			$this->setIdcentrocosto ($fila['IDCENTRODECOSTO']);
+		}
+		if ($fila['PLAN'] != "")
+		{
+			$this->setPlan ($fila['PLAN']);
+		}
 
 		if (isset ($fila['STAT']))
 		{
