@@ -15,9 +15,9 @@
 // require_once ("Carreras.php");
 // require_once ("Alumnos.php");
 require_once ("/web/html/classesUSAL/class_Personas.php");
-require_once ("/web/html/classes/class_derechos_varios.php");
-require_once ("/web/html/classes/class_alumnos.php");
-require_once ("/web/html/classes/class_carreras.php");
+require_once ("/web/html/classesUSAL/class_derechos_varios.php");
+require_once ("/web/html/classesUSAL/class_alumnos.php");
+require_once ("/web/html/classesUSAL/class_carreras.php");
 
 class Formularios
 {
@@ -31,6 +31,7 @@ class Formularios
 	protected $html_template;
 	protected $nombre_form;
 	protected $IDDERECHOVARIO;
+	protected $nrotramitebpmn;
 
 	public function __construct($db, $tipo = null, $id = null)
 	{
@@ -79,7 +80,6 @@ class Formularios
 
 			if ($result)
 			{
-
 				$arr_asoc = $db->fetch_array ($result);
 
 				$this->loadData ($arr_asoc);
@@ -280,6 +280,38 @@ class Formularios
 		    ) = career.code
 		WHERE
 		    1 = 1";
+		/*
+		 * $query = "SELECT
+		 * formulario.*,
+		 * person.lname,
+		 * person.fname,
+		 * perdoc.typdoc,
+		 * perdoc.docno,
+		 * facu.sdesc,
+		 * career.descrip,
+		 * (
+		 * SELECT
+		 * person.lname
+		 * || ' '
+		 * || person.fname
+		 * FROM
+		 * appgral.person
+		 * WHERE
+		 * person = formulario.person
+		 * ) creador
+		 * FROM
+		 * formulario
+		 * JOIN appgral.person ON person.person = formulario.student
+		 * JOIN appgral.perdoc ON person.person = perdoc.person
+		 * JOIN studentc.facu ON formulario.fa = facu.code
+		 * JOIN studentc.career ON formulario.fa || lpad(
+		 * formulario.ca,
+		 * 2,
+		 * '0'
+		 * ) = career.code
+		 * WHERE
+		 * 1 = 1";
+		 */
 
 		if ($unidades != -1 && $unidades != '')
 		{
@@ -317,31 +349,57 @@ class Formularios
 	 */
 	public function getFormsByAlumno($STUDENT, $estado_omitir = null)
 	{
-		$query = "SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO , FORMULARIOTESORERIA.FECHAVENC
-        ,FORMULARIOTESORERIA.IMPORTE ,person.LNAME , person.FNAME ,  perdoc.typdoc,
-        perdoc.docno ,facu.SDESC ,CAREER.DESCRIP,
-        (SELECT person.LNAME ||' '|| person.FNAME FROM appgral.person WHERE PERSON = FORMULARIO.PERSON)  creador
-        from FORMULARIO
-        JOIN appgral.person ON person.person = FORMULARIO.STUDENT
-        JOIN appgral.perdoc ON person.person = perdoc.person
-        JOIN studentc.facu ON FORMULARIO.fa= facu.code
-        FULL JOIN FORMULARIOTESORERIA ON  FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
-        JOIN studentc.CAREER ON FORMULARIO.fa || LPAD(FORMULARIO.CA, 2, '0')= CAREER.code
-        WHERE FORMULARIO.STUDENT = $STUDENT";
+		$query = "SELECT
+				    formulario.*,
+				    formulariotesoreria.concepto,
+				    formulariotesoreria.fechavenc,
+				    formulariotesoreria.importe,
+				    person.lname,
+				    person.fname,
+				    perdoc.typdoc,
+				    perdoc.docno,
+				    facu.sdesc,
+				    career.descrip,
+				    (SELECT person.lname || ' ' || person.fname FROM appgral.person WHERE person = formulario.person ) creador
+				FROM
+				    formulario
+				    JOIN appgral.person ON person.person = formulario.student
+				    JOIN appgral.perdoc ON person.person = perdoc.person
+				    JOIN studentc.facu ON formulario.fa = facu.code
+				    FULL JOIN formulariotesoreria ON formulario.id = formulariotesoreria.idformulario
+				    JOIN studentc.career ON formulario.fa || LPAD( formulario.ca, 2, '0' ) = career.code
+				WHERE
+				    formulario.student = :student";
+
+		$parametros = array ();
+		$parametros[] = $STUDENT;
+
+		/*
+		 * $query = "SELECT FORMULARIO.* , person.LNAME , person.FNAME , perdoc.typdoc,
+		 * perdoc.docno ,facu.SDESC ,CAREER.DESCRIP,
+		 * (SELECT person.LNAME ||' '|| person.FNAME FROM appgral.person WHERE PERSON = FORMULARIO.PERSON) creador
+		 * from FORMULARIO
+		 * JOIN appgral.person ON person.person = FORMULARIO.STUDENT
+		 * JOIN appgral.perdoc ON person.person = perdoc.person
+		 * JOIN studentc.facu ON FORMULARIO.fa= facu.code
+		 * JOIN studentc.CAREER ON FORMULARIO.fa || LPAD(FORMULARIO.CA, 2, '0')= CAREER.code
+		 * WHERE FORMULARIO.STUDENT = $STUDENT";
+		 */
 
 		// Si exite $estado_omitir pedimos las que no estan en ese estado (por ejemplo pedimos todos los no aprobados)
 		if ($estado_omitir != null)
 		{
-			$query .= " and IDESTADO != $estado_omitir ";
+			$query .= " AND idestado != :estado_omitir ";
+
+			$parametros[] = $estado_omitir;
 		}
 
-		$query .= " order by FORMULARIO.ID desc";
+		$query .= " ORDER BY formulario.id DESC";
 
-		$result = $this->db->query ($query);
+		$result = $this->db->query ($query, true, $parametros);
 
 		while ($fila = $this->db->fetch_array ($result))
 		{
-
 			$fila['nombre_form'] = $this->obtenerNombreForm ($fila['IDTIPOFORM']);
 
 			$salida[] = $fila;
@@ -389,10 +447,15 @@ class Formularios
 		// $this->db = Conexion::openConnection();
 
 		$query = " SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO ,
-            FORMULARIOTESORERIA.FECHAVENC
-            ,FORMULARIOTESORERIA.IMPORTE from FORMULARIO
-            FULL JOIN FORMULARIOTESORERIA ON FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
-            WHERE FORMULARIO.ID = :id";
+                FORMULARIOTESORERIA.FECHAVENC
+                ,FORMULARIOTESORERIA.IMPORTE from FORMULARIO
+                FULL JOIN FORMULARIOTESORERIA ON FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
+                WHERE FORMULARIO.ID = :id";
+
+		/*
+		 * $query = " SELECT FORMULARIO.* from FORMULARIO
+		 * WHERE FORMULARIO.ID = :id";
+		 */
 
 		$result = $this->db->query ($query, true, $parametros);
 
@@ -504,13 +567,13 @@ class Formularios
 
 					case '05' :
 
-						$template .= '<input type="hidden" value="05" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas ' . 'por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del' . ' arancel correspondiente al alumno que cursa únicamente primero o segundo cuatrimestre.' . ' La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre ' . 'y hasta el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </b></label>';
+						$template .= '<input type="hidden" value="05" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas ' . 'por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del' . ' arancel correspondiente al alumno que cursa ï¿½nicamente primero o segundo cuatrimestre.' . ' La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre ' . 'y hasta el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </b></label>';
 
 						break;
 
 					case '06' :
 
-						$template .= '<input type="hidden" value="06" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas' . ' por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del arancel ' . 'correspondiente al alumno que cursa únicamente primero o segundo cuatrimestre. ' . 'La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre y hasta ' . 'el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </label></b>';
+						$template .= '<input type="hidden" value="06" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas' . ' por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del arancel ' . 'correspondiente al alumno que cursa ï¿½nicamente primero o segundo cuatrimestre. ' . 'La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre y hasta ' . 'el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </label></b>';
 
 						break;
 
@@ -542,7 +605,7 @@ class Formularios
 
 					// FROM GENERICO QUE PUEDE CREAR TESORERIA
 					case '58' :
-						$template .= '<input type="hidden" value="58" name="tipoform">' . '<label>Concepto</label><br/>' . '<select name="concepto">' . '<option value="05">05 - Arancel a&ntilde;o ant.  </option>' . '<option value="05">05 - Transporte a&ntilde;o ant</option>' . '<option value="02">02 - Arancel           </option>' . '<option value="02">02 - Curso de verano   </option>' . '<option value="02">02 - Transporte        </option>' . '<option value="02">02 - Practicas         </option>' . '<option value="09">09 - Matricula a&ntilde;o ant.</option>' . '<option value="01">01 - Matricula         </option>' . '<option value="03">03 - Total matricula   </option>' . '<option value="04">04 - Cuota plan        </option>' . '<option value="04">04 - Moratoria arancel </option>' . '<option value="06">06 - A.cuenta          </option>' . '<option value="07">07 - Plan pago a&ntilde;o ant.</option>' . '<option value="07">07 - Morat.ant.aran.   </option>' . '<option value="08">08 - Cuota plan. matr. </option>' . '<option value="08">08 - Morat. matricula  </option>' . '<option value="89">89 - Cta.pla.ma.egre   </option>' . '<option value="68">68 - Cta.pl.mat.egr.ant</option>' . '<option value="63">63 - Mat.nuevo a&ntilde;o     </option>' . '<option value="32">32 - Cuot.adic.inter   </option>' . '<option value="67">67 - Dev.prestamo      </option>' . '<option value="68">68 - Plan.matr.ant.    </option>' . '<option value="68">68 - Morat.ant.matr.   </option>' . '<option value="91">91 - Curso ingreso     </option>' . '<option value="80">80 - Curso de ingles   </option>' . '<option value="81">81 - Curso ingles p.t. </option>' . '<option value="92">92 - Cuota ingreso     </option>' . '<option value="90">90 - Matr. a egresar   </option>' . '<option value="97">97 - Comision cheques  </option>' . '<option value="98">98 - Pago en sede      </option>' . '<option value="61">61 - Anticipo mutuos   </option>' . '<option value="62">62 - Mutuo serie a     </option>' . '<option value="64">64 - Mutuo serie b     </option>' . '<option value="66">66 - Mutuo serie 1     </option>' . '<option value="60">60 - Interes claus.4ø  </option>' . '<option value="65">65 - Actualizacion     </option>' . '<option value="40">40 - Mutuo serie c     </option>' . '<option value="41">41 - Anticip.mutuo c   </option>' . '<option value="42">42 - Cuo.mat.prox. a&ntilde;o </option>' . '<option value="43">43 - Arancel prox. a&ntilde;o </option>' . '<option value="44">44 - Devoluc.mutuos 1  </option>' . '<option value="36">36 - Alojamiento       </option>' . '<option value="35">35 - Derecho especif.  </option>' . '<option value="45">45 - Cursos extraordin.</option>' . '<option value="39">39 - Materia           </option>' . '</select>' . '<label for"importe">Importe</label><input type="number" name="importe" step="0.01"/><br/>' . '<label for"importeFT">Fuera de t&eacute;rmino</label><input type="number" name="importeFT" step="0.01" value=0/><br/>' . '<label for"importeR">Recargo</label><input type="number" name="importeR" step="0.01" value=0/><br/>' . '<label>Fecha de vencimiento</label><br/>' . '<input type="date" style="width: 100% !important;" value="' . date ("Y-m-d") . '" name="fecha_1" id="fecha_1" class="valid fecha" aria-invalid="true">' . '<br/>';
+						$template .= '<input type="hidden" value="58" name="tipoform">' . '<label>Concepto</label><br/>' . '<select name="concepto" id="concepto" >' . '<option value="05">05 - Arancel a&ntilde;o ant.  </option>' . '<option value="05">05 - Transporte a&ntilde;o ant</option>' . '<option value="02">02 - Arancel           </option>' . '<option value="02">02 - Curso de verano   </option>' . '<option value="02">02 - Transporte        </option>' . '<option value="02">02 - Practicas         </option>' . '<option value="09">09 - Matricula a&ntilde;o ant.</option>' . '<option value="01">01 - Matricula         </option>' . '<option value="03">03 - Total matricula   </option>' . '<option value="04">04 - Cuota plan        </option>' . '<option value="04">04 - Moratoria arancel </option>' . '<option value="06">06 - A.cuenta          </option>' . '<option value="07">07 - Plan pago a&ntilde;o ant.</option>' . '<option value="07">07 - Morat.ant.aran.   </option>' . '<option value="08">08 - Cuota plan. matr. </option>' . '<option value="08">08 - Morat. matricula  </option>' . '<option value="89">89 - Cta.pla.ma.egre   </option>' . '<option value="68">68 - Cta.pl.mat.egr.ant</option>' . '<option value="63">63 - Mat.nuevo a&ntilde;o     </option>' . '<option value="32">32 - Cuot.adic.inter   </option>' . '<option value="67">67 - Dev.prestamo      </option>' . '<option value="68">68 - Plan.matr.ant.    </option>' . '<option value="68">68 - Morat.ant.matr.   </option>' . '<option value="91">91 - Curso ingreso     </option>' . '<option value="80">80 - Curso de ingles   </option>' . '<option value="81">81 - Curso ingles p.t. </option>' . '<option value="92">92 - Cuota ingreso     </option>' . '<option value="90">90 - Matr. a egresar   </option>' . '<option value="97">97 - Comision cheques  </option>' . '<option value="98">98 - Pago en sede      </option>' . '<option value="61">61 - Anticipo mutuos   </option>' . '<option value="62">62 - Mutuo serie a     </option>' . '<option value="64">64 - Mutuo serie b     </option>' . '<option value="66">66 - Mutuo serie 1     </option>' . '<option value="60">60 - Interes claus.4ï¿½  </option>' . '<option value="65">65 - Actualizacion     </option>' . '<option value="40">40 - Mutuo serie c     </option>' . '<option value="41">41 - Anticip.mutuo c   </option>' . '<option value="42">42 - Cuo.mat.prox. a&ntilde;o </option>' . '<option value="43">43 - Arancel prox. a&ntilde;o </option>' . '<option value="44">44 - Devoluc.mutuos 1  </option>' . '<option value="36">36 - Alojamiento       </option>' . '<option value="35">35 - Derecho especif.  </option>' . '<option value="45">45 - Cursos extraordin.</option>' . '<option value="39">39 - Materia           </option>' . '</select>' . '<label for"importe">Importe</label>' . '<input type="number" name="importe" step="0.01"/><br/>' . '<label for="importe_error" id="importe_error" ></label>' . '<label for"importeFT">Fuera de t&eacute;rmino</label>' . '<input type="number" name="importeFT" step="0.01" value=0/><br/>' . '<label for"importeR">Recargo</label>' . '<input type="number" name="importeR" step="0.01" id="importeR" value=0/><br/>' . '<label for="importeR_error" id="importeR_error" ></label>' . '<label>Fecha de vencimiento</label><br/>' . '<input type="date" style="width: 100% !important;" value="' . date ("Y-m-d") . '" name="fecha_1" id="fecha_1" class="valid fecha" aria-invalid="true">' . '<label for="fecha_1_error" id="fecha_1_error" ></label>' . '<br/>';
 
 						break;
 
@@ -601,13 +664,13 @@ class Formularios
 
 					case '05' :
 
-						$template .= '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas ' . 'por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del' . ' arancel correspondiente al alumno que cursa únicamente primero o segundo cuatrimestre.' . ' La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre ' . 'y hasta el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label>' . '<input type="hidden" value="05" name="tipoform">' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </b></label>';
+						$template .= '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas ' . 'por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del' . ' arancel correspondiente al alumno que cursa ï¿½nicamente primero o segundo cuatrimestre.' . ' La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre ' . 'y hasta el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label>' . '<input type="hidden" value="05" name="tipoform">' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </b></label>';
 
 						break;
 
 					case '06' :
 
-						$template .= '<input type="hidden" value="06" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas' . ' por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del arancel ' . 'correspondiente al alumno que cursa únicamente primero o segundo cuatrimestre. ' . 'La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre y hasta ' . 'el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </label></b>';
+						$template .= '<input type="hidden" value="06" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas' . ' por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del arancel ' . 'correspondiente al alumno que cursa ï¿½nicamente primero o segundo cuatrimestre. ' . 'La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre y hasta ' . 'el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </label></b>';
 
 						break;
 					// FROM GENERICO QUE PUEDE CREAR TESORERIA
@@ -681,7 +744,7 @@ class Formularios
 
 				$estados = '1';
 
-				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->get_person (), $alumno->get_carrera (), $alumno->get_plan (), $estados);
+				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->getPerson (), $alumno->getCarrera (), $alumno->getPlan (), $estados);
 			}
 			else if ($tipo == '05')
 			{
@@ -689,7 +752,7 @@ class Formularios
 				// cursadas del 1 cuat--->materias del primer o segundo cuatri !no anuales
 				$estados = '0';
 
-				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->get_person (), $alumno->get_carrera (), $alumno->get_plan (), $estados, 0);
+				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->getPerson (), $alumno->getCarrera (), $alumno->getPlan (), $estados, 0);
 			}
 			else if ($tipo == '06')
 			{
@@ -697,17 +760,17 @@ class Formularios
 				// cursadas del 2 cuat--->materias del primer o segundo cuatri !no anuales
 				$estados = '0';
 
-				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->get_person (), $alumno->get_carrera (), $alumno->get_plan (), $estados, 1);
+				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->getPerson (), $alumno->getCarrera (), $alumno->getPlan (), $estados, 1);
 			}
 			else
 			{
 
 				$estados = '2,3';
 
-				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->get_person (), $alumno->get_carrera (), $alumno->get_plan (), $estados);
+				$aprobadas = $alumno->MateriasAprxPlanCarrera ($alumno->getPerson (), $alumno->getCarrera (), $alumno->getPlan (), $estados);
 			}
 
-			$materias = $carrera->getMateriasPorPlan ($alumno->get_carrera (), $alumno->get_plan (), $aprobadas);
+			$materias = $carrera->getMateriasPorPlan ($alumno->getCarrera (), $alumno->getPlan (), $aprobadas);
 
 			// Si no hay data devuelve el select de materias
 			if ($aprobadas != "")
@@ -716,7 +779,7 @@ class Formularios
 				if (!$data)
 				{
 
-					$materias = $carrera->getMateriasPorPlan ($alumno->get_carrera (), $alumno->get_plan (), $aprobadas);
+					$materias = $carrera->getMateriasPorPlan ($alumno->getCarrera (), $alumno->getPlan (), $aprobadas);
 
 					$template .= '<input type="hidden" value="90" name="tipoform">' . '<label for="check"> Se matricula como alumno/a a egresar o complementario, debiendo rendir ' . 'solo ex&aacute;menes finales, correspondientes a las siguientes asignaturas: </label> <br/>' . '<ul id="listado_materias">';
 
@@ -885,13 +948,13 @@ class Formularios
 	 */
 	public function get_materias($IDFORMULARIO)
 	{
-		$salida = '';
+		$salida = array ();
 
 		$parametros = array (
 				$IDFORMULARIO
 		);
 
-		$query = " select * from FORMULARIOMATERIAS " . "WHERE IDFORMULARIO = :idform order by id desc";
+		$query = "SELECT * FROM formulariomaterias WHERE idformulario = :idform ORDER BY id DESC";
 		$fila = '';
 		$result = $this->db->query ($query, true, $parametros);
 
@@ -920,9 +983,9 @@ class Formularios
 			$this->set_fecha_crecion ($fila['FECHAC']);
 		}
 
-		if (isset ($fila['PERSON']))
+		if (isset ($fila['STUDENT']))
 		{
-			$this->set_STUDENT ($fila['PERSON']);
+			$this->set_STUDENT ($fila['STUDENT']);
 		}
 
 		$this->set_tipo_form ($fila['IDTIPOFORM']);
@@ -932,9 +995,9 @@ class Formularios
 			$this->set_estado ($fila['ESTADO']);
 		}
 
-		if (isset ($fila['PERSONCREO']))
+		if (isset ($fila['PERSON']))
 		{
-			$this->set_PERSON ($fila['PERSONCREO']);
+			$this->set_PERSON ($fila['PERSON']);
 		}
 
 		if (isset ($fila['PERSONAPROBO']))
@@ -960,6 +1023,11 @@ class Formularios
 		if (isset ($fila['IDDERECHOVARIO']))
 		{
 			$this->set_IDDERECHOVARIO ($fila['IDDERECHOVARIO']);
+		}
+
+		if (isset ($fila['NROTRAMITEBPMN']))
+		{
+			$this->setNrotramitebpmn ($fila['NROTRAMITEBPMN']);
 		}
 	}
 
@@ -1012,8 +1080,28 @@ class Formularios
 	}
 
 	/**
+	 *
+	 * @param
+	 *        	mixed a cargar en la variable nrotramitebpmn
+	 */
+	public function setNrotramitebpmn($Nrotramitebpmn)
+	{
+		$this->nrotramitebpmn = $Nrotramitebpmn;
+	}
+
+	/**
 	 * ******GETTERS*******
 	 */
+
+	/**
+	 *
+	 * @return mixed el dato de la variable nrotramitebpmn
+	 */
+	public function getNrotramitebpmn()
+	{
+		return $this->nrotramitebpmn;
+	}
+
 	function get_idderechovario()
 	{
 		return $this->IDDERECHOVARIO;
@@ -1039,12 +1127,12 @@ class Formularios
 		return $this->estado;
 	}
 
-	function get_PERSON()
+	function getPerson()
 	{
 		return $this->PERSON;
 	}
 
-	function get_person_aprobo()
+	function getPerson_aprobo()
 	{
 		return $this->PERSON_aprobo;
 	}

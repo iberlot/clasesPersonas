@@ -42,11 +42,11 @@ class Conexion
 
 		$user = "tesoreria";
 		$pass = "tesoreria";
-		$base = "tesoreria";
+		// $base = "tesoreria";
 
 		// $dsn = "oracle:host=$host;dbname=$base;charset=WE8MSWIN1252";
 
-		$db = new class_db ($host, $user, $pass, '', 'WE8MSWIN1252', $dbtype = 'oracle');
+		$db = new class_db ($host, $user, $pass, '', 'WE8MSWIN1252', 'oracle');
 
 		// $linkOracle_class->debug=TRUE;
 

@@ -26,6 +26,7 @@
  */
 
 /**
+ * Clase que se ocupa del manejo de todo lo referente a la cuenta de usuario.
  *
  * @author iberlot <@> iberlot@usal.edu.ar
  * @since 16 nov. 2018
@@ -107,6 +108,7 @@ class Cuentas
 	protected $baja = "";
 
 	/**
+	 * Geter del atributo cuenta
 	 *
 	 * @return string
 	 */
@@ -116,6 +118,7 @@ class Cuentas
 	}
 
 	/**
+	 * Seter del atributo $cuenta
 	 *
 	 * @param string $cuenta
 	 */
@@ -125,8 +128,9 @@ class Cuentas
 	}
 
 	/**
+	 * Geter del atributo idCuenta
 	 *
-	 * @return number
+	 * @return int
 	 */
 	public function getIdCuenta()
 	{
@@ -134,8 +138,9 @@ class Cuentas
 	}
 
 	/**
+	 * Seter del atributo $idCuenta
 	 *
-	 * @param number $idCuenta
+	 * @param int $idCuenta
 	 */
 	public function setIdCuenta($idCuenta)
 	{
@@ -143,6 +148,7 @@ class Cuentas
 	}
 
 	/**
+	 * Geter del atributo emailCuenta
 	 *
 	 * @return string
 	 */
@@ -152,6 +158,7 @@ class Cuentas
 	}
 
 	/**
+	 * Seter del atributo $emailCuenta
 	 *
 	 * @param string $emailCuenta
 	 */
@@ -161,6 +168,7 @@ class Cuentas
 	}
 
 	/**
+	 * Geter del atributo tipoCuenta
 	 *
 	 * @return multitype:boolean
 	 */
@@ -170,6 +178,7 @@ class Cuentas
 	}
 
 	/**
+	 * Seter del atributo $tipoCuenta
 	 *
 	 * @param multitype:boolean $tipoCuenta
 	 */
@@ -179,6 +188,7 @@ class Cuentas
 	}
 
 	/**
+	 * Geter del atributo fraseDeSeguridad
 	 *
 	 * @return string
 	 */
@@ -188,6 +198,7 @@ class Cuentas
 	}
 
 	/**
+	 * Seter del atributo fraseDeSeguridad
 	 *
 	 * @param string $fraseDeSeguridad
 	 */
@@ -197,6 +208,7 @@ class Cuentas
 	}
 
 	/**
+	 * Geter del atributo vencimiento
 	 *
 	 * @return string
 	 */
@@ -206,6 +218,7 @@ class Cuentas
 	}
 
 	/**
+	 * Seter del atributo $vencimiento
 	 *
 	 * @param string $vencimiento
 	 */
@@ -215,6 +228,7 @@ class Cuentas
 	}
 
 	/**
+	 * Geter del atributo alta
 	 *
 	 * @return string
 	 */
@@ -224,6 +238,7 @@ class Cuentas
 	}
 
 	/**
+	 * Seter del atributo $alta
 	 *
 	 * @param string $alta
 	 */
@@ -233,6 +248,7 @@ class Cuentas
 	}
 
 	/**
+	 * Geter del atributo baja
 	 *
 	 * @return string
 	 */
@@ -242,6 +258,7 @@ class Cuentas
 	}
 
 	/**
+	 * Seter del atributo $baja
 	 *
 	 * @param string $baja
 	 */

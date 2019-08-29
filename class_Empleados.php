@@ -1,14 +1,13 @@
 <?php
 
 /**
+ * Archivo de alojamiento de la clase empleados.
  *
  * @author iberlot <@> iberlot@usal.edu.ar
- * @todo 16 nov. 2018
+ * @since 16 nov. 2018
  * @lenguage PHP
  * @name class_Empleados.php
  * @version 0.1 version inicial del archivo.
- * @package
- * @project
  */
 
 /*
@@ -23,6 +22,13 @@
  *
  * totalHorasPerdidasAqui = 0
  *
+ */
+
+/**
+ * Clase derivada de Personas con los atributos propios de los empleados.
+ *
+ * @author iberlot <@> iberlot@usal.edu.ar
+ * @name Empleados
  */
 abstract class Empleados extends Personas
 {

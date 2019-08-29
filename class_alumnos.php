@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Archivo de la clase Alumnos
  *
@@ -8,9 +9,9 @@
  * @lenguage PHP
  * @name class_alumnos.php
  * @version 0.1 version inicial del archivo.
- */
-
-/*
+ *
+ *
+ *
  * Querido programador:
  *
  * Cuando escribi este codigo, solo Dios y yo sabiamos como funcionaba.
@@ -115,6 +116,15 @@ class Alumnos extends Personas
 	 */
 	protected $desc_unidad_alumno;
 
+	/**
+	 * Constructor de la clase Alumnos.
+	 *
+	 * @param class_db $db
+	 *        	- Objeto de coneccion a la base.
+	 * @param int $person
+	 *        	- Numero identificatorio de la persona.
+	 * @param int $centrocosto
+	 */
 	public function __construct($db = null, $person = null, $centrocosto = null)
 	{
 		parent::__construct ($person, $db);
@@ -144,43 +154,39 @@ class Alumnos extends Personas
 	public function findByPerson($person, $centrocosto = null)
 	{
 		$this->setPerson ($person);
-
-		$anio_actual = date ("Y");
+		// $anio_actual = date ("Y");
 
 		$parametros = array ();
-		$parametros[] = $anio_actual;
 		$parametros[] = $person;
 
 		$query = "SELECT DISTINCT
-				    carstu.career,
-				    carstu.branch,
-				    perdoc.typdoc,
-				    perdoc.docno,
-				    ccalu.idcentrodecosto,
-				    ccalu.person,
-				    person.lname,
-				    person.fname,
+                    carstu.career,
+                    carstu.branch,
+                    perdoc.typdoc,
+                    perdoc.docno,
+                    centrodecosto.idcentrodecosto,
+                    person.person,
+                    person.lname,
+                    person.fname,
                     carstu.career,
                     carstu.plan,
                     carstu.stat,
-				    career.descrip
+                    career.descrip
 				FROM
-				    appgral.person
-				    JOIN appgral.perdoc ON person.person = perdoc.person
-				    JOIN studentc.carstu ON person.person = carstu.student
-				    JOIN studentc.career ON carstu.career = career.code
+                    appgral.person
+                    JOIN appgral.perdoc ON person.person = perdoc.person
+                    JOIN studentc.carstu ON person.person = carstu.student
+                    JOIN studentc.career ON carstu.career = career.code
                     JOIN contaduria.centrodecosto ON centrodecosto.fa||centrodecosto.ca = career.code and centrodecosto.es = carstu.BRANCH
-                    JOIN tesoreria.ccalu ON person.person = ccalu.person and centrodecosto.idcentrodecosto = ccalu.idcentrodecosto
+                    FULL JOIN tesoreria.ccalu ON person.person = ccalu.person and centrodecosto.idcentrodecosto = ccalu.idcentrodecosto
 				WHERE
-				        ccalu.aniocc =:anio
-				    AND
 				        person.person =:person";
 
 		// JOIN interfaz.aux_ccalu ON perdoc.docno = aux_ccalu.nrodoc
 
 		if ($centrocosto != null)
 		{
-			$query .= " AND ccalu.idcentrodecosto = :centrocosto";
+			$query .= " AND centrodecosto.idcentrodecosto = :centrocosto";
 			$parametros[] = $centrocosto;
 		}
 
@@ -236,7 +242,7 @@ class Alumnos extends Personas
                      JOIN tesoreria.ccalu ON person.person = ccalu.person and centrodecosto.idcentrodecosto = ccalu.idcentrodecosto";
 
 			$where = "AND facu IN( " . $unidades . " )
-						GROUP BY centrodecosto.idcentrodecosto, ccalu.person, person.lname, person.fname,facu";
+			 GROUP BY centrodecosto.idcentrodecosto, person.person, person.lname, person.fname,facu";
 		}
 
 		$query = "SELECT
@@ -372,11 +378,11 @@ class Alumnos extends Personas
 		$query = "SELECT stusubj.subject, course.quarter, stusubj.stat
 				  FROM studentc.stusubj
         		  JOIN studentc.course ON stusubj.course = course.code
-				  WHERE stusubj.student=:person AND stusubj.career=:carrera AND stusubj.plan= :plan
-						AND stusubj.stat IN (" . $estados . ")";
+				  WHERE stusubj.student=:person AND
+                                  stusubj.career=:carrera AND stusubj.plan=:plan AND stusubj.stat IN (" . $estados . ")";
 
 		$parametros = array (
-				$person,
+				$this->person,
 				$carrera,
 				$plan
 		);
@@ -409,14 +415,39 @@ class Alumnos extends Personas
 	 */
 	public function loadData($fila)
 	{
-		$this->setPerson ($fila['PERSON']);
-		$this->setCarrera ($fila['CAREER']);
-		$this->setApellido ($fila['LNAME']);
-		$this->setNombre ($fila['FNAME']);
-		$this->setCarrera_descrip ($fila['DESCRIP']);
-		$this->setIdcentrocosto ($fila['IDCENTRODECOSTO']);
-		$this->setPlan ($fila['PLAN']);
-		$this->setCarrera_stat ($fila['STAT']);
+		if ($fila['PERSON'] != "")
+		{
+			$this->setPerson ($fila['PERSON']);
+		}
+		if ($fila['CAREER'] != "")
+		{
+			$this->setCarrera ($fila['CAREER']);
+		}
+		if ($fila['LNAME'] != "")
+		{
+			$this->setApellido ($fila['LNAME']);
+		}
+		if ($fila['FNAME'] != "")
+		{
+			$this->setNombre ($fila['FNAME']);
+		}
+		if ($fila['DESCRIP'] != "")
+		{
+			$this->setCarrera_descrip ($fila['DESCRIP']);
+		}
+		if ($fila['IDCENTRODECOSTO'] != "")
+		{
+			$this->setIdcentrocosto ($fila['IDCENTRODECOSTO']);
+		}
+		if ($fila['PLAN'] != "")
+		{
+			$this->setPlan ($fila['PLAN']);
+		}
+
+		if (isset ($fila['STAT']))
+		{
+			$this->setCarrera_stat ($fila['STAT']);
+		}
 
 		/* seteo la faesca del alumno */
 		if (isset ($fila['IDCENTRODECOSTO']))
@@ -592,8 +623,8 @@ class Alumnos extends Personas
 
 	/**
 	 *
-	 * @param
-	 *        	int a cargar en la variable $carrera_stat
+	 * @param int $carrera_stat
+	 *        	cargar en la variable
 	 */
 	public function setCarrera_stat($carrera_stat)
 	{
@@ -603,44 +634,15 @@ class Alumnos extends Personas
 		}
 		else
 		{
-			throw new Exception ("Codigo de estado de carrera invalido. |" . $carrera_stat . "|");
+			throw new Exception ("Codigo de estado de carrera invalido. |" . $carrera_stat . "|" . $this->person . "|");
 		}
 	}
 
 	/**
+	 * Seter del parametro plan
 	 *
-	 * @param
-	 *        	int a cargar en la variable $fa
-	 */
-	public function setFa($fa)
-	{
-		$this->fa = $fa;
-	}
-
-	/**
-	 *
-	 * @param
-	 *        	int a cargar en la variable $es
-	 */
-	public function setEs($es)
-	{
-		$this->es = $es;
-	}
-
-	/**
-	 *
-	 * @param
-	 *        	int a cargar en la variable $ca
-	 */
-	public function setCa($ca)
-	{
-		$this->ca = $ca;
-	}
-
-	/**
-	 *
-	 * @param
-	 *        	int a cargar en la variable $plan
+	 * @param int $plan
+	 *        	a cargar en la variable plan de la clase
 	 */
 	public function setPlan($plan)
 	{
@@ -648,13 +650,48 @@ class Alumnos extends Personas
 	}
 
 	/**
+	 * Seter del parametro desc_unidad_alumno.
 	 *
-	 * @param
-	 *        	string a cargar en la variable $desc_unidad_alumno
+	 * @param string $desc_unidad_alumno
+	 *        	dato a cargar en la variable.
 	 */
 	public function setDesc_unidad_alumno($desc_unidad_alumno)
 	{
 		$this->desc_unidad_alumno = $desc_unidad_alumno;
 	}
+
+	/**
+	 * Setter del parametro $fa de la clase.
+	 *
+	 * @param number $fa
+	 *        	dato a cargar en la variable.
+	 */
+	public function setFa($fa)
+	{
+		$this->fa = $fa;
+	}
+
+	/**
+	 * Setter del parametro $es de la clase.
+	 *
+	 * @param number $es
+	 *        	dato a cargar en la variable.
+	 */
+	public function setEs($es)
+	{
+		$this->es = $es;
+	}
+
+	/**
+	 * Setter del parametro $ca de la clase.
+	 *
+	 * @param number $ca
+	 *        	dato a cargar en la variable.
+	 */
+	public function setCa($ca)
+	{
+		$this->ca = $ca;
+	}
 }
+
 ?>

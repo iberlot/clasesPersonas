@@ -26,6 +26,7 @@
  */
 
 /**
+ * Clase que se ocupa del manejo de todo lo referente a las credenciales.
  *
  * @author iberlot <@> iberlot@usal.edu.ar
  * @since 28 Jun. 2019
@@ -109,25 +110,29 @@ class Credenciales
 	/**
 	 * Objeto de coneccion a la base de datos
 	 *
-	 * @var object Class_db
+	 * @var class_db Class_db
 	 */
 	private $db;
 
 	/**
+	 * Constructor de la clase
+	 *
+	 * @param class_db $db
+	 * @param int $person
+	 *        	numero identificador de la persona.
 	 */
 	public function __construct($db = null, $person = null)
 	{
-		if (!isset ($db) or empty ($db))
+		if (!isset ($db) or empty ($db) or $db == null)
 		{
-			global $db;
+			if (!$this->db = Sitios::openConnection ())
+			{
+				global $db;
 
-			if (!isset ($db) or empty ($db))
-			{
-				$this->db = Sitios::openConnection ();
-			}
-			else
-			{
-				$this->db = $db;
+				if (isset ($db) and !empty ($db) and $db != null)
+				{
+					$this->db = $db;
+				}
 			}
 		}
 		else
@@ -321,7 +326,7 @@ class Credenciales
 	 * @throws Exception Mensaje de excepcion en caso de no poder realizar el update.
 	 * @return boolean Retorna true en caso de realizar el update correctamente.
 	 */
-	function update_personca_basic($person)
+	public function update_personca_basic($person)
 	{
 		$sql = "UPDATE appgral.personca SET nrodechip = :tarjeta, tipo_credencial = :tipo WHERE person =:person";
 
@@ -349,7 +354,7 @@ class Credenciales
 	 * @throws Exception En caso de que la tarjeta se encuentre registrada se retorna una excepcion.
 	 * @return boolean True en caso de que se encuentre disponible el numero de tarjeta.
 	 */
-	function comprobar_tarjeta_unica($numTarjeta)
+	public function comprobar_tarjeta_unica($numTarjeta)
 	{
 		$sql = "SELECT * FROM appgral.personca WHERE nrodechip = :tarjeta";
 
@@ -369,6 +374,34 @@ class Credenciales
 	}
 
 	/**
+	 * Busca el numero de la tarjeta en la base.
+	 *
+	 *
+	 * @param int $numTarjeta
+	 *        	numero de tarjeta a comprobar
+	 * @throws Exception En caso de que la tarjeta se encuentre registrada se retorna una excepcion.
+	 * @return boolean false en caso de que no se encuentre el numero de tarjeta y el person de la persona en caso de encontrarse.
+	 */
+	public function buscar_tarjeta($numTarjeta)
+	{
+		$sql = "SELECT * FROM appgral.personca WHERE nrodechip = :tarjeta";
+
+		$parametros = array ();
+		$parametros[] = $numTarjeta;
+
+		$result = $this->db->query ($sql, true, $parametros);
+
+		$fila = $this->db->fetch_array ($result);
+
+		if (!empty ($fila))
+		{
+			return $fila['PERSON'];
+		}
+
+		return false;
+	}
+
+	/**
 	 * Inserta los datos de una persona en personca se le pasa el person y usa el resto de los datos de los parametros de la clase.
 	 *
 	 * @param int $person
@@ -376,7 +409,7 @@ class Credenciales
 	 * @throws Exception Mensaje de excepcion en caso de no poder realizar el insert.
 	 * @return boolean Retorna true en caso de realizar la insercion correctamente.
 	 */
-	function insertar_personca_basic($person)
+	public function insertar_personca_basic($person)
 	{
 		$sql = "INSERT INTO appgral.personca (person, nrodechip, tipo_credencial) VALUES (:person, :tarjeta,:tipo)";
 
@@ -408,11 +441,11 @@ class Credenciales
 				    estadocredencialca,
 				    codigoisic,
 				    nrodechip,
-				    TO_CHAR(sca_fecha,'dd/mm/yyyy'),
+				    TO_CHAR(sca_fecha,'dd/mm/yyyy') sca_fecha,
 				    sca_categoria,
 				    sca_lote,
 				    tipo_formulario,
-				    TO_CHAR(fecha_chip,'dd/mm/yyyy'),
+				    TO_CHAR(fecha_chip,'dd/mm/yyyy') fecha_chip,
 				    motivo,
 				    tipo_credencial
 				FROM
@@ -431,7 +464,7 @@ class Credenciales
 		{
 			$this->setEstadocredencialca ($fila['ESTADOCREDENCIALCA']);
 			$this->setCodigoisic ($fila['CODIGOISIC']);
-			$this->setNroDeChip ($fila['NRODECHIP']);
+			$this->set_Nrodechip ($fila['NRODECHIP']);
 			$this->setSca_fecha ($fila['SCA_FECHA']);
 			$this->setSca_categoria ($fila['SCA_CATEGORIA']);
 			$this->setSca_lote ($fila['SCA_LOTE']);
@@ -445,8 +478,9 @@ class Credenciales
 	}
 
 	/**
+	 * Retorna el dato del parametro $estadocredencialca.
 	 *
-	 * @return number el dato de la variable $estadocredencialca
+	 * @return int $estadocredencialca
 	 */
 	public function getEstadocredencialca()
 	{
@@ -454,8 +488,9 @@ class Credenciales
 	}
 
 	/**
+	 * Retorna el dato del parametro $codigoisic
 	 *
-	 * @return string el dato de la variable $codigoisic
+	 * @return string $codigoisic el dato de la variable
 	 */
 	public function getCodigoisic()
 	{
@@ -463,6 +498,7 @@ class Credenciales
 	}
 
 	/**
+	 * Retorna el dato del parametro $nrodechip
 	 *
 	 * @return number el dato de la variable $nrodechip
 	 */
@@ -472,6 +508,7 @@ class Credenciales
 	}
 
 	/**
+	 * Retorna el dato del parametro $sca_fecha
 	 *
 	 * @return string el dato de la variable $sca_fecha
 	 */
@@ -481,6 +518,7 @@ class Credenciales
 	}
 
 	/**
+	 * Retorna el dato del parametro $sca_categoria
 	 *
 	 * @return number el dato de la variable $sca_categoria
 	 */
@@ -490,6 +528,7 @@ class Credenciales
 	}
 
 	/**
+	 * Retorna el dato del parametro $sca_lote
 	 *
 	 * @return string el dato de la variable $sca_lote
 	 */
@@ -499,6 +538,7 @@ class Credenciales
 	}
 
 	/**
+	 * Retorna el dato del parametro $tipo_formulario
 	 *
 	 * @return number el dato de la variable $tipo_formulario
 	 */
@@ -508,6 +548,7 @@ class Credenciales
 	}
 
 	/**
+	 * Retorna el dato del parametro $fecha_chip
 	 *
 	 * @return string el dato de la variable $fecha_chip
 	 */
@@ -517,6 +558,7 @@ class Credenciales
 	}
 
 	/**
+	 * Retorna el dato del parametro $motivo
 	 *
 	 * @return string el dato de la variable $motivo
 	 */
@@ -526,6 +568,7 @@ class Credenciales
 	}
 
 	/**
+	 * Retorna el dato del parametro tipo_credencial
 	 *
 	 * @return number el dato de la variable $tipo_credencial
 	 */
@@ -535,9 +578,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $estadocredencialca
 	 *
-	 * @param
-	 *        	number a cargar en la variable $estadocredencialca
+	 * @param int $estadocredencialca
+	 *        	a cargar en la variable
 	 */
 	public function setEstadocredencialca($estadocredencialca)
 	{
@@ -545,9 +589,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $codigoisic
 	 *
-	 * @param
-	 *        	string a cargar en la variable $codigoisic
+	 * @param string $codigoisic
+	 *        	a cargar en la variable
 	 */
 	public function setCodigoisic($codigoisic)
 	{
@@ -555,9 +600,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $nrodechip
 	 *
-	 * @param
-	 *        	int a cargar en la variable $nrodechip luego de comprobar que el dato no se encuentre en la base.
+	 * @param int $nrodechip
+	 *        	a cargar en la variable luego de comprobar que el dato no se encuentre en la base.
 	 */
 	public function set_nuevo_Nrodechip($nrodechip)
 	{
@@ -568,9 +614,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $nrodechip
 	 *
-	 * @param
-	 *        	int a cargar en la variable $nrodechip
+	 * @param int $nrodechip
+	 *        	a cargar en la variable
 	 */
 	public function set_Nrodechip($nrodechip)
 	{
@@ -578,9 +625,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $sca_fecha
 	 *
-	 * @param
-	 *        	string a cargar en la variable $sca_fecha
+	 * @param string $sca_fecha
+	 *        	a cargar en la variable
 	 */
 	public function setSca_fecha($sca_fecha)
 	{
@@ -588,9 +636,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $sca_categoria
 	 *
-	 * @param
-	 *        	number a cargar en la variable $sca_categoria
+	 * @param int $sca_categoria
+	 *        	a cargar en la variable
 	 */
 	public function setSca_categoria($sca_categoria)
 	{
@@ -598,9 +647,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $sca_lote
 	 *
-	 * @param
-	 *        	string a cargar en la variable $sca_lote
+	 * @param string $sca_lote
+	 *        	a cargar en la variable
 	 */
 	public function setSca_lote($sca_lote)
 	{
@@ -608,9 +658,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $tipo_formulario
 	 *
-	 * @param
-	 *        	number a cargar en la variable $tipo_formulario
+	 * @param int $tipo_formulario
+	 *        	a cargar en la variable
 	 */
 	public function setTipo_formulario($tipo_formulario)
 	{
@@ -618,9 +669,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $fecha_chip
 	 *
-	 * @param
-	 *        	string a cargar en la variable $fecha_chip
+	 * @param string $fecha_chip
+	 *        	a cargar en la variable
 	 */
 	public function setFecha_chip($fecha_chip)
 	{
@@ -628,9 +680,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $motivo
 	 *
-	 * @param
-	 *        	string a cargar en la variable $motivo
+	 * @param string $motivo
+	 *        	a cargar en la variable
 	 */
 	public function setMotivo($motivo)
 	{
@@ -638,9 +691,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $tipo_credencial
 	 *
-	 * @param
-	 *        	number a cargar en la variable $tipo_credencial
+	 * @param int $tipo_credencial
+	 *        	a cargar en la variable
 	 */
 	public function setTipo_credencial($tipo_credencial)
 	{
@@ -648,9 +702,10 @@ class Credenciales
 	}
 
 	/**
+	 * Setter del atributo $db
 	 *
-	 * @param
-	 *        	object a cargar en la variable $db
+	 * @param class_db $db
+	 *        	dato a cargar en la variable
 	 */
 	public function setDb($db)
 	{

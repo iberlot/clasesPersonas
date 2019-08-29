@@ -30,7 +30,7 @@ require_once ("class_credenciales.php");
  *
  * @author iberlot <@> ivanberlot@gmail.com
  *
- * @name class_persona
+ * @name Personas
  *
  * @version 0.1 - Version de inicio
  *
@@ -308,15 +308,14 @@ abstract class Personas
 	{
 		if (!isset ($db) or empty ($db) or $db == null)
 		{
-			global $db;
+			if (!$this->db = Sitios::openConnection ())
+			{
+				global $db;
 
-			if (!isset ($db) or empty ($db) or $db == null)
-			{
-				$this->db = Sitios::openConnection ();
-			}
-			else
-			{
-				$this->db = $db;
+				if (isset ($db) and !empty ($db) and $db != null)
+				{
+					$this->db = $db;
+				}
 			}
 		}
 		else
@@ -333,6 +332,15 @@ abstract class Personas
 				$direccion = new Direcciones ($i);
 				$direccion->recuperar_dire_person ($person, $i);
 			}
+
+			$docs = array ();
+			$docs = $this->buscar_perdoc_person ($person);
+
+			for($i = 0; $i < count ($docs); $i ++)
+			{
+				$this->documentos[] = new Documentos ($docs[$i]['docNumero'], $docs[$i]['typdoc']);
+			}
+
 			$this->email = array ();
 			$this->telefono = array ();
 			$this->foto_persona = "";
@@ -349,6 +357,12 @@ abstract class Personas
 			$this->escuelaPrimaria = "";
 
 			$this->credencial = new Credenciales ($db, $person);
+
+			// print_r ("<Br /><Br />");
+			// print_r ($person);
+			// print_r ("<Br /><Br />");
+			// print_r ($this);
+			// print_r ("<Br /><Br />");
 		}
 		else
 		{
@@ -398,11 +412,13 @@ abstract class Personas
 	}
 
 	/**
+	 *
 	 * En base al person del alumno obtiene la foto
 	 *
 	 * @param int $person
 	 *
 	 * @return string url de la foto
+	 *
 	 */
 	public function get_Photo($person)
 	{
@@ -412,20 +428,79 @@ abstract class Personas
 
 		$foto3 = substr ($person, -3, 1);
 
-		$url_foto = 'http://roma2.usal.edu.ar/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
+		// $url_foto = 'http://roma2.usal.edu.ar/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
 
-		if (getimagesize ($url_foto))
+		$url_foto = 'http://' . $_SERVER['HTTP_HOST'] . '/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
+
+		// @FIXME no funciona el file_exists , se le puso el arroba al get image para ocultar los warning
+		// Si nos devuelve el peso de la img es por que existe , no funciona el file_exists
+		/*
+		 * var_dump($url_foto);
+		 * echo('--');
+		 * var_dump(file_exists($url_foto));
+		 * echo('--');
+		 * var_dump(file_exists('/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg'));
+		 * echo('</br>');
+		 * echo('</br>');
+		 */
+
+		if (@getimagesize ($url_foto))
 		{
-
-			$url_foto = '/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
+			return '/FotosPerson/' . $foto1 . '/' . $foto2 . '/' . $foto3 . '/' . $person . '.jpg';
 		}
 		else
 		{
+			return '/FotosPerson/sinfoto1.jpg';
+		}
+	}
 
-			$url_foto = '/FotosPerson/sinfoto1.jpg';
+	/**
+	 * Busca un todos los documentos de una persona.
+	 *
+	 * @param int $person
+	 * @return array retorna un array con todos los tipo y numero de una perona
+	 */
+	public function buscar_perdoc_person($person)
+	{
+		$sql = "SELECT * FROM appgral.perdoc WHERE person = :person";
+
+		$parametros = array ();
+
+		$parametros[] = $person;
+
+		$result = $this->db->query ($sql, true, $parametros);
+
+		if (!isset ($result) or $result == "" or $result == null)
+		{
+
+			$sql = "SELECT * FROM appgral.auditaperdoc WHERE person = :person";
+
+			$parametros[0] = $person;
+
+			$result = $this->db->query ($sql, true, $parametros);
 		}
 
-		return $url_foto;
+		$i = 0;
+
+		while ($recu = $this->db->fetch_array ($result))
+		{
+
+			$persona[$i]['typdoc'] = $recu['TYPDOC'];
+
+			$persona[$i]['docNumero'] = $recu['DOCNO'];
+
+			$i = $i ++;
+		}
+
+		if (isset ($persona) and $persona != "")
+		{
+
+			return $persona;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 	/*
@@ -450,7 +525,7 @@ abstract class Personas
 	public function nuevoPerdoc($arrayDatosPersona)
 	{
 		$resultado = true;
-		// echo "****************************************";
+		// echo"****************************************";
 		return;
 
 		try
@@ -926,6 +1001,7 @@ abstract class Personas
 			$sql = "SELECT * FROM appgral.person" . $this->db_link . " WHERE person = :person";
 
 			$parametros = "";
+
 			$parametros[0] = $arrayDatosPersona['person'];
 
 			$result = $this->db->query ($sql, true, $parametros);
@@ -1103,7 +1179,7 @@ abstract class Personas
 
 		if ($recu = $this->db->fetch_array ($result))
 		{
-			$this->setPerson ($recu['PERSON']);
+			$this->setPerson ($person);
 			$this->setApellido ($recu['LNAME']);
 			$this->setNombre ($recu['FNAME']);
 			$this->setFechaNacimiento ($recu['BIRDATE']);
@@ -1166,10 +1242,10 @@ abstract class Personas
 		{
 			$sql = "SELECT * FROM appgral.country WHERE TRIM(upper(country)) = TRIM(upper(:country)) OR TRIM(upper(descrip)) = TRIM(upper(:descrip)) OR TRIM(upper(nation)) = TRIM(upper(:nation))";
 
-			$parametros = "";
-			$parametros[0] = $nacion;
-			$parametros[1] = $nacion;
-			$parametros[2] = $nacion;
+			$parametros = array ();
+			$parametros[] = $nacion;
+			$parametros[] = $nacion;
+			$parametros[] = $nacion;
 
 			$result = $this->db->query ($sql, true, $parametros);
 
@@ -1743,6 +1819,15 @@ abstract class Personas
 
 	/**
 	 *
+	 * @return string el dato de la primer posicion de la variable $documentos
+	 */
+	public function getDoc()
+	{
+		return $this->documentos[0];
+	}
+
+	/**
+	 *
 	 * @param
 	 *        	array a cargar en la variable $documentos
 	 */
@@ -1769,6 +1854,62 @@ abstract class Personas
 	public function nuevo_documneto($tipo_doc, $nro_doc)
 	{
 		$this->documentos[] = new Documentos ($db, $doc_num, $doc_typ);
+	}
+
+	/**
+	 * Busca y retorna los persons de las personas cuyo nombre, apellido, person, num de documento o numero de tarjeta coincidan con el strin buscado.
+	 *
+	 * @param string $dato
+	 *        	dato a buscar.
+	 * @return resource|boolean retorna un array con los persons de todas las personas que cumplan con los parametros o false en caso de no encontrar ninguna.
+	 */
+	public function buscar_persona($dato)
+	{
+		$parametros = array ();
+		$where = "";
+
+		if (is_numeric ($dato))
+		{
+			$where .= " person.person LIKE :person ";
+			$where .= " OR LTRIM(LTRIM(perdoc.docno, '0')) LIKE LTRIM(LTRIM(:docno, '0')) ";
+			$where .= " OR LTRIM(LTRIM(personca.nrodechip, '0')) LIKE LTRIM(LTRIM(:tarjeta, '0')) ";
+
+			$dato = str_replace ('.', '', $dato);
+			$dato = str_replace (' ', '', $dato);
+
+			$parametros[] = $dato;
+			$parametros[] = $dato;
+			$parametros[] = $dato;
+		}
+		else
+		{
+			$where .= " UPPER(person.lname) LIKE UPPER(:lname) ";
+			$where .= " OR UPPER(person.fname) LIKE UPPER(:fname) ";
+
+			$dato = str_replace (' ', "%", $dato);
+
+			$dato = "%" . $dato . "%";
+
+			$parametros[] = $dato;
+			$parametros[] = $dato;
+		}
+		$where = ($where != "") ? " AND " . $where : "";
+
+		$sql = "SELECT person.person FROM appgral.person
+					INNER JOIN appgral.perdoc ON perdoc.person = person.person
+					FULL JOIN appgral.personca ON personca.person = person.person
+				WHERE 1 = 1 " . $where;
+
+		$result = $this->db->query ($sql, true, $parametros);
+
+		if ($datos = $this->db->fetch_all ($result))
+		{
+			return $datos['PERSON'];
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 ?>

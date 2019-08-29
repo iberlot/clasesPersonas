@@ -1,232 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-<meta charset="utf-8" />
-<title>API Documentation</title>
-<meta name="author" content="" />
-<meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
 
-<link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-<link href="../css/font-awesome.min.css" rel="stylesheet">
-<link href="../css/prism.css" rel="stylesheet" media="all" />
-<link href="../css/template.css" rel="stylesheet" media="all" />
-
-<!--[if lt IE 9]>
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
     <script src="../js/html5.js"></script>
     <![endif]-->
-<script src="../js/jquery-1.11.0.min.js"></script>
-<script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery.smooth-scroll.js"></script>
-<script src="../js/prism.min.js"></script>
-<!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-
-<link rel="shortcut icon" href="../images/favicon.ico" />
-<link rel="apple-touch-icon" href="../images/apple-touch-icon.png" />
-<link rel="apple-touch-icon" sizes="72x72"
-	href="../images/apple-touch-icon-72x72.png" />
-<link rel="apple-touch-icon" sizes="114x114"
-	href="../images/apple-touch-icon-114x114.png" />
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
 </head>
 <body>
 
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<a class="btn btn-navbar" data-toggle="collapse"
-					data-target=".nav-collapse"> <i class="icon-ellipsis-vertical"></i>
-				</a> <a class="brand" href="../index.html">API Documentation</a>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
 
-				<div class="nav-collapse">
-					<ul class="nav pull-right">
-						<li class="dropdown" id="charts-menu"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown"> Charts <b
-								class="caret"></b>
-						</a>
-							<ul class="dropdown-menu">
-								<li><a href="../graphs/class.html"> <i
-										class="icon-list-alt"></i>&#160;Class hierarchy diagram
-								</a></li>
-							</ul></li>
-						<li class="dropdown" id="reports-menu"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown"> Reports <b
-								class="caret"></b>
-						</a>
-							<ul class="dropdown-menu">
-								<li><a href="../reports/errors.html"> <i
-										class="icon-list-alt"></i>&#160;Errors <span
-										class="label label-info pull-right">114</span>
-								</a></li>
-								<li><a href="../reports/markers.html"> <i
-										class="icon-list-alt"></i>&#160;Markers <span
-										class="label label-info pull-right">22</span>
-								</a></li>
-								<li><a href="../reports/deprecated.html"> <i
-										class="icon-list-alt"></i>&#160;Deprecated <span
-										class="label label-info pull-right">0</span>
-								</a></li>
-							</ul></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!--<div class="go_to_top">-->
-		<!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
-		<!--</div>-->
-	</div>
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">395</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">21</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
 
-	<div id="___" class="container-fluid">
-		<section class="row-fluid">
-			<div class="span2 sidebar">
-				<div class="accordion" style="margin-bottom: 0">
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle " data-toggle="collapse"
-								data-target="#namespace-799810589"></a> <a
-								href="../namespaces/default.html"
-								style="margin-left: 30px; padding-left: 0">\</a>
-						</div>
-						<div id="namespace-799810589" class="accordion-body collapse in">
-							<div class="accordion-inner">
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1400611807"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1400611807" class="accordion-body collapse in">
+                <div class="accordion-inner">
 
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alumnos.html">Alumnos</a></li>
+                                                    <li class="class"><a href="../classes/CajaTesoreria.html">CajaTesoreria</a></li>
+                                                    <li class="class"><a href="../classes/Carreras.html">Carreras</a></li>
+                                                    <li class="class"><a href="../classes/class_Administrativos.html">class_Administrativos</a></li>
+                                                    <li class="class"><a href="../classes/class_institucion.html">class_institucion</a></li>
+                                                    <li class="class"><a href="../classes/Conexion.html">Conexion</a></li>
+                                                    <li class="class"><a href="../classes/Credenciales.html">Credenciales</a></li>
+                                                    <li class="class"><a href="../classes/Cuentas.html">Cuentas</a></li>
+                                                    <li class="class"><a href="../classes/DerechosVarios.html">DerechosVarios</a></li>
+                                                    <li class="class"><a href="../classes/Direcciones.html">Direcciones</a></li>
+                                                    <li class="class"><a href="../classes/Documentos.html">Documentos</a></li>
+                                                    <li class="class"><a href="../classes/Empleados.html">Empleados</a></li>
+                                                    <li class="class"><a href="../classes/FormsSecretariaGral.html">FormsSecretariaGral</a></li>
+                                                    <li class="class"><a href="../classes/FormTesoreriaSolitram.html">FormTesoreriaSolitram</a></li>
+                                                    <li class="class"><a href="../classes/listados.html">listados</a></li>
+                                                    <li class="class"><a href="../classes/Personas.html">Personas</a></li>
+                                                    <li class="class"><a href="../classes/SucursalesCajas.html">SucursalesCajas</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-								<ul>
-									<li class="class"><a href="../classes/Alumnos.html">Alumnos</a></li>
-									<li class="class"><a href="../classes/Conexion.html">Conexion</a></li>
-									<li class="class"><a href="../classes/Cuentas.html">Cuentas</a></li>
-									<li class="class"><a href="../classes/Direcciones.html">Direcciones</a></li>
-									<li class="class"><a href="../classes/Documentos.html">Documentos</a></li>
-									<li class="class"><a href="../classes/Empleados.html">Empleados</a></li>
-									<li class="class"><a href="../classes/listados.html">listados</a></li>
-									<li class="class"><a href="../classes/Personas.html">Personas</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content namespace">
+                    <nav>
+                                                
+                                            </nav>
+                    <h1><small></small>\</h1>
 
-			</div>
-		</section>
-		<section class="row-fluid">
-			<div class="span10 offset2">
-				<div class="row-fluid">
-					<div class="span8 content namespace">
-						<nav></nav>
-						<h1>
-							<small></small>\
-						</h1>
+                    
+                    
+                    
+                                        <h2>Classes</h2>
+                    <table class="table table-hover">
+                                            <tr>
+                            <td><a href="../classes/Alumnos.html">Alumnos</a></td>
+                            <td><em>Clase que maneja los atributos de los alumnos</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/CajaTesoreria.html">CajaTesoreria</a></td>
+                            <td><em>Archivo de la clase Caja</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Carreras.html">Carreras</a></td>
+                            <td><em></em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/class_Administrativos.html">class_Administrativos</a></td>
+                            <td><em>Description of class_Administrativos</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/class_institucion.html">class_institucion</a></td>
+                            <td><em>Clase encargada del manejo de todos los datos referentes a la persona.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Conexion.html">Conexion</a></td>
+                            <td><em></em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Credenciales.html">Credenciales</a></td>
+                            <td><em></em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Cuentas.html">Cuentas</a></td>
+                            <td><em></em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/DerechosVarios.html">DerechosVarios</a></td>
+                            <td><em></em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Direcciones.html">Direcciones</a></td>
+                            <td><em>Clase direcciones, maneja los parametros de las direcciones y agrupa las funciones necesarias para su alta baja y modificacion.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Documentos.html">Documentos</a></td>
+                            <td><em></em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Empleados.html">Empleados</a></td>
+                            <td><em>Clase derivada de Personas con los atributos propios de los empleados.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/FormsSecretariaGral.html">FormsSecretariaGral</a></td>
+                            <td><em>Description of FormsSecretariaGral</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/FormTesoreriaSolitram.html">FormTesoreriaSolitram</a></td>
+                            <td><em>Description of FormTesoreriaSolitram</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/listados.html">listados</a></td>
+                            <td><em></em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Personas.html">Personas</a></td>
+                            <td><em>Clase encargada del manejo de todos los datos referentes a la persona.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/SucursalesCajas.html">SucursalesCajas</a></td>
+                            <td><em>Archivo de la clase Sucursales</em></td>
+                        </tr>
+                                        </table>
+                                    </div>
 
+                <aside class="span4 detailsbar">
+                    <dl>
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">
+                                                                                                                                                <div class="namespace-wrapper">\</div>
+                        </dd>
+                    </dl>
+                </aside>
+            </div>
 
+            
+            
+        </div>
+    </section>
 
-
-						<h2>Classes</h2>
-						<table class="table table-hover">
-							<tr>
-								<td><a href="../classes/Alumnos.html">Alumnos</a></td>
-								<td><em>Clase encargada del manejo de todos los datos
-										referentes a la persona.</em></td>
-							</tr>
-							<tr>
-								<td><a href="../classes/Conexion.html">Conexion</a></td>
-								<td><em></em></td>
-							</tr>
-							<tr>
-								<td><a href="../classes/Cuentas.html">Cuentas</a></td>
-								<td><em></em></td>
-							</tr>
-							<tr>
-								<td><a href="../classes/Direcciones.html">Direcciones</a></td>
-								<td><em>Clase direcciones, maneja los parametros de
-										las direcciones y agrupa las funciones necesarias para su alta
-										baja y modificacion.</em></td>
-							</tr>
-							<tr>
-								<td><a href="../classes/Documentos.html">Documentos</a></td>
-								<td><em></em></td>
-							</tr>
-							<tr>
-								<td><a href="../classes/Empleados.html">Empleados</a></td>
-								<td><em>Clase encargada del manejo de todos los datos
-										referentes a la persona.</em></td>
-							</tr>
-							<tr>
-								<td><a href="../classes/listados.html">listados</a></td>
-								<td><em></em></td>
-							</tr>
-							<tr>
-								<td><a href="../classes/Personas.html">Personas</a></td>
-								<td><em>Clase encargada del manejo de todos los datos
-										referentes a la persona.</em></td>
-							</tr>
-						</table>
-					</div>
-
-					<aside class="span4 detailsbar">
-						<dl>
-							<dt>Namespace hierarchy</dt>
-							<dd class="hierarchy">
-								<div class="namespace-wrapper">\</div>
-							</dd>
-						</dl>
-					</aside>
-				</div>
-
-
-
-			</div>
-		</section>
-
-		<footer class="row-fluid">
-			<section class="span10 offset2">
-				<section class="row-fluid">
-					<section class="span10 offset1">
-						<section class="row-fluid footer-sections">
-							<section class="span4">
-								<h1>
-									<i class="icon-code"></i>
-								</h1>
-								<div>
-									<ul>
-									</ul>
-								</div>
-							</section>
-							<section class="span4">
-								<h1>
-									<i class="icon-bar-chart"></i>
-								</h1>
-								<div>
-									<ul>
-										<li><a href="../graphs/class.html">Class Hierarchy
-												Diagram</a></li>
-									</ul>
-								</div>
-							</section>
-							<section class="span4">
-								<h1>
-									<i class="icon-pushpin"></i>
-								</h1>
-								<div>
-									<ul>
-										<li><a href="../reports/errors.html">Errors</a></li>
-										<li><a href="../reports/markers.html">Markers</a></li>
-									</ul>
-								</div>
-							</section>
-						</section>
-					</section>
-				</section>
-				<section class="row-fluid">
-					<section class="span10 offset1">
-						<hr />
-						Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor
-						</a> and authored on March 19th, 2019 at 12:19.
-					</section>
-				</section>
-			</section>
-		</footer>
-	</div>
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 5th, 2019 at 15:08.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
 
 </body>
 </html>
