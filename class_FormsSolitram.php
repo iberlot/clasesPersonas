@@ -918,12 +918,15 @@ class Formularios
 
 		// seleccino la hora con * por que la libreria de consulta toma las : como parametros
 		// luego reemplzao los * por :
-		$query = "select FORMULARIOHIST.ID,
+		$query = "SELECT FORMULARIOHIST.ID,
                 FORMULARIOHIST.IDFORMULARIO,
                 to_char(FECHAM,'DD-MM-YYYY hh24*mi*ss') FECHAM,
                 FORMULARIOHIST.IDESTADO,
                 FORMULARIOHIST.COMENTARIO,
-                FORMULARIOHIST.PERSON ,person.LNAME , person.FNAME from FORMULARIOHIST " . "JOIN appgral.person  " . "on FORMULARIOHIST.PERSON=person.person " . "WHERE FORMULARIOHIST.IDFORMULARIO = :idform order by id desc";
+                FORMULARIOHIST.PERSON ,person.LNAME , person.FNAME from FORMULARIOHIST " 
+                . "JOIN appgral.person  " 
+                . "on FORMULARIOHIST.PERSON=person.person " 
+                . "WHERE FORMULARIOHIST.IDFORMULARIO = :idform order by id desc";
 
 		$result = $this->db->query ($query, true, $parametros);
 
@@ -954,8 +957,9 @@ class Formularios
 				$IDFORMULARIO
 		);
 
-		$query = "SELECT * FROM formulariomaterias WHERE idformulario = :idform ORDER BY id DESC";
+		$query = " select * from FORMULARIOMATERIAS " . "WHERE IDFORMULARIO = :idform order by id desc";
 		$fila = '';
+                
 		$result = $this->db->query ($query, true, $parametros);
 
 		while ($fila = $this->db->fetch_array ($result))
