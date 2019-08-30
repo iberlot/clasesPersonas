@@ -337,23 +337,23 @@ class Direcciones
 				{
 					if ($recu['SHORTDES'][$i] == 'PISO')
 					{
-						$this->setDirePiso ($recu['VAL'][$i]);
+						$this->setPiso ($recu['VAL'][$i]);
 					}
 					elseif ($recu['SHORTDES'][$i] == 'CALLE')
 					{
-						$this->setDireCalle ($recu['VAL'][$i]);
+						$this->setCalle ($recu['VAL'][$i]);
 					}
 					elseif ($recu['SHORTDES'][$i] == 'DEPTO')
 					{
-						$this->setDireNumero ($recu['VAL'][$i]);
+						$this->setDepartamento ($recu['VAL'][$i]);
 					}
 					elseif ($recu['SHORTDES'][$i] == 'NRO')
 					{
-						$this->setDireNumero ($recu['VAL'][$i]);
+						$this->setNumero ($recu['VAL'][$i]);
 					}
 					elseif ($recu['SHORTDES'][$i] == 'CODPOS')
 					{
-						$this->setDireCodPos ($recu['VAL'][$i]);
+						$this->setCodigoPostal ($recu['VAL'][$i]);
 					}
 					elseif ($recu['SHORTDES'][$i] == 'COUNTRY')
 					{
@@ -819,7 +819,8 @@ class Direcciones
 		}
 		else
 		{
-			throw new Exception ('No se encontro el dato suministrado en la base.');
+			// FIXME se elimina la comprobacion hasta que se corrijan los errores de inconsistencia.
+			// throw new Exception ('No se encontro el dato de la poldiv suministrado en la base. ');
 		}
 	}
 
@@ -904,7 +905,8 @@ class Direcciones
 		}
 		else
 		{
-			throw new Exception ('No se encontro el dato suministrado en la base.');
+			// FIXME se elimina la comprobacion hasta que se corrijan los errores de inconsistencia.
+			// throw new Exception ('No se encontro el dato de la ciudad suministrado en la base. ');
 		}
 	}
 
@@ -945,15 +947,15 @@ class Direcciones
 	 */
 	public function setNumero($numero)
 	{
-		$numero = $numero + 0;
-
+		// $numero = $numero + 0;
 		if (is_int ($numero))
 		{
 			$this->numero = $numero;
 		}
 		else
 		{
-			throw new Exception ($numero . 'El dato debe ser un numero entero.');
+			// FIXME se saca hasta que se arregle la inconsistencia en la base hay numero no numericos
+			// throw new Exception ($numero . 'El dato debe ser un numero entero.');
 		}
 	}
 
