@@ -188,7 +188,7 @@ class Formularios
 	 *
 	 * @return bool
 	 */
-	public function updateTesoreriaForm($data_update, $tabla, $where)
+	public function updateTesoreriaForm($data_update, $tabla, $where ,$personupdate=null)
 	{
 
 		// $db = Conexion::openConnection();
@@ -217,20 +217,35 @@ class Formularios
 				$data_historial['IDESTADO'] = $data_update['IDESTADO'];
 			}
 
-			if (isset ($data_update['COMENTARIO']))
-			{
+			if (isset ($data_update['COMENTARIO'])){
+                            
+                            if($data_update['COMENTARIO'] != '' || $data_update['COMENTARIO'] != null){
+                                
 				$data_historial['COMENTARIO'] = $data_update['COMENTARIO'];
+                                
+                            }else{
+                                $data_historial['COMENTARIO'] ='Cambio de estado del formulario.';
+                            }
 			}
 
-			$data_historial['PERSON'] = Session::get ('person');
-
-			try
-			{
+                        if($personupdate == null){
+                            
+                            $data_historial['PERSON'] = Session::get('person');
+                            
+                        }else{
+                            
+                           $data_historial['PERSON'] = $personupdate; 
+                           
+                        }
+                        
+			try{
 
 				$this->insertHistory ($data_historial, $tabla);
-			}
-			catch (Exception $e)
-			{
+                                
+                                echo 'OK';
+			
+                                
+                        }catch (Exception $e){
 
 				echo 'Excepci&oacute;n capturada: ', $e->getMessage (), "\n";
 			}
