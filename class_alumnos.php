@@ -376,19 +376,19 @@ class Alumnos extends Personas
 	public function MateriasAprxPlanCarrera($carrera, $plan, $estados, $cuatrimestre = -2)
 	{
 		$query = "SELECT stusubj.subject, course.quarter, stusubj.stat
-				  FROM studentc.stusubj
-        		  JOIN studentc.course ON stusubj.course = course.code
-				  WHERE stusubj.student=:person AND
-                                  stusubj.career=:carrera AND stusubj.plan=:plan AND stusubj.stat IN (" . $estados . ")";
+                            FROM studentc.stusubj
+                            JOIN studentc.course ON stusubj.course = course.code
+                            WHERE stusubj.student=:person AND
+                            stusubj.career=:carrera AND stusubj.plan=:plan AND stusubj.stat IN (" . $estados . ")";
 
 		$parametros = array (
-				$this->person,
-				$carrera,
-				$plan
+                        $this->person,
+                        $carrera,
+                        $plan
 		);
 
-		if ($cuatrimestre != -2)
-		{
+		if ($cuatrimestre != -2){
+                    
 			$query .= "AND course.quarter = :cuatri";
 
 			$parametros[] = $cuatrimestre;
@@ -398,9 +398,10 @@ class Alumnos extends Personas
 
 		$subject_x_estado = array ();
 
-		while ($fila = $this->db->fetch_array ($subjectMaterias))
-		{
+		while ($fila = $this->db->fetch_array ($subjectMaterias)){
+                    
 			$subject_x_estado[] = $fila['SUBJECT'];
+                        
 		}
 
 		return $subject_x_estado;

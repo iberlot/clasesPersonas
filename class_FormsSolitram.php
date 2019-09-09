@@ -37,8 +37,8 @@ class Formularios
 	{
 		$this->db = $db;
 		// Si no hay id o y si tipo devolvemos el html del form
-		if ($tipo != null && $tipo != '' && $id == null && $id == '')
-		{
+		if ($tipo != null && $tipo != '' && $id == null && $id == ''){
+                    
 
 			$this->set_tipo_form ($tipo);
 
@@ -46,15 +46,15 @@ class Formularios
 
 			/* Obtengo el nombre del form basado en la tabla interfaz.tipo_alumno */
 			$parametros = array (
-					$tipo
+                             $tipo
 			);
 
 			$query = "select DESCRIPCION from interfaz.tipo_alumno where TIPO_ALUMNO = LPAD(:tipo, 2, '0')";
 
 			$result = $this->db->query ($query, true, $parametros);
 
-			if ($result)
-			{
+			if ($result){
+                            
 
 				$arr_asoc = $this->db->fetch_array ($result);
 
@@ -78,8 +78,8 @@ class Formularios
 
 			$result = $this->db->query ($query, true, $parametros);
 
-			if ($result)
-			{
+			if ($result){
+                            
 				$arr_asoc = $db->fetch_array ($result);
 
 				$this->loadData ($arr_asoc);
@@ -241,9 +241,7 @@ class Formularios
 			try{
 
 				$this->insertHistory ($data_historial, $tabla);
-                                
-                                echo 'OK';
-			
+                               			
                                 
                         }catch (Exception $e){
 
