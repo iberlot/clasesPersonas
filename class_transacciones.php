@@ -59,7 +59,11 @@ class Transacciones{
     public function insertTransac($datos){
 
             // $db = Conexion::openConnection();
+<<<<<<< Updated upstream
             $datos['IDTRANSACCION'] = 'tesoreria.idtransaccion_seq.nextval';
+=======
+            $datos['ID'] = 'tesoreria.idtransaccion_seq.nextval';
+>>>>>>> Stashed changes
 
             $insercion = $this->db->realizarInsert ($datos, 'tesoreria.TRANSACCIONES');
 
