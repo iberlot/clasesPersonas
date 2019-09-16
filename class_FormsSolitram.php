@@ -18,10 +18,13 @@ require_once ("/web/html/classesUSAL/class_Personas.php");
 require_once ("/web/html/classesUSAL/class_derechos_varios.php");
 require_once ("/web/html/classesUSAL/class_alumnos.php");
 require_once ("/web/html/classesUSAL/class_carreras.php");
+require_once ("/web/html/classesUSAL/class_transacciones.php");
 
 class Formularios
 {
+    
 	protected $db;
+	protected $id;
 	protected $fecha_crecion;
 	protected $STUDENT;
 	protected $tipo_form;
@@ -32,6 +35,8 @@ class Formularios
 	protected $nombre_form;
 	protected $IDDERECHOVARIO;
 	protected $nrotramitebpmn;
+	protected $idtransaccion;
+	protected $transaccion;
 
 	public function __construct($db, $tipo = null, $id = null)
 	{
@@ -39,8 +44,7 @@ class Formularios
 		// Si no hay id o y si tipo devolvemos el html del form
 		if ($tipo != null && $tipo != '' && $id == null && $id == ''){
                     
-
-			$this->set_tipo_form ($tipo);
+			$this->set_tipo_form ($tipo);			
 
 			$this->template_html ($tipo);
 
@@ -63,17 +67,19 @@ class Formularios
 		}
 
 		// Si tipo es null pero id no , devolvemos los datos del form
-		if (($tipo == null || $tipo == '') && ($id != null || $id != ''))
-		{
+		if (($tipo == null || $tipo == '') && ($id != null || $id != '')){
 
+                    $this->set_id($id);
 			$parametros = array (
 					$id
 			);
 
-			$query = "select FORMULARIO.* , tipo_alumno.DESCRIPCION
+			$query = "select FORMULARIO.* ,TRANSACCIONES.idtransaccion, tipo_alumno.DESCRIPCION
                         FROM FORMULARIO
                         JOIN interfaz.tipo_alumno ON
                         FORMULARIO.IDTIPOFORM = tipo_alumno.TIPO_ALUMNO
+                        LEFT JOIN TRANSACCIONES ON
+                        FORMULARIO.ID = TRANSACCIONES.IDFORMULARIO
                         WHERE FORMULARIO.id = :id ";
 
 			$result = $this->db->query ($query, true, $parametros);
@@ -269,6 +275,7 @@ class Formularios
 		    perdoc.typdoc,
 		    perdoc.docno,
 		    facu.sdesc,
+                    transacciones.idtransaccion,
 		    career.descrip,
 		    (
 		        SELECT
@@ -285,6 +292,7 @@ class Formularios
 		    JOIN appgral.person ON person.person = formulario.student
 		    JOIN appgral.perdoc ON person.person = perdoc.person
 		    JOIN studentc.facu ON formulario.fa = facu.code
+		    LEFT JOIN tesoreria.transacciones ON formulario.ID = transacciones.IDFORMULARIO
 		    FULL JOIN formulariotesoreria ON formulario.id = formulariotesoreria.idformulario
 		    JOIN studentc.career ON formulario.fa || lpad(
 		        formulario.ca,
@@ -995,6 +1003,8 @@ class Formularios
 	 */
 	public function loadData($fila)
 	{
+        
+           
 		if (isset ($fila['FECHAC']))
 		{
 			$this->set_fecha_crecion ($fila['FECHAC']);
@@ -1046,14 +1056,41 @@ class Formularios
 		{
 			$this->setNrotramitebpmn ($fila['NROTRAMITEBPMN']);
 		}
+                                         
+		
+                if (isset ($fila['IDTRANSACCION'])){
+                
+                    if ($fila['IDTRANSACCION'] != null ){
+    
+                        $this->set_idtransaccion($fila['IDTRANSACCION']);
+
+                        $this->set_transaccion(new Transacciones($this->db , $fila['IDTRANSACCION'] ));
+                    }                    
+		}
+        
 	}
 
 	/**
 	 * *******SETERS*********
 	 */
+	function set_id($id)
+	{
+		$this->id = $id;
+	}
+
+	function set_transaccion($transaccion)
+	{
+		$this->transaccion = $transaccion;
+	}
+	
 	function set_fecha_crecion($fecha)
 	{
 		$this->fecha_crecion = $fecha;
+	}
+        
+	function set_idtransaccion($idtransaccion)
+	{
+		$this->idtransaccion = $idtransaccion;
 	}
 
 	function set_STUDENT($STUDENT)
@@ -1107,9 +1144,27 @@ class Formularios
 	}
 
 	/**
-	 * ******GETTERS*******
-	 */
+	* ******GETTERS*******
+	*/
 
+	/**
+	 *
+	 * @return mixed el dato de la variable id
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+        
+        
+	/**
+	 *
+	 * @return mixed el dato de la variable id
+	 */
+	public function getTransaccion()
+	{
+		return $this->transaccion;
+	}
 	/**
 	 *
 	 * @return mixed el dato de la variable nrotramitebpmn
@@ -1117,6 +1172,15 @@ class Formularios
 	public function getNrotramitebpmn()
 	{
 		return $this->nrotramitebpmn;
+	}
+        
+	/**
+	 *
+	 * @return mixed el dato de la variable transaccion
+	 */
+	public function getidTransac()
+	{
+		return $this->idtransaccion;
 	}
 
 	function get_idderechovario()

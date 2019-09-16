@@ -4,24 +4,24 @@ require_once ("/web/html/classesUSAL/class_Personas.php");
 require_once ("/web/html/classesUSAL/class_derechos_varios.php");
 require_once ("/web/html/classesUSAL/class_alumnos.php");
 require_once ("/web/html/classesUSAL/class_carreras.php");
+require_once ("/web/html/classesUSAL/class_FormsSolitram.php");
 
-class Transacciones{
+class Transacciones {    
+
+   protected $idtransaccion;
+   protected $idformulario;
+   protected $canal;
+   protected $idcentrodecosto;
+   protected $monto;
+   protected $estadotransaccion;
+   protected $fechatransaccion;
+   protected $fechaproceso;
+   protected $estadoproceso;
+   protected $nro_transaccion;       
     
-    protected $db;
-    protected $idtransaccion;
-    protected $idformulario;
-    protected $canal;
-    protected $idcentrodecosto;
-    protected $monto;
-    protected $estadotransaccion;
-    protected $fechatransaccion;
-    protected $fechaproceso;
-    protected $estadoproceso;
-    protected $nro_transaccion;       
-    
-    public function __construct($db, $idtransaccion = null) {
-        
-        $this->db = $db;
+    public function __construct($db, $idtransaccion=null ) {
+                
+        $this->setDb($db);
         
         if($idtransaccion != null){            
             
@@ -102,50 +102,51 @@ class Transacciones{
     */
 	public function loadData($fila)
 	{
+  
 		if (isset ($fila['idtransaccion'])){
                     
 			$this->setIdtransaccion($fila['idtransaccion']);
 		}
 
-		if (isset ($fila['idformulario'])){
+		if (isset ($fila['IDFORMULARIO'])){
                     
-			$this->setIdformulario($fila['idformulario']);
+			$this->setIdformulario($fila['IDFORMULARIO']);
 		}
 
 
-		if (isset ($fila['canal'])){
+		if (isset ($fila['CANAL'])){
                     
-			$this->setCanal($fila['canal']);
+			$this->setCanal($fila['CANAL']);
 		}
 
-		if (isset ($fila['idcentrodecosto'])){
+		if (isset ($fila['IDCENTRODECOSTO'])){
                     
-			$this->setIdcentrodecosto($fila['idcentrodecosto']);
+			$this->setIdcentrodecosto($fila['IDCENTRODECOSTO']);
 		}
 
-		if (isset ($fila['monto'])){
+		if (isset ($fila['MONTO'])){
                     
-			$this->setMonto($fila['monto']);
+			$this->setMonto($fila['MONTO']);
 		}
 
-		if (isset ($fila['estadotransaccion'])){
+		if (isset ($fila['ESTADOTRANSACCION'])){
                     
-			$this->setEstadotransaccion($fila['estadotransaccion']);
+			$this->setEstadotransaccion($fila['ESTADOTRANSACCION']);
 		}
 
-		if (isset ($fila['fechatransaccion'])){
+		if (isset ($fila['FECHATRANSACCION'])){
                     
-			$this->setFechatransaccion($fila['fechatransaccion']);
+			$this->setFechatransaccion($fila['FECHATRANSACCION']);
 		}
 
-		if (isset ($fila['estadoproceso'])){
+		if (isset ($fila['ESTADOPROCESO'])){
                     
-			$this->setEstadoproceso($fila['estadoproceso']);
+			$this->setEstadoproceso($fila['ESTADOPROCESO']);
 		}
 
-		if (isset ($fila['nro_transaccion'])){
+		if (isset ($fila['NRO_TRANSACCION'])){
                     
-			$this->setNro_transaccion ($fila['nro_transaccion']);
+			$this->setNro_transaccion ($fila['NRO_TRANSACCION']);
 		}
 
 	}
@@ -193,7 +194,7 @@ class Transacciones{
      *
      * @return string el dato de la variable monto
      */
-    function getMonto(){
+    public function getMonto(){
         return $this->monto;
     }
 
@@ -209,7 +210,7 @@ class Transacciones{
      *
      * @return string el dato de la variable fechatransaccion
      */
-    function getFechatransaccion(){
+    public function getFechatransaccion(){
         return $this->fechatransaccion;
     }
 
