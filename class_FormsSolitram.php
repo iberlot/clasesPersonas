@@ -44,7 +44,16 @@ class Formularios
 		// Si no hay id o y si tipo devolvemos el html del form
 		if ($tipo != null && $tipo != '' && $id == null && $id == ''){
                     
+<<<<<<< Updated upstream
 			$this->set_tipo_form ($tipo);			
+=======
+<<<<<<< HEAD
+
+			$this->set_tipo_form ($tipo);
+=======
+			$this->set_tipo_form ($tipo);			
+>>>>>>> refs/remotes/eclipse_auto/master
+>>>>>>> Stashed changes
 
 			$this->template_html ($tipo);
 
@@ -74,7 +83,13 @@ class Formularios
 					$id
 			);
 
+<<<<<<< Updated upstream
 			$query = "select FORMULARIO.* ,TRANSACCIONES.idtransaccion, tipo_alumno.DESCRIPCION
+=======
+			$query = "select FORMULARIO.* ,
+                        TRANSACCIONES.idtransaccion,
+                        tipo_alumno.DESCRIPCION
+>>>>>>> Stashed changes
                         FROM FORMULARIO
                         JOIN interfaz.tipo_alumno ON
                         FORMULARIO.IDTIPOFORM = tipo_alumno.TIPO_ALUMNO

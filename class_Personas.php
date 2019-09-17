@@ -341,7 +341,7 @@ abstract class Personas
 				$this->documentos[] = new Documentos ($docs[$i]['docNumero'], $docs[$i]['typdoc']);
 			}
 
-			$this->email = array ();
+			$this->email = $this->buscar_emails($person);
 			$this->telefono = array ();
 			$this->foto_persona = $this->get_Photo ($person);
 			$this->direccion = array ();
@@ -1911,5 +1911,37 @@ abstract class Personas
 			return false;
 		}
 	}
+        
+        
+        
+        
+        
+	/**
+	 * Busca y retorna los mails asociados a una persona en base a su person
+	 *
+	 * @param array $dato
+	 *        	
+	 * @return resource|boolean retorna un array con losemails de la persona
+	 */
+	public function buscar_emails($person){
+            
+            $query = "SELECT val FROM personal.apers WHERE pattrib = 'TELE' AND SHORTDES = 'E-MAIL' AND person = :person;";                       
+                        
+            $parametros=array();
+        
+            $parametros[0] = $person;
+            
+            $result = $this->db->query ($sql, true, $parametros);
+
+		if ($datos = $this->db->fetch_all ($result)){
+                    
+			return $datos;
+                        
+                }else{
+                    
+                    return false;
+                    
+                }
+        }
 }
 ?>
