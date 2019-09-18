@@ -57,12 +57,11 @@ class Formularios
 
 			$result = $this->db->query ($query, true, $parametros);
 
-			if ($result){
-                            
+			if ($result){                            
 
-				$arr_asoc = $this->db->fetch_array ($result);
+                            $arr_asoc = $this->db->fetch_array ($result);
 
-				$this->set_nombre_form ($arr_asoc['DESCRIPCION']);
+                            $this->set_nombre_form ($arr_asoc['DESCRIPCION']);
 			}
 		}
 
@@ -74,7 +73,9 @@ class Formularios
 					$id
 			);
 
-			$query = "select FORMULARIO.* ,TRANSACCIONES.idtransaccion, tipo_alumno.DESCRIPCION
+			$query = "select FORMULARIO.* ,
+                        TRANSACCIONES.idtransaccion,
+                        tipo_alumno.DESCRIPCION
                         FROM FORMULARIO
                         JOIN interfaz.tipo_alumno ON
                         FORMULARIO.IDTIPOFORM = tipo_alumno.TIPO_ALUMNO
@@ -139,6 +140,7 @@ class Formularios
 		return $id_insertado;
 	}
 
+        
 	/**
 	 * Salva datos exclusivos de formularios de tesoreria de solitram
 	 * saveTesoreriaExclusivoForm
@@ -1039,7 +1041,10 @@ class Formularios
 
 		if (isset ($fila['DESCRIPCION']))
 		{
-			$this->set_nombre_form ($fila['DESCRIPCION']);
+                    /*diferenciar el tipo de form , para luego ponerle el nombre*/
+                    $this->set_nombre_form ($fila['DESCRIPCION']);
+                    
+                    
 		}
 
 		if (isset ($fila['IDESTADO']))

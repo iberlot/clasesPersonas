@@ -4,7 +4,8 @@
  * Archivo de la clase Alumnos
  *
  * @author iberlot <@> iberlot@usal.edu.ar
- * @author lquiroga - lquiroga@gmail.com
+ * @author lquiroga - lquiroga@usal.edu.ar
+ * 
  * @since 7 mar. 2019
  * @lenguage PHP
  * @name class_alumnos.php
@@ -30,7 +31,7 @@ require_once ("class_Personas.php");
  * Clase que maneja los atributos de los alumnos
  *
  * @author iberlot <@> iberlot@usal.edu.ar
- * @author lquiroga - lquiroga@gmail.com
+ * @author lquiroga - lquiroga@usal.edu.ar
  * @since 7 mar. 2019
  * @lenguage PHP
  * @name Alumnos
