@@ -67,13 +67,13 @@ class Carreras
 	 */
 	public function getMateriasPorPlan($career, $plan, $notsubject = null)
 	{
-		$salida = '';
+		$salida = array();
 
 		$query = 'select CAREER ,PLAN,SUBJECT,SDESC ,YR ,ANNUAL ,MODULES from studentc.subxplan ' . 'where CAREER  = :career and plan = :plan';
 
 		$parametros = array (
-				$career,
-				$plan
+                            $career,
+                            $plan
 		);
 
 		$result = $this->db->query ($query, true, $parametros);

@@ -40,29 +40,17 @@ class Formularios
 
 	public function __construct($db, $tipo = null, $id = null)
 	{
-		$this->db = $db;
-		// Si no hay id o y si tipo devolvemos el html del form
-		if ($tipo != null && $tipo != '' && $id == null && $id == ''){
+            $this->db = $db;
+            // Si no hay id o y si tipo devolvemos el html del form
+            if ($tipo != null && $tipo != '' && $id == null && $id == ''){
+
+                    $this->set_tipo_form ($tipo);			
+
+                    $this->template_html ($tipo);
                     
-			$this->set_tipo_form ($tipo);			
+                    $this->set_nombre_form($this->obtenerNombreForm($tipo));
 
-			$this->template_html ($tipo);
-
-			/* Obtengo el nombre del form basado en la tabla interfaz.tipo_alumno */
-			$parametros = array (
-                             $tipo
-			);
-
-			$query = "select DESCRIPCION from interfaz.tipo_alumno where TIPO_ALUMNO = LPAD(:tipo, 2, '0')";
-
-			$result = $this->db->query ($query, true, $parametros);
-
-			if ($result){                            
-
-                            $arr_asoc = $this->db->fetch_array ($result);
-
-                            $this->set_nombre_form ($arr_asoc['DESCRIPCION']);
-			}
+                  
 		}
 
 		// Si tipo es null pero id no , devolvemos los datos del form
@@ -359,7 +347,7 @@ class Formularios
 
 			$salida[] = $fila;
 		}
-
+                
 		return $salida;
 	}
 
@@ -521,7 +509,7 @@ class Formularios
 	 * @return string
 	 *
 	 */
-	public function obtenerNombreForm($id)
+	/*public function obtenerNombreForm($id)
 	{
 		$parametros = array (
 				$id
@@ -534,7 +522,7 @@ class Formularios
 		$form = $this->db->fetch_array ($result);
 
 		return ($form[0]);
-	}
+	}*/
 
 	/**
 	 *
@@ -993,6 +981,76 @@ class Formularios
 
 		return $salida;
 	}
+        
+	/**
+	 *
+	 * Obtiene  y retorna el nombre del formulario segun su tipo
+	 *
+	 * @param int $tipo -->tipo de formulario
+	 * @return array
+	 *
+	 */
+	public function obtenerNombreForm($tipo){
+            
+        /* Obtengo el nombre del form basado en la tabla interfaz.tipo_alumno */
+        $parametros = array(
+            $tipo
+        );
+        
+        //De 0 a 50 van los derechos varios
+                if($tipo > '0' && $tipo <= '50'){
+
+                    $query = "SELECT DESCRIPCION FROM CAJADERECHOSVARIOS WHERE IDDERECHOSVARIOS = :tipo";
+
+                }else if($tipo > '100' && $tipo <= '200'){
+                   //Este tipo de form no esta cargado en ninguna tabla por eso no necesita query
+                   $query = "";
+
+                    switch ($tipo){
+
+                      case 110 :
+                          $nombre = 'Formulario de solicitud de programa';
+
+                          break;
+                      case 111 :
+                          $nombre = 'Formulario certificado parcial con notas (5 materias)';
+
+                          break;
+                      case 112 :
+                          $nombre = 'Formulario certificado parcial con notas (10 materias)';
+
+                          break;
+                      case 113 :
+                          $nombre = 'Formulario certificado de equivalencias';
+
+                          break;
+
+                      default :
+
+                          break;
+                   }
+
+                     $nombre_form=$nombre;
+
+                }else{
+
+                    $query = "select DESCRIPCION from interfaz.tipo_alumno where TIPO_ALUMNO = LPAD(:tipo, 2, '0')";
+                }
+
+               if($query != ""){
+
+                   $result = $this->db->query ($query, true, $parametros);
+
+                   if ($result){                            
+
+                       $arr_asoc = $this->db->fetch_array ($result);
+
+                      $nombre_form=$arr_asoc['DESCRIPCION'];
+                   }
+               }
+               
+               return $nombre_form;
+	}
 
 	/**
 	 *
@@ -1039,11 +1097,11 @@ class Formularios
 			$this->set_html_template ($this->template_html ($fila['TYPOFORM']));
 		}
 
-		if (isset ($fila['DESCRIPCION']))
+		if (isset ($fila['IDTIPOFORM']))
 		{
-                    /*diferenciar el tipo de form , para luego ponerle el nombre*/
-                    $this->set_nombre_form ($fila['DESCRIPCION']);
-                    
+                   
+                     /*diferenciar el tipo de form , para luego ponerle el nombre*/
+                    $this->set_nombre_form($this->obtenerNombreForm($fila['IDTIPOFORM']));
                     
 		}
 
@@ -1128,8 +1186,7 @@ class Formularios
 		$this->html_template = $html_template;
 	}
 
-	function set_nombre_form($nombre_form)
-	{
+	function set_nombre_form($nombre_form){
 		$this->nombre_form = $nombre_form;
 	}
 
