@@ -341,7 +341,10 @@ abstract class Personas
 				$this->documentos[] = new Documentos ($docs[$i]['docNumero'], $docs[$i]['typdoc']);
 			}
 
-			$this->email = $this->buscar_emails($person);
+			// institucional = 0 , personal = 1
+			$this->agregarEmail ($this->buscar_emails_institucional ($person));
+			$this->agregarEmail ($this->buscar_emails_personal ($person));
+
 			$this->telefono = array ();
 			$this->foto_persona = $this->get_Photo ($person);
 			$this->direccion = array ();
@@ -1503,6 +1506,15 @@ abstract class Personas
 
 	/**
 	 *
+	 * @param array $email
+	 */
+	public function agregarEmail($email)
+	{
+		$this->email[] = $email;
+	}
+
+	/**
+	 *
 	 * @param number $telefono
 	 */
 	public function setTelefono($telefono)
@@ -1911,37 +1923,59 @@ abstract class Personas
 			return false;
 		}
 	}
-        
-        
-        
-        
+
+	/**
+	 * Busca y retorna los mails asociados a una persona en base a su person
+	 *
+	 * @param array $dato
+	 *
+	 * @return resource|boolean retorna un array con losemails de la persona
+	 */
+	public function buscar_emails_personal($person)
+	{
+		$sql = "SELECT val AS email FROM appgral.apers WHERE UPPER(pattrib) = UPPER('tele') AND UPPER(shortdes) = UPPER('e-mail') AND person = :person";
+
+		$parametros = array ();
+
+		$parametros[] = $person;
+
+		$result = $this->db->query ($sql, true, $parametros);
+
+		if ($datos = $this->db->fetch_array ($result))
+		{
+			return $datos['EMAIL'];
+		}
+		else
+		{
+			return false;
+		}
+	}
         
 	/**
 	 * Busca y retorna los mails asociados a una persona en base a su person
 	 *
 	 * @param array $dato
-	 *        	
+	 *
 	 * @return resource|boolean retorna un array con losemails de la persona
 	 */
-	public function buscar_emails($person){
-            
-            $query = "SELECT val FROM personal.apers WHERE pattrib = 'TELE' AND SHORTDES = 'E-MAIL' AND person = :person;";                       
-                        
-            $parametros=array();
-        
-            $parametros[0] = $person;
-            
-            $result = $this->db->query ($sql, true, $parametros);
+	public function buscar_emails_institucional($person)
+	{
+		$sql = "SELECT login||'@usal.edu.ar' AS email FROM appadmusu.usuario WHERE person = :person";
 
-		if ($datos = $this->db->fetch_all ($result)){
-                    
-			return $datos;
-                        
-                }else{
-                    
-                    return false;
-                    
-                }
-        }
+		$parametros = array ();
+
+		$parametros[] = $person;
+
+		$result = $this->db->query ($sql, true, $parametros);
+
+		if ($datos = $this->db->fetch_array ($result))
+		{
+			return $datos['EMAIL'];
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
 ?>

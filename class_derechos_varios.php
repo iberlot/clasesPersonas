@@ -28,7 +28,7 @@ class DerechosVarios
 		{
 
 			$parametros = array (
-					$id
+				$id
 			);
 
 			$query = "SELECT * FROM CAJADERECHOSVARIOS WHERE IDDERECHOSVARIOS = $id";
