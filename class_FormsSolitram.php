@@ -1051,6 +1051,28 @@ class Formularios
                
                return $nombre_form;
 	}
+        
+        
+         /**
+          * saveDataFormMercadoPago guarda datos de una transaccion hecha con mercao pago en la tabla
+          * TABLA :
+          * ID-IDFORM-COLLECTOR_ID-DATECREATED-DATEAPPROVED-OPERATIONTYPE-PAYMENTMETHODID
+          * -ORDERID-ORDERTYPE-PAYERNAME-PAYEREMAIL-FEEMP-FEETYPE-TRANSACTIONAMOUNT-
+          * ET_RECEIVED_AMOUNT-UOTAS_INSTALLMENT_AMOUNT-OTAL_PAID_AMOUNT
+          * 
+          * @param array $datos
+          * @return type
+          */
+	public function saveDataFormMercadoPago($datos){
+
+            // $db = Conexion::openConnection();
+            $datos['ID'] = 'TESORERIA.TRANSACCIONESMERCADOPAGO_SEQ.nextval';
+
+           $insercion = $this->db->realizarInsert($datos, 'FORMULARIOMATERIAS');
+
+            return $insercion;
+
+	}
 
 	/**
 	 *

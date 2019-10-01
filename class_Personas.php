@@ -1960,7 +1960,7 @@ abstract class Personas
 	 */
 	public function buscar_emails_institucional($person)
 	{
-		$sql = "SELECT val AS email FROM appgral.apers WHERE UPPER(pattrib) = UPPER('tele') AND UPPER(shortdes) = UPPER('e-mail') AND person = :person";
+		$sql = "SELECT login||'@usal.edu.ar' AS email FROM appadmusu.usuario WHERE person = :person";
 
 		$parametros = array ();
 
