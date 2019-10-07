@@ -93,14 +93,14 @@ class CajaTesoreria
 	 * @return bool
 	 *
 	 */
-	function detalleSesionCaja($datos)
-	{
-		$monto_efectivo = $datos[0];
-		$monto_credito = $datos[1];
-		$monto_debito = $datos[2];
-		$monto_cheques = $datos[3];
-		$idsesion = $datos[4];
-		$accion = $datos[5];
+	function detalleSesionCaja($datos){
+            
+		$monto_efectivo     = $datos[0];
+		$monto_credito      = $datos[1];
+		$monto_debito       = $datos[2];
+		$monto_cheques      = $datos[3];
+		$idsesion           = $datos[4];
+		$accion             = $datos[5];
 
 		$sql = "INSERT INTO SESIONDETALLE(
                 ID ,IDSESION,EFECTIVO,CHEQUE,CREDITO,DEBITO,ACCION)VALUES(
