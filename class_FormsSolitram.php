@@ -21,8 +21,7 @@ require_once ("/web/html/classesUSAL/class_carreras.php");
 require_once ("/web/html/classesUSAL/class_transacciones.php");
 
 class Formularios
-{
-    
+{    
 	protected $db;
 	protected $id;
 	protected $fecha_crecion;
@@ -37,6 +36,7 @@ class Formularios
 	protected $nrotramitebpmn;
 	protected $idtransaccion;
 	protected $transaccion;
+	protected $fechagraduacion;
 
 	public function __construct($db, $tipo = null, $id = null)
 	{
@@ -616,7 +616,81 @@ class Formularios
 
 					// FROM GENERICO QUE PUEDE CREAR TESORERIA
 					case '58' :
-						$template .= '<input type="hidden" value="58" name="tipoform">' . '<label>Concepto</label><br/>' . '<select name="concepto" id="concepto" >' . '<option value="05">05 - Arancel a&ntilde;o ant.  </option>' . '<option value="05">05 - Transporte a&ntilde;o ant</option>' . '<option value="02">02 - Arancel           </option>' . '<option value="02">02 - Curso de verano   </option>' . '<option value="02">02 - Transporte        </option>' . '<option value="02">02 - Practicas         </option>' . '<option value="09">09 - Matricula a&ntilde;o ant.</option>' . '<option value="01">01 - Matricula         </option>' . '<option value="03">03 - Total matricula   </option>' . '<option value="04">04 - Cuota plan        </option>' . '<option value="04">04 - Moratoria arancel </option>' . '<option value="06">06 - A.cuenta          </option>' . '<option value="07">07 - Plan pago a&ntilde;o ant.</option>' . '<option value="07">07 - Morat.ant.aran.   </option>' . '<option value="08">08 - Cuota plan. matr. </option>' . '<option value="08">08 - Morat. matricula  </option>' . '<option value="89">89 - Cta.pla.ma.egre   </option>' . '<option value="68">68 - Cta.pl.mat.egr.ant</option>' . '<option value="63">63 - Mat.nuevo a&ntilde;o     </option>' . '<option value="32">32 - Cuot.adic.inter   </option>' . '<option value="67">67 - Dev.prestamo      </option>' . '<option value="68">68 - Plan.matr.ant.    </option>' . '<option value="68">68 - Morat.ant.matr.   </option>' . '<option value="91">91 - Curso ingreso     </option>' . '<option value="80">80 - Curso de ingles   </option>' . '<option value="81">81 - Curso ingles p.t. </option>' . '<option value="92">92 - Cuota ingreso     </option>' . '<option value="90">90 - Matr. a egresar   </option>' . '<option value="97">97 - Comision cheques  </option>' . '<option value="98">98 - Pago en sede      </option>' . '<option value="61">61 - Anticipo mutuos   </option>' . '<option value="62">62 - Mutuo serie a     </option>' . '<option value="64">64 - Mutuo serie b     </option>' . '<option value="66">66 - Mutuo serie 1     </option>' . '<option value="60">60 - Interes claus.4�  </option>' . '<option value="65">65 - Actualizacion     </option>' . '<option value="40">40 - Mutuo serie c     </option>' . '<option value="41">41 - Anticip.mutuo c   </option>' . '<option value="42">42 - Cuo.mat.prox. a&ntilde;o </option>' . '<option value="43">43 - Arancel prox. a&ntilde;o </option>' . '<option value="44">44 - Devoluc.mutuos 1  </option>' . '<option value="36">36 - Alojamiento       </option>' . '<option value="35">35 - Derecho especif.  </option>' . '<option value="45">45 - Cursos extraordin.</option>' . '<option value="39">39 - Materia           </option>' . '</select>' . '<label for"importe">Importe</label>' . '<input type="number" name="importe" step="0.01"/><br/>' . '<label for="importe_error" id="importe_error" ></label>' . '<label for"importeFT">Fuera de t&eacute;rmino</label>' . '<input type="number" name="importeFT" step="0.01" value=0/><br/>' . '<label for"importeR">Recargo</label>' . '<input type="number" name="importeR" step="0.01" id="importeR" value=0/><br/>' . '<label for="importeR_error" id="importeR_error" ></label>' . '<label>Fecha de vencimiento</label><br/>' . '<input type="date" style="width: 100% !important;" value="' . date ("Y-m-d") . '" name="fecha_1" id="fecha_1" class="valid fecha" aria-invalid="true">' . '<label for="fecha_1_error" id="fecha_1_error" ></label>' . '<br/>';
+                                            
+                                            $derechos_varios=new DerechosVarios($this->db);
+                                            $todosdervarios=$derechos_varios->getAll();
+                                            
+                                            $template .= '<input type="hidden" value="58" name="tipoform">' 
+                                                . '<label>Concepto</label><br/>' 
+                                                . '<select name="concepto" id="concepto" >';
+                                                 
+                                            foreach ($todosdervarios as $row){
+                                                 $template.="<option value=".$row['IDDERECHOSVARIOS'].">".$row['IDDERECHOSVARIOS']." - ".$row['DESCRIPCION']."  </option>";
+                                            }
+                
+						/*$template .= '<input type="hidden" value="58" name="tipoform">' 
+                                                . '<label>Concepto</label><br/>' 
+                                                . '<select name="concepto" id="concepto" >' 
+                                                . '<option value="05">05 - Arancel a&ntilde;o ant.  </option>' 
+                                                . '<option value="05">05 - Transporte a&ntilde;o ant</option>' 
+                                                . '<option value="02">02 - Arancel           </option>' 
+                                                . '<option value="02">02 - Curso de verano   </option>' 
+                                                . '<option value="02">02 - Transporte        </option>' 
+                                                . '<option value="02">02 - Practicas         </option>' 
+                                                . '<option value="09">09 - Matricula a&ntilde;o ant.</option>' 
+                                                . '<option value="01">01 - Matricula         </option>' 
+                                                . '<option value="03">03 - Total matricula   </option>' 
+                                                . '<option value="04">04 - Cuota plan        </option>' 
+                                                . '<option value="04">04 - Moratoria arancel </option>' 
+                                                . '<option value="06">06 - A.cuenta          </option>' 
+                                                . '<option value="07">07 - Plan pago a&ntilde;o ant.</option>' 
+                                                . '<option value="07">07 - Morat.ant.aran.   </option>' 
+                                                . '<option value="08">08 - Cuota plan. matr. </option>' 
+                                                . '<option value="08">08 - Morat. matricula  </option>' 
+                                                . '<option value="89">89 - Cta.pla.ma.egre   </option>' 
+                                                . '<option value="68">68 - Cta.pl.mat.egr.ant</option>' 
+                                                . '<option value="63">63 - Mat.nuevo a&ntilde;o     </option>' 
+                                                . '<option value="32">32 - Cuot.adic.inter   </option>' 
+                                                . '<option value="67">67 - Dev.prestamo      </option>' 
+                                                . '<option value="68">68 - Plan.matr.ant.    </option>' 
+                                                . '<option value="68">68 - Morat.ant.matr.   </option>' 
+                                                . '<option value="91">91 - Curso ingreso     </option>' 
+                                                . '<option value="80">80 - Curso de ingles   </option>' 
+                                                . '<option value="81">81 - Curso ingles p.t. </option>' 
+                                                . '<option value="92">92 - Cuota ingreso     </option>' 
+                                                . '<option value="90">90 - Matr. a egresar   </option>' 
+                                                . '<option value="97">97 - Comision cheques  </option>' 
+                                                . '<option value="98">98 - Pago en sede      </option>' 
+                                                . '<option value="61">61 - Anticipo mutuos   </option>' 
+                                                . '<option value="62">62 - Mutuo serie a     </option>' 
+                                                . '<option value="64">64 - Mutuo serie b     </option>' 
+                                                . '<option value="66">66 - Mutuo serie 1     </option>' 
+                                                . '<option value="60">60 - Interes claus.4�  </option>' 
+                                                . '<option value="65">65 - Actualizacion     </option>' 
+                                                . '<option value="40">40 - Mutuo serie c     </option>' 
+                                                . '<option value="41">41 - Anticip.mutuo c   </option>' 
+                                                . '<option value="42">42 - Cuo.mat.prox. a&ntilde;o </option>' 
+                                                . '<option value="43">43 - Arancel prox. a&ntilde;o </option>' 
+                                                . '<option value="44">44 - Devoluc.mutuos 1  </option>' 
+                                                . '<option value="36">36 - Alojamiento       </option>' 
+                                                . '<option value="35">35 - Derecho especif.  </option>' 
+                                                . '<option value="45">45 - Cursos extraordin.</option>' 
+                                                . '<option value="39">39 - Materia           </option>' 
+                                                . '</select>' */
+                                                
+                                                $template.= '</select><label for"importe">Importe</label>' 
+                                                
+                                                . '<input type="number" name="importe" step="0.01"/><br/>' 
+                                                . '<label for="importe_error" id="importe_error" ></label>' 
+                                                . '<label for"importeFT">Fuera de t&eacute;rmino</label>' 
+                                                . '<input type="number" name="importeFT" step="0.01" value=0/><br/>' 
+                                                . '<label for"importeR">Recargo</label>' 
+                                                . '<input type="number" name="importeR" step="0.01" id="importeR" value=0/><br/>' 
+                                                . '<label for="importeR_error" id="importeR_error" ></label>' 
+                                                . '<label>Fecha de vencimiento</label><br/>'
+                                                . '<input type="date" style="width: 100% !important;" value="' . date ("Y-m-d") . '" name="fecha_1" id="fecha_1" class="valid fecha" aria-invalid="true">'
+                                                . '<label for="fecha_1_error" id="fecha_1_error" ></label>'
+                                                . '<br/>';
 
 						break;
 
@@ -996,9 +1070,9 @@ class Formularios
         $parametros = array(
             $tipo
         );
-        
+       
         //De 0 a 50 van los derechos varios
-                if($tipo > '0' && $tipo <= '50'){
+                if(($tipo > '0' && $tipo <= '50') || $tipo == '58'){
 
                     $query = "SELECT DESCRIPCION FROM CAJADERECHOSVARIOS WHERE IDDERECHOSVARIOS = :tipo";
 
@@ -1029,9 +1103,7 @@ class Formularios
 
                           break;
                    }
-
                      $nombre_form=$nombre;
-
                 }else{
 
                     $query = "select DESCRIPCION from interfaz.tipo_alumno where TIPO_ALUMNO = LPAD(:tipo, 2, '0')";
@@ -1137,7 +1209,12 @@ class Formularios
 			$this->set_IDDERECHOVARIO ($fila['IDDERECHOVARIO']);
 		}
 
-		if (isset ($fila['NROTRAMITEBPMN']))
+		if (isset ($fila['FECHAGRADUACION']))
+		{
+			$this->setFechaGraduacion ($fila['FECHAGRADUACION']);
+		}
+                
+		if (isset ($fila['fe']))
 		{
 			$this->setNrotramitebpmn ($fila['NROTRAMITEBPMN']);
 		}
@@ -1226,6 +1303,15 @@ class Formularios
 	{
 		$this->nrotramitebpmn = $Nrotramitebpmn;
 	}
+	/**
+	 *
+	 * @param
+	 *        	mixed a cargar en la variable fechagraduacion
+	 */
+	public function setFechaGraduacion($fechagraduacion)
+	{
+		$this->fechagraduacion = $fechagraduacion;
+	}
 
 	/**
 	* ******GETTERS*******
@@ -1310,5 +1396,10 @@ class Formularios
 	function get_nombre_form()
 	{
 		return $this->nombre_form;
+	}
+        
+	function getFechaGraduacion()
+	{
+		return $this->fechagraduacion;
 	}
 }
