@@ -61,7 +61,7 @@ class Administrativos extends Empleados
 	public function __construct($db = null, $person = null)
 	{
             
-            parent::__construct ($person, $db);
+            parent::__construct ($db , $person);
             
 		if (!isset ($db) or empty ($db) or $db == null)
 		{
