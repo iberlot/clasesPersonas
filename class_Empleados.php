@@ -179,4 +179,34 @@ abstract class Empleados extends Personas
 	 * @var string
 	 */
 	protected $tipobco = "";
+        
+        
+        /**
+	 * Constructor de la clase.
+	 *
+	 * @param class_db $db
+	 * @param int $person
+	 */
+	public function __construct($db = null, $person = null)
+	{
+            
+            parent::__construct ($person, $db);
+            
+		if (!isset ($db) or empty ($db) or $db == null)
+		{
+			if (!$this->db = Sitios::openConnection ())
+			{
+				global $db;
+
+				if (isset ($db) and !empty ($db) and $db != null)
+				{
+					$this->db = $db;
+				}
+			}
+		}
+		else
+		{
+			$this->db = $db;
+		}
+	}
 }

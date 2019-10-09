@@ -92,6 +92,25 @@ class Transacciones {
         
         
     
+        public function getTransacByIdForm($idform) {
+        echo($idform);
+            $parametros = array (
+                $idform
+            );
+
+            $query  = "select * from TESORERIA.TRANSACCIONES WHERE IDFORMULARIO = :idtransac";
+
+            $result = $this->db->query ($query, true, $parametros);
+
+            if ($result){
+
+                    $arr_asoc = $this->db->fetch_array ($result);
+
+                    $this->loadData ($arr_asoc);
+            }
+    }
+        
+        
     /**
     *
     * loadData

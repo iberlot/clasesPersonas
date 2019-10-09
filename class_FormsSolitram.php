@@ -22,6 +22,7 @@ require_once ("/web/html/classesUSAL/class_carreras.php");
 class Formularios {
 
     protected $db;
+    protected $id;
     protected $fecha_crecion;
     protected $STUDENT;
     protected $tipo_form;
@@ -66,15 +67,18 @@ class Formularios {
         // Si tipo es null pero id no , devolvemos los datos del form
         if (($tipo == null || $tipo == '') && ($id != null || $id != '')) {
 
+            $this->set_id($id);
+            
             $parametros = array(
                 $id
             );
 
-            $query = "select FORMULARIO.* , tipo_alumno.DESCRIPCION
-                        FROM FORMULARIO
-                        JOIN interfaz.tipo_alumno ON
-                        FORMULARIO.IDTIPOFORM = tipo_alumno.TIPO_ALUMNO
-                        WHERE FORMULARIO.id = :id ";
+            $query = "select FORMULARIO.* ,
+                    lpad(formulario.fa,2,'0')||lpad(formulario.ES,2,'0')||lpad(formulario.ca,2,'0') FAESCA
+                    FROM FORMULARIO
+                    JOIN interfaz.tipo_alumno ON
+                    FORMULARIO.IDTIPOFORM = tipo_alumno.TIPO_ALUMNO
+                    WHERE FORMULARIO.id = :id ";
 
             $result = $this->db->query($query, true, $parametros);
 
@@ -908,6 +912,10 @@ class Formularios {
         if (isset($fila['FECHAC'])) {
             $this->set_fecha_crecion($fila['FECHAC']);
         }
+        
+        if (isset($fila['ID'])) {
+            $this->set_id($fila['ID']);
+        }
 
         if (isset($fila['STUDENT'])) {
             $this->set_STUDENT($fila['STUDENT']);
@@ -959,7 +967,7 @@ class Formularios {
             $this->setCa($fila['CA']);
         }
         
-        $this->setIdcentrodecosto($fila['FA'].$fila['ES'].$fila['CA']);
+        $this->setIdcentrodecosto($fila['FAESCA']);
     }
 
     /**
@@ -1006,22 +1014,23 @@ class Formularios {
 
         $idcentrodecosto = null;
 
-        $query2 = "select idcentrodecosto from contaduria.centrodecosto where" . " substr('000000'|| :faesca,-6) = substr('000000'||:faesca,-6)";
+         $parametros = array(
+            $faesca
+        );
 
-        $stmt2 = oci_parse($this->db, $query2);
+        // seleccino la hora con * por que la libreria de consulta toma las : como parametros
+        // luego reemplzao los * por :
+        $query = "select idcentrodecosto from contaduria.centrodecosto where " 
+                . "FAESCA = :faesca";
 
-        oci_bind_by_name($stmt2, ":faesca", $faesca);
+        $result = $this->db->query($query, true, $parametros);
 
-        // echo $query2_debug;
+        while ($fila = $this->db->fetch_array($result)) {
 
-        if (isset($stmt2)) {
-            if (oci_execute($stmt2)) {
-                while ($arr_asoc2 = oci_fetch_array($stmt2)) {
-                    $idcentrodecosto = $arr_asoc2['IDCENTRODECOSTO'];
-                }
-            }
+            $idcentrodecosto =$fila['IDCENTRODECOSTO'];
+
         }
-        
+
         $this->idcentrodecosto = $idcentrodecosto;
     }
 
@@ -1040,6 +1049,10 @@ class Formularios {
     function setCa($ca) {
         $this->ca = $ca;
     }
+    
+    function set_id($id) {
+        $this->id = $id;
+    }
 
     /**
      * ******GETTERS*******
@@ -1055,6 +1068,10 @@ class Formularios {
 
     function get_idderechovario() {
         return $this->IDDERECHOVARIO;
+    }
+    
+    function get_id() {
+        return $this->id;
     }
 
     function get_fecha_crecion() {

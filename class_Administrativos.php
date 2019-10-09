@@ -28,7 +28,7 @@
  * @lenguage PHP
  * @name class_Administrativos
  */
-class class_Administrativos extends Empleados
+class Administrativos extends Empleados
 {
 
 	/**
@@ -60,6 +60,9 @@ class class_Administrativos extends Empleados
 	 */
 	public function __construct($db = null, $person = null)
 	{
+            
+            parent::__construct ($person, $db);
+            
 		if (!isset ($db) or empty ($db) or $db == null)
 		{
 			if (!$this->db = Sitios::openConnection ())
