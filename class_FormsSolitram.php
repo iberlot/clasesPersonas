@@ -37,23 +37,10 @@ class Formularios
 	protected $transaccion;
 	protected $fechagraduacion;
 	protected $idcentrodecosto;
+        protected $fa;
+        protected $es;
+        protected $ca;
 
-    protected $db;
-    protected $id;
-    protected $fecha_crecion;
-    protected $STUDENT;
-    protected $tipo_form;
-    protected $estado;
-    protected $PERSON;
-    protected $PERSON_aprobo;
-    protected $html_template;
-    protected $nombre_form;
-    protected $IDDERECHOVARIO;
-    protected $nrotramitebpmn;
-    protected $fa;
-    protected $es;
-    protected $ca;
-    protected $idcentrodecosto;
 
     public function __construct($db, $tipo = null, $id = null) {
         $this->db = $db;
@@ -991,111 +978,8 @@ class Formularios
         }
 
         return $salida;
-    }
-
-    /**
-     *
-     * loadData
-     * Carga propiedades del objeta que vienen desde la DB
-     *
-     * @param array $fila
-     *        	return objet form
-     *
-     */
-    public function loadData($fila) {
-        if (isset($fila['FECHAC'])) {
-            $this->set_fecha_crecion($fila['FECHAC']);
         }
-        
-        if (isset($fila['ID'])) {
-            $this->set_id($fila['ID']);
-        }
-
-        if (isset($fila['STUDENT'])) {
-            $this->set_STUDENT($fila['STUDENT']);
-        }
-
-        $this->set_tipo_form($fila['IDTIPOFORM']);
-
-        if (isset($fila['ESTADO'])) {
-            $this->set_estado($fila['ESTADO']);
-        }
-
-                          break;
-                   }
-                     $nombre_form=$nombre;
-                }else{
-
-        if (isset($fila['DESCRIPCION'])) {
-            $this->set_nombre_form($fila['DESCRIPCION']);
-        }
-
-        if (isset($fila['IDESTADO'])) {
-            $this->set_estado($fila['IDESTADO']);
-        }
-
-        if (isset($fila['IDDERECHOVARIO'])) {
-            $this->set_IDDERECHOVARIO($fila['IDDERECHOVARIO']);
-        }
-
-        if (isset($fila['NROTRAMITEBPMN'])) {
-            $this->setNrotramitebpmn($fila['NROTRAMITEBPMN']);
-        }
-
-        if (isset($fila['FA'])) {
-            $this->setFa($fila['FA']);
-        }
-
-        if (isset($fila['ES'])) {
-            $this->setEs($fila['ES']);
-        }
-
-        if (isset($fila['CA'])) {
-            $this->setCa($fila['CA']);
-        }
-        
-        $this->setIdcentrodecosto($fila['FAESCA']);
     }
-
-    /**
-     * *******SETERS*********
-     */
-    function set_fecha_crecion($fecha) {
-        $this->fecha_crecion = $fecha;
-    }
-
-    function set_STUDENT($STUDENT) {
-        $this->STUDENT = $STUDENT;
-    }
-
-    function set_tipo_form($tipo_form) {
-        $this->tipo_form = $tipo_form;
-    }
-
-    function set_estado($estado) {
-        $this->estado = $estado;
-    }
-
-    function set_person($person) {
-        $this->person = $person;
-    }
-
-    function set_person_aprobo($person_aprobo) {
-        $this->person_aprobo = $person_aprobo;
-    }
-
-    function set_html_template($html_template) {
-        $this->html_template = $html_template;
-    }
-
-    function set_nombre_form($nombre_form) {
-        $this->nombre_form = $nombre_form;
-    }
-
-    function set_IDDERECHOVARIO($IDDERECHOVARIO) {
-        $this->IDDERECHOVARIO = $IDDERECHOVARIO;
-    }
-    
 
     function setIdcentrodecosto($faesca) {
 
@@ -1134,51 +1018,177 @@ class Formularios
         }
 
         $this->idcentrodecosto = $idcentrodecosto;
-    }
-
-    public function setNrotramitebpmn($Nrotramitebpmn) {
-        $this->nrotramitebpmn = $Nrotramitebpmn;
-    }
-
-    function setFa($fa) {
-        $this->fa = $fa;
-    }
-
-    function setEs($es) {
-        $this->es = $es;
-    }
-
-    function setCa($ca) {
-        $this->ca = $ca;
+        }
     }
     
-    function set_id($id) {
-        $this->id = $id;
-    }
+             /**
+          * saveDataFormMercadoPago guarda datos de una transaccion hecha con mercao pago en la tabla
+          * TABLA :
+          * ID-IDFORM-COLLECTOR_ID-DATECREATED-DATEAPPROVED-OPERATIONTYPE-PAYMENTMETHODID
+          * -ORDERID-ORDERTYPE-PAYERNAME-PAYEREMAIL-FEEMP-FEETYPE-TRANSACTIONAMOUNT-
+          * ET_RECEIVED_AMOUNT-UOTAS_INSTALLMENT_AMOUNT-OTAL_PAID_AMOUNT
+          * 
+          * @param array $datos
+          * @return type
+          */
+	public function saveDataFormMercadoPago($datos){
 
-    /**
-     * ******GETTERS*******
-     */
+            // $db = Conexion::openConnection();
+            $datos['ID'] = 'TESORERIA.TRANSACCIONESMERCADOPAGO_SEQ.nextval';
 
-    /**
-     *
-     * @return mixed el dato de la variable nrotramitebpmn
-     */
-    public function getNrotramitebpmn() {
-        return $this->nrotramitebpmn;
-    }
+           $insercion = $this->db->realizarInsert($datos, 'FORMULARIOMATERIAS');
 
-    function get_idderechovario() {
-        return $this->IDDERECHOVARIO;
-    }
+            return $insercion;
+
+	}
+
+	/**
+	 *
+	 * loadData
+	 * Carga propiedades del objeta que vienen desde la DB
+	 *
+	 * @param array $fila
+	 *        	return objet form
+	 *
+	 */
+	public function loadData($fila)
+	{
+        
+           
+		if (isset ($fila['FECHAC']))
+		{
+			$this->set_fecha_crecion ($fila['FECHAC']);
+		}
+
+		if (isset ($fila['STUDENT']))
+		{
+			$this->set_STUDENT ($fila['STUDENT']);
+		}
+
+		$this->set_tipo_form ($fila['IDTIPOFORM']);
+
+		if (isset ($fila['ESTADO']))
+		{
+			$this->set_estado ($fila['ESTADO']);
+		}
+
+		if (isset ($fila['PERSON']))
+		{
+			$this->set_PERSON ($fila['PERSON']);
+		}
+
+		if (isset ($fila['PERSONAPROBO']))
+		{
+			$this->set_PERSON_aprobo ($fila['PERSONAPROBO']);
+		}
+
+		if (isset ($fila['TYPOFORM']))
+		{
+			$this->set_html_template ($this->template_html ($fila['TYPOFORM']));
+		}
+
+		if (isset ($fila['IDTIPOFORM']))
+		{
+                   
+                     /*diferenciar el tipo de form , para luego ponerle el nombre*/
+                    $this->set_nombre_form($this->obtenerNombreForm($fila['IDTIPOFORM']));
+                    
+		}
+
+		if (isset ($fila['IDESTADO']))
+		{
+			$this->set_estado ($fila['IDESTADO']);
+		}
+
+		if (isset ($fila['IDDERECHOVARIO']))
+		{
+			$this->set_IDDERECHOVARIO ($fila['IDDERECHOVARIO']);
+		}
+
+		if (isset ($fila['FECHAGRADUACION']))
+		{
+			$this->setFechaGraduacion ($fila['FECHAGRADUACION']);
+		}
+                
+		if (isset ($fila['fe']))
+		{
+			$this->setNrotramitebpmn ($fila['NROTRAMITEBPMN']);
+		}
+                                         
+		
+                if (isset ($fila['IDTRANSACCION'])){
+                
+                    if ($fila['IDTRANSACCION'] != null ){
     
-    function get_id() {
-        return $this->id;
-    }
+                        $this->set_idtransaccion($fila['IDTRANSACCION']);
 
-    function get_fecha_crecion() {
-        return $this->fecha_crecion;
-    }
+                        $this->set_transaccion(new Transacciones($this->db , $fila['IDTRANSACCION'] ));
+                    }                    
+		}
+        
+	}
+
+	/**
+	 * *******SETERS*********
+	 */
+	function set_id($id)
+	{
+		$this->id = $id;
+	}
+
+	function set_transaccion($transaccion)
+	{
+		$this->transaccion = $transaccion;
+	}
+	
+	function set_fecha_crecion($fecha)
+	{
+		$this->fecha_crecion = $fecha;
+	}
+        
+	function set_idtransaccion($idtransaccion)
+	{
+		$this->idtransaccion = $idtransaccion;
+	}
+
+	function set_STUDENT($STUDENT)
+	{
+		$this->STUDENT = $STUDENT;
+	}
+
+	function set_tipo_form($tipo_form)
+	{
+		$this->tipo_form = $tipo_form;
+	}
+
+	function set_estado($estado)
+	{
+		$this->estado = $estado;
+	}
+
+	function set_person($person)
+	{
+		$this->person = $person;
+	}
+
+	function set_person_aprobo($person_aprobo)
+	{
+		$this->person_aprobo = $person_aprobo;
+	}
+
+	function set_html_template($html_template)
+	{
+		$this->html_template = $html_template;
+	}
+
+	function set_nombre_form($nombre_form){
+		$this->nombre_form = $nombre_form;
+	}
+
+	function set_IDDERECHOVARIO($IDDERECHOVARIO)
+	{
+		$this->IDDERECHOVARIO = $IDDERECHOVARIO;
+	}
 
 	/**
 	 *
@@ -1199,45 +1209,85 @@ class Formularios
 		$this->fechagraduacion = $fechagraduacion;
 	}
 
-    function get_tipo_form() {
-        return $this->tipo_form;
-    }
+	/**
+	* ******GETTERS*******
+	*/
 
-    function get_estado() {
-        return $this->estado;
-    }
+	/**
+	 *
+	 * @return mixed el dato de la variable id
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+        
+        
+	/**
+	 *
+	 * @return mixed el dato de la variable id
+	 */
+	public function getTransaccion()
+	{
+		return $this->transaccion;
+	}
+	/**
+	 *
+	 * @return mixed el dato de la variable nrotramitebpmn
+	 */
+	public function getNrotramitebpmn()
+	{
+		return $this->nrotramitebpmn;
+	}
+        
+	/**
+	 *
+	 * @return mixed el dato de la variable transaccion
+	 */
+	public function getidTransac()
+	{
+		return $this->idtransaccion;
+	}
 
-    function getPerson() {
-        return $this->PERSON;
-    }
+	function get_idderechovario()
+	{
+		return $this->IDDERECHOVARIO;
+	}
 
-    function getPerson_aprobo() {
-        return $this->PERSON_aprobo;
-    }
+	function get_fecha_crecion()
+	{
+		return $this->fecha_crecion;
+	}
 
-    function get_html_template() {
-        return $this->html_template;
-    }
+	function get_STUDENT()
+	{
+		return $this->STUDENT;
+	}
 
-    function get_nombre_form() {
-        return $this->nombre_form;
-    }
+	function get_tipo_form()
+	{
+		return $this->tipo_form;
+	}
 
-    function getFa() {
-        return $this->fa;
-    }
+	function get_estado()
+	{
+		return $this->estado;
+	}
 
-    function getEs() {
-        return $this->es;
-    }
+	function getPerson()
+	{
+		return $this->PERSON;
+	}
 
-    function getCa() {
-        return $this->ca;
-    }
+	function getPerson_aprobo()
+	{
+		return $this->PERSON_aprobo;
+	}
 
-    function getIdcentrodecosto() {
-        return $this->idcentrodecosto;
-    }
+	function get_html_template()
+	{
+		return $this->html_template;
+	}
 
 	function get_nombre_form()
 	{
@@ -1249,3 +1299,5 @@ class Formularios
 		return $this->fechagraduacion;
 	}
 }
+   
+
