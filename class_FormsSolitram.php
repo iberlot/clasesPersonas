@@ -37,6 +37,7 @@ class Formularios
 	protected $idtransaccion;
 	protected $transaccion;
 	protected $fechagraduacion;
+	protected $idcentrodecosto;
 
 	public function __construct($db, $tipo = null, $id = null)
 	{
@@ -578,13 +579,13 @@ class Formularios
 
 					case '05' :
 
-						$template .= '<input type="hidden" value="05" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas ' . 'por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del' . ' arancel correspondiente al alumno que cursa �nicamente primero o segundo cuatrimestre.' . ' La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre ' . 'y hasta el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </b></label>';
+						$template .= '<input type="hidden" value="05" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas ' . 'por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del' . ' arancel correspondiente al alumno que cursa ?nicamente primero o segundo cuatrimestre.' . ' La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre ' . 'y hasta el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </b></label>';
 
 						break;
 
 					case '06' :
 
-						$template .= '<input type="hidden" value="06" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas' . ' por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del arancel ' . 'correspondiente al alumno que cursa �nicamente primero o segundo cuatrimestre. ' . 'La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre y hasta ' . 'el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </label></b>';
+						$template .= '<input type="hidden" value="06" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas' . ' por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del arancel ' . 'correspondiente al alumno que cursa ?nicamente primero o segundo cuatrimestre. ' . 'La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre y hasta ' . 'el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </label></b>';
 
 						break;
 
@@ -665,7 +666,7 @@ class Formularios
                                                 . '<option value="62">62 - Mutuo serie a     </option>' 
                                                 . '<option value="64">64 - Mutuo serie b     </option>' 
                                                 . '<option value="66">66 - Mutuo serie 1     </option>' 
-                                                . '<option value="60">60 - Interes claus.4�  </option>' 
+                                                . '<option value="60">60 - Interes claus.4?  </option>' 
                                                 . '<option value="65">65 - Actualizacion     </option>' 
                                                 . '<option value="40">40 - Mutuo serie c     </option>' 
                                                 . '<option value="41">41 - Anticip.mutuo c   </option>' 
@@ -749,13 +750,13 @@ class Formularios
 
 					case '05' :
 
-						$template .= '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas ' . 'por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del' . ' arancel correspondiente al alumno que cursa �nicamente primero o segundo cuatrimestre.' . ' La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre ' . 'y hasta el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label>' . '<input type="hidden" value="05" name="tipoform">' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </b></label>';
+						$template .= '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas ' . 'por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del' . ' arancel correspondiente al alumno que cursa ?nicamente primero o segundo cuatrimestre.' . ' La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre ' . 'y hasta el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label>' . '<input type="hidden" value="05" name="tipoform">' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </b></label>';
 
 						break;
 
 					case '06' :
 
-						$template .= '<input type="hidden" value="06" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas' . ' por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del arancel ' . 'correspondiente al alumno que cursa �nicamente primero o segundo cuatrimestre. ' . 'La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre y hasta ' . 'el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </label></b>';
+						$template .= '<input type="hidden" value="06" name="tipoform">' . '<label> Los alumnos regulares que cursen obligaciones acad&eacute;micas' . ' por un total inferior a 90 horas reales totales cuatrimestrales, abonaran el 50% del arancel ' . 'correspondiente al alumno que cursa ?nicamente primero o segundo cuatrimestre. ' . 'La constancia correspondiente debe ser presentada el 30 de abril por el primer cuatrimestre y hasta ' . 'el 31 de agosto, por el segundo cuatrimestre, caso contrario no tendr&aacute; efectos retroactivos.' . ' No pueden combinarse los planes (cuota completa y media cuota) entre primero y segundo cuatrimestre.<br/><br/></label>' . '<label><b>Cursar&aacute; la/s siguiente/s materia/s: </label></b>';
 
 						break;
 					// FROM GENERICO QUE PUEDE CREAR TESORERIA
