@@ -42,57 +42,48 @@ class Formularios
         protected $ca;
 
 
-    public function __construct($db, $tipo = null, $id = null) {
-        $this->db = $db;
-        // Si no hay id o y si tipo devolvemos el html del form
-        if ($tipo != null && $tipo != '' && $id == null && $id == '') {
+   public function __construct($db, $tipo = null, $id = null)
+	{
+            $this->db = $db;
+            // Si no hay id o y si tipo devolvemos el html del form
+            if ($tipo != null && $tipo != '' && $id == null && $id == ''){
 
-            $this->set_tipo_form($tipo);
+                    $this->set_tipo_form ($tipo);			
 
-            $this->template_html($tipo);
+                    $this->template_html ($tipo);
+                    
+                    $this->set_nombre_form($this->obtenerNombreForm($tipo));
 
-            /* Obtengo el nombre del form basado en la tabla interfaz.tipo_alumno */
-            $parametros = array(
-                $tipo
-            );
+		}
 
-            $query = "select DESCRIPCION from interfaz.tipo_alumno where TIPO_ALUMNO = LPAD(:tipo, 2, '0')";
+		// Si tipo es null pero id no , devolvemos los datos del form
+		if (($tipo == null || $tipo == '') && ($id != null || $id != '')){
 
-            $result = $this->db->query($query, true, $parametros);
+                    $this->set_id($id);
+			$parametros = array (
+					$id
+			);
 
-            if ($result) {
+			$query = "select FORMULARIO.* ,
+                        TRANSACCIONES.idtransaccion,
+                        tipo_alumno.DESCRIPCION
+                        FROM FORMULARIO
+                        JOIN interfaz.tipo_alumno ON
+                        FORMULARIO.IDTIPOFORM = tipo_alumno.TIPO_ALUMNO
+                        LEFT JOIN TRANSACCIONES ON
+                        FORMULARIO.ID = TRANSACCIONES.IDFORMULARIO
+                        WHERE FORMULARIO.id = :id ";
 
-                $arr_asoc = $this->db->fetch_array($result);
+			$result = $this->db->query ($query, true, $parametros);
 
-                $this->set_nombre_form($arr_asoc['DESCRIPCION']);
-            }
-        }
+			if ($result){
+                            
+				$arr_asoc = $db->fetch_array ($result);
 
-        // Si tipo es null pero id no , devolvemos los datos del form
-        if (($tipo == null || $tipo == '') && ($id != null || $id != '')) {
-
-            $this->set_id($id);
-            
-            $parametros = array(
-                $id
-            );
-
-            $query = "select FORMULARIO.* ,
-                    lpad(formulario.fa,2,'0')||lpad(formulario.ES,2,'0')||lpad(formulario.ca,2,'0') FAESCA
-                    FROM FORMULARIO
-                    JOIN interfaz.tipo_alumno ON
-                    FORMULARIO.IDTIPOFORM = tipo_alumno.TIPO_ALUMNO
-                    WHERE FORMULARIO.id = :id ";
-
-            $result = $this->db->query($query, true, $parametros);
-
-            if ($result) {
-                $arr_asoc = $db->fetch_array($result);
-
-                $this->loadData($arr_asoc);
-            }
-        }
-    }
+				$this->loadData ($arr_asoc);
+			}
+		}
+	}
 
     /**
      * Salvar formulario en la tabla TESORERIA.FORMULARIO.
@@ -480,27 +471,77 @@ class Formularios
         return ($form);
     }
 
-    /**
-     *
-     * En base al id recibimos el nombre del form
-     *
-     * @param INT $id
-     * @return string
-     *
-     */
-    public function obtenerNombreForm($id) {
+       
+	/**
+	 *
+	 * Obtiene  y retorna el nombre del formulario segun su tipo
+	 *
+	 * @param int $tipo -->tipo de formulario
+	 * @return array
+	 *
+	 */
+	public function obtenerNombreForm($tipo){
+            
+        /* Obtengo el nombre del form basado en la tabla interfaz.tipo_alumno */
         $parametros = array(
-            $id
+            $tipo
         );
+        
+        //De 0 a 50 van los derechos varios
+                if($tipo > '0' && $tipo <= '50'){
 
-        $query = " select DESCRIPCION from interfaz.tipo_alumno WHERE LPAD(TIPO_ALUMNO, 2, '0') =LPAD(:tipo_alumno, 2, '0') ";
+                    $query = "SELECT DESCRIPCION FROM CAJADERECHOSVARIOS WHERE IDDERECHOSVARIOS = :tipo";
 
-        $result = $this->db->query($query, true, $parametros);
+                }else if($tipo > '100' && $tipo <= '200'){
+                   //Este tipo de form no esta cargado en ninguna tabla por eso no necesita query
+                   $query = "";
 
-        $form = $this->db->fetch_array($result);
+                    switch ($tipo){
 
-        return ($form[0]);
-    }
+                      case 110 :
+                          $nombre = 'Formulario de solicitud de programa';
+
+                          break;
+                      case 111 :
+                          $nombre = 'Formulario certificado parcial con notas (5 materias)';
+
+                          break;
+                      case 112 :
+                          $nombre = 'Formulario certificado parcial con notas (10 materias)';
+
+                          break;
+                      case 113 :
+                          $nombre = 'Formulario certificado de equivalencias';
+
+                          break;
+
+                      default :
+
+                          break;
+                   }
+
+                     $nombre_form=$nombre;
+
+                }else{
+
+                    $query = "select DESCRIPCION from interfaz.tipo_alumno where TIPO_ALUMNO = LPAD(:tipo, 2, '0')";
+                }
+
+               if($query != ""){
+
+                   $result = $this->db->query ($query, true, $parametros);
+
+                   if ($result){                            
+
+                       $arr_asoc = $this->db->fetch_array ($result);
+
+                      $nombre_form=$arr_asoc['DESCRIPCION'];
+                   }
+               }
+               
+               return $nombre_form;
+	}
+        
 
     /**
      *
@@ -1299,5 +1340,3 @@ class Formularios
 		return $this->fechagraduacion;
 	}
 }
-   
-
