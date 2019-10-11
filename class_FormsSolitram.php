@@ -247,6 +247,7 @@ class Formularios
 		    facu.sdesc,
 		    career.descrip,
 		    career.CODE,
+                    branch.descrip AS SEDE,
                     centrodecosto.idcentrodecosto,
 		    (
 		        SELECT
@@ -263,6 +264,7 @@ class Formularios
 		    JOIN appgral.person ON person.person = formulario.student
 		    JOIN appgral.perdoc ON person.person = perdoc.person
 		    JOIN studentc.facu ON formulario.fa = facu.code
+                    JOIN studentc.BRANCH ON formulario.ES = BRANCH.code
                     JOIN contaduria.centrodecosto ON formulario.fa=centrodecosto.fa AND formulario.ca = centrodecosto.ca and centrodecosto.es = formulario.ES
 		    FULL JOIN formulariotesoreria ON formulario.id = formulariotesoreria.idformulario
 		    JOIN studentc.career ON formulario.fa || lpad(
@@ -337,6 +339,8 @@ class Formularios
      * @return array con datos de los forms
      */
     public function getFormsByAlumno($STUDENT, $estado_omitir = null) {
+        
+        $salida=array();
         $query = "SELECT
 				    formulario.*,
 				    formulariotesoreria.concepto,
