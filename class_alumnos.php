@@ -5,7 +5,7 @@
  *
  * @author iberlot <@> iberlot@usal.edu.ar
  * @author lquiroga - lquiroga@usal.edu.ar
- * 
+ *
  * @since 7 mar. 2019
  * @lenguage PHP
  * @name class_alumnos.php
@@ -383,13 +383,14 @@ class Alumnos extends Personas
                             stusubj.career=:carrera AND stusubj.plan=:plan AND stusubj.stat IN (" . $estados . ")";
 
 		$parametros = array (
-                        $this->person,
-                        $carrera,
-                        $plan
+				$this->person,
+				$carrera,
+				$plan
 		);
 
-		if ($cuatrimestre != -2){
-                    
+		if ($cuatrimestre != -2)
+		{
+
 			$query .= "AND course.quarter = :cuatri";
 
 			$parametros[] = $cuatrimestre;
@@ -399,10 +400,10 @@ class Alumnos extends Personas
 
 		$subject_x_estado = array ();
 
-		while ($fila = $this->db->fetch_array ($subjectMaterias)){
-                    
+		while ($fila = $this->db->fetch_array ($subjectMaterias))
+		{
+
 			$subject_x_estado[] = $fila['SUBJECT'];
-                        
 		}
 
 		return $subject_x_estado;

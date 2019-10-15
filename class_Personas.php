@@ -21,7 +21,9 @@
  * totalHorasPerdidasAqui = 106
  *
  */
-require_once ("class_Documentos.php");
+require_once ("class_Doc_Cuils.php");
+require_once ("class_Doc_Dnis.php");
+require_once ("class_Doc_Pasaportes.php");
 require_once ("class_Direcciones.php");
 require_once ("class_credenciales.php");
 
@@ -338,7 +340,7 @@ abstract class Personas
 
 			for($i = 0; $i < count ($docs); $i ++)
 			{
-				$this->documentos[] = new Documentos ($docs[$i]['docNumero'], $docs[$i]['typdoc']);
+				$this->nuevo_documneto ($docs[$i]['typdoc'], $docs[$i]['docNumero']);
 			}
 
 			// institucional = 0 , personal = 1
@@ -360,12 +362,6 @@ abstract class Personas
 			$this->escuelaPrimaria = "";
 
 			$this->credencial = new Credenciales ($db, $person);
-
-			// print_r ("<Br /><Br />");
-			// print_r ($person);
-			// print_r ("<Br /><Br />");
-			// print_r ($this);
-			// print_r ("<Br /><Br />");
 		}
 		else
 		{
@@ -1865,7 +1861,18 @@ abstract class Personas
 	 */
 	public function nuevo_documneto($tipo_doc, $nro_doc)
 	{
-		$this->documentos[] = new Documentos ($db, $doc_num, $doc_typ);
+		switch ($tipo_doc)
+		{
+			case "DNI" :
+				$this->documentos[] = new Dnis ($nro_doc);
+				break;
+			case "PAS" :
+				$this->documentos[] = new Pasaportes ($nro_doc);
+				break;
+			case "CUIL" :
+				$this->documentos[] = new Cuils ($nro_doc);
+				break;
+		}
 	}
 
 	/**
@@ -1950,7 +1957,7 @@ abstract class Personas
 			return false;
 		}
 	}
-        
+
 	/**
 	 * Busca y retorna los mails asociados a una persona en base a su person
 	 *

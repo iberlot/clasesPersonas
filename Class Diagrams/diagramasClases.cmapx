@@ -1,0 +1,8 @@
+<map id="diagramasClases_map" name="diagramasClases_map">
+<area shape="rect" id="id1" href="java:personas.Externo" title="java:personas.Externo" alt="" coords="771,964,844,1012"/>
+<area shape="rect" id="id2" href="java:personas.Academicos" title="java:personas.Academicos" alt="" coords="775,1335,875,1383"/>
+<area shape="rect" id="id3" href="java:personas.Emails" title="java:personas.Emails" alt="" coords="353,950,434,1025"/>
+<area shape="rect" id="id4" href="java:personas.Telefonos" title="java:personas.Telefonos" alt="" coords="649,936,736,1039"/>
+<area shape="rect" id="id5" href="java:personas.Cuentas" title="java:personas.Cuentas" alt="" coords="469,908,614,1067"/>
+<area shape="rect" id="id6" href="java:personas.Listados" title="java:personas.Listados" alt="" coords="826,250,976,408"/>
+</map>

@@ -17,6 +17,7 @@
  * totalHorasPerdidasAqui = 2
  *
  */
+require_once 'class_Empleados.php';
 
 /**
  * Description of class_Administrativos
@@ -60,9 +61,8 @@ class Administrativos extends Empleados
 	 */
 	public function __construct($db = null, $person = null)
 	{
-            
-            parent::__construct ($db , $person);
-            
+		parent::__construct ($db, $person);
+
 		if (!isset ($db) or empty ($db) or $db == null)
 		{
 			if (!$this->db = Sitios::openConnection ())
@@ -84,6 +84,7 @@ class Administrativos extends Empleados
 	/**
 	 * Obtiene los datos de la tabla web.cuenta , para obtener la unidad , edificio y sede del usuario
 	 *
+	 * @deprecated utilizar en remplazo la funcion obtener_unidad()
 	 * @param int $person
 	 */
 	public function obtenerUnidad($db, $person)
@@ -107,6 +108,32 @@ class Administrativos extends Empleados
 		$this->setUnidad ($salida);
 
 		return $salida;
+	}
+
+	/**
+	 * Obtiene los datos de la tabla web.cuenta , para obtener la unidad , edificio y sede del usuario
+	 *
+	 * @return int
+	 */
+	public function obtener_unidad()
+	{
+		$param = array (
+				$this->person
+		);
+
+		$query = "SELECT LPAD(unidad, 2, '0') unidad FROM web.cuenta WHERE cuenta IN(SELECT cuenta FROM portal.usuario_web WHERE person = :person)";
+
+		$result = $this->db->query ($query, true, $param);
+
+		while ($fila = $this->db->fetch_array ($result))
+		{
+
+			$salida[] = $fila['UNIDAD'];
+		}
+
+		$this->setUnidad ($salida);
+
+		return $this->getUnidad ();
 	}
 
 	/*

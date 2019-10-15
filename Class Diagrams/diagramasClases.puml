@@ -16,22 +16,64 @@ abstract class Personas {
 	#String nacionalidad
 	#String tipoNacionalidad
 	#String sexo
-	
 	#String esposa
 	#String familiarACargo
-	#String F
-	
-	
+	#String FamiliaNumerosa
+	#String hijos
+	#String guarderia
+	#String hijoIncapasitado
+	#String prenatal
+	#String preescolar
+	#String escuelaMedia
+	#String escuelaPrimaria
+	#Credenciales credencial
+		
 	+String getNombreYApellido()
+        +String get_Photo()
+        +boolean nuevoPerdoc()
+        +void nuevoCatXPerson()
+        +void updateCatXPerson()
+        +void inserPerson()
+        +int nuevaPersona()
+        +void buscar_PersonXPerson()
+        +void comprobarExisteDato()
+        -String recuNacion()
+        +String buscar_emails_institucional()
+        +String buscar_emails_personal()
+        +String buscar_emails_personal()
+        +void nuevo_documneto()
+        +void agregar_documento()
+        +void setDocumentos()
+        +Documentos getDoc()
+        +void updateCatXPerson()
+
 }
 
+abstract class Documentos {
+    #String docNumero
+    #String docTipo
+    +String getDocNumero()
+    +String getDocTipo()
+}
 
-class Dnis [[java:personas.Dnis]] {
-	-int numero
+class Dnis {
+    -String docTipo
+    -int numero
+    +void setDocNumero(int)
 }
-abstract class Documentos [[java:personas.Documentos]] {
-	-String tipo
+
+class Pasaportes {
+    -String numero
+    +void setDocNumero(int)
 }
+
+class Cuils {
+    -String docTipo
+    -int numero
+    +boolean verificar()
+    +void setDocNumero(int)
+}
+
 class Emails [[java:personas.Emails]] {
 	-String tipo
 	-String email
@@ -56,7 +98,7 @@ class Telefonos [[java:personas.Telefonos]] {
 }
 class Externo [[java:personas.Externo]] {
 }
-abstract class Empleados [[java:personas.Empleados]] {
+abstract class Empleados{
 	#int legajo
 	#Calendar fechaIngreso
 	#Calendar fechaBaja
@@ -81,18 +123,45 @@ abstract class Empleados [[java:personas.Empleados]] {
 	#String tipoBco
 	
 }
-class Docentes [[java:personas.Docentes]] {
+class Docentes {
+    
 }
-class Pasaportes [[java:personas.Pasaportes]] {
-	-String numero
-}
-class Cuils [[java:personas.Cuils]] {
-	-int numero
-	+boolean verificar()
-}
-class Documentos [[java:personas.Documentos]] {
-}
-class Alumnos [[java:personas.Alumnos]] {
+
+class Alumnos {
+    #int idcentrocosto;
+    #string carrera_descrip;
+    #int carrera;
+    #int carrera_stat;
+    #int fa;
+    #int es;
+    #int ca;
+    #int plan;
+    #string desc_unidad_alumno;
+    +void findByPerson(int, int)
+    +array findByProps(string, array)
+    +boolean obtenerSeterarFaesca(int)
+    +boolean obtener_unidad_por_fa(int)
+    +array MateriasAprxPlanCarrera(int, int, $estados, int)
+    +void loadData(array)
+    +int getIdcentrocosto()
+    +string getCarrera_descrip()
+    +int getCarrera()
+    +int getCarrera_stat()
+    +int getFa()
+    +int getEs()
+    +int getCa()
+    +int getPlan()
+    +string getDesc_unidad_alumno()
+    +string get_descripcion_estado_carrera()
+    +void setIdcentrocosto(int)
+    +void setCarrera_descrip(string)
+    +void setCarrera(int)
+    +void setCarrera_stat(int)
+    +void setPlan(int)
+    +void setDesc_unidad_alumno(string)
+    +void setFa(int)
+    +void setEs(int)
+    +void setCa(int)
 }
 class Listados [[java:personas.Listados]] {
 	+void listarPerson()
@@ -104,10 +173,13 @@ class Listados [[java:personas.Listados]] {
 	+void buscarUsuarioWeb()
 	+void buscarCatXPerson()
 }
-class Administrativos [[java:personas.Administrativos]] {
+class Administrativos {
+    #int unidad
+    #int edificio
+    #int sede
+    +int obtener_unidad()
 }
-class Empleados [[java:personas.Empleados]] {
-}
+
 class Direcciones {
 	-class_db db
 	-int tipo
