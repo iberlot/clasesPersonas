@@ -1009,8 +1009,9 @@ class Formularios
             $IDFORMULARIO
         );
        
+        
         //De 0 a 50 van los derechos varios
-                if(($tipo > '0' && $tipo <= '50') || $tipo == '58'){
+        if(($IDFORMULARIO > '0' && $IDFORMULARIO <= '50') || $IDFORMULARIO == '58'){
 
         $query = " select * from FORMULARIOMATERIAS " . "WHERE IDFORMULARIO = :idform order by id desc";
         $fila = '';

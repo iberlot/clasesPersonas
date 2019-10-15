@@ -73,7 +73,6 @@ class TransaccionesMercadopago extends Transacciones {
             $this->loadData($this->db->fetch_array($result));
         }
     }
-
     
     /**
     * Salva datos en la tabla transacciones

@@ -1,3 +1,4 @@
+<?php
 
 require_once ("/web/html/classesUSAL/class_Personas.php");
 require_once ("/web/html/classesUSAL/class_derechos_varios.php");
