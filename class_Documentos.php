@@ -30,7 +30,7 @@
  * @author iberlot
  *         FIXME esta clase deberia ser abstracta y servir de padre a clases como cuil dni pasaporte y que cada una aporte las funcionalidades requeridas.
  */
-class Documentos
+abstract class Documentos
 {
 
 	/**
@@ -72,58 +72,6 @@ class Documentos
 	// * y que el campo appgral.perdoc.typdoc = 'CUIL'
 	// */
 	// public $cuil = "";
-	public function __construct($doc_num, $doc_typ, $db = null)
-	{
-		if (!isset ($db) or empty ($db) or $db == null)
-		{
-			if (!$this->db = Sitios::openConnection ())
-			{
-				global $db;
-
-				if (isset ($db) and !empty ($db) and $db != null)
-				{
-					$this->db = $db;
-				}
-			}
-		}
-		else
-		{
-			$this->db = $db;
-		}
-
-		$this->setDocTipo ($doc_typ);
-
-		$this->setDocNumero ($doc_num);
-	}
-
-	/**
-	 * Revisarlo e implementarlo en class persona
-	 *
-	 * Valida el CUIT pasado por parametro.
-	 * https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Identificaci%C3%B3n_Tributaria
-	 *
-	 * @param int $cuit
-	 */
-	public function validarCuit($cuit)
-	{
-		$cuit = preg_replace ('/[^\d]/', '', (string) $cuit);
-		if (strlen ($cuit) != 11)
-		{
-			return false;
-		}
-		$acumulado = 0;
-		$digitos = str_split ($cuit);
-		$digito = array_pop ($digitos);
-
-		for($i = 0; $i < count ($digitos); $i ++)
-		{
-			$acumulado += $digitos[9 - $i] * (2 + ($i % 6));
-		}
-		$verif = 11 - ($acumulado % 11);
-		$verif = $verif == 11 ? 0 : $verif;
-
-		return $digito == $verif;
-	}
 
 	/**
 	 *
@@ -143,36 +91,37 @@ class Documentos
 		return $this->docTipo;
 	}
 
-	/**
-	 *
-	 * @param
-	 *        	string a cargar en la variable $docNumero
-	 */
-	public function setDocNumero($docNumero)
-	{
-		$this->docNumero = $docNumero;
-	}
+	// /**
+	// *
+	// * @param
+	// * string a cargar en la variable $docTipo
+	// */
+	// public function setDocTipo($docTipo)
+	// {
+	// $docTipo = strtoupper ($docTipo);
+
+	// $sql = "SELECT typdoc FROM appgral.tdoc";
+	// $result = $this->db->query ($sql);
+	// $recu = $this->db->fetch_all ($result);
+
+	// if (in_array ($docTipo, $recu['TYPDOC']))
+	// {
+	// $this->docTipo = $docTipo;
+	// }
+	// else
+	// {
+	// throw new Exception ("Tipo de documento no valido. " . $docTipo . ". ");
+	// }
+	// }
 
 	/**
+	 * Setter del parametro $docTipo de la clase.
 	 *
-	 * @param
-	 *        	string a cargar en la variable $docTipo
+	 * @param string $docTipo
+	 *        	dato a cargar en la variable.
 	 */
 	public function setDocTipo($docTipo)
 	{
-		$docTipo = strtoupper ($docTipo);
-
-		$sql = "SELECT typdoc FROM appgral.tdoc";
-		$result = $this->db->query ($sql);
-		$recu = $this->db->fetch_all ($result);
-
-		if (in_array ($docTipo, $recu['TYPDOC']))
-		{
-			$this->docTipo = $docTipo;
-		}
-		else
-		{
-			throw new Exception ("Tipo de documento no valido. " . $docTipo . ". ");
-		}
+		$this->docTipo = $docTipo;
 	}
 }

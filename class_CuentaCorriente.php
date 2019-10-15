@@ -191,7 +191,7 @@ class CuentaCorriente {
                                 // total de todos los recargos por dias
                                 $recargralmat += $recargo;
 
-                                // el id deñ codigo delas matriculas en tabla conceptos es 8
+                                // el id deï¿½ codigo delas matriculas en tabla conceptos es 8
                                 $codigo = 8;
 
                                 // Chequep si el mov ya fue ingresado en el dia
@@ -417,7 +417,7 @@ public function  obtener_id_vencimiento($id_centro_costo,$anio_insc , $mes_insc 
  * 
  * Pasamos un id , y nos retorna si tiene un vencimiento especifico
  * 
- * @param $id_concepto    int  Año de inscripcion
+ * @param $id_concepto    int  Aï¿½o de inscripcion
  *
  * TIPO = 0 ES ARANCEL y 1 ES MATRICULA
  * 
@@ -462,8 +462,8 @@ function  obtener_fechas_vencimientos($id_concepto) {
                 return $this->db;
             }
 
-            function getCta_Matrícula() {
-                return $this->Cta_Matrícula;
+            function getCta_Matrï¿½cula() {
+                return $this->Cta_Matrï¿½cula;
             }
 
             function getCta_arancel() {
@@ -514,8 +514,8 @@ function  obtener_fechas_vencimientos($id_concepto) {
                 $this->db = $db;
             }
 
-            function setCta_Matricula($Cta_Matrícula) {
-                $this->Cta_Matrícula[] = $Cta_Matrícula;
+            function setCta_Matricula($Cta_Matrï¿½cula) {
+                $this->Cta_Matrï¿½cula[] = $Cta_Matrï¿½cula;
             }
 
             function setCta_arancel($Cta_arancel) {

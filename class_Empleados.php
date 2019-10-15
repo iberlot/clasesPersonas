@@ -23,6 +23,7 @@
  * totalHorasPerdidasAqui = 0
  *
  */
+require_once 'class_Personas.php';
 
 /**
  * Clase derivada de Personas con los atributos propios de los empleados.
@@ -179,9 +180,8 @@ abstract class Empleados extends Personas
 	 * @var string
 	 */
 	protected $tipobco = "";
-        
-        
-        /**
+
+	/**
 	 * Constructor de la clase.
 	 *
 	 * @param class_db $db
@@ -189,9 +189,8 @@ abstract class Empleados extends Personas
 	 */
 	public function __construct($db = null, $person = null)
 	{
-            
-            parent::__construct ($person, $db);
-            
+		parent::__construct ($person, $db);
+
 		if (!isset ($db) or empty ($db) or $db == null)
 		{
 			if (!$this->db = Sitios::openConnection ())
