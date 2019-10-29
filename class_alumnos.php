@@ -692,6 +692,46 @@ class Alumnos extends Personas
 	{
 		$this->ca = $ca;
 	}
+
+	/**
+	 * Busca los student/person de aquellos alumnos que cumplan con las reglas pasadas.
+	 *
+	 * @param int $carrer
+	 * @param int $sede
+	 * @param boolean $activos
+	 * @return resource
+	 */
+	public function listar_alumnos_carrera_sede($carrer, $sede, $activos = TRUE)
+	{
+		$parametros = array ();
+
+		$sql = "SELECT student FROM studentc.carstu WHERE 1=1 ";
+
+		if ($carrer != null and $carrer != "")
+		{
+			$sql .= " AND career = :carrer ";
+			$parametros[] = $carrer;
+		}
+
+		if ($sede != null and $sede != "")
+		{
+			$sql .= " AND branch = :branch ";
+			$parametros[] = $sede;
+		}
+
+		if ($activos == TRUE)
+		{
+			$sql .= " AND studentc.carstu.stat = 1 ";
+		}
+		elseif ($activos == FALSE and !is_null ($activos))
+		{
+			$sql .= " AND studentc.carstu.stat = 0 ";
+		}
+
+		$result = $this->db->query ($sql, true, $parametros);
+
+		return $this->db->fetch_all ($result)['STUDENT'];
+	}
 }
 
 ?>

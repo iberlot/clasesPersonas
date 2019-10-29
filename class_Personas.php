@@ -327,16 +327,10 @@ abstract class Personas
 		{
 			$this->buscar_PersonXPerson ($person);
 
-			for($i = 0; $i < 3; $i ++)
-			{
-				$direccion = new Direcciones ($i);
-				$direccion->recuperar_dire_person ($person, $i);
-			}
-
 			$docs = array ();
 			$docs = $this->buscar_perdoc_person ($person);
 
-			for($i = 0; $i < count ($docs); $i ++)
+			for($i = 0; $i < count ($docs); $i++)
 			{
 				$this->documentos[] = new Documentos ($docs[$i]['docNumero'], $docs[$i]['typdoc']);
 			}
@@ -357,6 +351,12 @@ abstract class Personas
 			$this->escuelaPrimaria = "";
 
 			$this->credencial = new Credenciales ($db, $person);
+
+			for($i = 0; $i < 3; $i++)
+			{
+				$this->direccion[$i] = new Direcciones ($i);
+				$this->direccion[$i]->recuperar_dire_person ($person, $i);
+			}
 
 			// print_r ("<Br /><Br />");
 			// print_r ($person);
@@ -489,7 +489,7 @@ abstract class Personas
 
 			$persona[$i]['docNumero'] = $recu['DOCNO'];
 
-			$i = $i ++;
+			$i = $i++;
 		}
 
 		if (isset ($persona) and $persona != "")
@@ -654,7 +654,7 @@ abstract class Personas
 
 					$parametros[$i] = $arrayDatosPersona['person'];
 
-					$i ++;
+					$i++;
 				}
 			}
 			if (!isset ($arrayDatosPersona['categoria']) or $arrayDatosPersona['categoria'] == "")
@@ -671,7 +671,7 @@ abstract class Personas
 
 					$parametros[$i] = $arrayDatosPersona['categoria'];
 
-					$i ++;
+					$i++;
 				}
 			}
 			if (!isset ($arrayDatosPersona['fIngreso']) or $arrayDatosPersona['fIngreso'] == "")
@@ -688,7 +688,7 @@ abstract class Personas
 
 					$parametros[$i] = $arrayDatosPersona['fIngreso'];
 
-					$i ++;
+					$i++;
 				}
 			}
 			if (isset ($arrayDatosPersona['fbaja']) and $arrayDatosPersona['fbaja'] != "")
@@ -701,7 +701,7 @@ abstract class Personas
 
 					$parametros[$i] = $arrayDatosPersona['fbaja'];
 
-					$i ++;
+					$i++;
 				}
 			}
 			if (!isset ($arrayDatosPersona['legajo']) or $arrayDatosPersona['legajo'] == "")
@@ -718,7 +718,7 @@ abstract class Personas
 
 					$parametros[$i] = $arrayDatosPersona['legajo'];
 
-					$i ++;
+					$i++;
 				}
 			}
 			if (!isset ($_SESSION['person']) or $_SESSION['person'] == "")
@@ -735,7 +735,7 @@ abstract class Personas
 
 					$parametros[$i] = $_SESSION['person'];
 
-					$i ++;
+					$i++;
 				}
 			}
 			if (!isset ($_SESSION['app']) or $_SESSION['app'] == "")
@@ -752,7 +752,7 @@ abstract class Personas
 
 					$parametros[$i] = $_SESSION['app'];
 
-					$i ++;
+					$i++;
 				}
 			}
 
@@ -808,7 +808,7 @@ abstract class Personas
 			if (isset ($arrayDatosPersona['categoria']) and $this->comprobarExisteDato ($arrayDatosPersona['categoria']))
 			{
 				$parametros[$a] = $arrayDatosPersona['categoria'];
-				$a ++;
+				$a++;
 
 				$campos .= ", categoria = :categoria";
 			}
@@ -816,7 +816,7 @@ abstract class Personas
 			if (isset ($arrayDatosPersona['fIngreso']) and $this->comprobarExisteDato ($arrayDatosPersona['fIngreso']))
 			{
 				$parametros[$a] = $arrayDatosPersona['fIngreso'];
-				$a ++;
+				$a++;
 
 				$campos .= ", finicio = TO_DATE(:finicio, 'YYYY-MM-DD')";
 			}
@@ -824,7 +824,7 @@ abstract class Personas
 			if (isset ($arrayDatosPersona['fbaja']) and $this->comprobarExisteDato ($arrayDatosPersona['fbaja']))
 			{
 				$parametros[$a] = $arrayDatosPersona['fbaja'];
-				$a ++;
+				$a++;
 
 				$campos .= ", fbaja = TO_DATE(:fbaja, 'YYYY-MM-DD')";
 			}
@@ -832,7 +832,7 @@ abstract class Personas
 			if (isset ($arrayDatosPersona['legajo']) and $this->comprobarExisteDato ($arrayDatosPersona['legajo']))
 			{
 				$parametros[$a] = $arrayDatosPersona['legajo'];
-				$a ++;
+				$a++;
 
 				$campos .= ", legajo = :legajo";
 			}
@@ -844,7 +844,7 @@ abstract class Personas
 			else
 			{
 				$parametros[$a] = $_SESSION['person'];
-				$a ++;
+				$a++;
 
 				$campos .= ", muid = :muid";
 			}
@@ -856,7 +856,7 @@ abstract class Personas
 			else
 			{
 				$parametros[$a] = $_SESSION['app'];
-				$a ++;
+				$a++;
 
 				$campos .= ", idaplicacion = :idaplicacion";
 			}
@@ -868,7 +868,7 @@ abstract class Personas
 			else
 			{
 				$parametros[$a] = $arrayDatosPersona['person'];
-				$a ++;
+				$a++;
 
 				$wer = "AND person = :person";
 			}
@@ -878,7 +878,7 @@ abstract class Personas
 				$extraWhere = " AND LTRIM(LTRIM(categoria, '0')) = LTRIM(LTRIM(:categoria, '0')) ";
 				$parametros[$a] = $arrayDatosPersona['categoria'];
 
-				$a ++;
+				$a++;
 			}
 
 			$sql = "UPDATE appgral.catxperson" . $this->db_link . " SET mtime = SYSDATE" . $campos . " WHERE 1=1 " . $wer . $extraWhere;
@@ -1171,7 +1171,7 @@ abstract class Personas
 	 */
 	public function buscar_PersonXPerson($person)
 	{
-		$sql = "SELECT * FROM appgral.person WHERE person = :person";
+		$sql = "SELECT lname, fname, TO_CHAR(birdate, 'DD-MM-YYYY') AS  birdate, nation, sex, marstat, tnation FROM appgral.person WHERE person = :person";
 
 		$parametros[0] = $person;
 
