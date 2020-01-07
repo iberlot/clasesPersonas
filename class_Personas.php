@@ -1194,7 +1194,7 @@ abstract class Personas
 
 			$this->setTipoNacionalidad ($recu['TNATION']);
 
-			// $this->setTelefono ($recu['TELEP']);
+                        //$this->setTelefono ($recu['TELEP']);
 		}
 	}
 

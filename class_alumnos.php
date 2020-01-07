@@ -88,6 +88,14 @@ class Alumnos extends Personas
 	 * @var int
 	 */
 	protected $fa;
+	
+        
+        /**
+	 * nombre de la descripcion del tipo de alumno
+	 *
+	 * @var int
+	 */
+	protected $desc_tip_alum;
 
 	/**
 	 * Identificador de la cede.
@@ -170,6 +178,12 @@ class Alumnos extends Personas
                     person.lname,
                     person.fname,
                     carstu.career,
+                    ccalu.beca1,                    
+                    ccalu.MES_BECA1,
+                    ccalu.BECA2,
+                    ccalu.MES_BECA2,
+                    ccalu.BECA3,
+                    ccalu.MES_BECA3,
                     carstu.plan,
                     carstu.stat,
                     career.descrip
@@ -311,9 +325,9 @@ class Alumnos extends Personas
 		{
 			$arr_asoc = $this->db->fetch_array ($scfaes);
 
-			$this->setFa ($arr_asoc['FA']);
-			$this->setEs ($arr_asoc['ES']);
-			$this->setCa ($arr_asoc['CA']);
+                        $this->setFa($arr_asoc['FA']);
+                        $this->setEs($arr_asoc['ES']);
+                        $this->setCa($arr_asoc['CA']);
 
 			return ($this->getFa () . $this->getEs () . $this->getCa ());
 		}
@@ -457,6 +471,21 @@ class Alumnos extends Personas
 		{
 			$this->obtenerSeterarFaesca ($fila['IDCENTRODECOSTO']);
 		}
+                
+                if (isset($fila['BECA1'])) {
+            
+                $this->setId_Tipo_alumno($fila['BECA1']);
+
+                $query          = "SELECT descripcion FROM interfaz.tipo_alumno WHERE tipo_alumno = :tipo";
+
+                $params         = array($fila['BECA1']);
+
+                $result         = $this->db->query($query, true, $params);
+
+                $descri_tipo    = $this->db->fetch_array($result);
+
+                    $this->set_desc_tip_alum($descri_tipo['DESCRIPCION']);
+                }
 
 		$this->setFoto_persona ($this->get_Photo ($fila['PERSON']));
 		// $this->set_foto ($this->get_Photo_alumno ($fila['PERSON']));
@@ -545,6 +574,22 @@ class Alumnos extends Personas
 	{
 		return $this->desc_unidad_alumno;
 	}
+
+             /**
+     * Retorna la descripcion asociada a cada estado de la carrera.
+     *
+     * @return int
+     */
+    function get_desc_tip_alum() {
+        return $this->desc_tip_alum;
+    }
+        function setId_Tipo_alumno($tipo_alumno) {
+        $this->Id_tipo_alumno = $tipo_alumno;
+    }
+    
+    function set_desc_tip_alum($tipo_alumno) {
+        $this->desc_tip_alum = $tipo_alumno;
+    }
 
 	/**
 	 * Retorna la descripcion asociada a cada estado de la carrera.
@@ -699,7 +744,7 @@ class Alumnos extends Personas
 	/**
 	 * Busca los student/person de aquellos alumnos que cumplan con las reglas pasadas.
 	 *
-	 * @param int $carrer
+	 * @param mixed $carrer
 	 * @param int $sede
 	 * @param boolean $activos
 	 * @return resource
@@ -710,10 +755,30 @@ class Alumnos extends Personas
 
 		$sql = "SELECT student FROM studentc.carstu WHERE 1=1 ";
 
-		if ($carrer != null and $carrer != "")
+		if (is_array ($carrer))
 		{
-			$sql .= " AND career = :carrer ";
-			$parametros[] = $carrer;
+			$sql .= " AND (";
+			foreach ($carrer as $key => $value)
+			{
+				if ($key == 0)
+				{
+					$sql .= " career = :carrer$key ";
+				}
+				else
+				{
+					$sql .= " OR career = :carrer$key ";
+				}
+				$parametros[] = $value;
+			}
+			$sql .= ") ";
+		}
+		else
+		{
+			if ($carrer != null and $carrer != "")
+			{
+				$sql .= " AND career = :carrer ";
+				$parametros[] = $carrer;
+			}
 		}
 
 		if ($sede != null and $sede != "")
