@@ -112,15 +112,16 @@ class FormsSecretariaGral extends Formularios {
      */
     protected $nombre_form;
 
-    /**
-     * Ambito nacional o internacional
+     /**
+     *Ambito nacional o internacional
      *
      * @var int
      */
     protected $ambito;
-
-    /**
-     * Copime
+    
+    
+     /**
+     *Copime
      *
      * @var int
      */
@@ -240,121 +241,182 @@ class FormsSecretariaGral extends Formularios {
         // Id tipos form , menosres de 100 son tipos de alumnos, formularios de cobranza
         // de 100 a 200 son formularios de secretaria general
         if (!$data) {
-
+            
             $alumno = new Alumnos($this->db, Session::get('personSelect'), Session::get('solitramcentrodecosto'));
-            //var_dump($alumno);
-            $plan = $alumno->getPlan();
-            $career_code = $alumno->getCarrera();
-
-            $carrera = new Carreras($this->db, $career_code, $plan);
-
-            $emails_alumno = $alumno->getEmail();
-
-            if (isset($emails_alumno[1])) {
-                $email = $emails_alumno[1];
-            } else {
-                $email = $emails_alumno[0];
+            
+            $emails_alumno =$alumno->getEmail();
+            
+            if(isset($emails_alumno[1])){                
+                $email  = $emails_alumno[1];                
+            }else{
+                $email  = $emails_alumno[0];    
             }
-
-            $telefono = $alumno->getTelefono();
-            $telefono = $telefono[0]['NUMERO'];
-
+            
+            $telefono   =$alumno->getTelefono();
+            $telefono   =$telefono[0]['NUMERO'];
+            
             switch ($tipo) {
 
                 case '110' :
 
-                    $template .='<input type="hidden" value="110" name="IDSECGRAL">'
-                            . '<input type="hidden" value="110" name="tipoform">'
-                            . '<label>*Para ser presentado ante:</label>'
-                            . '<input type="text" name="presentadoa" id="presentadoa" required>'
-                            . '<label>*Email personal:</label>'
-                            . '<input type="text" name="email" id="email" value="' . $emails_alumno[0] . '" >'
-                            . '<label>*Tel&eacute;fono celular:</label>'
-                            . '<input type="text" name="cel" id="cel" value="' . $telefono . '"><br/><br/>'
-                            . '<label class="check_secgral">&Aacute;mbito </label>'
-                            . '<select name="ambito"  id="sleambito_1" onchange="seleccionarambito(1)">'
-                            . '<option value="s" >Seleccione</option>'
-                            . '<option value="0">Nacional </option>'
-                            . '<option value="1">Internacional</option>'
-                            . '</select><br/>'
-                            . '<div class="copime" style="display:none;">'
-                            . '<label class="check_secgral" >Copime</label>'
-                            . '<input type="checkbox" id="copime_select" value="1" name="copime" disabled class="select_secgral">'
-                            . '</div>'
-                            . '<br/><br/>'
-                            . '<p><b>Items a solicitar</b></p>'
-                            . '<label  class="check_secgral"> Plan de Estudio:</label>'
-                            . '<input type="checkbox" name="planestudio" checked><br/>'
-                            . '<label class="check_secgral"> Programas:</label>'
-                            . '<input type="checkbox" name="programa"  checked ><br/>'
-                            . '<label class="check_secgral">Horas c&aacute;tedra:</label>'
-                            . '<input type="checkbox" name="horascatedras"  ><br/><br/>'
-                            . '<label>Plan de estudio:</label><br/>'
-                            . '<input type="file" name="plestudio" id="plestudio"><br/>'
-                            . '<label>Programa de la materia:</label><br/>'
-                            . '<input type="file" name="prmateria" id="prmateria"><br/>';
+                    $template .='<input type="hidden" value="110" name="IDSECGRAL">' 
+                        . '<input type="hidden" value="110" name="tipoform">' 
+                        . '<label>*Para ser presentado ante:</label>' 
+                        . '<input type="text" name="presentadoa" id="presentadoa" required>'                        
+                        . '<label>*Email personal:</label>' 
+                        . '<input type="text" name="email" id="email" value="'.$emails_alumno[0].'" >' 
+                        . '<label>*Tel&eacute;fono celular:</label>' 
+                        . '<input type="text" name="cel" id="cel" value="'.$telefono.'"><br/><br/>' 
+                        . '<label class="check_secgral">&Aacute;mbito </label>' 
+                        . '<select name="ambito"  id="sleambito_1" onchange="seleccionarambito(1)">'
+                        . '<option value="s" >Seleccione</option>'
+                        . '<option value="0">Nacional </option>'
+                        . '<option value="1">Internacional</option>'
+                        . '</select><br/>' 
+                        . '<div class="copime" style="display:none;">'
+                        . '<label class="check_secgral" >Copime</label>' 
+                        . '<input type="checkbox" id="copime_select" value="1" name="copime" disabled class="select_secgral">'
+                        . '</div>'
+                        . '<br/><br/>' 
+                        . '<p><b>Items a solicitar</b></p>' 
+                        . '<label  class="check_secgral"> Plan de Estudio:</label>' 
+                        . '<input type="checkbox" name="planestudio" checked><br/>'
+                        . '<label class="check_secgral"> Programas:</label>' 
+                        . '<input type="checkbox" name="programa"  checked ><br/>'
+                        . '<label class="check_secgral">Horas c&aacute;tedra:</label>' 
+                        . '<input type="checkbox" name="horascatedras"  ><br/><br/>'
+                        . '<label>Plan de estudio:</label><br/>' 
+                        . '<input type="file" name="plestudio" id="plestudio"><br/>' 
+                        . '<label>Programa de la materia:</label><br/>' 
+                        . '<input type="file" name="prmateria" id="prmateria"><br/>';
 
                     break;
 
+               /* case '111' :
+
+                    $template .= '<input type="hidden" value="111" name="IDSECGRAL">' 
+                        . '<input type="hidden" value="111" name="tipoform">' 
+                        . '<label>*Para ser presentado ante:</label>' 
+                        . '<input type="text" name="presentadoa" id="presentadoa">' 
+                        . '<br/><label class="check_secgral">&Aacute;mbito</label>' 
+                        . '<select name="ambito"  id="sleambito_2" onchange="seleccionarambito(2)>'
+                        . '<option value="s" >Seleccione</option>'
+                        . '<option value="0">Nacional </option>'
+                        . '<option value="1">Internacional</option>'
+                        . '</select><br/>'
+                        . '<div class="copime" style="display:none;">'
+                        . '<label  class="check_secgral">Copime</label>' 
+                        . '<input type="checkbox" id="copime_select" value="1" name="copime" disabled class="select_secgral">'
+                        . '</div><br/><br/><br/>'  ;
+
+                    break;
+*/
                 case '112' :
 
-                    $template .= '<input type="hidden" value="112" name="IDSECGRAL">'
-                            . '<input type="hidden" value="112" name="tipoform">';
+                    $template .= '<input type="hidden" value="112" name="IDSECGRAL">' 
+                        . '<input type="hidden" value="112" name="tipoform">' 
+                        . '<label>*Para ser presentado ante:</label>' 
+                        . '<input type="text" name="presentadoa" id="presentadoa"><br/>'
+                        . '<br/><label class="check_secgral">&Aacute;mbito</label>' 
+                        . '<select name="ambito"  id="sleambito_3" onchange="seleccionarambito(3)" >'
+                        . '<option value="s" >Seleccione</option>'
+                        . '<option value="0">Nacional </option>'
+                        . '<option value="1">Internacional</option>'
+                        . '</select><br/>' 
+                        . '<label class="check_secgral" style="display:none;">Copime</label>' 
+                        . '<div class="copime" style="display:none;">'
+                        . '<label  class="check_secgral"  >Copime</label>' 
+                        . '<input type="checkbox" id="copime_select" value="1" name="copime" disabled class="select_secgral">'
+                        . '</div>'
+                        . '<label class="check_secgral" >Tipo de equivalencia</label>'
+                        . '<select name="tipoequiv"  id="tipoequiv" >'
+                        . '<option value="s" >Seleccione</option>'
+                        . '<option value="0">Interno </option>'
+                        . '<option value="1">Externo</option>'
+                        . '</select><br/>' ;
 
                     break;
 
                 case '113' :
 
-                    $template .= '<input type="hidden" value="113" name="IDSECGRAL">'
-                            . '<input type="hidden" value="113" name="tipoform">';
+                    $template .= '<input type="hidden" value="113" name="IDSECGRAL">' 
+                        . '<input type="hidden" value="113" name="tipoform">' 
+                        . '<label class="check_secgral">&Aacute;mbito</label>' 
+                        . '<select name="ambito" id="sleambito_4" onchange="seleccionarambito(4)" >'
+                        . '<option value="s" >Seleccione</option>'
+                        . '<option value="0">Nacional </option>'
+                        . '<option value="1">Internacional</option>'
+                        . '</select><br/>' 
+                        . '<div class="copime" style="display:none;">'
+                        . '<label  class="check_secgral" >Copime</label>' 
+                        . '<input type="checkbox" id="copime_select" value="1" name="copime" disabled class="select_secgral">'
+                        . '</div>'
+                        . '</br><p>Me es grato dirigirme a usted,' 
+                        . ' con el fin de solicitarle sean reconocidas como equivalentes a las materias' 
+                        . ' que a continuaci&oacute;n detallo, aprobadas en: </p> ' 
+                        . '<br/><p>*Obligaci&oacute;n acad&eacute;mica aprobada:</p><textarea name="obli_acade_aproba" id="obli_acade_aproba" ></textarea>';
+
                     break;
 
                 default :
 
                     break;
             }
+            
         } else {
 
             $solicitar = '';
+            
+              if($data['HORASCATEDRA'] == '1'){
+                    $solicitar.='Horas Catedra -';                   
+                };
+                    
+                    if($data['PROGRAMA'] == '1'){                        
+                        $solicitar.=' Programa -';  
+                    };
+                    
+                    if($data['PLANESTUDIO'] == '1'){
+                       $solicitar.=' Plan de estudios -';  
+                    };
+                    
+                    if($data['AMBITO'] == '1'){
+                        $ambito='Internacional';
+                    }else{
+                        $ambito='Nacional';
+                    };
+                    
+                    if($data['COPIME'] == '1'){
+                        $copime='Si';
+                        $copime_display= " style='display:inline-block' ";
+                    }else{
+                        $copime='No';
+                        $copime_display=" style='display:none' ";
+                    };
 
-            if ($data['HORASCATEDRA'] == '1') {
-                $solicitar.='Horas Catedra -';
-            };
+            switch ($tipo) {                
+                  
+                case '110' :                                   
 
-            if ($data['PROGRAMA'] == '1') {
-                $solicitar.=' Programa -';
-            };
-
-            if ($data['PLANESTUDIO'] == '1') {
-                $solicitar.=' Plan de estudios -';
-            };
-
-            if ($data['AMBITO'] == '1') {
-                $ambito = 'Internacional';
-            } else {
-                $ambito = 'Nacional';
-            };
-
-            if ($data['COPIME'] == '1') {
-                $copime = 'Si';
-                $copime_display = " style='display:inline-block' ";
-            } else {
-                $copime = 'No';
-                $copime_display = " style='display:none' ";
-            };
-
-            switch ($tipo) {
-
-                case '110' :
-
-                    $template .= '<input type="hidden" value="110" name="IDSECGRAL">'
-                            . '<input type="hidden" value="110" name="tipoform">'
-                            . '<label><b>Email personal: </b>' . $data['EMAILPERSONAL'] . ' </label><br/>'
-                            . '<label><b>Tel&eacute;fono celular: </b>' . $data['CELULAR'] . ' </label><br/>'
-                            . '<label><b>Para ser presentado ante: </b>' . utf8_encode($data['PRESENTADOA']) . ' </label>'
-                            . '</br><label><b>&Aacute;mbito: </b> ' . utf8_encode($ambito) . '</label>'
-                            . '<label ' . $copime_display . '>COPIME</label><br/>'
-                            . '<p><b>Items a solicitar: </b>' . substr($solicitar, 0, -1) . '</p>';
+                    $template .= '<input type="hidden" value="110" name="IDSECGRAL">' 
+                        . '<input type="hidden" value="110" name="tipoform">'    
+                        . '<label><b>Email personal: </b>'.$data['EMAILPERSONAL'].' </label><br/>' 
+                        . '<label><b>Tel&eacute;fono celular: </b>'.$data['CELULAR'].' </label><br/>' 
+                        . '<label><b>Para ser presentado ante: </b>'.utf8_encode($data['PRESENTADOA']).' </label>'
+                        . '</br><label><b>&Aacute;mbito: </b> '.utf8_encode($ambito).'</label>'                        
+                        . '<label '.$copime_display.'>COPIME</label><br/>'                                               
+                        /*. '<label class="check_secgral">&Aacute;mbito </label>' 
+                        . '<select name="ambito"  id="sleambito_1" disabled>'
+                        . '<option value="s" >Seleccione</option>'
+                        . '<option value="0"  '.$ambito_0.'>Nacional </option>'
+                        . '<option value="1"  '.$ambito_1.'>Internacional</option>'
+                        . '</select><br/>' */
+                        /*. '<div class="copime" '.$copime_display.' ><br/>'
+                        . '<label class="check_secgral" >COPIME</label>' 
+                        . '<select id="copime_select" name="copime" disabled class="select_secgral" >'
+                        . '<option value="1" '.$copime_1.'>SI</option>'
+                        . '<option value="0" '.$copime_0.'>NO </option>'
+                        . '</select></div>'*/
+                        . '<p><b>Items a solicitar: </b>'.substr($solicitar,0,-1).'</p>';
 
                     if (isset($data['IDDOCUMEN1'])) {
 
@@ -377,27 +439,74 @@ class FormsSecretariaGral extends Formularios {
 
                     break;
 
+              /*  case '111' :
+
+                    $template .= '<input type="hidden" value="111" name="IDSECGRAL">'
+                            . '<input type="hidden" value="111" name="tipoform">'
+                            . '<label><b>&Aacute;mbito:</b> '.$ambito.'</label>'                        
+                            . '<label '.$copime_display.'>COPIME</label><br/>' 
+                            . '<label><b>Para ser presentado ante: </b>'.utf8_encode($data['PRESENTADOA']).' </label>'                           
+                           /* . '<label class="check_secgral">&Aacute;mbito </label>' 
+                            . '<select name="ambito"  id="sleambito_1" disabled>'
+                            . '<option value="s" >Seleccione</option>'
+                            . '<option value="0"  '.$ambito_0.'>Nacional </option>'
+                            . '<option value="1"  '.$ambito_1.'>Internacional</option>'
+                            . '</select><br/>' 
+                            . '<div class="copime" '.$copime_display.' >'
+                            . '<label class="check_secgral" >COPIME</label>' 
+                            . '<select id="copime_select" name="copime" disabled class="select_secgral" >'
+                            . '<option value="1" '.$copime_1.'>SI</option>'
+                            . '<option value="0" '.$copime_0.'>NO </option>'
+                            . '</select></div><br/><br/>' ;*/
+                           /* . '<br/><br/>' ;
+
+                    break;*/
+
                 case '112' :
 
-                    $template .= '<input type="hidden" value="112" name="IDSECGRAL">'
-                            . '<input type="hidden" value="112" name="tipoform">'
-                            . '<label><b>Para ser presentado ante: </b>' . utf8_encode($data['PRESENTADOA']) . ' </label><br/>'
-                            . '<label><b>&Aacute;mbito:</b> ' . $ambito . '</label>'
-                            . '<label ' . $copime_display . '>COPIME</label><br/>'
-                            . '<br/>';
+                    $template .= '<input type="hidden" value="112" name="IDSECGRAL">' 
+                            . '<input type="hidden" value="112" name="tipoform">'                                                         
+                            . '<label><b>Para ser presentado ante: </b>'.utf8_encode($data['PRESENTADOA']).' </label><br/>' 
+                            . '<label><b>&Aacute;mbito:</b> '.$ambito.'</label>'                        
+                            . '<label '.$copime_display.'>COPIME</label><br/>'                              
+                            /*. '<label class="check_secgral">&Aacute;mbito </label>' 
+                            . '<select name="ambito"  id="sleambito_1" disabled>'
+                            . '<option value="s" >Seleccione</option>'
+                            . '<option value="0"  '.$ambito_0.'>Nacional </option>'
+                            . '<option value="1"  '.$ambito_1.'>Internacional</option>'
+                            . '</select><br/>' 
+                            . '<div class="copime" '.$copime_display.' >'
+                            . '<label class="check_secgral" >COPIME</label>' 
+                            . '<select id="copime_select" name="copime" disabled class="select_secgral" >'
+                            . '<option value="1" '.$copime_1.'>SI</option>'
+                            . '<option value="0" '.$copime_0.'>NO </option>'
+                            . '</select></div>' ;*/
+                            . '<br/>' ;
 
                     break;
 
                 case '113' :
 
-                    $template .= '<input type="hidden" value="113" name="IDSECGRAL">'
-                            . '<input type="hidden" value="113" name="tipoform">'
-                            . '<label><b>&Aacute;mbito:</b> ' . $ambito . '</label>'
-                            . '<label ' . $copime_display . '>COPIME</label><br/>'
-                            . '</br><p>Me es grato dirigirme a usted,'
-                            . ' con el fin de solicitarle sean reconocidas como equivalentes a las materias'
-                            . ' que a continuaci&oacute;n detallo, aprobadas en: </p> '
-                            . '<br/><p>Obligaci&oacute;n acad&eacute;mica aprobada:</p>'
+                    $template .= '<input type="hidden" value="113" name="IDSECGRAL">' 
+                            . '<input type="hidden" value="113" name="tipoform">' 
+                            . '<label><b>&Aacute;mbito:</b> '.$ambito.'</label>'                        
+                            . '<label '.$copime_display.'>COPIME</label><br/>'    
+                        /* . '<label class="check_secgral">&Aacute;mbito </label>' 
+                            . '<select name="ambito"  id="sleambito_1" disabled>'
+                            . '<option value="s" >Seleccione</option>'
+                            . '<option value="0"  '.$ambito_0.'>Nacional </option>'
+                            . '<option value="1"  '.$ambito_1.'>Internacional</option>'
+                            . '</select><br/>' 
+                            . '<div class="copime" '.$copime_display.' >'
+                            . '<label class="check_secgral" >COPIME</label>' 
+                            . '<select id="copime_select" name="copime" disabled class="select_secgral" >'
+                            . '<option value="1" '.$copime_1.'>SI</option>'
+                            . '<option value="0" '.$copime_0.'>NO </option>'
+                            . '</select></div>'*/
+                            . '</br><p>Me es grato dirigirme a usted,' 
+                            . ' con el fin de solicitarle sean reconocidas como equivalentes a las materias' 
+                            . ' que a continuaci&oacute;n detallo, aprobadas en: </p> ' 
+                            . '<br/><p>Obligaci&oacute;n acad&eacute;mica aprobada:</p>' 
                             . '<textarea disabled  name="obli_acade_aproba" id="obli_acade_aproba" >' . utf8_encode($data['OBLIGACADEAPROB']) . '</textarea>';
 
 
@@ -411,115 +520,44 @@ class FormsSecretariaGral extends Formularios {
 
         // Estos forms son los que necesitan listas de materias , si entra por aca , devuelve un select
         // con las materias , si hay datos devuelve las materias seleccionadas en un div aparte , las demas en
-
-        if (/* $tipo == '111' || */ $tipo == '112' || $tipo == '113') {
-
-            $template .= '<div class="carreras-content">' //bloque central
-                    . '<div class="carrera_actual">' //columna izquierda
-                    . '<div class="carrera-item">' //contenedor columna izquierda
-                    . '<h3>Materias de ' . utf8_encode($alumno->getCarrera_descrip()) . '</h3>'; //titulo de columna
-
-
-            /* item de carrera */
-            $template .= '<div class="c-i-option"><br/>'
-            /* . '<label>''</label>' */;
-            $template .= "<select id='materiaactual' style='margin-top:8px;' name='equivalencia_nueva'  >"
-                    . "<option value='s' >Seleccione una materia</option>";           
-                    //.'<input type="hidden" name="plan2" value="'.$carrera->plan.'" >';
+        
+        if (/*$tipo == '111' ||*/ $tipo == '112' || $tipo == '113'){
+                        
+            $template .= '<div class="carrera_actual" style="float:left;margin-right:20px;"><br/>'
+                      . '<p>Carrera actual</p><br/>';
+            //carrera actual del alumno seleccionado
+            $template .= '<label>Ciencia Políticas</label>';
+            //select con materias de la carrera
+            $template .= '<br/><br/><select style="margin-top:8px;">'
+                    . '<option> 2595 - A&ntilde;o: 1 - Int. a las cs. soc. - 288 Hs  </option>'
+                    . '<option> 2595 - A&ntilde;o: 1 - Int. a las cs. soc. - 288 Hs  </option>'
+                    . '<option> 2595 - A&ntilde;o: 1 - Int. a las cs. soc. - 288 Hs  </option>'
+                    . '<option> 2595 - A&ntilde;o: 1 - Int. a las cs. soc. - 288 Hs  </option>'
+                    . '<option> 2595 - A&ntilde;o: 1 - Int. a las cs. soc. - 288 Hs  </option>'
+                    . '</select></div>';
+           
+            $template .= '<div class="carreras_anterior" ><br/>'
+                      . '<p>Carreras anteriores</p><br/>';
             
-            foreach ($carrera->getMaterias() as $row) {
-                $template   .= "<option class='option_materia'  id='sel_" . $row["SUBJECT"] 
-                            . "' value='" . $row["SUBJECT"] . "'> " 
-                            . $row["SUBJECT"] . " - A&ntilde;o: " . $row["YR"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
-            }
-
-            $template .= "</select>";
-
-            $template .='</div>';
-
-            $template .= '</div></div>'; //cierre columna izquierda
-
-            $template .= '<div class="carreras_anterior" >'//columna derecha
-                      . '<div class="carrera-item">'//contenedor columna derecha
-            ; //titulo de columna
-
-            /* OBTENGO LAS CARRERAS QUE CURSA EL ALUMNO */
-            $carreras = $alumno->obtenerCarrerasAlumnos($alumno->getPerson(), $carrera->get_code());
-
-            /* item de carrera */
-            $template .= '<div class="c-i-option"><label>';
-
-            //si tiene mas de una carrera le ponemos el boton de seleccione
-            if (count($carreras) > 1) {
-
-                $template.='<h3>Carreras Cursadas</h3>';
-                $template.='<select id="carreras" name="carrera" >';
-                $template.='<option value="s" >Selecciones</option>';
-
-                foreach ($carreras as $row) {
-                    $template.='<option value="' . $row["CAREER"] . ' - ' . $row["PLAN"] . '">' . utf8_encode($row["LDESC"]) . ' </option>';
-                }
-
-                $template.='</select>';
-
-
-                $template.='</label></div>';
-                
-            } else {
-                //si hay una sola carrera muestro el nombre y tmb armo el select multiiple con sus materias
-
-                $template.='<h3>Materias de ' . utf8_encode($carreras[0][3]) . '</h3>';
-
-
-                $template.='</label></div>';
-                
-                $carrera2 = new Carreras($this->db, $carreras[0]['CAREER'], $carreras[0]['PLAN']);
-                
-                 /* item de carrera */
-                $template .= '<div class="c-i-option">'
-                        . '<input type="hidden" name="plan2" value="'.$carreras[0]['PLAN'].'" >'
-                        . '<select  class="option_materia" id="materiasequivalencias" name="equivalencias" multiple>';
-                
-                foreach ($carrera2->getMaterias() as $row) {
-                    
-                    $template .= "<option class='option_materia'  id='sel_" . $row["SUBJECT"] .
-                            "' value='" . $row["SUBJECT"] . "'> " . $row["SUBJECT"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
-                                    
-                }
-
-                $template .= '</select>'
-                . '<script>$("#materiasequivalencias").multiSelect('
-                . '{ noneText: "Seleccione las materias",
-                    presets: [
-                        {
-                            name: "Seleccione materias",
-                            options: []
-                        }
-                    ]}'
-                . ');</script>'
-                . '</div>';
-            }
-
-            $template .= '</div>'
-                    . '<input type="button" onclick="asignar_equivalencias()" value="Asociar" id="asociar" '
-                    . 'class="vex-dialog-button-primary vex-dialog-button vex-first"/>'
-                    . '</div>'//cierre columna izquierda
-                    . '</div>'; //cierre  bloque central
-
-            /* boton asociar separador */
-            $template .= '<div class="equivalencias-result">'//contenedor de resultado
-                    . '<table class="minimalistBlack">
-                    <thead>
-                    <tr>
-                    <th>Materia </th>
-                    <th colspan="2">Materias Equivalentes</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-       
-                    </tbody>
-                    </table>'
-                    . '</div>'; //cierre de resultado
+            //carrera actual del alumno seleccionado
+            $template .= '<label><select>'
+                    . '<option> Abogacia  </option>'
+                    . '<option> Médicina  </option>'
+                    . '</select></label>';
+            
+            //select con materias de la carrera
+            $template .= '<br/><br/><select>'
+                    . '<option> 2595 - A&ntilde;o: 1 - Int. a las cs. soc. - 288 Hs  </option>'
+                    . '<option> 2595 - A&ntilde;o: 1 - Abogacia. - 288 Hs  </option>'
+                    . '</select>'
+                    . '<br/><input type="button" value="asociar"/>'
+                    . '<br/><br/><br/>'
+                    . ''
+                    . '<h4>Materias asociadas</h4><br/>'
+                    . '<p>-A&ntilde;o: 1 - Int. a las cs. soc. - 288 Hs  ------------->A&ntilde;o: 1 - Int. a las cs. soc. - 288 Hs  , A&ntilde;o: 1 - Int. a las cs. soc. - 288 Hs </p>'
+                    . '<p>-A&ntilde;o: 2 - Fisica 2 - 288 Hs  ------------->A&ntilde;o: 3 - Int. fisica. - 288 Hs  </p>'
+                    . '<br/><br/></div>';
+            
         }
 
         $template .= '<div id="loader" class="loader" style="display:none;"> <img src="/images/loading2.gif"> </div>';
@@ -527,6 +565,7 @@ class FormsSecretariaGral extends Formularios {
         $this->set_html_template($template);
 
         return $template;
+        
     }
 
     /**
@@ -537,45 +576,45 @@ class FormsSecretariaGral extends Formularios {
      * @return string
      *
      */
-    public function obtenerNombreForm($tipo) {
+    public function obtenerNombreForm($tipo){
 
         $nombre = '';
+        
+		$parametros = array ();
+		$parametros[] = $tipo;
 
-        $parametros = array();
-        $parametros[] = $tipo;
+		$query = "SELECT descripcion
+                    FROM detalleformssecgeneral 
+                    WHERE NUMEROFORM = :tipo";
 
-        $query = "SELECT descripcion
-                FROM detalleformssecgeneral 
-                WHERE NUMEROFORM = :tipo";
+	
 
+		$result = $this->db->query ($query, true, $parametros);
+		$result = $this->db->fetch_array ($result);
+                $nombre = $result['DESCRIPCION'];        
 
+       /* switch ($tipo) {
+            case 110 :
+                $nombre = 'Formulario de solicitud de programa';
 
-        $result = $this->db->query($query, true, $parametros);
-        $result = $this->db->fetch_array($result);
-        $nombre = $result['DESCRIPCION'];
+                break;
+            case 111 :
+                $nombre = 'Formulario certificado parcial con notas (5 materias)';
 
-        /* switch ($tipo) {
-          case 110 :
-          $nombre = 'Formulario de solicitud de programa';
+                break;
+            case 112 :
+                $nombre = 'Certificado de equivalencias';
 
-          break;
-          case 111 :
-          $nombre = 'Formulario certificado parcial con notas (5 materias)';
+                break;
+            case 113 :
+                $nombre = 'Certificado de parcial con notas';
 
-          break;
-          case 112 :
-          $nombre = 'Certificado de equivalencias';
+                break;
 
-          break;
-          case 113 :
-          $nombre = 'Certificado de parcial con notas';
-
-          break;
-
-          default :
-          break;
-          }
-         */
+            default :
+                break;
+        }
+*/
         return ($nombre);
     }
 
@@ -686,14 +725,14 @@ class FormsSecretariaGral extends Formularios {
         if (isset($fila['IDDOCUMEN2'])) {
             $this->set_IDDOCUMEN1($fila['IDDOCUMEN2']);
         }
-
+        
         if (isset($fila['AMBITO'])) {
             $this->setAmbito($fila['AMBITO']);
         }
         if (isset($fila['AMBITO'])) {
             $this->setAmbito($fila['AMBITO']);
         }
-
+        
         if (isset($fila['COPIME'])) {
             $this->setCopime($fila['COPIME']);
         }
@@ -968,20 +1007,22 @@ class FormsSecretariaGral extends Formularios {
         $this->descripcion = $descripcion;
     }
 
+    
     function getAmbito() {
         return $this->ambito;
     }
-
+    
     function getCopime() {
         return $this->copime;
     }
-
+    
     function setAmbito($ambito) {
         $this->ambito = $ambito;
     }
-
+    
     function setCopime($copime) {
         $this->copime = $copime;
     }
+
 
 }

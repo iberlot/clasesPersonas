@@ -88,9 +88,8 @@ class Alumnos extends Personas
 	 * @var int
 	 */
 	protected $fa;
-	
-        
-        /**
+
+	/**
 	 * nombre de la descripcion del tipo de alumno
 	 *
 	 * @var int
@@ -124,6 +123,20 @@ class Alumnos extends Personas
 	 * @var string
 	 */
 	protected $desc_unidad_alumno;
+
+	/**
+	 * Descripcion del titulo secundario.
+	 *
+	 * @var string
+	 */
+	protected $desc_titulo_secundario;
+
+	/**
+	 * Descripcion de la institucion del titulo secundario.
+	 *
+	 * @var string
+	 */
+	protected $desc_instit_titulo_secundario;
 
 	/**
 	 * Constructor de la clase Alumnos.
@@ -178,7 +191,7 @@ class Alumnos extends Personas
                     person.lname,
                     person.fname,
                     carstu.career,
-                    ccalu.beca1,                    
+                    ccalu.beca1,
                     ccalu.MES_BECA1,
                     ccalu.BECA2,
                     ccalu.MES_BECA2,
@@ -187,15 +200,15 @@ class Alumnos extends Personas
                     carstu.plan,
                     carstu.stat,
                     career.descrip
-				FROM
+                    FROM
                     appgral.person
                     JOIN appgral.perdoc ON person.person = perdoc.person
                     JOIN studentc.carstu ON person.person = carstu.student
                     JOIN studentc.career ON carstu.career = career.code
-                    JOIN contaduria.centrodecosto ON centrodecosto.fa||centrodecosto.ca = career.code and centrodecosto.es = carstu.BRANCH
+                    FULL JOIN contaduria.centrodecosto ON centrodecosto.fa||centrodecosto.ca = career.code and centrodecosto.es = carstu.BRANCH
                     FULL JOIN tesoreria.ccalu ON person.person = ccalu.person and centrodecosto.idcentrodecosto = ccalu.idcentrodecosto
 				WHERE
-				        person.person =:person";
+				    person.person = :person ";
 
 		// JOIN interfaz.aux_ccalu ON perdoc.docno = aux_ccalu.nrodoc
 
@@ -228,7 +241,7 @@ class Alumnos extends Personas
 		$criterio1 = $criterio2 = $criterio3 = $criterio;
 
 		$parametros = array (
-				$anio_actual,
+
 				strtoupper ($criterio1),
 				strtoupper ($criterio2),
 				strtoupper ($criterio3)
@@ -254,10 +267,10 @@ class Alumnos extends Personas
 			$join = "JOIN studentc.carstu ON person.person = carstu.student
                      JOIN studentc.career ON carstu.career = career.code
                      JOIN contaduria.centrodecosto ON centrodecosto.fa||centrodecosto.ca = career.code and centrodecosto.es = carstu.BRANCH
-                     JOIN tesoreria.ccalu ON person.person = ccalu.person and centrodecosto.idcentrodecosto = ccalu.idcentrodecosto";
+                    ";
 
 			$where = "AND facu IN( " . $unidades . " )
-			 GROUP BY centrodecosto.idcentrodecosto, person.person, person.lname, person.fname,facu";
+			";
 		}
 
 		$query = "SELECT
@@ -268,15 +281,10 @@ class Alumnos extends Personas
 				FROM
 				    appgral.person
 				    JOIN appgral.perdoc ON person.person = perdoc.person
-				    JOIN tesoreria.ccalu ON person.person = ccalu.person
+
 					" . $join . "
 				WHERE
-				        ccalu.aniocc =:anio
-				    AND (
-				            lname LIKE '%' ||:busq1 || '%'
-				        OR
-				            fname LIKE '%' ||:busq2 || '%'
-				        OR
+				     (
 				            docno LIKE '%' ||:busq3 || '%'
 				    )" . $where;
 
@@ -325,9 +333,9 @@ class Alumnos extends Personas
 		{
 			$arr_asoc = $this->db->fetch_array ($scfaes);
 
-                        $this->setFa($arr_asoc['FA']);
-                        $this->setEs($arr_asoc['ES']);
-                        $this->setCa($arr_asoc['CA']);
+			$this->setFa ($arr_asoc['FA']);
+			$this->setEs ($arr_asoc['ES']);
+			$this->setCa ($arr_asoc['CA']);
 
 			return ($this->getFa () . $this->getEs () . $this->getCa ());
 		}
@@ -335,6 +343,46 @@ class Alumnos extends Personas
 		return false;
 	}
 
+        
+        
+        
+	/**
+	 * Con el student obtengo un array de las carreras del student
+	 *
+	 * @param int $student
+	 * @param string $nocode-->array de code de materias que queermos sacar de la lista esta
+	 * @return array de carreras
+	 */
+	public function obtenerCarrerasAlumnos($student, $nocode = null){
+            
+		$salida     = array ();
+		
+                $param      = array (
+                    $student
+		);
+
+		$query = "select carstu.student ,carstu.career ,carstu.plan , career.ldesc from studentc.carstu 		
+                JOIN studentc.career  ON career.code = carstu.CAREER 
+                where carstu.student=  :student ";	
+                
+                if($nocode != null){
+                    
+                    $query .= "and carstu.career NOT IN(:filtrocarreras)";
+                
+                    $param[]=$nocode;
+                }
+                
+                $result = $this->db->query ($query, true, $param);
+                
+                while ($fila = $this->db->fetch_array($result)) {
+                
+                    $salida[]=$fila;
+                    
+                }
+                
+		return $salida;
+	}
+        
 	/**
 	 * En base a la facultad obtengo el nombre de la misma
 	 *
@@ -471,21 +519,35 @@ class Alumnos extends Personas
 		{
 			$this->obtenerSeterarFaesca ($fila['IDCENTRODECOSTO']);
 		}
-                
-                if (isset($fila['BECA1'])) {
-            
-                $this->setId_Tipo_alumno($fila['BECA1']);
 
-                $query          = "SELECT descripcion FROM interfaz.tipo_alumno WHERE tipo_alumno = :tipo";
+		/* seteo la descripcion del instituto del alumno */
+		if (isset ($fila['INSTITUTO']))
+		{
+			$this->setDesc_instit_titulo_secundario ($fila['INSTITUTO']);
+		}
+		/* seteo la descripcion del titulo secundario */
+		if (isset ($fila['DESCRIP']))
+		{
+			$this->setDesc_titulo_secundario ($fila['DESCRIP']);
+		}
 
-                $params         = array($fila['BECA1']);
+		if (isset ($fila['BECA1']))
+		{
 
-                $result         = $this->db->query($query, true, $params);
+			$this->setId_Tipo_alumno ($fila['BECA1']);
 
-                $descri_tipo    = $this->db->fetch_array($result);
+			$query = "SELECT descripcion FROM interfaz.tipo_alumno WHERE tipo_alumno = :tipo";
 
-                    $this->set_desc_tip_alum($descri_tipo['DESCRIPCION']);
-                }
+			$params = array (
+					$fila['BECA1']
+			);
+
+			$result = $this->db->query ($query, true, $params);
+
+			$descri_tipo = $this->db->fetch_array ($result);
+
+			$this->set_desc_tip_alum ($descri_tipo['DESCRIPCION']);
+		}
 
 		$this->setFoto_persona ($this->get_Photo ($fila['PERSON']));
 		// $this->set_foto ($this->get_Photo_alumno ($fila['PERSON']));
@@ -575,21 +637,55 @@ class Alumnos extends Personas
 		return $this->desc_unidad_alumno;
 	}
 
-             /**
-     * Retorna la descripcion asociada a cada estado de la carrera.
-     *
-     * @return int
-     */
-    function get_desc_tip_alum() {
-        return $this->desc_tip_alum;
-    }
-        function setId_Tipo_alumno($tipo_alumno) {
-        $this->Id_tipo_alumno = $tipo_alumno;
-    }
-    
-    function set_desc_tip_alum($tipo_alumno) {
-        $this->desc_tip_alum = $tipo_alumno;
-    }
+	/**
+	 * Retorna la descripcion asociada a cada estado de la carrera.
+	 *
+	 * @return int
+	 */
+	function get_desc_tip_alum()
+	{
+		return $this->desc_tip_alum;
+	}
+
+	function setId_Tipo_alumno($tipo_alumno)
+	{
+		$this->Id_tipo_alumno = $tipo_alumno;
+	}
+
+	function set_desc_tip_alum($tipo_alumno)
+	{
+		$this->desc_tip_alum = $tipo_alumno;
+	}
+
+	/**
+	 * Retorna la descripcion del titulo secundario.
+	 *
+	 * @return string
+	 */
+	function getDesc_titulo_secundario()
+	{
+		return $this->desc_titulo_secundario;
+	}
+
+	/**
+	 * Retorna la descripcion de la institucion del titulo secundario.
+	 *
+	 * @return string
+	 */
+	function getDesc_instit_titulo_secundario()
+	{
+		return $this->desc_instit_titulo_secundario;
+	}
+
+	function setDesc_titulo_secundario($desc_titulo_secundario)
+	{
+		$this->desc_titulo_secundario = $desc_titulo_secundario;
+	}
+
+	function setDesc_instit_titulo_secundario($desc_instit_titulo_secundario)
+	{
+		$this->desc_instit_titulo_secundario = $desc_instit_titulo_secundario;
+	}
 
 	/**
 	 * Retorna la descripcion asociada a cada estado de la carrera.
@@ -797,7 +893,7 @@ class Alumnos extends Personas
 		}
 
 		$result = $this->db->query ($sql, true, $parametros);
-
+		// echo $sql;
 		return $this->db->fetch_all ($result)['STUDENT'];
 	}
 }

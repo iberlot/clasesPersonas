@@ -29,7 +29,7 @@ require_once 'class_Empleados.php';
  * @lenguage PHP
  * @name class_Administrativos
  */
-class Administrativos extends Empleados
+class Docentes extends Empleados
 {
 
 	/**
@@ -212,11 +212,11 @@ class Administrativos extends Empleados
 	 * @param boolean $activos
 	 * @return resource
 	 */
-	public function listar_por_sede($facultad)
+	public function listar_por_sede($facultad, $sede, $activos = TRUE)
 	{
 		$parametros = array ();
 
-		$sql = "SELECT DISTINCT person.person FROM interfaz.admacad INNER JOIN appgral.perdoc ON perdoc.docno = admacad.nro_doc INNER JOIN appgral.person ON person.person = perdoc.person WHERE admacad.codbaja != 3 ";
+		$sql = "SELECT catxperson.person FROM interfaz.docente INNER JOIN interfaz.docente_dicta ON docente_dicta.legajo = docente.legajo LEFT JOIN appgral.catxperson ON catxperson.legajo = docente.legajo WHERE docente.codbaja != 3 ";
 
 		if (is_array ($facultad))
 		{
@@ -225,14 +225,13 @@ class Administrativos extends Empleados
 			{
 				if ($key == 0)
 				{
-					$sql .= " (admacad.faesca >=  :faescaDesde$key AND admacad.faesca <= :faescaHasta$key) ";
+					$sql .= " docente_dicta.facultad = :facultad$key ";
 				}
 				else
 				{
-					$sql .= " OR (admacad.faesca >=  :faescaDesde$key AND admacad.faesca <= :faescaHasta$key) ";
+					$sql .= " OR docente_dicta.facultad = :facultad$key ";
 				}
-				$parametros[] = $value . "0000";
-				$parametros[] = $value . "0099";
+				$parametros[] = $value;
 			}
 			$sql .= ") ";
 		}
@@ -240,10 +239,27 @@ class Administrativos extends Empleados
 		{
 			if ($facultad != null and $facultad != "")
 			{
-				$sql .= " AND (admacad.faesca >=  :faescaDesde$key AND admacad.faesca <= :faescaHasta$key) ";
+				$sql .= " AND docente_dicta.facultad = :facultad ";
 				$parametros[] = $facultad;
 			}
 		}
+
+		if ($sede != null and $sede != "" or $sede == 0)
+		{
+			$sql .= " AND docente_dicta.sede = :sede ";
+			$parametros[] = $sede;
+		}
+
+		if ($activos == TRUE)
+		{
+			$sql .= " AND docente_dicta.activo = 1 ";
+		}
+		elseif ($activos == FALSE and !is_null ($activos))
+		{
+			$sql .= " AND docente_dicta.activo = 0 ";
+		}
+
+		$sql .= " GROUP BY catxperson.person ";
 
 		$result = $this->db->query ($sql, true, $parametros);
 		// echo $sql;

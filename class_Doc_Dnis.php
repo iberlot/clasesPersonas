@@ -44,13 +44,13 @@ class Dnis extends Documentos
 
 				if (isset ($db) and !empty ($db) and $db != null)
 				{
-					$this->db = $db;
+					$this->db = &$db;
 				}
 			}
 		}
 		else
 		{
-			$this->db = $db;
+			$this->db = &$db;
 		}
 
 		$this->setDocNumero ($doc_num);

@@ -783,7 +783,7 @@ class CuentaCorriente {
         }
 
         $mesbeca = $this->getMes_beca();
-        //si es el primer año de la carrera 
+        //si es el primer aï¿½o de la carrera 
                 if ($this->getAnio_carrera_cc() == 1 && ($mesbeca[0] == $mes_caja || $mesbeca[0] == $mes_caja + 1)) {
 
             return 0;
@@ -923,7 +923,7 @@ class CuentaCorriente {
         }
 
         //CASO 4
-        //si es el primer año de la carrera 
+        //si es el primer aï¿½o de la carrera 
         if ($this->getAnio_carrera_cc() == 1 && ($mesbeca[0] == $mes_caja || $mesbeca[0] == $mes_caja + 1)) {
 
             $dias_retraso = 0;

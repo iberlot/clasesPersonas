@@ -24,6 +24,9 @@
 require_once ("class_Doc_Cuils.php");
 require_once ("class_Doc_Dnis.php");
 require_once ("class_Doc_Pasaportes.php");
+require_once ("class_Doc_LE.php");
+require_once ("class_Doc_LC.php");
+require_once ("class_Doc_CI.php");
 require_once ("class_Direcciones.php");
 require_once ("class_credenciales.php");
 
@@ -316,13 +319,13 @@ abstract class Personas
 
 				if (isset ($db) and !empty ($db) and $db != null)
 				{
-					$this->db = $db;
+					$this->db = &$db;
 				}
 			}
 		}
 		else
 		{
-			$this->db = $db;
+			$this->db = &$db;
 		}
 
 		if (!is_null ($person))
@@ -499,11 +502,14 @@ abstract class Personas
 
 		if (isset ($persona) and $persona != "")
 		{
-
+			// print_r ("บบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบ");
+			// print_r ($persona);
+			// print_r ("บบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบ");
 			return $persona;
 		}
 		else
 		{
+			error_log ("WTF");
 			return 0;
 		}
 	}
@@ -1194,7 +1200,7 @@ abstract class Personas
 
 			$this->setTipoNacionalidad ($recu['TNATION']);
 
-                        //$this->setTelefono ($recu['TELEP']);
+			// $this->setTelefono ($recu['TELEP']);
 		}
 	}
 
@@ -1870,13 +1876,24 @@ abstract class Personas
 		switch ($tipo_doc)
 		{
 			case "DNI" :
-				$this->documentos[] = new Dnis ($nro_doc);
+			case "DNF" :
+			case "DNM" :
+				$this->documentos[] = new Dnis ($nro_doc, $this->db);
 				break;
 			case "PAS" :
-				$this->documentos[] = new Pasaportes ($nro_doc);
+				$this->documentos[] = new Pasaportes ($nro_doc, $this->db);
 				break;
 			case "CUIL" :
-				$this->documentos[] = new Cuils ($nro_doc);
+				$this->documentos[] = new Cuils ($nro_doc, $this->db);
+				break;
+			case "LE" :
+				$this->documentos[] = new LEs ($nro_doc, $this->db);
+				break;
+			case "LC" :
+				$this->documentos[] = new LCs ($nro_doc, $this->db);
+				break;
+			case "CI" :
+				$this->documentos[] = new CIs ($nro_doc, $this->db);
 				break;
 		}
 	}

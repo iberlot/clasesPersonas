@@ -328,7 +328,7 @@ class Credenciales
 	 */
 	public function update_personca_basic($person)
 	{
-		$sql = "UPDATE appgral.personca SET nrodechip = :tarjeta, tipo_credencial = :tipo WHERE person =:person";
+		$sql = "UPDATE appgral.personca SET nrodechip = :tarjeta, tipo_credencial = :tipo ,SCA_FECHA = sysdate WHERE person =:person";
 
 		$parametros = array ();
 		$parametros[] = $this->nrodechip;
@@ -362,12 +362,14 @@ class Credenciales
 		$parametros[] = $numTarjeta;
 
 		$result = $this->db->query ($sql, true, $parametros);
-
+		// print_r($result);
+		// echo "<BR>";
 		$fila = $this->db->fetch_array ($result);
-
+		// print_r($fila);
+		// echo "<BR>";
 		if (!empty ($fila))
 		{
-			throw new Exception ("La tarjeta ya se encuentra asociada a otra persona!!!.");
+			throw new Exception ("La tarjeta ya se encuentra asociada a otra persona !!!." . $fila['NRODECHIP'] . " - " . $fila['PERSON']);
 		}
 
 		return true;

@@ -18,53 +18,53 @@ require_once ("/web/html/classesUSAL/class_Personas.php");
 require_once ("/web/html/classesUSAL/class_derechos_varios.php");
 require_once ("/web/html/classesUSAL/class_alumnos.php");
 require_once ("/web/html/classesUSAL/class_carreras.php");
+require_once ("/web/html/classesUSAL/class_transacciones.php");
 
-class Formularios
-{    
-	protected $db;
-	protected $id;
-	protected $fecha_crecion;
-	protected $STUDENT;
-	protected $tipo_form;
-	protected $estado;
-	protected $PERSON;
-	protected $PERSON_aprobo;
-	protected $html_template;
-	protected $nombre_form;
-	protected $IDDERECHOVARIO;
-	protected $nrotramitebpmn;
-	protected $idtransaccion;
-	protected $transaccion;
-	protected $fechagraduacion;
-	protected $idcentrodecosto;
-        protected $fa;
-        protected $es;
-        protected $ca;
+class Formularios {
 
+    protected $db;
+    protected $id;
+    protected $fecha_crecion;
+    protected $STUDENT;
+    protected $tipo_form;
+    protected $estado;
+    protected $PERSON;
+    protected $PERSON_aprobo;
+    protected $html_template;
+    protected $nombre_form;
+    protected $IDDERECHOVARIO;
+    protected $nrotramitebpmn;
+    protected $idtransaccion;
+    protected $transaccion;
+    protected $fechagraduacion;
+    protected $idcentrodecosto;
+    protected $fa;
+    protected $es;
+    protected $ca;
+    protected $cantidad;
+    protected $nroform;
 
-   public function __construct($db, $tipo = null, $id = null)
-	{
-            $this->db = $db;
-            // Si no hay id o y si tipo devolvemos el html del form
-            if ($tipo != null && $tipo != '' && $id == null && $id == ''){
+    public function __construct($db, $tipo = null, $id = null) {
+        $this->db = $db;
+        // Si no hay id o y si tipo devolvemos el html del form
+        if ($tipo != null && $tipo != '' && $id == null && $id == '') {
 
-                    $this->set_tipo_form ($tipo);			
+            $this->set_tipo_form($tipo);
 
-                    $this->template_html ($tipo);
-                    
-                    $this->set_nombre_form($this->obtenerNombreForm($tipo));
+            $this->template_html($tipo);
 
-		}
+            $this->set_nombre_form($this->obtenerNombreForm($tipo));
+        }
 
-		// Si tipo es null pero id no , devolvemos los datos del form
-		if (($tipo == null || $tipo == '') && ($id != null || $id != '')){
+        // Si tipo es null pero id no , devolvemos los datos del form
+        if (($tipo == null || $tipo == '') && ($id != null || $id != '')) {
 
-                    $this->set_id($id);
-			$parametros = array (
-					$id
-			);
+            $this->set_id($id);
+            $parametros = array(
+                $id
+            );
 
-			$query = "select FORMULARIO.* ,
+            $query = "  select FORMULARIO.* ,
                         TRANSACCIONES.idtransaccion,
                         tipo_alumno.DESCRIPCION
                         FROM FORMULARIO
@@ -74,16 +74,16 @@ class Formularios
                         FORMULARIO.ID = TRANSACCIONES.IDFORMULARIO
                         WHERE FORMULARIO.id = :id ";
 
-			$result = $this->db->query ($query, true, $parametros);
+            $result = $this->db->query($query, true, $parametros);
 
-			if ($result){
-                            
-				$arr_asoc = $db->fetch_array ($result);
+            if ($result) {
 
-				$this->loadData ($arr_asoc);
-			}
-		}
-	}
+                $arr_asoc = $db->fetch_array($result);
+
+                $this->loadData($arr_asoc);
+            }
+        }
+    }
 
     /**
      * Salvar formulario en la tabla TESORERIA.FORMULARIO.
@@ -105,6 +105,12 @@ class Formularios
 
         // $db = Conexion::openConnection();
         $datos['ID'] = 'TESORERIA.FORMULARIO_SEQ.nextval';
+        
+        if(!isset($datos['NROFORM'])){
+            
+        $datos['NROFORMULARIO'] = 'TESORERIA.NROFORMULARIO_SEQ.nextval';
+                
+        }
 
         // $insercion = $this->db->realizarInsert ($datos, 'FORMULARIO');
         $this->db->realizarInsert($datos, 'FORMULARIO');
@@ -115,13 +121,13 @@ class Formularios
 
             $tabla = 'FORMULARIOHIST';
 
-            $data_historial = array();
-            $data_historial['ID'] = 'TESORERIA.FORMULARIOHIST_SEQ.nextval';
+            $data_historial                 = array();
+            $data_historial['ID']           = 'TESORERIA.FORMULARIOHIST_SEQ.nextval';
             $data_historial['IDFORMULARIO'] = $id_insertado;
-            $data_historial['FECHAM'] = "SYSDATE";
-            $data_historial['IDESTADO'] = $datos['IDESTADO'];
-            $data_historial['COMENTARIO'] = $datos['COMENTARIO'];
-            $data_historial['PERSON'] = $datos['PERSON'];
+            $data_historial['FECHAM']       = "SYSDATE";
+            $data_historial['IDESTADO']     = $datos['IDESTADO'];
+            $data_historial['COMENTARIO']   = $datos['COMENTARIO'];
+            $data_historial['PERSON']       = $datos['PERSON'];
 
             $this->insertHistory($data_historial, $tabla);
         }
@@ -339,29 +345,29 @@ class Formularios
      * @return array con datos de los forms
      */
     public function getFormsByAlumno($STUDENT, $estado_omitir = null) {
-        
-        $salida=array();
+
+        $salida = array();
         $query = "SELECT
-				    formulario.*,
-				    formulariotesoreria.concepto,
-				    formulariotesoreria.fechavenc,
-				    formulariotesoreria.importe,
-				    person.lname,
-				    person.fname,
-				    perdoc.typdoc,
-				    perdoc.docno,
-				    facu.sdesc,
-				    career.descrip,
-				    (SELECT person.lname || ' ' || person.fname FROM appgral.person WHERE person = formulario.person ) creador
-				FROM
-				    formulario
-				    JOIN appgral.person ON person.person = formulario.student
-				    JOIN appgral.perdoc ON person.person = perdoc.person
-				    JOIN studentc.facu ON formulario.fa = facu.code
-				    FULL JOIN formulariotesoreria ON formulario.id = formulariotesoreria.idformulario
-				    JOIN studentc.career ON formulario.fa || LPAD( formulario.ca, 2, '0' ) = career.code
-				WHERE
-				    formulario.student = :student";
+                formulario.*,
+                formulariotesoreria.concepto,
+                formulariotesoreria.fechavenc,
+                formulariotesoreria.importe,
+                person.lname,
+                person.fname,
+                perdoc.typdoc,
+                perdoc.docno,
+                facu.sdesc,
+                career.descrip,
+                (SELECT person.lname || ' ' || person.fname FROM appgral.person WHERE person = formulario.person ) creador
+            FROM
+                formulario
+                JOIN appgral.person ON person.person = formulario.student
+                JOIN appgral.perdoc ON person.person = perdoc.person
+                JOIN studentc.facu ON formulario.fa = facu.code
+                FULL JOIN formulariotesoreria ON formulario.id = formulariotesoreria.idformulario
+                JOIN studentc.career ON formulario.fa || LPAD( formulario.ca, 2, '0' ) = career.code
+            WHERE
+                formulario.student = :student";
 
         $parametros = array();
         $parametros[] = $STUDENT;
@@ -449,7 +455,7 @@ class Formularios
 
         $form = $this->db->fetch_array($result);
 
-        $form['materias'] = $this->get_materias($form['ID']);
+        $form['materias'] = $this->get_materias($form[0]);
 
         if (!$form['IDDERECHOVARIO']) {
 
@@ -475,77 +481,73 @@ class Formularios
         return ($form);
     }
 
-       
-	/**
-	 *
-	 * Obtiene  y retorna el nombre del formulario segun su tipo
-	 *
-	 * @param int $tipo -->tipo de formulario
-	 * @return array
-	 *
-	 */
-	public function obtenerNombreForm($tipo){
-            
+    /**
+     *
+     * Obtiene  y retorna el nombre del formulario segun su tipo
+     *
+     * @param int $tipo -->tipo de formulario
+     * @return array
+     *
+     */
+    public function obtenerNombreForm($tipo) {
+
         /* Obtengo el nombre del form basado en la tabla interfaz.tipo_alumno */
         $parametros = array(
             $tipo
         );
-        
+
         //De 0 a 50 van los derechos varios
-                if($tipo > '0' && $tipo <= '50'){
+        if ($tipo > '0' && $tipo <= '50') {
 
-                    $query = "SELECT DESCRIPCION FROM CAJADERECHOSVARIOS WHERE IDDERECHOSVARIOS = :tipo";
+            $query = "SELECT DESCRIPCION FROM CAJADERECHOSVARIOS WHERE IDDERECHOSVARIOS = :tipo";
+        } else if ($tipo > '100' && $tipo <= '200') {
+            //Este tipo de form no esta cargado en ninguna tabla por eso no necesita query
+            $query = "";
 
-                }else if($tipo > '100' && $tipo <= '200'){
-                   //Este tipo de form no esta cargado en ninguna tabla por eso no necesita query
-                   $query = "";
+            switch ($tipo) {
 
-                    switch ($tipo){
+                case 110 :
+                    $nombre = 'Formulario de solicitud de programa';
 
-                      case 110 :
-                          $nombre = 'Formulario de solicitud de programa';
+                    break;
+                case 111 :
+                    $nombre = 'Formulario certificado parcial con notas (5 materias)';
 
-                          break;
-                      case 111 :
-                          $nombre = 'Formulario certificado parcial con notas (5 materias)';
+                    break;
+                case 112 :
+                    $nombre = 'Formulario certificado parcial con notas (10 materias)';
 
-                          break;
-                      case 112 :
-                          $nombre = 'Formulario certificado parcial con notas (10 materias)';
+                    break;
+                case 113 :
+                    $nombre = 'Formulario certificado de equivalencias';
 
-                          break;
-                      case 113 :
-                          $nombre = 'Formulario certificado de equivalencias';
+                    break;
 
-                          break;
+                default :
 
-                      default :
+                    break;
+            }
 
-                          break;
-                   }
+            $nombre_form = $nombre;
+        } else {
 
-                     $nombre_form=$nombre;
+            $query = "select DESCRIPCION from interfaz.tipo_alumno where TIPO_ALUMNO = LPAD(:tipo, 2, '0')";
+        }
 
-                }else{
+        if ($query != "") {
 
-                    $query = "select DESCRIPCION from interfaz.tipo_alumno where TIPO_ALUMNO = LPAD(:tipo, 2, '0')";
-                }
+            $result = $this->db->query($query, true, $parametros);
 
-               if($query != ""){
+            if ($result) {
 
-                   $result = $this->db->query ($query, true, $parametros);
+                $arr_asoc = $this->db->fetch_array($result);
 
-                   if ($result){                            
+                $nombre_form = $arr_asoc['DESCRIPCION'];
+            }
+        }
 
-                       $arr_asoc = $this->db->fetch_array ($result);
-
-                      $nombre_form=$arr_asoc['DESCRIPCION'];
-                   }
-               }
-               
-               return $nombre_form;
-	}
-        
+        return $nombre_form;
+    }
 
     /**
      *
@@ -585,7 +587,11 @@ class Formularios
                         $min = date("Y") - 5;
                         $max = date("Y") + 5;
 
-                        $template .= '<input type="hidden" value="01" name="tipoform">' . '<label><b>Cursar&aacute; regularmente durante el a&ntilde;o:</b>' . '<input type="number" value="' . date("Y") . '" name="anio_cursa" id="anio_cursa" class="fecha" ' . 'min="' . $min . '" max="' . $max . '" >' . '<label for="anio_cursa_error" id="anio_cursa_error" ></label>';
+                        $template .= '<input type="hidden" value="01" name="tipoform">' . '<label><b>Cursar&aacute; regularmente durante el a&ntilde;o:</b>'
+                                . '<input type="number" value="'
+                                . date("Y") . '" name="anio_cursa" id="anio_cursa" class="fecha" '
+                                . 'min="' . $min . '" max="' . $max . '" >'
+                                . '<label for="anio_cursa_error" id="anio_cursa_error" ></label>';
 
                         break;
 
@@ -629,83 +635,82 @@ class Formularios
 
                         break;
 
-					// FROM GENERICO QUE PUEDE CREAR TESORERIA
-					case '58' :
-                                            
-                                            $derechos_varios=new DerechosVarios($this->db);
-                                            $todosdervarios=$derechos_varios->getAll();
-                                            
-                                            $template .= '<input type="hidden" value="58" name="tipoform">' 
-                                                . '<label>Concepto</label><br/>' 
-                                                . '<select name="concepto" id="concepto" >';
-                                                 
-                                            foreach ($todosdervarios as $row){
-                                                 $template.="<option value=".$row['IDDERECHOSVARIOS'].">".$row['IDDERECHOSVARIOS']." - ".$row['DESCRIPCION']."  </option>";
-                                            }
-                
-						/*$template .= '<input type="hidden" value="58" name="tipoform">' 
-                                                . '<label>Concepto</label><br/>' 
-                                                . '<select name="concepto" id="concepto" >' 
-                                                . '<option value="05">05 - Arancel a&ntilde;o ant.  </option>' 
-                                                . '<option value="05">05 - Transporte a&ntilde;o ant</option>' 
-                                                . '<option value="02">02 - Arancel           </option>' 
-                                                . '<option value="02">02 - Curso de verano   </option>' 
-                                                . '<option value="02">02 - Transporte        </option>' 
-                                                . '<option value="02">02 - Practicas         </option>' 
-                                                . '<option value="09">09 - Matricula a&ntilde;o ant.</option>' 
-                                                . '<option value="01">01 - Matricula         </option>' 
-                                                . '<option value="03">03 - Total matricula   </option>' 
-                                                . '<option value="04">04 - Cuota plan        </option>' 
-                                                . '<option value="04">04 - Moratoria arancel </option>' 
-                                                . '<option value="06">06 - A.cuenta          </option>' 
-                                                . '<option value="07">07 - Plan pago a&ntilde;o ant.</option>' 
-                                                . '<option value="07">07 - Morat.ant.aran.   </option>' 
-                                                . '<option value="08">08 - Cuota plan. matr. </option>' 
-                                                . '<option value="08">08 - Morat. matricula  </option>' 
-                                                . '<option value="89">89 - Cta.pla.ma.egre   </option>' 
-                                                . '<option value="68">68 - Cta.pl.mat.egr.ant</option>' 
-                                                . '<option value="63">63 - Mat.nuevo a&ntilde;o     </option>' 
-                                                . '<option value="32">32 - Cuot.adic.inter   </option>' 
-                                                . '<option value="67">67 - Dev.prestamo      </option>' 
-                                                . '<option value="68">68 - Plan.matr.ant.    </option>' 
-                                                . '<option value="68">68 - Morat.ant.matr.   </option>' 
-                                                . '<option value="91">91 - Curso ingreso     </option>' 
-                                                . '<option value="80">80 - Curso de ingles   </option>' 
-                                                . '<option value="81">81 - Curso ingles p.t. </option>' 
-                                                . '<option value="92">92 - Cuota ingreso     </option>' 
-                                                . '<option value="90">90 - Matr. a egresar   </option>' 
-                                                . '<option value="97">97 - Comision cheques  </option>' 
-                                                . '<option value="98">98 - Pago en sede      </option>' 
-                                                . '<option value="61">61 - Anticipo mutuos   </option>' 
-                                                . '<option value="62">62 - Mutuo serie a     </option>' 
-                                                . '<option value="64">64 - Mutuo serie b     </option>' 
-                                                . '<option value="66">66 - Mutuo serie 1     </option>' 
-                                                . '<option value="60">60 - Interes claus.4?  </option>' 
-                                                . '<option value="65">65 - Actualizacion     </option>' 
-                                                . '<option value="40">40 - Mutuo serie c     </option>' 
-                                                . '<option value="41">41 - Anticip.mutuo c   </option>' 
-                                                . '<option value="42">42 - Cuo.mat.prox. a&ntilde;o </option>' 
-                                                . '<option value="43">43 - Arancel prox. a&ntilde;o </option>' 
-                                                . '<option value="44">44 - Devoluc.mutuos 1  </option>' 
-                                                . '<option value="36">36 - Alojamiento       </option>' 
-                                                . '<option value="35">35 - Derecho especif.  </option>' 
-                                                . '<option value="45">45 - Cursos extraordin.</option>' 
-                                                . '<option value="39">39 - Materia           </option>' 
-                                                . '</select>' */
-                                                
-                                                $template.= '</select><label for"importe">Importe</label>' 
-                                                
-                                                . '<input type="number" name="importe" step="0.01"/><br/>' 
-                                                . '<label for="importe_error" id="importe_error" ></label>' 
-                                                . '<label for"importeFT">Fuera de t&eacute;rmino</label>' 
-                                                . '<input type="number" name="importeFT" step="0.01" value=0/><br/>' 
-                                                . '<label for"importeR">Recargo</label>' 
-                                                . '<input type="number" name="importeR" step="0.01" id="importeR" value=0/><br/>' 
-                                                . '<label for="importeR_error" id="importeR_error" ></label>' 
-                                                . '<label>Fecha de vencimiento</label><br/>'
-                                                . '<input type="date" style="width: 100% !important;" value="' . date ("Y-m-d") . '" name="fecha_1" id="fecha_1" class="valid fecha" aria-invalid="true">'
-                                                . '<label for="fecha_1_error" id="fecha_1_error" ></label>'
-                                                . '<br/>';
+                    // FROM GENERICO QUE PUEDE CREAR TESORERIA
+                    case '58' :
+
+                        $derechos_varios = new DerechosVarios($this->db);
+                        $todosdervarios = $derechos_varios->getAll();
+
+                        $template .= '<input type="hidden" value="58" name="tipoform">'
+                                . '<label>Concepto</label><br/>'
+                                . '<select name="concepto" id="concepto" >';
+
+                        foreach ($todosdervarios as $row) {
+                            $template.="<option value=" . $row['IDDERECHOSVARIOS'] . ">" . $row['IDDERECHOSVARIOS'] . " - " . $row['DESCRIPCION'] . "  </option>";
+                        }
+
+                        /* $template .= '<input type="hidden" value="58" name="tipoform">' 
+                          . '<label>Concepto</label><br/>'
+                          . '<select name="concepto" id="concepto" >'
+                          . '<option value="05">05 - Arancel a&ntilde;o ant.  </option>'
+                          . '<option value="05">05 - Transporte a&ntilde;o ant</option>'
+                          . '<option value="02">02 - Arancel           </option>'
+                          . '<option value="02">02 - Curso de verano   </option>'
+                          . '<option value="02">02 - Transporte        </option>'
+                          . '<option value="02">02 - Practicas         </option>'
+                          . '<option value="09">09 - Matricula a&ntilde;o ant.</option>'
+                          . '<option value="01">01 - Matricula         </option>'
+                          . '<option value="03">03 - Total matricula   </option>'
+                          . '<option value="04">04 - Cuota plan        </option>'
+                          . '<option value="04">04 - Moratoria arancel </option>'
+                          . '<option value="06">06 - A.cuenta          </option>'
+                          . '<option value="07">07 - Plan pago a&ntilde;o ant.</option>'
+                          . '<option value="07">07 - Morat.ant.aran.   </option>'
+                          . '<option value="08">08 - Cuota plan. matr. </option>'
+                          . '<option value="08">08 - Morat. matricula  </option>'
+                          . '<option value="89">89 - Cta.pla.ma.egre   </option>'
+                          . '<option value="68">68 - Cta.pl.mat.egr.ant</option>'
+                          . '<option value="63">63 - Mat.nuevo a&ntilde;o     </option>'
+                          . '<option value="32">32 - Cuot.adic.inter   </option>'
+                          . '<option value="67">67 - Dev.prestamo      </option>'
+                          . '<option value="68">68 - Plan.matr.ant.    </option>'
+                          . '<option value="68">68 - Morat.ant.matr.   </option>'
+                          . '<option value="91">91 - Curso ingreso     </option>'
+                          . '<option value="80">80 - Curso de ingles   </option>'
+                          . '<option value="81">81 - Curso ingles p.t. </option>'
+                          . '<option value="92">92 - Cuota ingreso     </option>'
+                          . '<option value="90">90 - Matr. a egresar   </option>'
+                          . '<option value="97">97 - Comision cheques  </option>'
+                          . '<option value="98">98 - Pago en sede      </option>'
+                          . '<option value="61">61 - Anticipo mutuos   </option>'
+                          . '<option value="62">62 - Mutuo serie a     </option>'
+                          . '<option value="64">64 - Mutuo serie b     </option>'
+                          . '<option value="66">66 - Mutuo serie 1     </option>'
+                          . '<option value="60">60 - Interes claus.4?  </option>'
+                          . '<option value="65">65 - Actualizacion     </option>'
+                          . '<option value="40">40 - Mutuo serie c     </option>'
+                          . '<option value="41">41 - Anticip.mutuo c   </option>'
+                          . '<option value="42">42 - Cuo.mat.prox. a&ntilde;o </option>'
+                          . '<option value="43">43 - Arancel prox. a&ntilde;o </option>'
+                          . '<option value="44">44 - Devoluc.mutuos 1  </option>'
+                          . '<option value="36">36 - Alojamiento       </option>'
+                          . '<option value="35">35 - Derecho especif.  </option>'
+                          . '<option value="45">45 - Cursos extraordin.</option>'
+                          . '<option value="39">39 - Materia           </option>'
+                          . '</select>' */
+
+                        $template.= '</select><label for"importe">Importe</label>'
+                                . '<input type="number" name="importe" step="0.01"/><br/>'
+                                . '<label for="importe_error" id="importe_error" ></label>'
+                                . '<label for"importeFT">Fuera de t&eacute;rmino</label>'
+                                . '<input type="number" name="importeFT" step="0.01" value=0/><br/>'
+                                . '<label for"importeR">Recargo</label>'
+                                . '<input type="number" name="importeR" step="0.01" id="importeR" value=0/><br/>'
+                                . '<label for="importeR_error" id="importeR_error" ></label>'
+                                . '<label>Fecha de vencimiento</label><br/>'
+                                . '<input type="date" style="width: 100% !important;" value="' . date("Y-m-d") . '" name="fecha_1" id="fecha_1" class="valid fecha" aria-invalid="true">'
+                                . '<label for="fecha_1_error" id="fecha_1_error" ></label>'
+                                . '<br/>';
 
                         break;
 
@@ -866,7 +871,7 @@ class Formularios
 
                         foreach ($materias as $row) {
 
-                            $template .= "<option  id='sel_" . $row["SUBJECT"] . "' value='" . $row["SUBJECT"] . "'> " . $row["SUBJECT"] . " - A&ntilde;o: " . $row["YR"] . " - " . $row["SDESC"] . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
+                            $template .= "<option  id='sel_" . $row["SUBJECT"] . "' value='" . $row["SUBJECT"] . "'> " . $row["SUBJECT"] . " - A&ntilde;o: " . $row["YR"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
                         }
 
                         $template .= "</select>";
@@ -1003,15 +1008,15 @@ class Formularios
      *
      */
     public function get_materias($IDFORMULARIO) {
+
         $salida = array();
 
         $parametros = array(
             $IDFORMULARIO
         );
-       
-        
+
         //De 0 a 50 van los derechos varios
-        if(($IDFORMULARIO > '0' && $IDFORMULARIO <= '50') || $IDFORMULARIO == '58'){
+        //if(($IDFORMULARIO > '0' && $IDFORMULARIO <= '50') || $IDFORMULARIO == '58'){
 
         $query = " select * from FORMULARIOMATERIAS " . "WHERE IDFORMULARIO = :idform order by id desc";
         $fila = '';
@@ -1024,324 +1029,305 @@ class Formularios
         }
 
         return $salida;
-        }
+        //}
     }
 
     function setIdcentrodecosto($faesca) {
 
         $idcentrodecosto = null;
 
-         $parametros = array(
+        $parametros = array(
             $faesca
         );
 
         // seleccino la hora con * por que la libreria de consulta toma las : como parametros
         // luego reemplzao los * por :
-        $query = "select idcentrodecosto from contaduria.centrodecosto where " 
+        $query = "select idcentrodecosto from contaduria.centrodecosto where "
                 . "FAESCA = :faesca";
 
         $result = $this->db->query($query, true, $parametros);
 
-		if (isset ($fila['FECHAGRADUACION']))
-		{
-			$this->setFechaGraduacion ($fila['FECHAGRADUACION']);
-		}
-                
-		if (isset ($fila['fe']))
-		{
-			$this->setNrotramitebpmn ($fila['NROTRAMITEBPMN']);
-		}
-                                         
-		
-                if (isset ($fila['IDTRANSACCION'])){
-                
-                    if ($fila['IDTRANSACCION'] != null ){
-    
-                        $this->set_idtransaccion($fila['IDTRANSACCION']);
-
-            $idcentrodecosto =$fila['IDCENTRODECOSTO'];
-
+        if (isset($fila['FECHAGRADUACION'])) {
+            $this->setFechaGraduacion($fila['FECHAGRADUACION']);
         }
 
-        $this->idcentrodecosto = $idcentrodecosto;
+        if (isset($fila['fe'])) {
+            $this->setNrotramitebpmn($fila['NROTRAMITEBPMN']);
+        }
+
+
+        if (isset($fila['IDTRANSACCION'])) {
+
+            if ($fila['IDTRANSACCION'] != null) {
+
+                $this->set_idtransaccion($fila['IDTRANSACCION']);
+
+                $idcentrodecosto = $fila['IDCENTRODECOSTO'];
+            }
+
+            $this->idcentrodecosto = $idcentrodecosto;
         }
     }
-    
-             /**
-          * saveDataFormMercadoPago guarda datos de una transaccion hecha con mercao pago en la tabla
-          * TABLA :
-          * ID-IDFORM-COLLECTOR_ID-DATECREATED-DATEAPPROVED-OPERATIONTYPE-PAYMENTMETHODID
-          * -ORDERID-ORDERTYPE-PAYERNAME-PAYEREMAIL-FEEMP-FEETYPE-TRANSACTIONAMOUNT-
-          * ET_RECEIVED_AMOUNT-UOTAS_INSTALLMENT_AMOUNT-OTAL_PAID_AMOUNT
-          * 
-          * @param array $datos
-          * @return type
-          */
-	public function saveDataFormMercadoPago($datos){
 
-            // $db = Conexion::openConnection();
-            $datos['ID'] = 'TESORERIA.TRANSACCIONESMERCADOPAGO_SEQ.nextval';
+    /**
+     * saveDataFormMercadoPago guarda datos de una transaccion hecha con mercao pago en la tabla
+     * TABLA :
+     * ID-IDFORM-COLLECTOR_ID-DATECREATED-DATEAPPROVED-OPERATIONTYPE-PAYMENTMETHODID
+     * -ORDERID-ORDERTYPE-PAYERNAME-PAYEREMAIL-FEEMP-FEETYPE-TRANSACTIONAMOUNT-
+     * ET_RECEIVED_AMOUNT-UOTAS_INSTALLMENT_AMOUNT-OTAL_PAID_AMOUNT
+     * 
+     * @param array $datos
+     * @return type
+     */
+    public function saveDataFormMercadoPago($datos) {
 
-           $insercion = $this->db->realizarInsert($datos, 'FORMULARIOMATERIAS');
+        // $db = Conexion::openConnection();
+        $datos['ID'] = 'TESORERIA.TRANSACCIONESMERCADOPAGO_SEQ.nextval';
 
-            return $insercion;
+        $insercion = $this->db->realizarInsert($datos, 'FORMULARIOMATERIAS');
 
-	}
+        return $insercion;
+    }
 
-	/**
-	 *
-	 * loadData
-	 * Carga propiedades del objeta que vienen desde la DB
-	 *
-	 * @param array $fila
-	 *        	return objet form
-	 *
-	 */
-	public function loadData($fila)
-	{
+    /**
+     *
+     * loadData
+     * Carga propiedades del objeta que vienen desde la DB
+     *
+     * @param array $fila
+     *        	return objet form
+     *
+     */
+    public function loadData($fila) {
+
+
+        if (isset($fila['FECHAC'])) {
+            $this->set_fecha_crecion($fila['FECHAC']);
+        }
+
+        if (isset($fila['STUDENT'])) {
+            $this->set_STUDENT($fila['STUDENT']);
+        }
+
+        $this->set_tipo_form($fila['IDTIPOFORM']);
+
+        if (isset($fila['ESTADO'])) {
+            $this->set_estado($fila['ESTADO']);
+        }
+
+        if (isset($fila['PERSON'])) {
+            $this->set_PERSON($fila['PERSON']);
+        }
+
+        if (isset($fila['PERSONAPROBO'])) {
+            $this->set_PERSON_aprobo($fila['PERSONAPROBO']);
+        }
+
+        if (isset($fila['TYPOFORM'])) {
+            $this->set_html_template($this->template_html($fila['TYPOFORM']));
+        }
+
+        if (isset($fila['IDTIPOFORM'])) {
+
+            /* diferenciar el tipo de form , para luego ponerle el nombre */
+            $this->set_nombre_form($this->obtenerNombreForm($fila['IDTIPOFORM']));
+        }
+
+        if (isset($fila['IDESTADO'])) {
+            $this->set_estado($fila['IDESTADO']);
+        }
+
+        if (isset($fila['IDDERECHOVARIO'])) {
+            $this->set_IDDERECHOVARIO($fila['IDDERECHOVARIO']);
+        }
+
+        if (isset($fila['FECHAGRADUACION'])) {
+            $this->setFechaGraduacion($fila['FECHAGRADUACION']);
+        }
+
+        if (isset($fila['fe'])) {
+            $this->setNrotramitebpmn($fila['NROTRAMITEBPMN']);
+        }
+
+        if (isset($fila['cantidad'])) {
+            $this->setCantidad($fila['cantidad']);
+        }
         
-           
-		if (isset ($fila['FECHAC']))
-		{
-			$this->set_fecha_crecion ($fila['FECHAC']);
-		}
+        if (isset($fila['nroform'])) {
+            $this->setCantidad($fila['nroform']);
+        }
 
-		if (isset ($fila['STUDENT']))
-		{
-			$this->set_STUDENT ($fila['STUDENT']);
-		}
 
-		$this->set_tipo_form ($fila['IDTIPOFORM']);
+        if (isset($fila['IDTRANSACCION'])) {
 
-		if (isset ($fila['ESTADO']))
-		{
-			$this->set_estado ($fila['ESTADO']);
-		}
+            if ($fila['IDTRANSACCION'] != null) {
 
-		if (isset ($fila['PERSON']))
-		{
-			$this->set_PERSON ($fila['PERSON']);
-		}
+                $this->set_idtransaccion($fila['IDTRANSACCION']);
 
-		if (isset ($fila['PERSONAPROBO']))
-		{
-			$this->set_PERSON_aprobo ($fila['PERSONAPROBO']);
-		}
+                $this->set_transaccion(new Transacciones($this->db, $fila['IDTRANSACCION']));
+            }
+        }
+    }
 
-		if (isset ($fila['TYPOFORM']))
-		{
-			$this->set_html_template ($this->template_html ($fila['TYPOFORM']));
-		}
+    /**
+     * *******SETERS*********
+     */
+    function set_id($id) {
+        $this->id = $id;
+    }
 
-		if (isset ($fila['IDTIPOFORM']))
-		{
-                   
-                     /*diferenciar el tipo de form , para luego ponerle el nombre*/
-                    $this->set_nombre_form($this->obtenerNombreForm($fila['IDTIPOFORM']));
-                    
-		}
+    function set_transaccion($transaccion) {
+        $this->transaccion = $transaccion;
+    }
 
-		if (isset ($fila['IDESTADO']))
-		{
-			$this->set_estado ($fila['IDESTADO']);
-		}
+    function set_fecha_crecion($fecha) {
+        $this->fecha_crecion = $fecha;
+    }
 
-		if (isset ($fila['IDDERECHOVARIO']))
-		{
-			$this->set_IDDERECHOVARIO ($fila['IDDERECHOVARIO']);
-		}
+    function set_idtransaccion($idtransaccion) {
+        $this->idtransaccion = $idtransaccion;
+    }
 
-		if (isset ($fila['FECHAGRADUACION']))
-		{
-			$this->setFechaGraduacion ($fila['FECHAGRADUACION']);
-		}
-                
-		if (isset ($fila['fe']))
-		{
-			$this->setNrotramitebpmn ($fila['NROTRAMITEBPMN']);
-		}
-                                         
-		
-                if (isset ($fila['IDTRANSACCION'])){
-                
-                    if ($fila['IDTRANSACCION'] != null ){
-    
-                        $this->set_idtransaccion($fila['IDTRANSACCION']);
+    function set_STUDENT($STUDENT) {
+        $this->STUDENT = $STUDENT;
+    }
 
-                        $this->set_transaccion(new Transacciones($this->db , $fila['IDTRANSACCION'] ));
-                    }                    
-		}
-        
-	}
+    function set_tipo_form($tipo_form) {
+        $this->tipo_form = $tipo_form;
+    }
 
-	/**
-	 * *******SETERS*********
-	 */
-	function set_id($id)
-	{
-		$this->id = $id;
-	}
+    function set_estado($estado) {
+        $this->estado = $estado;
+    }
 
-	function set_transaccion($transaccion)
-	{
-		$this->transaccion = $transaccion;
-	}
-	
-	function set_fecha_crecion($fecha)
-	{
-		$this->fecha_crecion = $fecha;
-	}
-        
-	function set_idtransaccion($idtransaccion)
-	{
-		$this->idtransaccion = $idtransaccion;
-	}
+    function set_person($person) {
+        $this->person = $person;
+    }
 
-	function set_STUDENT($STUDENT)
-	{
-		$this->STUDENT = $STUDENT;
-	}
+    function set_person_aprobo($person_aprobo) {
+        $this->person_aprobo = $person_aprobo;
+    }
 
-	function set_tipo_form($tipo_form)
-	{
-		$this->tipo_form = $tipo_form;
-	}
+    function set_html_template($html_template) {
+        $this->html_template = $html_template;
+    }
 
-	function set_estado($estado)
-	{
-		$this->estado = $estado;
-	}
+    function set_nombre_form($nombre_form) {
+        $this->nombre_form = $nombre_form;
+    }
 
-	function set_person($person)
-	{
-		$this->person = $person;
-	}
+    function set_IDDERECHOVARIO($IDDERECHOVARIO) {
+        $this->IDDERECHOVARIO = $IDDERECHOVARIO;
+    }
 
-	function set_person_aprobo($person_aprobo)
-	{
-		$this->person_aprobo = $person_aprobo;
-	}
+    /**
+     *
+     * @param
+     *        	mixed a cargar en la variable nrotramitebpmn
+     */
+    public function setNrotramitebpmn($Nrotramitebpmn) {
+        $this->nrotramitebpmn = $Nrotramitebpmn;
+    }
 
-	function set_html_template($html_template)
-	{
-		$this->html_template = $html_template;
-	}
+    /**
+     *
+     * @param
+     *        	mixed a cargar en la variable fechagraduacion
+     */
+    public function setFechaGraduacion($fechagraduacion) {
+        $this->fechagraduacion = $fechagraduacion;
+    }
 
-	function set_nombre_form($nombre_form){
-		$this->nombre_form = $nombre_form;
-	}
+    function setCantidad($cantidad) {
+        $this->cantidad = $cantidad;
+    }
 
-	function set_IDDERECHOVARIO($IDDERECHOVARIO)
-	{
-		$this->IDDERECHOVARIO = $IDDERECHOVARIO;
-	}
+    function setNroform($nroform) {
+        $this->nroform = $nroform;
+    }
 
-	/**
-	 *
-	 * @param
-	 *        	mixed a cargar en la variable nrotramitebpmn
-	 */
-	public function setNrotramitebpmn($Nrotramitebpmn)
-	{
-		$this->nrotramitebpmn = $Nrotramitebpmn;
-	}
-	/**
-	 *
-	 * @param
-	 *        	mixed a cargar en la variable fechagraduacion
-	 */
-	public function setFechaGraduacion($fechagraduacion)
-	{
-		$this->fechagraduacion = $fechagraduacion;
-	}
+    /**
+     * ******GETTERS*******
+     */
 
-	/**
-	* ******GETTERS*******
-	*/
+    /**
+     *
+     * @return mixed el dato de la variable id
+     */
+    public function getId() {
+        return $this->id;
+    }
 
-	/**
-	 *
-	 * @return mixed el dato de la variable id
-	 */
-	public function getId()
-	{
-		return $this->id;
-	}
-        
-        
-	/**
-	 *
-	 * @return mixed el dato de la variable id
-	 */
-	public function getTransaccion()
-	{
-		return $this->transaccion;
-	}
-	/**
-	 *
-	 * @return mixed el dato de la variable nrotramitebpmn
-	 */
-	public function getNrotramitebpmn()
-	{
-		return $this->nrotramitebpmn;
-	}
-        
-	/**
-	 *
-	 * @return mixed el dato de la variable transaccion
-	 */
-	public function getidTransac()
-	{
-		return $this->idtransaccion;
-	}
+    /**
+     *
+     * @return mixed el dato de la variable id
+     */
+    public function getTransaccion() {
+        return $this->transaccion;
+    }
 
-	function get_idderechovario()
-	{
-		return $this->IDDERECHOVARIO;
-	}
+    /**
+     *
+     * @return mixed el dato de la variable nrotramitebpmn
+     */
+    public function getNrotramitebpmn() {
+        return $this->nrotramitebpmn;
+    }
 
-	function get_fecha_crecion()
-	{
-		return $this->fecha_crecion;
-	}
+    /**
+     *
+     * @return mixed el dato de la variable transaccion
+     */
+    public function getidTransac() {
+        return $this->idtransaccion;
+    }
 
-	function get_STUDENT()
-	{
-		return $this->STUDENT;
-	}
+    function get_idderechovario() {
+        return $this->IDDERECHOVARIO;
+    }
 
-	function get_tipo_form()
-	{
-		return $this->tipo_form;
-	}
+    function get_fecha_crecion() {
+        return $this->fecha_crecion;
+    }
 
-	function get_estado()
-	{
-		return $this->estado;
-	}
+    function get_STUDENT() {
+        return $this->STUDENT;
+    }
 
-	function getPerson()
-	{
-		return $this->PERSON;
-	}
+    function get_tipo_form() {
+        return $this->tipo_form;
+    }
 
-	function getPerson_aprobo()
-	{
-		return $this->PERSON_aprobo;
-	}
+    function get_estado() {
+        return $this->estado;
+    }
 
-	function get_html_template()
-	{
-		return $this->html_template;
-	}
+    function getPerson() {
+        return $this->PERSON;
+    }
 
-	function get_nombre_form()
-	{
-		return $this->nombre_form;
-	}
-        
-	function getFechaGraduacion()
-	{
-		return $this->fechagraduacion;
-	}
+    function getPerson_aprobo() {
+        return $this->PERSON_aprobo;
+    }
+
+    function get_html_template() {
+        return $this->html_template;
+    }
+
+    function get_nombre_form() {
+        return $this->nombre_form;
+    }
+
+    function getFechaGraduacion() {
+        return $this->fechagraduacion;
+    }
+
+    function getCantidad() {
+        return $this->cantidad;
+    }
+
+    function getNroform() {
+        return $this->nroform;
+    }
+
 }
