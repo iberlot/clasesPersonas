@@ -58,7 +58,7 @@ class TransaccionesMercadopago extends Transacciones {
 
     public function __construct($db = null, $idform = null) {
 
-        parent::__construct($db,$idform);
+        parent::__construct($db, $idform);
 
         if ($idform != null && trim($idform) != '') {
 
@@ -73,30 +73,31 @@ class TransaccionesMercadopago extends Transacciones {
             $this->loadData($this->db->fetch_array($result));
         }
     }
-    
+
     /**
-    * Salva datos en la tabla transacciones
-    * insertTransac
-    *
-    * tabla :
-    * ID- IDFORM   COLLECTOR_ID- DATECREATED- DATEAPPROVED
-    * OPERATIONTYPE    PAYMENTMETHODID    ORDERID    ORDERTYPE    PAYERNAME    PAYEREMAIL
-    * FEEMP    FEETYPE    TRANSACTIONAMOUNT    NET_RECEIVED_AMOUNT    CUOTAS_INSTALLMENT_AMOUNT    TOTAL_PAID_AMOUNT
-    *
-    * @param array $datos
-    * @return bool
-    *
-    */
-    public function insertTransacMercado($datos){
+     * Salva datos en la tabla transacciones
+     * insertTransac
+     *
+     * tabla :
+     * ID- IDFORM   COLLECTOR_ID- DATECREATED- DATEAPPROVED
+     * OPERATIONTYPE    PAYMENTMETHODID    ORDERID    ORDERTYPE    PAYERNAME    PAYEREMAIL
+     * FEEMP    FEETYPE    TRANSACTIONAMOUNT    NET_RECEIVED_AMOUNT    CUOTAS_INSTALLMENT_AMOUNT    TOTAL_PAID_AMOUNT
+     *
+     * @param array $datos
+     * @return bool
+     *
+     */
+    public function insertTransacMercado($datos) {
 
-            // $db = Conexion::openConnection();
+        // $db = Conexion::openConnection();
 
-            $datos['ID'] = 'tesoreria.TRANSACCIONESMERCADOPAGO_SEQ.nextval';
+        $datos['ID'] = 'tesoreria.TRANSACCIONESMERCADOPAGO_SEQ.nextval';
 
-            $insercion = $this->db->realizarInsert ($datos, 'tesoreria.DATATRANSACCIONESMERCADOPAGO');
+        $insercion = $this->db->realizarInsert($datos, 'tesoreria.DATATRANSACCIONESMERCADOPAGO');
 
-            return $insercion;
+        return $insercion;
     }
+
     /**
      * loadData
      * Carga propiedades del objeta que vienen desde la DB
@@ -116,59 +117,59 @@ class TransaccionesMercadopago extends Transacciones {
         }
 
         if (isset($fila['datecreated'])) {
-                    $this->setDatecreated($fila['datecreated']);
+            $this->setDatecreated($fila['datecreated']);
         }
 
         if (isset($fila['dateapproved'])) {
-                    $this->setDateapproved($fila['dateapproved']);
+            $this->setDateapproved($fila['dateapproved']);
         }
 
         if (isset($fila['operationtype'])) {
-                    $this->setOperationtype($fila['operationtype']);
+            $this->setOperationtype($fila['operationtype']);
         }
 
         if (isset($fila['paymentmethodid'])) {
-                    $this->setPaymentmethodid($fila['paymentmethodid']);
+            $this->setPaymentmethodid($fila['paymentmethodid']);
         }
 
         if (isset($fila['orderid'])) {
-                    $this->setOrderid($fila['orderid']);
+            $this->setOrderid($fila['orderid']);
         }
 
         if (isset($fila['ordertype'])) {
-                    $this->setOrdertype($fila['ordertype']);
+            $this->setOrdertype($fila['ordertype']);
         }
 
         if (isset($fila['payername'])) {
-                    $this->setPayername($fila['payername']);
+            $this->setPayername($fila['payername']);
         }
 
         if (isset($fila['payeremail'])) {
-                    $this->setPayeremail($fila['payeremail']);
+            $this->setPayeremail($fila['payeremail']);
         }
 
         if (isset($fila['feemp'])) {
-                    $this->setFeemp($fila['feemp']);
+            $this->setFeemp($fila['feemp']);
         }
 
         if (isset($fila['feetype'])) {
-                    $this->setFeetype($fila['feetype']);
+            $this->setFeetype($fila['feetype']);
         }
 
         if (isset($fila['transactionamount'])) {
-                    $this->setTransactionamount($fila['transactionamount']);
+            $this->setTransactionamount($fila['transactionamount']);
         }
 
         if (isset($fila['net_received_amount'])) {
-                    $this->setNet_received_amount($fila['net_received_amount']);
+            $this->setNet_received_amount($fila['net_received_amount']);
         }
 
         if (isset($fila['cuotas_installment_amount'])) {
-                    $this->setCuotas_installment_amount($fila['cuotas_installment_amount']);
+            $this->setCuotas_installment_amount($fila['cuotas_installment_amount']);
         }
 
         if (isset($fila['total_paid_amount'])) {
-                    $this->setTotal_paid_amount($fila['total_paid_amount']);
+            $this->setTotal_paid_amount($fila['total_paid_amount']);
         }
     }
 

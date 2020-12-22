@@ -43,11 +43,17 @@ class Formularios {
     protected $ca;
     protected $cantidad;
     protected $nroform;
+    protected $cantidadmaterias;
+    protected $importe;
+    protected $plan;
+    protected $titulo;
 
     public function __construct($db, $tipo = null, $id = null) {
+
         $this->db = $db;
+
         // Si no hay id o y si tipo devolvemos el html del form
-        if ($tipo != null && $tipo != '' && $id == null && $id == '') {
+        if ($tipo != null && $tipo != "" && $id == null && $id == "") {
 
             $this->set_tipo_form($tipo);
 
@@ -57,30 +63,31 @@ class Formularios {
         }
 
         // Si tipo es null pero id no , devolvemos los datos del form
-        if (($tipo == null || $tipo == '') && ($id != null || $id != '')) {
+        if (($tipo == null || $tipo == "") && ($id != "" && $id != NULL)) {                                      
 
-            $this->set_id($id);
-            $parametros = array(
-                $id
-            );
+                    $this->set_id($id);
 
-            $query = "  select FORMULARIO.* ,
-                        TRANSACCIONES.idtransaccion,
-                        tipo_alumno.DESCRIPCION
+                    $parametros = array(
+                        $id
+                    );
+
+                    $query = "  select FORMULARIO.* 
                         FROM FORMULARIO
-                        JOIN interfaz.tipo_alumno ON
+                        LEFT JOIN interfaz.tipo_alumno ON
                         FORMULARIO.IDTIPOFORM = tipo_alumno.TIPO_ALUMNO
                         LEFT JOIN TRANSACCIONES ON
                         FORMULARIO.ID = TRANSACCIONES.IDFORMULARIO
                         WHERE FORMULARIO.id = :id ";
 
-            $result = $this->db->query($query, true, $parametros);
+                    $result = $this->db->query($query, true, $parametros);
 
-            if ($result) {
+                    if ($result) {
 
-                $arr_asoc = $db->fetch_array($result);
-
-                $this->loadData($arr_asoc);
+                        $arr_asoc = $db->fetch_array($result);
+                        // var_dump($arr_asoc);
+                        $this->loadData($arr_asoc);
+                    
+                
             }
         }
     }
@@ -105,29 +112,35 @@ class Formularios {
 
         // $db = Conexion::openConnection();
         $datos['ID'] = 'TESORERIA.FORMULARIO_SEQ.nextval';
-        
-        if(!isset($datos['NROFORM'])){
-            
-        $datos['NROFORMULARIO'] = 'TESORERIA.NROFORMULARIO_SEQ.nextval';
-                
-        }
 
+        /* if (!isset($datos['NROFORM'])) {
+
+          $datos['NROFORMULARIO'] = 'TESORERIA.NROFORMULARIO_SEQ.nextval';
+          }
+         */
         // $insercion = $this->db->realizarInsert ($datos, 'FORMULARIO');
         $this->db->realizarInsert($datos, 'FORMULARIO');
 
         $id_insertado = $this->db->insert_id('ID', 'FORMULARIO');
 
+
         if ($id_insertado) {
+
+            /* SI ES FORM QEU LLEVA EXPEDIENTE ASOCIAMOS EXPEDIENTE AL FORM */
+            if ($datos['IDTIPOFORM'] == 113) {
+
+                $this->asociarFormExpediente($id_insertado, $datos['STUDENT'], $datos['PERSON']);
+            }
 
             $tabla = 'FORMULARIOHIST';
 
-            $data_historial                 = array();
-            $data_historial['ID']           = 'TESORERIA.FORMULARIOHIST_SEQ.nextval';
+            $data_historial = array();
+            $data_historial['ID'] = 'TESORERIA.FORMULARIOHIST_SEQ.nextval';
             $data_historial['IDFORMULARIO'] = $id_insertado;
-            $data_historial['FECHAM']       = "SYSDATE";
-            $data_historial['IDESTADO']     = $datos['IDESTADO'];
-            $data_historial['COMENTARIO']   = $datos['COMENTARIO'];
-            $data_historial['PERSON']       = $datos['PERSON'];
+            $data_historial['FECHAM'] = "SYSDATE";
+            $data_historial['IDESTADO'] = $datos['IDESTADO'];
+            $data_historial['COMENTARIO'] = $datos['COMENTARIO'];
+            $data_historial['PERSON'] = $datos['PERSON'];
 
             $this->insertHistory($data_historial, $tabla);
         }
@@ -169,9 +182,16 @@ class Formularios {
      * @return BOOL
      */
     public function saveMateriasForm($datos) {
-        $datos['IDFORMULARIO'] = $this->db->insert_id('ID', 'FORMULARIO');
 
-        $insercion = $this->db->realizarInsert($datos, 'FORMULARIOMATERIAS');
+        $m = explode(',', $datos['SUBJECT2']);
+
+        foreach ($m as $row) {
+
+            $datos['IDFORMULARIO'] = $this->db->insert_id('ID', 'FORMULARIO');
+            $datos['SUBJECT2'] = $row;
+
+            $insercion = $this->db->realizarInsert($datos, 'FORMULARIOMATERIAS');
+        }
 
         return $insercion;
     }
@@ -214,8 +234,14 @@ class Formularios {
                 $data_historial['IDESTADO'] = $data_update['IDESTADO'];
             }
 
-            if (isset($data_update['COMENTARIO'])) {
+            if ($data_update['COMENTARIO'] != "") {
                 $data_historial['COMENTARIO'] = $data_update['COMENTARIO'];
+            }else{
+                
+                if($data_update['IDESTADO'] == 2){
+                    $data_historial['COMENTARIO'] = "Formulario enviando a cobranza";
+                }
+                
             }
 
             $data_historial['PERSON'] = Session::get('person');
@@ -223,6 +249,7 @@ class Formularios {
             try {
 
                 $this->insertHistory($data_historial, $tabla);
+                
             } catch (Exception $e) {
 
                 echo 'Excepci&oacute;n capturada: ', $e->getMessage(), "\n";
@@ -238,80 +265,42 @@ class Formularios {
      * @return array con datos de los forms
      */
     public function getFormByUnidad($unidades, $estado_omitir = null) {
-        $query = "SELECT
-		    formulario.*,
-                    LPAD( formulario.FA, 2, '0' ) FA,
-                    LPAD( formulario.ES, 2, '0' ) ES,
-		    LPAD( formulario.CA, 2, '0' ) CA,
-		    formulariotesoreria.concepto,
-		    formulariotesoreria.fechavenc,
-		    formulariotesoreria.importe,
-		    person.lname,
-		    person.fname,
-		    perdoc.typdoc,
-		    perdoc.docno,
-		    facu.sdesc,
-		    career.descrip,
-		    career.CODE,
-                    branch.descrip AS SEDE,
-                    centrodecosto.idcentrodecosto,
-		    (
-		        SELECT
-		            person.lname
-		             || ' '
-		             || person.fname
-		        FROM
-		            appgral.person
-		        WHERE
-		            person = formulario.person
-		    ) creador
-		FROM
-		    formulario
-		    JOIN appgral.person ON person.person = formulario.student
-		    JOIN appgral.perdoc ON person.person = perdoc.person
-		    JOIN studentc.facu ON formulario.fa = facu.code
-                    JOIN studentc.BRANCH ON formulario.ES = BRANCH.code
-                    JOIN contaduria.centrodecosto ON formulario.fa=centrodecosto.fa AND formulario.ca = centrodecosto.ca and centrodecosto.es = formulario.ES
-		    FULL JOIN formulariotesoreria ON formulario.id = formulariotesoreria.idformulario
-		    JOIN studentc.career ON formulario.fa || lpad(
-		        formulario.ca,
-		        2,
-		        '0'
-		    ) = career.code
-		WHERE
-		    1 = 1";
-        /*
-         * $query = "SELECT
-         * formulario.*,
-         * person.lname,
-         * person.fname,
-         * perdoc.typdoc,
-         * perdoc.docno,
-         * facu.sdesc,
-         * career.descrip,
-         * (
-         * SELECT
-         * person.lname
-         * || ' '
-         * || person.fname
-         * FROM
-         * appgral.person
-         * WHERE
-         * person = formulario.person
-         * ) creador
-         * FROM
-         * formulario
-         * JOIN appgral.person ON person.person = formulario.student
-         * JOIN appgral.perdoc ON person.person = perdoc.person
-         * JOIN studentc.facu ON formulario.fa = facu.code
-         * JOIN studentc.career ON formulario.fa || lpad(
-         * formulario.ca,
-         * 2,
-         * '0'
-         * ) = career.code
-         * WHERE
-         * 1 = 1";
-         */
+
+        $query = "                    
+                SELECT
+                formulario.*,formulario.IDDERECHOVARIO,
+                formulario.importe importeform12,
+                lpad( formulario.fa, 2, '0' ) fa,
+                lpad( formulario.es, 2, '0' ) es,
+                lpad( formulario.ca, 2, '0' ) ca,
+                formulariotesoreria.concepto,
+                formulariotesoreria.fechavenc,
+                formulariotesoreria.importe,
+                person.lname,
+                person.fname,
+                perdoc.typdoc,
+                perdoc.docno,
+                facu.sdesc,
+                career.descrip,
+                (SELECT count(count(subject1)) FROM tesoreria.formulariomaterias WHERE idformulario = formulario.id GROUP BY subject1) cantidadmaterias,
+                career.code,
+                branch.descrip AS sede,
+                centrodecosto.idcentrodecosto,
+                (SELECT person.lname || ' ' || person.fname FROM appgral.person WHERE person = formulario.person) creador
+                FROM
+                formulario
+                JOIN appgral.person ON person.person = formulario.student
+                JOIN appgral.perdoc ON person.person = perdoc.person
+                JOIN studentc.facu ON formulario.fa = facu.code
+                JOIN studentc.branch ON formulario.es = branch.code
+                JOIN contaduria.centrodecosto ON lpad(to_char(formulario.fa),2,'0') = centrodecosto.fa 
+                AND lpad(to_char(formulario.ca),2,'0') =  centrodecosto.ca
+                AND lpad(to_char(formulario.es),2,'0')  =  centrodecosto.es
+                FULL JOIN formulariotesoreria ON formulario.id = formulariotesoreria.idformulario
+                JOIN studentc.career ON lpad(to_char(formulario.fa),2,'0') || lpad(to_char(formulario.ca),2,'0') = career.code
+                WHERE
+		    1 = 1 ";
+
 
         if ($unidades != -1 && $unidades != '') {
             $query .= "AND LPAD(formulario.fa, 2, '0') IN ( $unidades ) ";
@@ -327,9 +316,101 @@ class Formularios {
 
         while ($fila = $this->db->fetch_array($result)) {
 
-            $fila['nombre_form'] = $this->obtenerNombreForm($fila['IDTIPOFORM']);
+            if ($fila['IDTIPOFORM'] == 112) {
+
+                $fila['nombre_form'] = $this->obtenerNombreForm($fila['IDDERECHOVARIO']);
+            } else {
+
+                $fila['nombre_form'] = $this->obtenerNombreForm($fila['IDTIPOFORM']);
+            }
 
             $fila['materias'] = $this->get_materias($fila['ID']);
+
+            //  echo 'idtipoform---->'.$fila['IDTIPOFORM'] ;
+            //  echo 'cantidad materias---->'.$row['CANTIDADMATERIAS'].'<br/>';
+            //$fila['IMPORTEFORM']    =$fila['IMPORTE'];
+
+            $salida[] = $fila;
+        }
+
+        return $salida;
+    }
+
+    /**
+     * Obtiene los formularios por unidad y por id de formulario
+     *
+     *
+     * @param int $unidades
+     * @return array con datos de los forms
+     */
+    public function getFormByUnidadTipoform($unidades, $tipoform ,$estado_omitir = null) {
+
+        $query = "                    
+                SELECT
+                formulario.*,formulario.IDDERECHOVARIO,
+                formulario.importe importeform12,
+                lpad( formulario.fa, 2, '0' ) fa,
+                lpad( formulario.es, 2, '0' ) es,
+                lpad( formulario.ca, 2, '0' ) ca,
+                formulariotesoreria.concepto,
+                formulariotesoreria.fechavenc,
+                formulariotesoreria.importe,
+                person.lname,
+                person.fname,
+                perdoc.typdoc,
+                perdoc.docno,
+                facu.sdesc,
+                career.descrip,
+                (SELECT count(count(subject1)) FROM tesoreria.formulariomaterias WHERE idformulario = formulario.id GROUP BY subject1) cantidadmaterias,
+                career.code,
+                branch.descrip AS sede,
+                centrodecosto.idcentrodecosto,
+                (SELECT person.lname || ' ' || person.fname FROM appgral.person WHERE person = formulario.person) creador
+                FROM
+                formulario
+                JOIN appgral.person ON person.person = formulario.student
+                JOIN appgral.perdoc ON person.person = perdoc.person
+                JOIN studentc.facu ON formulario.fa = facu.code
+                JOIN studentc.branch ON formulario.es = branch.code
+                JOIN contaduria.centrodecosto ON lpad(to_char(formulario.fa),2,'0') = centrodecosto.fa 
+                AND lpad(to_char(formulario.ca),2,'0') =  centrodecosto.ca
+                AND lpad(to_char(formulario.es),2,'0')  =  centrodecosto.es
+                FULL JOIN formulariotesoreria ON formulario.id = formulariotesoreria.idformulario
+                JOIN studentc.career ON lpad(to_char(formulario.fa),2,'0') || lpad(to_char(formulario.ca),2,'0') = career.code
+                WHERE
+		    1 = 1 ";
+
+
+        if ($unidades != -1 && $unidades != '') {
+            $query .= "AND LPAD(formulario.fa, 2, '0') IN ( $unidades ) ";
+        }
+        if ($tipoform != -1 && $tipoform != '') {
+            $query .= "AND IDTIPOFORM IN ( $tipoform ) ";
+        }
+
+        if ($estado_omitir != null) {
+            $query .= " AND idestado != $estado_omitir ";
+        }
+
+        $query .= "ORDER BY formulario.id DESC";
+
+        $result = $this->db->query($query);
+
+        while ($fila = $this->db->fetch_array($result)) {
+
+            if ($fila['IDTIPOFORM'] == 112) {
+
+                $fila['nombre_form'] = $this->obtenerNombreForm($fila['IDDERECHOVARIO']);
+            } else {
+
+                $fila['nombre_form'] = $this->obtenerNombreForm($fila['IDTIPOFORM']);
+            }
+
+            $fila['materias'] = $this->get_materias($fila['ID']);
+
+            //  echo 'idtipoform---->'.$fila['IDTIPOFORM'] ;
+            //  echo 'cantidad materias---->'.$row['CANTIDADMATERIAS'].'<br/>';
+            //$fila['IMPORTEFORM']    =$fila['IMPORTE'];
 
             $salida[] = $fila;
         }
@@ -357,6 +438,13 @@ class Formularios {
                 perdoc.typdoc,
                 perdoc.docno,
                 facu.sdesc,
+                ( SELECT
+		        COUNT(COUNT(SUBJECT1))
+		    FROM
+		        tesoreria.FORMULARIOMATERIAS
+		    WHERE
+		         IDFORMULARIO = formulario.ID GROUP BY  SUBJECT1
+		    ) cantidadmaterias,
                 career.descrip,
                 (SELECT person.lname || ' ' || person.fname FROM appgral.person WHERE person = formulario.person ) creador
             FROM
@@ -365,7 +453,7 @@ class Formularios {
                 JOIN appgral.perdoc ON person.person = perdoc.person
                 JOIN studentc.facu ON formulario.fa = facu.code
                 FULL JOIN formulariotesoreria ON formulario.id = formulariotesoreria.idformulario
-                JOIN studentc.career ON formulario.fa || LPAD( formulario.ca, 2, '0' ) = career.code
+                JOIN studentc.career ON lpad(to_char(formulario.fa),2,'0') || lpad(to_char(formulario.ca),2,'0')= career.code
             WHERE
                 formulario.student = :student";
 
@@ -440,7 +528,8 @@ class Formularios {
 
         // $this->db = Conexion::openConnection();
 
-        $query = " SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO ,
+        $query = " 
+                SELECT FORMULARIO.* ,FORMULARIOTESORERIA.CONCEPTO ,
                 FORMULARIOTESORERIA.FECHAVENC
                 ,FORMULARIOTESORERIA.IMPORTE from FORMULARIO
                 FULL JOIN FORMULARIOTESORERIA ON FORMULARIO.ID = FORMULARIOTESORERIA.IDFORMULARIO
@@ -483,6 +572,98 @@ class Formularios {
 
     /**
      *
+     * En base al tipo de formulario y la cantida dde materias(en caso de ser necesario)
+     * calcula el importe del mismo
+     *
+     * @param int $idconceptoform   -->id concepto (nreo de derecho vario o conecpto)
+     * @param int $cantmaterias     -->cantida dde materias del form en caso de ser necesario     
+     * @return valor int
+     *
+     */
+    public function calcular_importe($idconceptoform, $cantmaterias = null) {
+
+        if ($idconceptoform > '0' && $idconceptoform <= '50') {
+
+            $dervario = new DerechosVarios($this->db, $idconceptoform);
+
+            $valor = $dervario->get_importe();
+        }
+
+        $parametros = array();
+
+        if ($idconceptoform == '112') {
+
+            $query = "";
+            $externo10 = 4;
+            $externo5 = 5;
+            $externo1 = 6;
+
+            $valor = 0;
+
+            switch ($cantmaterias) {
+
+                case $cantmaterias <= 5 :
+
+                    $parametros = array(
+                        $externo5
+                    );
+
+                    $query = "select SUM(IMPORTE) VALOR FROM CAJADERECHOSVARIOS WHERE IDDERECHOSVARIOS = :valor5";
+
+                    break;
+
+                case ($cantmaterias >= 6) && ($cantmaterias <= 10) :
+
+                    $parametros = array(
+                        $externo10
+                    );
+
+                    $query = "select SUM(IMPORTE) VALOR FROM CAJADERECHOSVARIOS WHERE IDDERECHOSVARIOS = :valor10";
+
+                    break;
+
+                case ($cantmaterias >= 11) && ($cantmaterias <= 17) :
+                    
+                    $resto=$cantmaterias - 10;
+                    
+                    $parametros = array(
+                        $externo1,
+                        $externo10
+                        
+                    );
+
+                    $query = "SELECT (importe + ( SELECT importe*$resto FROM cajaderechosvarios 
+                            WHERE  idderechosvarios = :externo1)) AS valor  
+                            FROM cajaderechosvarios WHERE idderechosvarios = :externo10";
+
+                    break;
+
+                case ($cantmaterias >= 18) && ($cantmaterias <= 20) :
+
+                    $parametros = array(
+                        $externo10                      
+                    );
+
+                    $query = "select SUM(IMPORTE)*2 VALOR FROM CAJADERECHOSVARIOS WHERE IDDERECHOSVARIOS = :valor10 ";
+
+                    break;
+            }
+
+            $result = $this->db->query($query, true, $parametros);
+
+            $arr_asoc = $this->db->fetch_array($result);
+
+            $valor = $arr_asoc['VALOR'];
+        }
+
+
+
+
+        return $valor;
+    }
+
+    /**
+     *
      * Obtiene  y retorna el nombre del formulario segun su tipo
      *
      * @param int $tipo -->tipo de formulario
@@ -514,10 +695,7 @@ class Formularios {
                     $nombre = 'Formulario certificado parcial con notas (5 materias)';
 
                     break;
-                case 112 :
-                    $nombre = 'Formulario certificado parcial con notas (10 materias)';
 
-                    break;
                 case 113 :
                     $nombre = 'Formulario certificado de equivalencias';
 
@@ -649,55 +827,6 @@ class Formularios {
                             $template.="<option value=" . $row['IDDERECHOSVARIOS'] . ">" . $row['IDDERECHOSVARIOS'] . " - " . $row['DESCRIPCION'] . "  </option>";
                         }
 
-                        /* $template .= '<input type="hidden" value="58" name="tipoform">' 
-                          . '<label>Concepto</label><br/>'
-                          . '<select name="concepto" id="concepto" >'
-                          . '<option value="05">05 - Arancel a&ntilde;o ant.  </option>'
-                          . '<option value="05">05 - Transporte a&ntilde;o ant</option>'
-                          . '<option value="02">02 - Arancel           </option>'
-                          . '<option value="02">02 - Curso de verano   </option>'
-                          . '<option value="02">02 - Transporte        </option>'
-                          . '<option value="02">02 - Practicas         </option>'
-                          . '<option value="09">09 - Matricula a&ntilde;o ant.</option>'
-                          . '<option value="01">01 - Matricula         </option>'
-                          . '<option value="03">03 - Total matricula   </option>'
-                          . '<option value="04">04 - Cuota plan        </option>'
-                          . '<option value="04">04 - Moratoria arancel </option>'
-                          . '<option value="06">06 - A.cuenta          </option>'
-                          . '<option value="07">07 - Plan pago a&ntilde;o ant.</option>'
-                          . '<option value="07">07 - Morat.ant.aran.   </option>'
-                          . '<option value="08">08 - Cuota plan. matr. </option>'
-                          . '<option value="08">08 - Morat. matricula  </option>'
-                          . '<option value="89">89 - Cta.pla.ma.egre   </option>'
-                          . '<option value="68">68 - Cta.pl.mat.egr.ant</option>'
-                          . '<option value="63">63 - Mat.nuevo a&ntilde;o     </option>'
-                          . '<option value="32">32 - Cuot.adic.inter   </option>'
-                          . '<option value="67">67 - Dev.prestamo      </option>'
-                          . '<option value="68">68 - Plan.matr.ant.    </option>'
-                          . '<option value="68">68 - Morat.ant.matr.   </option>'
-                          . '<option value="91">91 - Curso ingreso     </option>'
-                          . '<option value="80">80 - Curso de ingles   </option>'
-                          . '<option value="81">81 - Curso ingles p.t. </option>'
-                          . '<option value="92">92 - Cuota ingreso     </option>'
-                          . '<option value="90">90 - Matr. a egresar   </option>'
-                          . '<option value="97">97 - Comision cheques  </option>'
-                          . '<option value="98">98 - Pago en sede      </option>'
-                          . '<option value="61">61 - Anticipo mutuos   </option>'
-                          . '<option value="62">62 - Mutuo serie a     </option>'
-                          . '<option value="64">64 - Mutuo serie b     </option>'
-                          . '<option value="66">66 - Mutuo serie 1     </option>'
-                          . '<option value="60">60 - Interes claus.4?  </option>'
-                          . '<option value="65">65 - Actualizacion     </option>'
-                          . '<option value="40">40 - Mutuo serie c     </option>'
-                          . '<option value="41">41 - Anticip.mutuo c   </option>'
-                          . '<option value="42">42 - Cuo.mat.prox. a&ntilde;o </option>'
-                          . '<option value="43">43 - Arancel prox. a&ntilde;o </option>'
-                          . '<option value="44">44 - Devoluc.mutuos 1  </option>'
-                          . '<option value="36">36 - Alojamiento       </option>'
-                          . '<option value="35">35 - Derecho especif.  </option>'
-                          . '<option value="45">45 - Cursos extraordin.</option>'
-                          . '<option value="39">39 - Materia           </option>'
-                          . '</select>' */
 
                         $template.= '</select><label for"importe">Importe</label>'
                                 . '<input type="number" name="importe" step="0.01"/><br/>'
@@ -1024,7 +1153,6 @@ class Formularios {
         $result = $this->db->query($query, true, $parametros);
 
         while ($fila = $this->db->fetch_array($result)) {
-
             $salida[] = $fila;
         }
 
@@ -1090,6 +1218,169 @@ class Formularios {
     }
 
     /**
+     * Asocia un formulario a un expediente
+     * Crea el numero de expediente y los asocia en la tabla formularioexpediente
+     * @param int $idform
+     * @return type
+     */
+    public function asociarFormExpediente($idform, $student, $person) {
+
+
+        $qry = "SELECT MAX(NROEXPE) ID
+        FROM EXPEDIENTE.EXPEDIENTE
+        WHERE ANIOEXPE = to_char(sysdate,'YYYY')";
+
+        $result = $this->db->query($qry, false);
+
+        $fila = $this->db->fetch_array($result);
+
+        $maxID = $fila['ID'];
+
+        $nroexpe = $maxID + 1;
+
+        /*         * averiguo el centro de costo del person que carga el expediente     */
+        $sqlUsrs = "Select p.person, p.lname, p.fname ,pd.DOCNO,iaa.faesca FAESCA,
+        (select idcentrodecosto from contaduria.centrodecosto where substr('000000'||faesca,-6) = substr(iaa.faesca,-6)) IDCENTRODECOSTO
+        from appgral.perdoc pd, appgral.person p, interfaz.admacad iaa
+        where pd.person = p.person and pd.docno = iaa.nro_doc and p.person = :person";
+
+        $par = array(
+            $person
+        );
+
+        $result = $this->db->query($sqlUsrs, true, $par);
+
+        $fila_person = $this->db->fetch_array($result);
+
+
+        /* Inserto un expediente */
+        $sql = '';
+        $sql = "INSERT INTO expediente.expediente (
+        IDEXPEDIENTE, ANIOEXPE, NROEXPE, STUDENT,
+        PERSON, IDCENTRODECOSTO, ESTADO, FECHAHORA, 
+        TIPOEXPEDIENTE
+        ) VALUES (
+        expediente.expediente_seq.nextval, to_char(sysdate,'YYYY'), 
+        :nroexpe, :student, :person, :idcentrodecosto, 
+        :estado, sysdate, :tipoexp)";
+
+        $estado     = 1;
+        $tipexpe    = 13;
+
+        $datacertificado = array(
+            $nroexpe,
+            $student,
+            $person,
+            $fila_person['IDCENTRODECOSTO'],
+            $estado,
+            $tipexpe
+        );
+
+        $result_exp = $this->db->query($sql, true, $datacertificado);
+
+        $ubicacion = 1;
+        $idcentrocosto = $fila_person['IDCENTRODECOSTO'];
+
+        if ($result_exp) {
+            $sql = '';
+
+            $sql = "INSERT INTO EXPEDIENTE.UBICACION (IDEXPEDIENTE,IDUBICACION, FECHA, PERSON, IDCENTRODECOSTO)
+                    VALUES (expediente.expediente_seq.currval, :ubicacion, sysdate,:person,:idcentrodecosto)";
+
+            $param_ubicacionexp = array(
+                $ubicacion,
+                $person,
+                $idcentrocosto
+            );
+
+            $result_ubi = $this->db->query($sql, true, $param_ubicacionexp);
+
+            if ($result_ubi) {
+
+                $datos = array();
+
+                $querynroexp = "SELECT expediente.expediente_seq.currval ID FROM dual";
+
+                $result = $this->db->query($querynroexp, false);
+
+                $fila = $this->db->fetch_array($result);
+
+                $nroexpe = $fila['ID'];
+
+                $datos['FORMULARIO'] = $idform;
+                $datos['EXPEDIENTE'] = $nroexpe;
+
+                $insercion = $this->db->realizarInsert($datos, 'expediente.formularioexpediente');
+            }
+        }
+    }
+
+    /**
+     *
+     * loadData
+     * Asocia un formulario con un documento generado para el mismo
+     *
+     * @param int $iddocumento
+     * @param int $llevafirma 1=si / 0=no
+     * @param int $person person que envbia el form
+     * 
+     * return int
+     * 
+     *  FORMULARIO NOT NULL NUMBER(9) 
+     *  DOCUMEN    NOT NULL NUMBER(9) 
+     *  LLEVAFIRMA NOT NULL NUMBER(1) 
+     *  PERSON     NOT NULL NUMBER(9) 
+     *  FECHAIMPRE          DATE      
+     *  STUDENT    NOT NULL NUMBER(9) 
+     */
+    public function saveDocumentoSolitram($iddocumento, $person ,$llevafirma=1) {
+        
+        $querie="insert into documento.solitram "
+                . "(FORMULARIO , DOCUMEN , LLEVAFIRMA , PERSON  , STUDENT ) VALUES("
+                . ":formulario , :documen , :llevafirma , :person ,  :student) ";
+        
+        $params = array(
+            $this->getId(),
+            $iddocumento,
+            $llevafirma,
+            $person,
+            $this->get_STUDENT()
+            
+        );
+        
+        $result = $this->db->query($querie, true, $params);
+        
+        return $result;
+    }
+    
+    
+      /**
+     *
+     * obtenerNroExpediente : Obtenemos el nro de expediente asociado al formulario
+     *
+     * @param int $idform
+     *        
+     * @return int
+     *
+     */
+    public function obtenerNroExpediente($idform) {
+
+    //Obtengo el nro de expediente asociado al formulario
+    $sql = "SELECT expediente from  expediente.formularioexpediente where FORMULARIO = :idform";
+
+    $parametros = array(
+           $idform
+    );
+
+    $result = $this->db->query($sql, true, $parametros);
+
+    $nroexp = $this->db->fetch_array($result);
+
+    $nroexp = $nroexp['EXPEDIENTE'];
+
+    return $nroexp ;
+    }
+    /**
      *
      * loadData
      * Carga propiedades del objeta que vienen desde la DB
@@ -1099,7 +1390,6 @@ class Formularios {
      *
      */
     public function loadData($fila) {
-
 
         if (isset($fila['FECHAC'])) {
             $this->set_fecha_crecion($fila['FECHAC']);
@@ -1152,9 +1442,33 @@ class Formularios {
         if (isset($fila['cantidad'])) {
             $this->setCantidad($fila['cantidad']);
         }
-        
-        if (isset($fila['nroform'])) {
-            $this->setCantidad($fila['nroform']);
+        if (isset($fila['TITULO'])) {
+            $this->setTitulo($fila['TITULO']);
+        }
+
+        /* if (isset($fila['nroform'])) {
+          $this->setCantidad($fila['nroform']);
+          } */
+        if (isset($fila['FA'])) {
+            $this->setFa($fila['FA']);
+        }
+        if (isset($fila['ES'])) {
+            $this->setEs($fila['ES']);
+        }
+        if (isset($fila['CA'])) {
+            $this->setCa($fila['CA']);
+        }
+
+        if (isset($fila['cantidadmaterias'])) {
+            $this->setcantidadmaterias($fila['cantidadmaterias']);
+        }
+
+        if (isset($fila['IMPORTE'])) {
+            $this->setImporte($fila['IMPORTE']);
+        }
+
+        if (isset($fila['PLAN'])) {
+            $this->setPlan($fila['PLAN']);
         }
 
 
@@ -1242,14 +1556,50 @@ class Formularios {
         $this->cantidad = $cantidad;
     }
 
-    function setNroform($nroform) {
-        $this->nroform = $nroform;
+    /* function setNroform($nroform) {
+      $this->nroform = $nroform;
+      }
+     */
+
+    function setcantidadmaterias($cantidadmaterias) {
+        $this->cantidadmaterias = $cantidadmaterias;
+    }
+
+    function setImporte($importe) {
+        $this->importe = $importe;
+    }
+
+    function setPlan($plan) {
+        $this->plan = $plan;
+    }
+
+    function setFa($fa) {
+        $this->fa = $fa;
+    }
+
+    function setEs($es) {
+        $this->es = $es;
+    }
+
+    function setCa($ca) {
+        $this->ca = $ca;
+    }
+    function setTitulo($titulo) {
+        $this->titulo = $titulo;
     }
 
     /**
      * ******GETTERS*******
      */
 
+    /**
+     *
+     * @return mixed el dato de la variable id
+     */
+    public function getTitulo() {
+     
+        return $this->titulo;
+    }
     /**
      *
      * @return mixed el dato de la variable id
@@ -1326,8 +1676,33 @@ class Formularios {
         return $this->cantidad;
     }
 
-    function getNroform() {
-        return $this->nroform;
+    /*   function getNroform() {
+      return $this->nroform;
+      }
+     */
+
+    function getCantidadmaterias() {
+        return $this->cantidadmaterias;
+    }
+
+    function getImporte() {
+        return $this->importe;
+    }
+
+    function getPlan() {
+        return $this->plan;
+    }
+
+    function getFa() {
+        return $this->fa;
+    }
+
+    function getEs() {
+        return $this->es;
+    }
+
+    function getCa() {
+        return $this->ca;
     }
 
 }

@@ -18,10 +18,10 @@ require_once ("/web/html/classes/class_fechas.php");
 class CuentaCorriente {
 
     public $db;
-    public $Cta_Matricula           = array();
-    public $Cta_arancel             = array();
-    public $beca                    = array();
-    public $mes_beca                = array();
+    public $Cta_Matricula = array();
+    public $Cta_arancel = array();
+    public $beca = array();
+    public $mes_beca = array();
     public $Escuelaycarrera;
     public $Anioquecursa;
     public $Matriculaunica;
@@ -40,12 +40,12 @@ class CuentaCorriente {
     public $inscdate;
     public $cartype;
     public $person;
-    public $recargoMatriculas       = array();
-    public $recargoAranceles        = array();
-    public $fueraterminoMatriculas  = array();
-    public $fueraterminoAranceles   = array();
-    public $matriculaTotal          = array();
-    public $arancelTotal            = array();
+    public $recargoMatriculas = array();
+    public $recargoAranceles = array();
+    public $fueraterminoMatriculas = array();
+    public $fueraterminoAranceles = array();
+    public $matriculaTotal = array();
+    public $arancelTotal = array();
 
     public function __construct($db, $student, $idcentrodecosto, $anio = null) {
 
@@ -119,14 +119,14 @@ class CuentaCorriente {
         } else {
             $param[] = $anio;
         }
-        
+
         // ejecuto
         $sccobro = $this->db->query($sql_ccalu, $esParam = true, $param);
 
         $arr_asoc = $this->db->fetch_assoc($sccobro);
 
         if ($arr_asoc) {
-            $this->loadData($arr_asoc);            
+            $this->loadData($arr_asoc);
         }
     }
 
@@ -166,7 +166,7 @@ class CuentaCorriente {
             $anio_carrera = 1;
         }
 
-        $cuatriinscribe = 0;      
+        $cuatriinscribe = 0;
 
         //BUSCO SI HAY ALGUN VENCIMIENTO ESPECIAL , ESPECIFICO DE ESE CENTRO DE COSTO
         $id_matriculas = $this->obtener_id_vencimiento($this->getIdCentrodeCosto(), $anio_carrera, $mes_insc, $cuatriinscribe, 1);
@@ -193,28 +193,26 @@ class CuentaCorriente {
         //var_dump($vencimiento_matricula);
 
         $matriculas_array = $this->getCta_Matricula();
-    
+
         $e = array();
 
         if ($vencimiento_matricula) {
 
             foreach ($vencimiento_matricula as $key => $value) {
 
-                $i                      = $contador_mat;
-                
-                if(isset($matriculas_array[$i - 1])){
-                    
-                    $IMPORTE_MATRICULA[$i]  = (float) $matriculas_array[$i - 1];
-                    
-                }else{
-                    
-                    $IMPORTE_MATRICULA[$i]  =0;
-                    
+                $i = $contador_mat;
+
+                if (isset($matriculas_array[$i - 1])) {
+
+                    $IMPORTE_MATRICULA[$i] = (float) $matriculas_array[$i - 1];
+                } else {
+
+                    $IMPORTE_MATRICULA[$i] = 0;
                 }
 
-                $recargo_diario         = 00.1000;
+                $recargo_diario = 00.1000;
 
-                $fecha_actual           = date('d-m-y');
+                $fecha_actual = date('d-m-y');
 
                 // SI LOS IMPORTES SON MAYORES A CERO
                 if (($IMPORTE_MATRICULA[$i] > 0) and ( $IMPORTE_MATRICULA[$i] < 999999)) {
@@ -248,9 +246,8 @@ class CuentaCorriente {
 
                     if ($IMPORTE_MATRICULA[$i]) {
                         $c ++;
-                      }
-                                          
-                    }else{
+                    }
+                } else {
 
                     $MATPAGAR[$i] = 1;
                 }
@@ -259,51 +256,50 @@ class CuentaCorriente {
             } // hasta aca recorro matriculas
         }
 
-        
-        /*********ARANCELES***************/
-        
-        $id_aranceles       = $this->obtener_id_vencimiento($this->getIdCentrodeCosto(),$anio_carrera ,$mes_insc ,$cuatriinscribe ,0);                
-              
-        $aranceles_array    = $this->getCta_arancel();
-        
+
+        /*         * *******ARANCELES************** */
+
+        $id_aranceles = $this->obtener_id_vencimiento($this->getIdCentrodeCosto(), $anio_carrera, $mes_insc, $cuatriinscribe, 0);
+
+        $aranceles_array = $this->getCta_arancel();
+
         //SI NO HAY BUSCO POR TIPO DE CARRERA
-        if (!$id_aranceles){
+        if (!$id_aranceles) {
             $id_aranceles = $this->obtener_id_vencimiento_sin_centro_costo($this->getCartype(), $anio_carrera, $mes_insc, $cuatriinscribe, 0);
         }
-        
-        $vencimiento_aranceles= $this->obtener_fechas_vencimientos($id_aranceles);
-        
-        $aran= array();
-        
+
+        $vencimiento_aranceles = $this->obtener_fechas_vencimientos($id_aranceles);
+
+        $aran = array();
+
         $contador_mat = 1;
-        
+
         if ($id_aranceles) {
 
             foreach ($vencimiento_aranceles as $key => $value) {
-            
+
                 $cont = $contador_mat;
 
-                if(isset( $aranceles_array[$cont- 1])){
-                    $importeatancel[$cont] =(float) $aranceles_array[$cont- 1];
-                }else{
-                     $importeatancel[$cont] =0;
+                if (isset($aranceles_array[$cont - 1])) {
+                    $importeatancel[$cont] = (float) $aranceles_array[$cont - 1];
+                } else {
+                    $importeatancel[$cont] = 0;
                 }
-                
+
                 $recargo_diario = 00.1000;
 
                 $fecha_actual = date('d-m-y');
 
                 // SI LOS IMPORTES SON MAYORES A CERO
-                if (($importeatancel[$cont] > 0) and ( $importeatancel[$cont] < 999999)){
+                if (($importeatancel[$cont] > 0) and ( $importeatancel[$cont] < 999999)) {
 
                     $fecha_vencimiento = $value['DIA'] . '-' . $value['MES'] . '-' . date('y');
-                   
-                    
+
+
                     //chequeo si correozsponde recargo                    
-                    if ($this->obtener_excepciones_matriculas($this->person, $fecha_actual) == 1){
+                    if ($this->obtener_excepciones_matriculas($this->person, $fecha_actual) == 1) {
                         /* calcular recargo de matricula */
                         $recargo = $this->recargo_matricula_arancel($fecha_vencimiento, $fecha_actual, $importeatancel[$cont], $recargo_diario);
-                        
                     } else {
                         $recargo = 0;
                     }
@@ -313,31 +309,29 @@ class CuentaCorriente {
                     // total de todos los recargos por fuera de termino
                     $recargo_arancel_ftermino = $this->obtener_pago_fuera_temino($fecha_vencimiento, $fecha_actual);
                     //$recargo_arancel_ftermino = 0;
-
                     // valor total de la matricula con los recargos y bonificaciones
                     $totcuota = $importeatancel[$cont] + $recargo + $recargo_arancel_ftermino;
                     $this->setArancelTotal($totcuota);
-                  
+
 
                     // $e[$i]['matricula'] = $IMPORTE_MATRICULA[$i];
                     $this->setRecargoAranceles($recargo);
                     $this->setFueraterminoAranceles($recargo_arancel_ftermino);
-                   //$this->setArancelTotal($totcuota);
+                    //$this->setArancelTotal($totcuota);
 
 
                     if ($importeatancel[$cont]) {
                         $c ++;
-                      }
-                                          
-                    }else{
+                    }
+                } else {
 
                     $impagar[$cont] = 1;
                 }
-            
+
                 $contador_mat = $contador_mat + 1;
             } // hasta aca recorro matriculas
         }
-        
+
         $contador = 1;
     }
 
@@ -587,7 +581,7 @@ class CuentaCorriente {
                     . "ID_CENTRO_COSTO = :idcentrodecosto AND ANIO_CARRERA = :anio_carrera "
                     . "AND CUATRIMESTRE_ANOTO = :cuatrimestre_anoto AND MES_INSCRIBE = :mes_inscribe  AND ACTIVO = 1 "
                     . "AND TIPO_VENCIMIENTO = :tipo";
-            
+
             $param = array(
                 $id_centro_costo,
                 $anio_insc,
@@ -747,7 +741,7 @@ class CuentaCorriente {
 
         $linkOracle_class = $this->db;
 
-        $fecha_caja =$fecha;
+        $fecha_caja = $fecha;
 
         $mes_caja = $fecha_caja[1];
 
@@ -769,7 +763,7 @@ class CuentaCorriente {
         $tipocareer = oci_fetch_array($tipocareer);
 
         $tipocarrera = $tipocareer['CARTYPE'];
-        
+
         $becas = $this->getBeca();
         //si el tipo de alumno es alguno de los que no recargan
         if (in_array($becas[0], $norecarga)) {
@@ -783,8 +777,8 @@ class CuentaCorriente {
         }
 
         $mesbeca = $this->getMes_beca();
-        //si es el primer aï¿½o de la carrera 
-                if ($this->getAnio_carrera_cc() == 1 && ($mesbeca[0] == $mes_caja || $mesbeca[0] == $mes_caja + 1)) {
+        //si es el primer año de la carrera 
+        if ($this->getAnio_carrera_cc() == 1 && ($mesbeca[0] == $mes_caja || $mesbeca[0] == $mes_caja + 1)) {
 
             return 0;
         }
@@ -923,7 +917,7 @@ class CuentaCorriente {
         }
 
         //CASO 4
-        //si es el primer aï¿½o de la carrera 
+        //si es el primer año de la carrera 
         if ($this->getAnio_carrera_cc() == 1 && ($mesbeca[0] == $mes_caja || $mesbeca[0] == $mes_caja + 1)) {
 
             $dias_retraso = 0;
@@ -992,11 +986,11 @@ class CuentaCorriente {
 
     function recargo_matricula_arancel($fecha_vencimiento, $fecha_caja, $importe_matricula, $reca_matri_dia) {
 
-        
-        $linkOracle_class   = $this->db;
-        $fuera_termino      = 0;
-        $dias_retraso       = 0;
-        $bonificacion       = 0;
+
+        $linkOracle_class = $this->db;
+        $fuera_termino = 0;
+        $dias_retraso = 0;
+        $bonificacion = 0;
 
         $query = "SELECT * FROM tesoreria.ccalu where person = :person";
 
@@ -1051,9 +1045,8 @@ class CuentaCorriente {
 
             $recargo_cuota = ($importe_matricula * $recargo) / 100;
 
-          //  echo($importe_matricula.'--'.$importe_matricula.'---'.$recargo);
+            //  echo($importe_matricula.'--'.$importe_matricula.'---'.$recargo);
             return $recargo_cuota;
-            
         } else {
 
             return 0;

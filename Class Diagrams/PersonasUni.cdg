@@ -1,195 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ClassDiagram name="personas">
-  <ClassDiagramComponents>
-    <Class name="Academicos" package="personas" visibility="public" xPosition="20.0" yPosition="20.0">
-      <Fields/>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Administrativos" package="personas" visibility="public" xPosition="320.0" yPosition="20.0">
-      <Fields/>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Alumnos" package="personas" visibility="public" xPosition="620.0" yPosition="20.0">
-      <Fields/>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Cuentas" package="personas" visibility="public" xPosition="920.0" yPosition="20.0">
-      <Fields>
-        <Field name="idCuenta" type="int" visibility="private"/>
-        <Field name="cuenta" type="String" visibility="private"/>
-        <Field name="emailCuenta" type="String" visibility="private"/>
-        <Field name="tipoCuenta" type="String" visibility="private"/>
-        <Field name="fraseDeSeguridad" type="String" visibility="private"/>
-        <Field name="vencimiento" type="Calendar" visibility="private"/>
-        <Field name="alta" type="Calendar" visibility="private"/>
-        <Field name="baja" type="Calendar" visibility="private"/>
-      </Fields>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Cuils" package="personas" visibility="public" xPosition="1220.0" yPosition="20.0">
-      <Fields>
-        <Field name="numero" type="int" visibility="private"/>
-      </Fields>
-      <Constructors/>
-      <Methods>
-        <Method name="verificar" returnType="boolean" visibility="public"/>
-      </Methods>
-    </Class>
-    <Class name="Direcciones" package="personas" visibility="public" xPosition="1520.0" yPosition="20.0">
-      <Fields>
-        <Field name="tipo" type="String" visibility="private"/>
-        <Field name="Calle" type="String" visibility="private"/>
-        <Field name="numero" type="int" visibility="private"/>
-        <Field name="piso" type="int" visibility="private"/>
-        <Field name="departamento" type="String" visibility="private"/>
-        <Field name="pais" type="String" visibility="private"/>
-        <Field name="provincia" type="String" visibility="private"/>
-        <Field name="localidad" type="String" visibility="private"/>
-        <Field name="codigoPostal" type="String" visibility="private"/>
-      </Fields>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Dnis" package="personas" visibility="public" xPosition="1820.0" yPosition="20.0">
-      <Fields>
-        <Field name="numero" type="int" visibility="private"/>
-      </Fields>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Docentes" package="personas" visibility="public" xPosition="2120.0" yPosition="20.0">
-      <Fields/>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Documentos" package="personas" visibility="public" isAbstract="true" xPosition="20.0" yPosition="420.0">
-      <Fields>
-        <Field name="tipo" type="String" visibility="private"/>
-      </Fields>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Emails" package="personas" visibility="public" xPosition="320.0" yPosition="420.0">
-      <Fields>
-        <Field name="tipo" type="String" visibility="private"/>
-        <Field name="email" type="String" visibility="private"/>
-      </Fields>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Empleados" package="personas" visibility="public" isAbstract="true" xPosition="620.0" yPosition="420.0">
-      <Fields>
-        <Field name="legajo" type="int" visibility="protected"/>
-        <Field name="fechaIngreso" type="Calendar" visibility="protected"/>
-        <Field name="fechaBaja" type="Calendar" visibility="protected"/>
-        <Field name="fechaReingreso" type="Calendar" visibility="protected"/>
-        <Field name="inicioCargo" type="Calendar" visibility="protected"/>
-        <Field name="actividad" type="String" visibility="protected"/>
-        <Field name="antiguedad" type="int" visibility="protected"/>
-        <Field name="cajaDeAhorro" type="String" visibility="protected"/>
-        <Field name="cajaJubilacion" type="String" visibility="protected"/>
-        <Field name="cargo" type="String" visibility="protected"/>
-        <Field name="codigoAlta" type="int" visibility="protected"/>
-        <Field name="titulo" type="String" visibility="protected"/>
-        <Field name="codigoTitulo" type="int" visibility="protected"/>
-        <Field name="nroJubilacion" type="int" visibility="protected"/>
-        <Field name="nroSindicato" type="int" visibility="protected"/>
-        <Field name="obraSocial" type="String" visibility="protected"/>
-        <Field name="redito" type="int" visibility="protected"/>
-        <Field name="seguro" type="String" visibility="protected"/>
-        <Field name="sucursalCtaBanco" type="int" visibility="protected"/>
-        <Field name="tipoCtaBanco" type="int" visibility="protected"/>
-        <Field name="unidadContrato" type="String" visibility="protected"/>
-        <Field name="tipoBco" type="String" visibility="protected"/>
-      </Fields>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Externo" package="personas" visibility="public" xPosition="920.0" yPosition="420.0">
-      <Fields/>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Listados" package="personas" visibility="public" isFinal="true" xPosition="1220.0" yPosition="420.0">
-      <Fields/>
-      <Constructors/>
-      <Methods>
-        <Method name="listarPerson" returnType="void" visibility="public"/>
-        <Method name="listarPersonFacu" returnType="void" visibility="public"/>
-        <Method name="buscarAppers" returnType="void" visibility="public"/>
-        <Method name="buscarPerson" returnType="void" visibility="public"/>
-        <Method name="buscarPerdoc" returnType="void" visibility="public"/>
-        <Method name="buscarTargeta" returnType="void" visibility="public"/>
-        <Method name="buscarUsuarioWeb" returnType="void" visibility="public"/>
-        <Method name="buscarCatXPerson" returnType="void" visibility="public"/>
-      </Methods>
-    </Class>
-    <Class name="Pasaportes" package="personas" visibility="public" xPosition="1520.0" yPosition="420.0">
-      <Fields>
-        <Field name="numero" type="String" visibility="private"/>
-      </Fields>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Persona" package="personas" visibility="public" xPosition="1820.0" yPosition="420.0">
-      <Fields/>
-      <Constructors/>
-      <Methods>
-        <Method name="main" returnType="void" visibility="public" isStatic="true">
-          <Argument type="String[]" name="args"/>
-        </Method>
-      </Methods>
-    </Class>
-    <Class name="Personas" package="personas" visibility="public" isAbstract="true" xPosition="2120.0" yPosition="420.0">
-      <Fields>
-        <Field name="person" type="int" visibility="protected"/>
-        <Field name="nombre" type="String" visibility="protected"/>
-        <Field name="apellido" type="String" visibility="protected"/>
-        <Field name="documento" type="ArrayList&lt;Documentos&gt;" visibility="protected"/>
-        <Field name="email" type="ArrayList&lt;Emails&gt;" visibility="protected"/>
-        <Field name="telefono" type="ArrayList&lt;Telefonos&gt;" visibility="protected"/>
-        <Field name="direccion" type="ArrayList&lt;Direcciones&gt;" visibility="protected"/>
-        <Field name="foto" type="File" visibility="protected"/>
-        <Field name="fechaNacimiento" type="Calendar" visibility="protected"/>
-        <Field name="estadoCivil" type="String" visibility="protected"/>
-        <Field name="nacionalidad" type="String" visibility="protected"/>
-        <Field name="tipoNacionalidad" type="String" visibility="protected"/>
-        <Field name="sexo" type="String" visibility="protected"/>
-        <Field name="cuenta" type="Cuentas" visibility="protected"/>
-      </Fields>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Telefonos" package="personas" visibility="public" xPosition="20.0" yPosition="820.0">
-      <Fields>
-        <Field name="tipo" type="String" visibility="private"/>
-        <Field name="numero" type="int" visibility="private"/>
-        <Field name="codArea" type="int" visibility="private"/>
-        <Field name="codPais" type="int" visibility="private"/>
-      </Fields>
-      <Constructors/>
-      <Methods/>
-    </Class>
-  </ClassDiagramComponents>
-  <ClassDiagramRelations>
-    <IsRelation name="is" source="personas.Administrativos" target="personas.Empleados"/>
-    <HasRelation name="direccion" source="personas.Personas" target="personas.Direcciones" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Direcciones&gt;"/>
-    <IsRelation name="is" source="personas.Alumnos" target="personas.Personas"/>
-    <IsRelation name="is" source="personas.Externo" target="personas.Personas"/>
-    <IsRelation name="is" source="personas.Pasaportes" target="personas.Documentos"/>
-    <IsRelation name="is" source="personas.Docentes" target="personas.Empleados"/>
-    <IsRelation name="is" source="personas.Dnis" target="personas.Documentos"/>
-    <HasRelation name="documento" source="personas.Personas" target="personas.Documentos" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Documentos&gt;"/>
-    <HasRelation name="cuenta" source="personas.Personas" target="personas.Cuentas" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <IsRelation name="is" source="personas.Empleados" target="personas.Personas"/>
-    <IsRelation name="is" source="personas.Academicos" target="personas.Empleados"/>
-    <IsRelation name="is" source="personas.Cuils" target="personas.Documentos"/>
-    <HasRelation name="telefono" source="personas.Personas" target="personas.Telefonos" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Telefonos&gt;"/>
-    <HasRelation name="email" source="personas.Personas" target="personas.Emails" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Emails&gt;"/>
-  </ClassDiagramRelations>
+    <ClassDiagramComponents>
+        <Class name="Academicos" package="personas" visibility="public" xPosition="20.0" yPosition="20.0">
+            <Fields/>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Administrativos" package="personas" visibility="public" xPosition="320.0" yPosition="20.0">
+            <Fields/>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Alumnos" package="personas" visibility="public" xPosition="620.0" yPosition="20.0">
+            <Fields/>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Cuentas" package="personas" visibility="public" xPosition="920.0" yPosition="20.0">
+            <Fields>
+                <Field name="idCuenta" type="int" visibility="private"/>
+                <Field name="cuenta" type="String" visibility="private"/>
+                <Field name="emailCuenta" type="String" visibility="private"/>
+                <Field name="tipoCuenta" type="String" visibility="private"/>
+                <Field name="fraseDeSeguridad" type="String" visibility="private"/>
+                <Field name="vencimiento" type="Calendar" visibility="private"/>
+                <Field name="alta" type="Calendar" visibility="private"/>
+                <Field name="baja" type="Calendar" visibility="private"/>
+            </Fields>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Cuils" package="personas" visibility="public" xPosition="1220.0" yPosition="20.0">
+            <Fields>
+                <Field name="numero" type="int" visibility="private"/>
+            </Fields>
+            <Constructors/>
+            <Methods>
+                <Method name="verificar" returnType="boolean" visibility="public"/>
+            </Methods>
+        </Class>
+        <Class name="Direcciones" package="personas" visibility="public" xPosition="1520.0" yPosition="20.0">
+            <Fields>
+                <Field name="tipo" type="String" visibility="private"/>
+                <Field name="Calle" type="String" visibility="private"/>
+                <Field name="numero" type="int" visibility="private"/>
+                <Field name="piso" type="int" visibility="private"/>
+                <Field name="departamento" type="String" visibility="private"/>
+                <Field name="pais" type="String" visibility="private"/>
+                <Field name="provincia" type="String" visibility="private"/>
+                <Field name="localidad" type="String" visibility="private"/>
+                <Field name="codigoPostal" type="String" visibility="private"/>
+            </Fields>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Dnis" package="personas" visibility="public" xPosition="1820.0" yPosition="20.0">
+            <Fields>
+                <Field name="numero" type="int" visibility="private"/>
+            </Fields>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Docentes" package="personas" visibility="public" xPosition="2120.0" yPosition="20.0">
+            <Fields/>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Documentos" package="personas" visibility="public" isAbstract="true" xPosition="20.0" yPosition="420.0">
+            <Fields>
+                <Field name="tipo" type="String" visibility="private"/>
+            </Fields>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Emails" package="personas" visibility="public" xPosition="320.0" yPosition="420.0">
+            <Fields>
+                <Field name="tipo" type="String" visibility="private"/>
+                <Field name="email" type="String" visibility="private"/>
+            </Fields>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Empleados" package="personas" visibility="public" isAbstract="true" xPosition="620.0" yPosition="420.0">
+            <Fields>
+                <Field name="legajo" type="int" visibility="protected"/>
+                <Field name="fechaIngreso" type="Calendar" visibility="protected"/>
+                <Field name="fechaBaja" type="Calendar" visibility="protected"/>
+                <Field name="fechaReingreso" type="Calendar" visibility="protected"/>
+                <Field name="inicioCargo" type="Calendar" visibility="protected"/>
+                <Field name="actividad" type="String" visibility="protected"/>
+                <Field name="antiguedad" type="int" visibility="protected"/>
+                <Field name="cajaDeAhorro" type="String" visibility="protected"/>
+                <Field name="cajaJubilacion" type="String" visibility="protected"/>
+                <Field name="cargo" type="String" visibility="protected"/>
+                <Field name="codigoAlta" type="int" visibility="protected"/>
+                <Field name="titulo" type="String" visibility="protected"/>
+                <Field name="codigoTitulo" type="int" visibility="protected"/>
+                <Field name="nroJubilacion" type="int" visibility="protected"/>
+                <Field name="nroSindicato" type="int" visibility="protected"/>
+                <Field name="obraSocial" type="String" visibility="protected"/>
+                <Field name="redito" type="int" visibility="protected"/>
+                <Field name="seguro" type="String" visibility="protected"/>
+                <Field name="sucursalCtaBanco" type="int" visibility="protected"/>
+                <Field name="tipoCtaBanco" type="int" visibility="protected"/>
+                <Field name="unidadContrato" type="String" visibility="protected"/>
+                <Field name="tipoBco" type="String" visibility="protected"/>
+            </Fields>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Externo" package="personas" visibility="public" xPosition="920.0" yPosition="420.0">
+            <Fields/>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Listados" package="personas" visibility="public" isFinal="true" xPosition="1220.0" yPosition="420.0">
+            <Fields/>
+            <Constructors/>
+            <Methods>
+                <Method name="listarPerson" returnType="void" visibility="public"/>
+                <Method name="listarPersonFacu" returnType="void" visibility="public"/>
+                <Method name="buscarAppers" returnType="void" visibility="public"/>
+                <Method name="buscarPerson" returnType="void" visibility="public"/>
+                <Method name="buscarPerdoc" returnType="void" visibility="public"/>
+                <Method name="buscarTargeta" returnType="void" visibility="public"/>
+                <Method name="buscarUsuarioWeb" returnType="void" visibility="public"/>
+                <Method name="buscarCatXPerson" returnType="void" visibility="public"/>
+            </Methods>
+        </Class>
+        <Class name="Pasaportes" package="personas" visibility="public" xPosition="1520.0" yPosition="420.0">
+            <Fields>
+                <Field name="numero" type="String" visibility="private"/>
+            </Fields>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Persona" package="personas" visibility="public" xPosition="1820.0" yPosition="420.0">
+            <Fields/>
+            <Constructors/>
+            <Methods>
+                <Method name="main" returnType="void" visibility="public" isStatic="true">
+                    <Argument type="String[]" name="args"/>
+                </Method>
+            </Methods>
+        </Class>
+        <Class name="Personas" package="personas" visibility="public" isAbstract="true" xPosition="2120.0" yPosition="420.0">
+            <Fields>
+                <Field name="person" type="int" visibility="protected"/>
+                <Field name="nombre" type="String" visibility="protected"/>
+                <Field name="apellido" type="String" visibility="protected"/>
+                <Field name="documento" type="ArrayList&lt;Documentos&gt;" visibility="protected"/>
+                <Field name="email" type="ArrayList&lt;Emails&gt;" visibility="protected"/>
+                <Field name="telefono" type="ArrayList&lt;Telefonos&gt;" visibility="protected"/>
+                <Field name="direccion" type="ArrayList&lt;Direcciones&gt;" visibility="protected"/>
+                <Field name="foto" type="File" visibility="protected"/>
+                <Field name="fechaNacimiento" type="Calendar" visibility="protected"/>
+                <Field name="estadoCivil" type="String" visibility="protected"/>
+                <Field name="nacionalidad" type="String" visibility="protected"/>
+                <Field name="tipoNacionalidad" type="String" visibility="protected"/>
+                <Field name="sexo" type="String" visibility="protected"/>
+                <Field name="cuenta" type="Cuentas" visibility="protected"/>
+            </Fields>
+            <Constructors/>
+            <Methods/>
+        </Class>
+        <Class name="Telefonos" package="personas" visibility="public" xPosition="20.0" yPosition="820.0">
+            <Fields>
+                <Field name="tipo" type="String" visibility="private"/>
+                <Field name="numero" type="int" visibility="private"/>
+                <Field name="codArea" type="int" visibility="private"/>
+                <Field name="codPais" type="int" visibility="private"/>
+            </Fields>
+            <Constructors/>
+            <Methods/>
+        </Class>
+    </ClassDiagramComponents>
+    <ClassDiagramRelations>
+        <IsRelation name="is" source="personas.Administrativos" target="personas.Empleados"/>
+        <HasRelation name="direccion" source="personas.Personas" target="personas.Direcciones" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Direcciones&gt;"/>
+        <IsRelation name="is" source="personas.Alumnos" target="personas.Personas"/>
+        <IsRelation name="is" source="personas.Externo" target="personas.Personas"/>
+        <IsRelation name="is" source="personas.Pasaportes" target="personas.Documentos"/>
+        <IsRelation name="is" source="personas.Docentes" target="personas.Empleados"/>
+        <IsRelation name="is" source="personas.Dnis" target="personas.Documentos"/>
+        <HasRelation name="documento" source="personas.Personas" target="personas.Documentos" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Documentos&gt;"/>
+        <HasRelation name="cuenta" source="personas.Personas" target="personas.Cuentas" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+        <IsRelation name="is" source="personas.Empleados" target="personas.Personas"/>
+        <IsRelation name="is" source="personas.Academicos" target="personas.Empleados"/>
+        <IsRelation name="is" source="personas.Cuils" target="personas.Documentos"/>
+        <HasRelation name="telefono" source="personas.Personas" target="personas.Telefonos" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Telefonos&gt;"/>
+        <HasRelation name="email" source="personas.Personas" target="personas.Emails" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Emails&gt;"/>
+    </ClassDiagramRelations>
 </ClassDiagram>

@@ -29,7 +29,7 @@ class PlanDePagoAlumno {
     public $recargo = array();
     public $cuotadesde = array();
     public $cuotahasta = array();
- 
+
     /**
      * 
      * Constructor de la clase
@@ -38,108 +38,103 @@ class PlanDePagoAlumno {
      * @param int $person
      * 
      */
-    public function __construct($db, $student ,$idcentrodecosto){
+    public function __construct($db, $student, $idcentrodecosto) {
 
         $this->db = $db;
         $this->setPerson($student);
         $this->setIdcentrodecosto($idcentrodecosto);
-                   
-            $parametros = array(
-                $student ,
-                $idcentrodecosto
-            );
 
-            $query = "SELECT * FROM TESORERIA.PLANPAGO WHERE student = :studen "
-                    . " AND centrodecosto= :idcentrodecosto  and  ROWNUM = 1";
+        $parametros = array(
+            $student,
+            $idcentrodecosto
+        );
 
-            $result = $this->db->query($query, true, $parametros);            
+        $query = "SELECT * FROM TESORERIA.PLANPAGO WHERE student = :studen "
+                . " AND centrodecosto= :idcentrodecosto  and  ROWNUM = 1";
 
-            if($result){
-                $this->loadData($this->db->fetch_array ($result));
-            
+        $result = $this->db->query($query, true, $parametros);
+
+        if ($result) {
+            $this->loadData($this->db->fetch_array($result));
+
             //Obtengo matriculas                
             $this->getMatriculasPlan($this->getId());
-            
+
             //Obtengo cuotas
             $this->getCuotasPlan($this->getId());
-            }
-                  
+        }
     }
 
-    
-    
     /**
      * Carga en el objeto las cuotas de matriculas
      * @param int $idplanpago
      */
-    public function getMatriculasPlan($idplanpago){
-        
-            $parametros = array(
-                $idplanpago 
-            );
+    public function getMatriculasPlan($idplanpago) {
 
-            $query = "SELECT * FROM TESORERIA.PLANPAGODETALLE WHERE PLANPAGO = :idplanpago and TIPOPP = 0";
-            $query2 = "SELECT * FROM TESORERIA.PLANPAGODETALLE WHERE PLANPAGO = $idplanpago and TIPOPP = 0";
+        $parametros = array(
+            $idplanpago
+        );
 
-            $result = $this->db->query($query, true, $parametros);            
+        $query = "SELECT * FROM TESORERIA.PLANPAGODETALLE WHERE PLANPAGO = :idplanpago and TIPOPP = 0";
+        $query2 = "SELECT * FROM TESORERIA.PLANPAGODETALLE WHERE PLANPAGO = $idplanpago and TIPOPP = 0";
 
-            if($result){
-                
-            $salida=array();
-            
-            while ($fila = $this->db->fetch_array($result)){
-                $salida[]=$fila;
+        $result = $this->db->query($query, true, $parametros);
+
+        if ($result) {
+
+            $salida = array();
+
+            while ($fila = $this->db->fetch_array($result)) {
+                $salida[] = $fila;
                 /*
-                $this->setTipoitem($fila['TIPOPP']);
-                $this->setNrocuota($fila['NROCUOTAPLAN']);
-                $this->setFechavencimiento($fila['FECHAVENCIMIENTO']);
-                $this->setImporte($fila['IMPORTE']);
-                $this->setRecargo($fila['RECARGO']);
-                $this->setCuotadesde($fila['CUOTADESDE']);
-                $this->setCuotahasta($fila['CUOTAHASTA']);    
-                */
+                  $this->setTipoitem($fila['TIPOPP']);
+                  $this->setNrocuota($fila['NROCUOTAPLAN']);
+                  $this->setFechavencimiento($fila['FECHAVENCIMIENTO']);
+                  $this->setImporte($fila['IMPORTE']);
+                  $this->setRecargo($fila['RECARGO']);
+                  $this->setCuotadesde($fila['CUOTADESDE']);
+                  $this->setCuotahasta($fila['CUOTAHASTA']);
+                 */
             }
-              
-            return $salida;             
+
+            return $salida;
         }
     }
-    
+
     /**
      * Carga en el objeto las cuotas de matriculas
      * @param int $idplanpago
      */
-    public function getCuotasPlan($idplanpago){
-        
-            $parametros = array(
-                $idplanpago 
-            );
+    public function getCuotasPlan($idplanpago) {
 
-            $query = "SELECT * FROM TESORERIA.PLANPAGODETALLE WHERE PLANPAGO = :idplanpago and TIPOPP = 1";
+        $parametros = array(
+            $idplanpago
+        );
 
-            $result = $this->db->query($query, true, $parametros);            
+        $query = "SELECT * FROM TESORERIA.PLANPAGODETALLE WHERE PLANPAGO = :idplanpago and TIPOPP = 1";
 
-            if($result){   
-                $salida=array();
-                
-            while ($fila = $this->db->fetch_array($result)){
-                $salida[]=$fila;
+        $result = $this->db->query($query, true, $parametros);
+
+        if ($result) {
+            $salida = array();
+
+            while ($fila = $this->db->fetch_array($result)) {
+                $salida[] = $fila;
                 /*
-                $this->setTipoitem($fila['TIPOPP']);
-                $this->setNrocuota($fila['NROCUOTAPLAN']);
-                $this->setFechavencimiento($fila['FECHAVENCIMIENTO']);
-                $this->setImporte($fila['IMPORTE']);
-                $this->setRecargo($fila['RECARGO']);
-                $this->setCuotadesde($fila['CUOTADESDE']);
-                $this->setCuotahasta($fila['CUOTAHASTA']);    
-                */
+                  $this->setTipoitem($fila['TIPOPP']);
+                  $this->setNrocuota($fila['NROCUOTAPLAN']);
+                  $this->setFechavencimiento($fila['FECHAVENCIMIENTO']);
+                  $this->setImporte($fila['IMPORTE']);
+                  $this->setRecargo($fila['RECARGO']);
+                  $this->setCuotadesde($fila['CUOTADESDE']);
+                  $this->setCuotahasta($fila['CUOTAHASTA']);
+                 */
             }
-              
-            return $salida;   
+
+            return $salida;
         }
     }
-    
-    
-    
+
     /**
      *
      * loadData
@@ -155,45 +150,40 @@ class PlanDePagoAlumno {
      */
     public function loadData($fila) {
 
-            if (isset($fila['IDPLANPAGO'])) {
-                $this->setId($fila['IDPLANPAGO']);
-            };
+        if (isset($fila['IDPLANPAGO'])) {
+            $this->setId($fila['IDPLANPAGO']);
+        };
 
-            if (isset($fila['ANIO'])) {
-                        $this->setAnio($fila['ANIO']);
-            };
+        if (isset($fila['ANIO'])) {
+            $this->setAnio($fila['ANIO']);
+        };
 
-            if (isset($fila['STUDENT'])) {
-                        $this->setStudent($fila['STUDENT']);
-            };
+        if (isset($fila['STUDENT'])) {
+            $this->setStudent($fila['STUDENT']);
+        };
 
-            if (isset($fila['CONTABLE'])) {
-                        $this->setContable($fila['CONTABLE']);
-            };
+        if (isset($fila['CONTABLE'])) {
+            $this->setContable($fila['CONTABLE']);
+        };
 
-            if (isset($fila['CENTRODECOSTO'])) {
-                        $this->setIdcentrodecosto($fila['CENTRODECOSTO']);
-            };   
+        if (isset($fila['CENTRODECOSTO'])) {
+            $this->setIdcentrodecosto($fila['CENTRODECOSTO']);
+        };
 
-            if (isset($fila['FECHA'])) {
-                        $this->setFecha($fila['FECHA']);
-            };
+        if (isset($fila['FECHA'])) {
+            $this->setFecha($fila['FECHA']);
+        };
 
-            if (isset($fila['PERSON'])) {
-                        $this->setPerson($fila['PERSON']);
-            };
+        if (isset($fila['PERSON'])) {
+            $this->setPerson($fila['PERSON']);
+        };
 
-            if (isset($fila['ESTADOPP'])) {
-                        $this->setIdestadopp($fila['ESTADOPP']);
-            };
-            
-    
-        }
-        
-        
-        
-        
-    /******GETTER******/
+        if (isset($fila['ESTADOPP'])) {
+            $this->setIdestadopp($fila['ESTADOPP']);
+        };
+    }
+
+    /*     * ****GETTER***** */
 
     function getDb() {
         return $this->db;
@@ -254,14 +244,12 @@ class PlanDePagoAlumno {
     function getCuotahasta() {
         return $this->cuotahasta;
     }
-    
-    
+
     function getNrocuota() {
         return $this->nrocuota;
     }
-    
 
-    /******SETTER******/
+    /*     * ****SETTER***** */
 
     function setDb($db) {
         $this->db = $db;
@@ -327,7 +315,4 @@ class PlanDePagoAlumno {
         $this->nrocuota[] = $nrocuota;
     }
 
-
-    
-    
 }

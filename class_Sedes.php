@@ -1,6 +1,5 @@
 <?php
 
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,9 +22,9 @@
  * @author lquiroga
  */
 class Sedes {
-           
+
     protected $db;
-    protected $code ;
+    protected $code;
     protected $descrip;
     protected $sdesc;
     protected $active;
@@ -33,48 +32,44 @@ class Sedes {
     protected $poldiv;
     protected $city;
     protected $activo_preingreso;
-    
-    
-    public function __construct($db, $code = null){
-            
+
+    public function __construct($db, $code = null) {
+
         $this->db = $db;
-        
-        if($code != null && $code != ''){
-            
+
+        if ($code != null && $code != '') {
+
             $query = 'SELECT * FROM studentc.BRANCH WHERE CODE = :code';
 
-			$parametros = array (
-					$code
-			);
+            $parametros = array(
+                $code
+            );
 
-			$result = $this->db->query ($query, true, $parametros);
+            $result = $this->db->query($query, true, $parametros);
 
-			$this->loadData ($this->db->fetch_array ($result));
-            
+            $this->loadData($this->db->fetch_array($result));
         }
-        
-    }
-        
-    
-    /**
-    * Carga datos traidos de db en objeto
-    */
-    protected function loadData($fila){
-        
-            $this->setCode      ($fila['CODE']);
-            $this->setDescrip   ($fila['DESCRIP']);
-            $this->setSdesc     ($fila['SDESC']);            
-            $this->setActive    ($fila['ACTIVE']);                        
-            $this->setCountry   ($fila['COUNTRY']);            
-            $this->setPoldiv    ($fila['POLDIV']);
-            $this->setCity      ($fila['CITY']);
-            
-            $this->setActivo_preingreso ($fila['ACTIVO_PREINGRESO']);
     }
 
-    
-    /**********GETTERS***************/
-      function getDb() {
+    /**
+     * Carga datos traidos de db en objeto
+     */
+    protected function loadData($fila) {
+
+        $this->setCode($fila['CODE']);
+        $this->setDescrip($fila['DESCRIP']);
+        $this->setSdesc($fila['SDESC']);
+        $this->setActive($fila['ACTIVE']);
+        $this->setCountry($fila['COUNTRY']);
+        $this->setPoldiv($fila['POLDIV']);
+        $this->setCity($fila['CITY']);
+
+        $this->setActivo_preingreso($fila['ACTIVO_PREINGRESO']);
+    }
+
+    /*     * ********GETTERS************** */
+
+    function getDb() {
         return $this->db;
     }
 
@@ -110,9 +105,8 @@ class Sedes {
         return $this->activo_preingreso;
     }
 
-    
-    /**********SETTERS***************/
-    
+    /*     * ********SETTERS************** */
+
     function setDb($db) {
         $this->db = $db;
     }
@@ -148,5 +142,5 @@ class Sedes {
     function setActivo_preingreso($activo_preingreso) {
         $this->activo_preingreso = $activo_preingreso;
     }
-    
+
 }

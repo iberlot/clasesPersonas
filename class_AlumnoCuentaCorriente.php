@@ -39,33 +39,33 @@ class AlumnoCuentaCorriente {
         // Necesito Nombre y apellido 
         // select de carreras
 
-        /**************************/
+        /*         * *********************** */
         $query = "SELECT faesca, denominacion, idcentrodecosto FROM contaduria.centrodecosto "
                 . "WHERE idcentrodecosto = :idcentrodecosto";
 
-        $parametros[]   = $idcentrodecosto;
-        $result         = $this->db->query($query, $esParam = true, $parametros);
-        $arr_asoc       = $this->db->fetch_array($result);
+        $parametros[] = $idcentrodecosto;
+        $result = $this->db->query($query, $esParam = true, $parametros);
+        $arr_asoc = $this->db->fetch_array($result);
 
-        $arr_json['carreras']   = $arr_asoc['DENOMINACION'];            
-        $faesca                 = $arr_asoc['FAESCA'];
- 
+        $arr_json['carreras'] = $arr_asoc['DENOMINACION'];
+        $faesca = $arr_asoc['FAESCA'];
+
         $arr_json['faesca'] = $faesca;
-        $arr_json['fa']     = substr($faesca, 0, 2);
-        $arr_json['es']     = substr($faesca, 2, 2);
-        $arr_json['ca']     = substr($faesca, 4, 2);
-       
-        /**************************/
+        $arr_json['fa'] = substr($faesca, 0, 2);
+        $arr_json['es'] = substr($faesca, 2, 2);
+        $arr_json['ca'] = substr($faesca, 4, 2);
+
+        /*         * *********************** */
         $query = "SELECT STAT FROM  studentc.carstu cs WHERE student = :student and career = :career and branch = :branch";
-        
-        $parametros[]       = $_GET['student'];
-        $parametros[]       = ($arr_json['fa'] . $arr_json['ca']) * 1;
-        $parametros[]       = $arr_json['es'] * 1;
-       
-        $query_debug        = "SELECT STAT FROM  studentc.carstu cs WHERE student = " . $parametros[0] . " and career = " . $parametros[1] . " and branch = " . $parametros[2];
+
+        $parametros[] = $_GET['student'];
+        $parametros[] = ($arr_json['fa'] . $arr_json['ca']) * 1;
+        $parametros[] = $arr_json['es'] * 1;
+
+        $query_debug = "SELECT STAT FROM  studentc.carstu cs WHERE student = " . $parametros[0] . " and career = " . $parametros[1] . " and branch = " . $parametros[2];
 
         #echo $query_debug ;
-        $result             = $this->db->query($query, $esParam = true, $parametros);
+        $result = $this->db->query($query, $esParam = true, $parametros);
         $arr_asoc_tipo_alumno = $this->db->fetch_array($result);
 
         $tipo_alumno_array[] = 'Aspirante';
@@ -78,7 +78,7 @@ class AlumnoCuentaCorriente {
         $query = "SELECT * FROM tesoreria.ccalu WHERE person = :person AND idcentrodecosto = :idcentrodecosto";
 
         $parametros = "";
-        
+
         $parametros[0] = $person;
         $parametros[1] = $idcentrodecosto;
 
@@ -236,8 +236,6 @@ class AlumnoCuentaCorriente {
         return $this->Matriculaunica;
     }
 
-
-
     function getTipoalumno() {
         return $this->Tipoalumno;
     }
@@ -245,8 +243,6 @@ class AlumnoCuentaCorriente {
     function getCuotadebeca() {
         return $this->Cuotadebeca;
     }
-
-
 
     function getPlanpago() {
         return $this->Planpago;
@@ -299,7 +295,6 @@ class AlumnoCuentaCorriente {
     function setCuotadebeca($Cuotadebeca) {
         $this->Cuotadebeca = $Cuotadebeca;
     }
-
 
     function setPlanpago($Planpago) {
         $this->Planpago = $Planpago;

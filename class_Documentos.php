@@ -10,7 +10,6 @@
  * @package
  * @project
  */
-
 /*
  * Querido programador:
  *
@@ -61,6 +60,18 @@ abstract class Documentos
 	 */
 	protected $docTipo = "";
 
+	public function __toString()
+	{
+		try
+		{
+			return (string) $this->docTipo . " - " . $this->docNumero;
+		}
+		catch (Exception $exception)
+		{
+			return '';
+		}
+	}
+
 	// el cuil es un tipo de documento
 	// /**
 	// * Numero de cuil de la persona
@@ -99,11 +110,9 @@ abstract class Documentos
 	// public function setDocTipo($docTipo)
 	// {
 	// $docTipo = strtoupper ($docTipo);
-
 	// $sql = "SELECT typdoc FROM appgral.tdoc";
 	// $result = $this->db->query ($sql);
 	// $recu = $this->db->fetch_all ($result);
-
 	// if (in_array ($docTipo, $recu['TYPDOC']))
 	// {
 	// $this->docTipo = $docTipo;

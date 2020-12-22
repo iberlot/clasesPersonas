@@ -24,8 +24,6 @@ class Carreras {
     protected $plan;
     protected $materias = array();
     protected $db;
-   
-
 
     /**
      * Constructor de la clase
@@ -33,8 +31,8 @@ class Carreras {
      * @param class_db $db
      * @param int $code
      */
-    public function __construct($db, $code = null ,$plan = null) {
-        
+    public function __construct($db, $code = null, $plan = null) {
+
         $this->db = $db;
 
         if ($code != null && trim($code) != '') {
@@ -48,15 +46,26 @@ class Carreras {
             $result = $this->db->query($query, true, $parametros);
 
             $this->loadData($this->db->fetch_array($result));
-            
-             if ($plan != null && trim($plan) != '') {
-                
+
+            if ($plan != null && trim($plan) != '') {
+
                 $this->set_plan($plan);
-                
+
                 $this->getMateriasPorPlan($this->code, $plan);
-                         
             }
         }
+    }
+    
+     /**
+     * getMateriasPorPlan
+     *
+     * @return array --> nos devuelve array de materiascon datos de  RESULT BOOK PAGE
+      * para imprimir en certidicado
+     *
+     * @return array
+     */
+    public function getDatosCarreraCertificado() {
+        
     }
 
     /**
@@ -77,46 +86,48 @@ class Carreras {
      *
      * @return array
      */
-    public function getMateriasPorPlan($career, $plan, $notsubject = null){
-        
+    public function getMateriasPorPlan($career, $plan, $notsubject = null) {
+
         $salida = array();
 
         /* $query = 'select CAREER ,PLAN,SUBJECT,SDESC ,YR ,ANNUAL ,MODULES from studentc.subxplan ' 
           . 'where '
           . 'CAREER  IN( :career ((Select SUBCAREER FROM studentc.plancar Where plancar.CAREER = :career2 and plan = :plan )))'
-          . ' and plan = :plan2'; */
-        
+          . ' and plan = :plan2'; 
+
+         * */
+
         $query = 'select CAREER carrera ,PLAN ,SUBJECT,SDESC ,YR ,ANNUAL ,MODULES 
                 from studentc.subxplan 
                 where CAREER in 
                 ( :career, (Select SUBCAREER fROM studentc.plancar Where plancar.CAREER = :career2 and plan = :plan )) 
                 and plan = :plan2 ORDER BY YR ASC';
-        
+
         $parametros = array(
             $career,
             $career,
             $plan,
             $plan
         );
-        
+
         $result = $this->db->query($query, true, $parametros);
 
         while ($fila = $this->db->fetch_array($result)) {
 
             // Si es una materia anual
             if ($fila['ANNUAL'] == 1) {
-
-                if ($fila['CAREER'] == 401) {
+                
+                
+                if (isset($fila['CAREER']) && $fila['CAREER'] == 401) {
 
                     $fila['CARGA_HORARIA'] = $fila['MODULES'] * 4 * 8;
                 } else {
 
                     $fila['CARGA_HORARIA'] = $fila['MODULES'] * 4 * 9;
                 }
-                
             } else {
 
-                if ($fila['CAREER'] == 401) {
+                if (isset($fila['CAREER']) && $fila['CAREER'] == 401) {
 
                     $fila['CARGA_HORARIA'] = $fila['MODULES'] * 4 * 4;
                 } else {
@@ -127,26 +138,23 @@ class Carreras {
 
             if ($notsubject != null) {
 
-                if (in_array($fila['SUBJECT'], $notsubject)){
+                if (in_array($fila['SUBJECT'], $notsubject)) {
 
                     $this->setMaterias($fila);
-                    
+
                     $salida[] = $fila;
                 }
-                
             } else {
-                
+
                 $this->setMaterias($fila);
                 $salida[] = $fila;
-                
             }
         }
 
         return $salida;
     }
-    
-    
-     /**
+
+    /**
      * getSelectMaterias
      *
      * Devuelve un select de materias de carrera , podemos filtrar 
@@ -156,67 +164,93 @@ class Carreras {
      *
      * @return array
      */
-    public function getSelectMaterias( $multiple = null ){         
+    public function getSelectMaterias($multiple = null) {
 
-                        $template .= '<label>Materias</label>';
+        $template .= '<label>Materias</label>';
 
-                        $template .= '<ul id="listado_materias">';
+        $template .= '<ul id="listado_materias">';
 
-                        $template .= "<select id='select_materias' >";
+        $template .= "<select id='select_materias' >";
 
-                        foreach ($this->getMaterias() as $row){
+        foreach ($this->getMaterias() as $row) {
 
-                            if ($tipo == '111') {
+            if ($tipo == '111') {
 
-                                $template .= "<option class='option_materia'  id='sel_" . $row["SUBJECT"] . "' value='" . $row["SUBJECT"] . "'> " . $row["SUBJECT"] . " - A&ntilde;o: " . $row["YR"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
-                            
-                                
-                            } else if ($tipo == '113') {
+                $template .= "<option class='option_materia'  id='sel_" . $row["SUBJECT"] . "' value='" . $row["SUBJECT"] . "'> " . $row["SUBJECT"] . " - A&ntilde;o: " . $row["YR"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
+            } else if ($tipo == '113') {
 
-                                $template .= "<option class='option_materia' ' id='sel_" . $row["SUBJECT"] . "' value='" . $row["SUBJECT"] . "'> " . $row["SUBJECT"] . " - A&ntilde;o: " . $row["YR"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
-                            
-                                
-                            } else {
+                $template .= "<option class='option_materia' ' id='sel_" . $row["SUBJECT"] . "' value='" . $row["SUBJECT"] . "'> " . $row["SUBJECT"] . " - A&ntilde;o: " . $row["YR"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
+            } else {
 
-                                $template .= "<option class='option_materia' id='sel_" . $row["SUBJECT"] . "' value='" . $row["SUBJECT"] . "'> " . $row["SUBJECT"] . " - A&ntilde;o: " . $row["YR"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
-                            }
-                        }
+                $template .= "<option class='option_materia' id='sel_" . $row["SUBJECT"] . "' value='" . $row["SUBJECT"] . "'> " . $row["SUBJECT"] . " - A&ntilde;o: " . $row["YR"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
+            }
+        }
 
-                        if ($tipo == '111') {
+        if ($tipo == '111') {
 
-                            $template .= "<input type='button' value='Agregar' id='agregar_mat' onclick='agregar_materia(5)'><br/>";
+            $template .= "<input type='button' value='Agregar' id='agregar_mat' onclick='agregar_materia(5)'><br/>";
+        } else if ($tipo == '113') {
+
+            $template .= "<input type='button' value='Agregar' id='agregar_mat' onclick='agregar_materia(10)'><br/>";
+        } else {
+
+            $template .= "<input type='button' value='Agregar' id='agregar_mat' onclick='agregar_materia()'><br/>";
+        }
+
+        $template .= "</select><br/><label>Materias seleccionadas: </label>";
+
+
+        $template .= "<div id='materiasseleccionadas'><br/></div>";
+
+        return $template;
+    }
+    
+    /**
+     * obtengo las materias de una carrera del alymno
+     */
+    function getMateriasCarreraPorAlumno($student ,$stats = null){
+        
+        $query="select s.subject, descrip, result, book, page ,apprdate from studentt.stusubjt s, studentc.subxplan x
+        where s.career=x.career 
+        and s.plan=x.plan 
+        and s.subject=x.subject 
+        and s.stat in (2,7) 
+        and student= :student 
+        and s.career= :career
+        and s.plan= :plan ";
+        
+        $params=array(
+            $student ,
+            $this->get_code(),
+            $this->get_plan(),
                         
-                            
-                        } else if ($tipo == '113') {
-
-                            $template .= "<input type='button' value='Agregar' id='agregar_mat' onclick='agregar_materia(10)'><br/>";
+        );
+        //datos de prueba
+        /*$params=array(
+            151972  ,
+            801,
+            12
                         
-                            
-                        } else {
+        );
+        */
+        
+        
+         $result = $this->db->query($query, true, $params);
 
-                            $template .= "<input type='button' value='Agregar' id='agregar_mat' onclick='agregar_materia()'><br/>";
-                        }
-
-                        $template .= "</select><br/><label>Materias seleccionadas: </label>";
-                     
-
-                    $template .= "<div id='materiasseleccionadas'><br/></div>";
-                    
-                    return $template;
-                   
-                    
-
+         
+        while ($fila = $this->db->fetch_array($result)){
+             $salida[] = $fila;
+        }
+        
+        return $salida;
         
     }
     
-    
-    
-
     /**
      * Carga datos traidos de db en objeto
      */
     protected function loadData($fila) {
-        
+
         $this->set_code($fila['CODE']);
         $this->set_descrip($fila['DESCRIP']);
         $this->set_sdesc($fila['SDESC']);
@@ -224,7 +258,7 @@ class Carreras {
         $this->set_active($fila['ACTIVE']);
         $this->set_facu($fila['FACU']);
         $this->set_acode($fila['ACODE']);
-        
+
         $this->getMateriasPorPlan($fila['CODE'], $this->get_plan());
     }
 
@@ -258,21 +292,18 @@ class Carreras {
     function get_acode() {
         return $this->acode;
     }
-    
+
     function get_plan() {
         return $this->plan;
     }
-    
+
     function getMaterias() {
         return $this->materias;
     }
-    
 
     /**
      * ***SETTERS****
      */
-    
-
     function setMaterias($materias) {
         $this->materias[] = $materias;
     }
@@ -304,7 +335,7 @@ class Carreras {
     function set_acode($acode) {
         $this->acode = $acode;
     }
-    
+
     function set_plan($plan) {
         $this->plan = $plan;
     }

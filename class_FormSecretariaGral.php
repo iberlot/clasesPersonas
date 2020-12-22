@@ -10,6 +10,7 @@ require_once ("/web/html/classesUSAL/class_derechos_varios.php");
 require_once ("/web/html/classesUSAL/class_alumnos.php");
 require_once ("/web/html/classesUSAL/class_carreras.php");
 require_once ("/web/html/classesUSAL/class_FormsSolitram.php");
+require_once ("/web/html/classesUSAL/class_materias.php");
 require_once ("/web/html/classes/class_Session.php");
 require_once ("/web/html/classes/class_files.php");
 
@@ -24,7 +25,7 @@ require_once ("/web/html/classes/class_files.php");
  * @since 28 Jun. 2019
  * @name FormsSecretariaGral
  * @version 1.0 version inicial
- * 
+ *
  */
 class FormsSecretariaGral extends Formularios {
 
@@ -57,7 +58,7 @@ class FormsSecretariaGral extends Formularios {
     protected $presentadoa;
 
     /**
-     * Email personal del alumno     
+     * Email personal del alumno
      *
      * @var string
      */
@@ -134,6 +135,27 @@ class FormsSecretariaGral extends Formularios {
     protected $descripcion;
 
     /**
+     * idconcepto para los forms 112 que son derechos varios
+     *
+     * @var string
+     */
+    protected $idconcepto;
+
+    /**
+     * Indica si el formulariodebe ir al migraciones para validacion
+     *
+     * @var int
+     */
+    protected $migraciones;
+
+    /**
+     * Indica si el migraciones debe a ir al exterior
+     *
+     * @var int
+     */
+    protected $ministerio;
+
+    /**
      * Constructor de la clase.
      *
      * @param class_db $db
@@ -155,16 +177,18 @@ class FormsSecretariaGral extends Formularios {
         }
 
         // Si tipo es null pero id no , devolvemos los datos del form
-        if (($tipo == null || $tipo == '') && ($id != null || $id != '')) {
+        if (($tipo == null || $tipo == '') && ($id != null && $id != '')) {
+
+            parent::__construct($db, null, $id);
 
             $parametros = array(
                 $id
             );
 
             $query = "SELECT FORMULARIO.*  , FORMULARIOSECGRAL.*
-                    FROM FORMULARIOS JOIN tesoreria.formulariosecgra ON
-                    FORMULARIOS.ID = FORMULARIOSECGRAL.IDFORMULARIO
-                    WHERE FORMULARIOS.id = :id ";
+                    FROM FORMULARIO JOIN tesoreria.FORMULARIOSECGRAL ON
+                    FORMULARIO.ID = FORMULARIOSECGRAL.IDFORMULARIO
+                    WHERE FORMULARIO.id = :id ";
 
             $result = $this->db->query($query, true, $parametros);
 
@@ -183,7 +207,7 @@ class FormsSecretariaGral extends Formularios {
      *
      * @param int $id
      * @return array
-     * 
+     *
      */
     public function getFormById($id) {
 
@@ -194,22 +218,27 @@ class FormsSecretariaGral extends Formularios {
         // $this->db = Conexion::openConnection();
 
         $query = "SELECT formulario.* ,
-                formulariosecgral.idformulario,
-                formulariosecgral.presentadoa,
-                formulariosecgral.emailpersonal,
-                formulariosecgral.celular,
-                formulariosecgral.obligacadeaprob,
-                formulariosecgral.equivalenciasoli,
-                formulariosecgral.equivalenciasoli,
-                formulariosecgral.iddocumen1,
-                formulariosecgral.iddocumen2,
-                formulariosecgral.PROGRAMA,
-                formulariosecgral.HORASCATEDRA,
-                formulariosecgral.AMBITO,
-                formulariosecgral.PLANESTUDIO,
-                formulariosecgral.COPIME
+                FORMULARIOSECGRAL.idformulario,
+                FORMULARIOSECGRAL.presentadoa,
+                FORMULARIOSECGRAL.emailpersonal,
+                FORMULARIOSECGRAL.celular,
+                FORMULARIOSECGRAL.obligacadeaprob,
+                FORMULARIOSECGRAL.equivalenciasoli,
+                FORMULARIOSECGRAL.equivalenciasoli,
+                FORMULARIOSECGRAL.iddocumen1,
+                FORMULARIOSECGRAL.iddocumen2,
+                FORMULARIOSECGRAL.PROGRAMA,
+                FORMULARIOSECGRAL.HORASCATEDRA,
+                FORMULARIOSECGRAL.AMBITO,
+                FORMULARIOSECGRAL.PLANESTUDIO,
+                FORMULARIOSECGRAL.RANKING,
+                FORMULARIOSECGRAL.PROMEDIO,
+                FORMULARIOSECGRAL.ESCALACALI,
+                FORMULARIOSECGRAL.PRACTICAS,
+                FORMULARIOSECGRAL.INCUMBENCIA,
+                FORMULARIOSECGRAL.IDCONCEPTO
                 FROM formulario
-		JOIN tesoreria.formulariosecgral ON formulario.id = formulariosecgral.idformulario
+		JOIN tesoreria.FORMULARIOSECGRAL ON formulario.id = FORMULARIOSECGRAL.idformulario
                 WHERE formulario.id = :id ";
 
         $result = $this->db->query($query, true, $parametros);
@@ -279,19 +308,33 @@ class FormsSecretariaGral extends Formularios {
                             . '</select><br/>'
                             . '<div class="copime" style="display:none;">'
                             . '<label class="check_secgral" >Copime</label>'
-                            . '<input type="checkbox" id="copime_select" value="1" name="copime" disabled class="select_secgral">'
+                            . '<input type="checkbox" id="copime_select" value="1" name="copime" disabled class="select_secgral" />'
                             . '</div>'
                             . '<br/><br/>'
                             . '<p><b>Items a solicitar</b></p>'
-                            . '<label  class="check_secgral"> Plan de Estudio:</label>'
-                            . '<input type="checkbox" name="planestudio" checked><br/>'
-                            . '<label class="check_secgral"> Programas:</label>'
-                            . '<input type="checkbox" name="programa"  checked ><br/>'
-                            . '<label class="check_secgral">Horas c&aacute;tedra:</label>'
-                            . '<input type="checkbox" name="horascatedras"  ><br/><br/>'
-                            . '<label>Plan de estudio:</label><br/>'
+                            . '<div class="box1" >'
+                            . '<label  class="check_secgral"> Plan de Estudio</label>'
+                            . '<input type="checkbox" name="planestudio" checked /><br/>'
+                            . '<label class="check_secgral"> Programas</label>'
+                            . '<input type="checkbox" name="programa"  checked /><br/>'
+                            . '<label class="check_secgral">Horas c&aacute;tedra</label>'
+                            . '<input type="checkbox" name="horascatedras"  /><br/>'
+                            . '<label class="check_secgral">Alcance del t&iacute;tulo o Incumbencias</label>'
+                            . '<input type="checkbox" name="alcance"  /><br/>'
+                            . '</div>'
+                            . '<div class="box2" >'
+                            . '<label class="check_secgral">Escala de calificaci&oacute;n:</label>'
+                            . '<input type="checkbox" name="escalacali"  /><br/>'
+                            . '<label class="check_secgral">Promedio</label>'
+                            . '<input type="checkbox" name="promedio"  /><br/>'
+                            . '<label class="check_secgral">Ranking</label>'
+                            . '<input type="checkbox" name="ranking"  /><br/>'
+                            . '<label class="check_secgral">Pr&aacute;cticas</label>'
+                            . '<input type="checkbox" name="practicas"  /><br/><br/>'
+                            . '<div>'
+                            . '<label>Plan de estudio:</label><br/></br>'
                             . '<input type="file" name="plestudio" id="plestudio"><br/>'
-                            . '<label>Programa de la materia:</label><br/>'
+                            . '<label>Programa de la materia</label><br/>'
                             . '<input type="file" name="prmateria" id="prmateria"><br/>';
 
                     break;
@@ -299,14 +342,30 @@ class FormsSecretariaGral extends Formularios {
                 case '112' :
 
                     $template .= '<input type="hidden" value="112" name="IDSECGRAL">'
-                            . '<input type="hidden" value="112" name="tipoform">';
+                            . '<input type="hidden" value="' . $this->getIdconcepto() . '" name="tipoform">';
 
                     break;
 
                 case '113' :
 
                     $template .= '<input type="hidden" value="113" name="IDSECGRAL">'
-                            . '<input type="hidden" value="113" name="tipoform">';
+                            . '</br></br><label>Para ser presentado ante:</label></br>'
+                            . '<input type="text" name="presentadoa" id="presentadoa" value="" style="margin-top:10px;" >'
+                            . '<input type="hidden" value="113" name="tipoform">'
+                            . '<br><br><input type="checkbox" name="migraciones"  />'
+                            . '<label class="check_secgral check_programa"> Exterior/Migraciones</label> '
+                            . '<br><br><input type="checkbox" name="ministerio"  />'
+                            . '<label class="check_secgral check_programa">  Valida en Ministerio de Educaci&oacute;n</label> '
+                            . '<br><br><input type="checkbox" name="programa"  />'
+                            . '<label class="check_secgral check_programa">  Programa</label> '
+                            . '<br><br><input type="checkbox" name="copime"  />'
+                            . '<label class="check_secgral check_programa">  Copime</label><br/> '
+                            . '</br><input type="checkbox" name="pase"  />'
+                            . '<label class="check_secgral check_programa">  Es pase</label><br/> '
+                            . '<label>Plan de estudio:</label><br/></br>'
+                            . '<input type="file" name="plestudio" id="plestudio"><br/>'
+                    ;
+
                     break;
 
                 default :
@@ -324,9 +383,28 @@ class FormsSecretariaGral extends Formularios {
             if ($data['PROGRAMA'] == '1') {
                 $solicitar.=' Programa -';
             };
+            if ($data['ESCALACALI'] == '1') {
+                $solicitar.=' Escala de calificaci&oacute;n -';
+            };
 
             if ($data['PLANESTUDIO'] == '1') {
                 $solicitar.=' Plan de estudios -';
+            };
+
+            if ($data['INCUMBENCIA'] == '1') {
+                $solicitar.=' Alcance del t&IACUTE;tulo o Incumbencias -';
+            };
+
+            if ($data['PROMEDIO'] == '1') {
+                $solicitar.=' Promedio -';
+            };
+
+            if ($data['RANKING'] == '1') {
+                $solicitar.=' Ranking -';
+            };
+
+            if ($data['PRACTICAS'] == '1') {
+                $solicitar.=' Pr&aacute;cticas -';
             };
 
             if ($data['AMBITO'] == '1') {
@@ -335,13 +413,22 @@ class FormsSecretariaGral extends Formularios {
                 $ambito = 'Nacional';
             };
 
-            if ($data['COPIME'] == '1') {
-                $copime = 'Si';
-                $copime_display = " style='display:inline-block' ";
+            if (isset($data['COPIME'])) {
+
+                if ($data['COPIME'] == '1') {
+
+                    $copime = 'Si';
+                    $copime_display = " style='display:inline-block' ";
+                } else {
+
+                    $copime = 'No';
+                    $copime_display = " style='display:none' ";
+                };
             } else {
+
                 $copime = 'No';
                 $copime_display = " style='display:none' ";
-            };
+            }
 
             switch ($tipo) {
 
@@ -381,9 +468,6 @@ class FormsSecretariaGral extends Formularios {
 
                     $template .= '<input type="hidden" value="112" name="IDSECGRAL">'
                             . '<input type="hidden" value="112" name="tipoform">'
-                            . '<label><b>Para ser presentado ante: </b>' . utf8_encode($data['PRESENTADOA']) . ' </label><br/>'
-                            . '<label><b>&Aacute;mbito:</b> ' . $ambito . '</label>'
-                            . '<label ' . $copime_display . '>COPIME</label><br/>'
                             . '<br/>';
 
                     break;
@@ -398,7 +482,21 @@ class FormsSecretariaGral extends Formularios {
                             . ' con el fin de solicitarle sean reconocidas como equivalentes a las materias'
                             . ' que a continuaci&oacute;n detallo, aprobadas en: </p> '
                             . '<br/><p>Obligaci&oacute;n acad&eacute;mica aprobada:</p>'
+                            . '<label class="check_secgral check_ambito" >   Interno/Externo</label>'
+                            . '<select name="ambito"  id="ambito" >'
+                            . '<option value="1">Interno</option>'
+                            . '<option value="1">Externo</option>'
+                            . '</select><br/>'
                             . '<textarea disabled  name="obli_acade_aproba" id="obli_acade_aproba" >' . utf8_encode($data['OBLIGACADEAPROB']) . '</textarea>';
+
+
+
+                    $template .= '<label>Archivo 1:</label><br/>';
+
+                    // inicializo la clase
+                    $archivo1 = new files($this->db, $data['IDDOCUMEN1']);
+
+                    $template .= '<a href="descargararchivo.php?i=' . $data['IDDOCUMEN1'] . '">' . $archivo1->get_nombrearch() . '-' . $data['IDDOCUMEN1'] . '</a>';
 
 
                     break;
@@ -410,99 +508,148 @@ class FormsSecretariaGral extends Formularios {
         }
 
         // Estos forms son los que necesitan listas de materias , si entra por aca , devuelve un select
-        // con las materias , si hay datos devuelve las materias seleccionadas en un div aparte , las demas en
+        // con las materias , si hay datos devuelve las materias seleccionadas en un div aparte , las demas e
+        if ($tipo == '112' && !$data) {
 
-        if (/* $tipo == '111' || */ $tipo == '112' || $tipo == '113') {
+            /* OBTENGO LAS CARRERAS QUE CURSA EL ALUMNO */
+            $carreras = $alumno->obtenerCarrerasAlumnos($alumno->getPerson(), $carrera->get_code());
 
-            $template .= '<div class="carreras-content">' //bloque central
+            //  $template.='<h1>'.count($carreras).'<h1>';
+            /*             * ********COLUMNA IZQUIERDA OBLIGATORIO PARA TODOS LOS FORM DE ESTE TIPO INDEPENDIENTE DE LA CANTIDAD DE MATERIAS******* */
+            $template.= '<div class="carreras-content">'//bloque central
                     . '<div class="carrera_actual">' //columna izquierda
                     . '<div class="carrera-item">' //contenedor columna izquierda
                     . '<h3>Materias de ' . utf8_encode($alumno->getCarrera_descrip()) . '</h3>'; //titulo de columna
 
 
-            /* item de carrera */
-            $template .= '<div class="c-i-option"><br/>'
-            /* . '<label>''</label>' */;
+            $template .= '<div class="c-i-option c-i-option1"><br/>'
+                    . '<input type="hidden" name="carrera1" value="' . $alumno->getCarrera() . '" >';
             $template .= "<select id='materiaactual' style='margin-top:8px;' name='equivalencia_nueva'  >"
-                    . "<option value='s' >Seleccione una materia</option>";           
-                    //.'<input type="hidden" name="plan2" value="'.$carrera->plan.'" >';
-            
+                    . "<option value='s' >Seleccione una materia</option>";
+
             foreach ($carrera->getMaterias() as $row) {
-                $template   .= "<option class='option_materia'  id='sel_" . $row["SUBJECT"] 
-                            . "' value='" . $row["SUBJECT"] . "'> " 
-                            . $row["SUBJECT"] . " - A&ntilde;o: " . $row["YR"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
+                $template .= "<option class='option_materia'  id='sel_" . $row["SUBJECT"]
+                        . "' value='" . $row["SUBJECT"] . "'> "
+                        . $row["SUBJECT"] . " - A&ntilde;o: " . $row["YR"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
             }
 
-            $template .= "</select>";
-
-            $template .='</div>';
-
-            $template .= '</div></div>'; //cierre columna izquierda
-
-            $template .= '<div class="carreras_anterior" >'//columna derecha
-                      . '<div class="carrera-item">'//contenedor columna derecha
-            ; //titulo de columna
-
-            /* OBTENGO LAS CARRERAS QUE CURSA EL ALUMNO */
-            $carreras = $alumno->obtenerCarrerasAlumnos($alumno->getPerson(), $carrera->get_code());
-
-            /* item de carrera */
-            $template .= '<div class="c-i-option"><label>';
-
-            //si tiene mas de una carrera le ponemos el boton de seleccione
-            if (count($carreras) > 1) {
-
-                $template.='<h3>Carreras Cursadas</h3>';
-                $template.='<select id="carreras" name="carrera" >';
-                $template.='<option value="s" >Selecciones</option>';
-
-                foreach ($carreras as $row) {
-                    $template.='<option value="' . $row["CAREER"] . ' - ' . $row["PLAN"] . '">' . utf8_encode($row["LDESC"]) . ' </option>';
-                }
-
-                $template.='</select>';
+            $template .= '</select>';
+            $template .= '</div>';
+            $template .= '</div>';
+            $template .= '</div>';
+            /*             * **************cierre columna izquierda***************************************** */
+            /*             * **************Columna derecha depende de cantidad de materias***************** */
 
 
-                $template.='</label></div>';
-                
-            } else {
-                //si hay una sola carrera muestro el nombre y tmb armo el select multiiple con sus materias
+            switch (count($carreras)) {
 
-                $template.='<h3>Materias de ' . utf8_encode($carreras[0][3]) . '</h3>';
+                case '0'://
+                    //$template .='0';
+                    $template .= '<input type="hidden" value="48" name="formdervar" id="formdervar">';
+                    $template .= '<div class="carrera_anterior" >'
+                            . '<div class="carrera-item">';
+
+                    $template .= '<label><h3>Materias equivalentes</h3></label>'
+                            . '<textarea name="materiasexternas" id="materiasexternas"> </textarea>';
+
+                    break;
+
+                case '1'://31410174
+
+                    $carrera2 = new Carreras($this->db, $carreras[0]['CAREER'], $carreras[0]['PLAN']);
+
+                    $template .=
+                            '<div class="tipoequiv"><label>Tipo de equivalencia</label>'
+                            . '<select id="tipoequiv" onchange="cambiar_form()">'
+                            . '<option value="49">Interno</option>'
+                            . '<option value="48">Externo</option>'
+                            . '<select/>'
+                            . '<input type="hidden" value="49" name="formdervar" id="formdervar">'
+                            . '</div>';
 
 
-                $template.='</label></div>';
-                
-                $carrera2 = new Carreras($this->db, $carreras[0]['CAREER'], $carreras[0]['PLAN']);
-                
-                 /* item de carrera */
-                $template .= '<div class="c-i-option">'
-                        . '<input type="hidden" name="plan2" value="'.$carreras[0]['PLAN'].'" >'
-                        . '<select  class="option_materia" id="materiasequivalencias" name="equivalencias" multiple>';
-                
-                foreach ($carrera2->getMaterias() as $row) {
-                    
-                    $template .= "<option class='option_materia'  id='sel_" . $row["SUBJECT"] .
-                            "' value='" . $row["SUBJECT"] . "'> " . $row["SUBJECT"] . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
-                                    
-                }
+                    $template .= '<div class="carrera_anterior" ><div class="carrera-item">';
 
-                $template .= '</select>'
-                . '<script>$("#materiasequivalencias").multiSelect('
-                . '{ noneText: "Seleccione las materias",
+                    $template.='<div class="externo" style="display:none;">'
+                            . '<label><h3>Materias equivalentes</h3></label>'
+                            . '<textarea name="materiasexternas" id="materiasexternas"> </textarea>'
+                            . '</div>';
+                    $template.='<div class="interno">'
+                            . '<h3>Materias de ' . utf8_encode($carreras[0][3]) . '</h3><br/><br/>';
+
+                    $template .='<input type="hidden" name="plan2" id="plan2" value="' . $carreras[0]['PLAN'] . '" >'
+                            . '<input type="hidden" name="carrera2" id="carrera2" value="' . $carreras[0]['CAREER'] . '" >'
+                            . '<select  class="option_materia" id="materiasequivalencias" name="equivalencias" multiple>';
+
+                    foreach ($carrera2->getMaterias() as $row) {
+
+                        $template .= "<option   id='sel_" . $row["SUBJECT"] .
+                                "' value='" . $row["SUBJECT"] . "'> " . $row["SUBJECT"]
+                                . " - " . utf8_encode($row["SDESC"]) . " - " . $row["CARGA_HORARIA"] . " Hs</option>";
+                    }
+
+                    $template .= '</select>';
+                    $template .='</div>'
+                            . '<script>$("#materiasequivalencias").multiSelect('
+                            . '{ noneText: "Seleccione las materias",
                     presets: [
                         {
                             name: "Seleccione materias",
                             options: []
                         }
                     ]}'
-                . ');</script>'
-                . '</div>';
-            }
+                            . ');</script>';
 
+
+                    break;
+
+                default://32738998
+
+                    $template .=
+                            '<div class="tipoequiv"><label>Tipo de equivalencia</label>'
+                            . '<select id="tipoequiv" onchange="cambiar_form()">'
+                            . '<option value="49">Interno</option>'
+                            . '<option value="48">Externo</option>'
+                            . '<select/>'
+                            . '<input type="hidden" value="49" name="formdervar" id="formdervar">'
+                            . '</div>';
+
+                    $template .= '<div class="carrera-item" style="margin-top: 15px;">'
+                            . '<div class="carrera_anterior" style="margin-top: 0px!important;">';
+
+                    $template.='<div class="externo" style="display:none;">'
+                            . '<label><h3>Materias equivalentes</h3></label>'
+                            . '<textarea name="materiasexternas" id="materiasexternas"> </textarea>'
+                            . '</div>';
+
+                    $template.='<div class="interno">';
+                    $template.='<h3>Carreras Cursadas</h3>';
+                    $template.='<select id="carreras" name="carrera"  onchange="cambiarCarrera(\'carreras\' , \'materiasequivalencias\')">';
+                    $template.='<option value="s" >Seleccione</option>';
+
+                    foreach ($carreras as $row) {
+                        $template.='<option value="' . $row["CAREER"] . ' - ' . $row["PLAN"] . '">' . utf8_encode($row["LDESC"]) . ' </option>';
+                    }
+
+                    $template.='</select>';
+
+                    /* SELECT DE MATERIAS VACIO QUE SE LLENA LUEGO */
+                    /* item de carrera */
+
+                    $template.='<div class="select2"></div>'
+                            . '</div>';
+
+                    break;
+            }
+            /*             * **************TERMINA Columna derecha ***************** */
+
+            $template .= '</div>';
             $template .= '</div>'
                     . '<input type="button" onclick="asignar_equivalencias()" value="Asociar" id="asociar" '
                     . 'class="vex-dialog-button-primary vex-dialog-button vex-first"/>'
+                    . '</div>'//cierre columna izquierda
+                    . '</div>'//cierre columna izquierda
+                    . '</div>'//cierre columna izquierda
                     . '</div>'//cierre columna izquierda
                     . '</div>'; //cierre  bloque central
 
@@ -516,10 +663,79 @@ class FormsSecretariaGral extends Formularios {
                     </tr>
                     </thead>
                     <tbody>
-       
                     </tbody>
                     </table>'
                     . '</div>'; //cierre de resultado
+        }
+
+        //SI ES UN FORM 112 Y EXISTEN DATOS PARA EL MISMO
+        if ($tipo == '112' && $data) {
+
+            $materias_form = $this->get_materias($data['ID']);
+            /*
+              echo('<pre>');
+              var_dump($materias_form);
+              echo('</pre>');
+             */
+            $template .= '<div class="equivalencias-result">'//contenedor de resultado
+                    . '<table class="minimalistBlack">
+                <thead>
+                <tr>
+                    <th>Materia </th>
+                    <th colspan="2">Materias Equivalentes</th>
+                </tr>
+                </thead>';
+
+            $template .= '<tbody>';
+
+            $materia1comparacion = '';
+
+            foreach ($materias_form as $row) {
+
+                $materia1 = new materias($this->db, $row['SUBJECT1'], $row['PLAN1']);
+
+                if ($row["CAREER2"] != 'undefined' && $row['PLAN2'] != 'undefined' && $row["CAREER2"] != ' ' && $row['PLAN2'] != ' ') {
+
+                    $carrera_equiv = new Carreras($this->db, $row["CAREER2"], $row['PLAN2']);
+
+                    $materia2 = new materias($this->db, $row['SUBJECT2'], $row['PLAN2']);
+
+                    if ($materia1comparacion != $row['SUBJECT1']) {
+
+                        $template .='<tr>';
+                        $template .='<td>' . utf8_encode($materia1->getDescrip()) . '</td>';
+                        $template .='<td>' . utf8_encode($materia2->getDescrip()) . ' - ' . utf8_encode($carrera_equiv->get_sdesc()) . '</td>';
+                        $template .='</tr>';
+                    } else {
+
+                        $template .='<tr>';
+                        $template .='<td> &nbsp;</td>';
+                        $template .='<td>' . utf8_encode($materia2->getDescrip()) . ' - ' . utf8_encode($carrera_equiv->get_sdesc()) . '</td>';
+                        $template .='</tr>';
+                    }
+                } else {
+
+                    if ($materia1comparacion != $row['SUBJECT1']) {
+
+                        $template .='<tr>';
+                        $template .='<td>' . utf8_encode($materia1->getDescrip()) . '</td>';
+                        $template .='<td>' . $row['SUBJECT2'] . '</td>';
+                        $template .='</tr>';
+                    } else {
+
+                        $template .='<tr>';
+                        $template .='<td> &nbsp;</td>';
+                        $template .='<td>' . $row['SUBJECT2'] . '</td>';
+                        $template .='</tr>';
+                    }
+                }
+
+                $materia1comparacion = $row['SUBJECT1'];
+            }
+
+            $template .= '<tbody>
+                </tbody>
+                </table><br/><br/>';
         }
 
         $template .= '<div id="loader" class="loader" style="display:none;"> <img src="/images/loading2.gif"> </div>';
@@ -545,7 +761,7 @@ class FormsSecretariaGral extends Formularios {
         $parametros[] = $tipo;
 
         $query = "SELECT descripcion
-                FROM detalleformssecgeneral 
+                FROM FORMSECGRAL
                 WHERE NUMEROFORM = :tipo";
 
 
@@ -625,32 +841,6 @@ class FormsSecretariaGral extends Formularios {
         // cargo utilizo el load data de la clase padre
         parent::loadData($fila);
 
-        switch ($this->get_tipo_form()) {
-
-            case 110 :
-                $nombre = 'Formulario de solicitud de programa';
-
-                break;
-            case 111 :
-                $nombre = 'Formulario certificado parcial con notas (5 materias)';
-
-                break;
-            case 112 :
-                $nombre = 'Formulario certificado parcial con notas (10 materias)';
-
-                break;
-            case 113 :
-                $nombre = 'Formulario certificado de equivalencias';
-
-                break;
-
-            default :
-
-                break;
-        }
-
-        $this->set_nombre_form($nombre);
-
         if (isset($fila['IDFORMULARIO'])) {
             $this->set_IDFORMULARIO($fila['IDFORMULARIO']);
         }
@@ -687,9 +877,7 @@ class FormsSecretariaGral extends Formularios {
             $this->set_IDDOCUMEN1($fila['IDDOCUMEN2']);
         }
 
-        if (isset($fila['AMBITO'])) {
-            $this->setAmbito($fila['AMBITO']);
-        }
+       
         if (isset($fila['AMBITO'])) {
             $this->setAmbito($fila['AMBITO']);
         }
@@ -697,6 +885,17 @@ class FormsSecretariaGral extends Formularios {
         if (isset($fila['COPIME'])) {
             $this->setCopime($fila['COPIME']);
         }
+
+        if (isset($fila['IDCONCEPTO'])) {
+            $this->setIdconcepto($fila['IDCONCEPTO']);
+        }
+        if (isset($fila['MINISTERIO'])) {
+            $this->setMinisterio($fila['MINISTERIO']);
+        }
+        if (isset($fila['MIGRACIONES'])) {
+            $this->setExterior($fila['MIGRACIONES']);
+        }
+        
     }
 
     /*     * ********GETTERS******** */
@@ -827,6 +1026,18 @@ class FormsSecretariaGral extends Formularios {
         return $this->iddocumen2;
     }
 
+    function getIdconcepto() {
+        return $this->idconcepto;
+    }
+
+    function getMigraciones() {
+        return $this->migraciones;
+    }
+
+    function getMinisterio() {
+        return $this->ministerio;
+    }
+
     /**
      * Retorna el valor del atributo $descripcion
      *
@@ -851,8 +1062,8 @@ class FormsSecretariaGral extends Formularios {
     /**
      * Setter del parametro $template de la clase.
      *
-     * @param string $html_template 
-     * 
+     * @param string $html_template
+     *
      */
     function set_html_template($html_template) {
         $this->html_template = $html_template;
@@ -862,7 +1073,7 @@ class FormsSecretariaGral extends Formularios {
      * Setter del parametro $db de la clase.
      *
      * @param string $db form
-     *        	
+     *
      */
     function set_db($db) {
         $this->db = $db;
@@ -895,7 +1106,7 @@ class FormsSecretariaGral extends Formularios {
      *        	dato a cargar en la variable.
      */
     function set_PRESENTADOA($presentadoa) {
-        $this->PRESENTADOA = $presentadoa;
+        $this->presentadoa = $presentadoa;
     }
 
     /**
@@ -982,6 +1193,18 @@ class FormsSecretariaGral extends Formularios {
 
     function setCopime($copime) {
         $this->copime = $copime;
+    }
+
+    function setIdconcepto($idconcepto) {
+        $this->idconcepto = $idconcepto;
+    }
+
+    function setMinisterio($ministerio) {
+        $this->ministerio = $ministerio;
+    }
+
+    function setExterior($exterior) {
+        $this->migraciones = $exterior;
     }
 
 }

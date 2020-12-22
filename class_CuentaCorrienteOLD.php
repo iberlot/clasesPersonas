@@ -72,81 +72,81 @@ class CuentaCorriente {
         $parametros[1] = $idcentrodecosto;
 
         $result = $this->db->query($query, $esParam = true, $parametros);
-        
-        $contador_mat=1;
+
+        $contador_mat = 1;
         while ($arr_asoc = $this->db->fetch_array($result)) {
-            
-            
-            
-            
-         $contador_mat = $contador_mat + 1;
+
+
+
+
+            $contador_mat = $contador_mat + 1;
         }
-        
+
         /*
 
-        if (isset($valoresaran) and isset($valoresmat) and isset($beca)) {
-            $query = "SELECT descripcion FROM interfaz.tipo_alumno WHERE tipo_alumno = :talumno";
+          if (isset($valoresaran) and isset($valoresmat) and isset($beca)) {
+          $query = "SELECT descripcion FROM interfaz.tipo_alumno WHERE tipo_alumno = :talumno";
 
-            $parametros = "";
-            $parametros[0] = $beca[1];
+          $parametros = "";
+          $parametros[0] = $beca[1];
 
-            $result = $this->db->query($query, $esParam = true, $parametros);
+          $result = $this->db->query($query, $esParam = true, $parametros);
 
-            $arr_asoc = $this->db->fetch_array($result);
+          $arr_asoc = $this->db->fetch_array($result);
 
-            $beca[1] = utf8_encode($beca[1] . " - " . $arr_asoc['DESCRIPCION']);
+          $beca[1] = utf8_encode($beca[1] . " - " . $arr_asoc['DESCRIPCION']);
 
 
-            $arr_json['beca1'] = $beca[1];
+          $arr_json['beca1'] = $beca[1];
 
-            if (isset($arr_asoc['COD_BECANT']) and $arr_asoc['COD_BECANT'] != "") {
-                $arr_json['becaant'] = $arr_asoc['COD_BECANT'];
-            } else {
-                $arr_json['becaant'] = "00";
-            }
+          if (isset($arr_asoc['COD_BECANT']) and $arr_asoc['COD_BECANT'] != "") {
+          $arr_json['becaant'] = $arr_asoc['COD_BECANT'];
+          } else {
+          $arr_json['becaant'] = "00";
+          }
 
-            $esca = '' . $arr_json['es'] . '' . $arr_json['ca'] . '';
-            if ($arr_json['es'] == 0) {
-                $esca = '0' . $arr_json['es'] . '' . $arr_json['ca'] . '';
-            }
+          $esca = '' . $arr_json['es'] . '' . $arr_json['ca'] . '';
+          if ($arr_json['es'] == 0) {
+          $esca = '0' . $arr_json['es'] . '' . $arr_json['ca'] . '';
+          }
 
-            $query = "SELECT descrip FROM studentc.branch WHERE code = :sede";
+          $query = "SELECT descrip FROM studentc.branch WHERE code = :sede";
 
-            $parametros = "";
-            $parametros[0] = $arr_json['es'];
+          $parametros = "";
+          $parametros[0] = $arr_json['es'];
 
-            $result = $this->db->query($query, $esParam = true, $parametros);
+          $result = $this->db->query($query, $esParam = true, $parametros);
 
-            $arr_asoc = $this->db->fetch_array($result);
+          $arr_asoc = $this->db->fetch_array($result);
 
-            $arr_json['sede'] = utf8_encode($arr_asoc['DESCRIP']);
+          $arr_json['sede'] = utf8_encode($arr_asoc['DESCRIP']);
 
-            $query = "SELECT descrip FROM studentc.facu WHERE code = :facu";
-            $parametros = "";
-            $parametros[0] = $arr_json['fa'];
-            $result = $this->db->query($query, $esParam = true, $parametros);
-            $arr_asoc = $this->db->fetch_array($result);
-            $arr_json['facultad'] = utf8_encode($arr_asoc['DESCRIP']);
+          $query = "SELECT descrip FROM studentc.facu WHERE code = :facu";
+          $parametros = "";
+          $parametros[0] = $arr_json['fa'];
+          $result = $this->db->query($query, $esParam = true, $parametros);
+          $arr_asoc = $this->db->fetch_array($result);
+          $arr_json['facultad'] = utf8_encode($arr_asoc['DESCRIP']);
 
-            $query = "SELECT descrip FROM studentc.career WHERE code = :facu";
-            $parametros = "";
-            $parametros[0] = $arr_json['fa'] . $arr_json['ca'];
-            $result = $this->db->query($query, $esParam = true, $parametros);
-            $arr_asoc = $this->db->fetch_array($result);
-            $arr_json['carrera'] = utf8_encode($arr_asoc['DESCRIP']);
+          $query = "SELECT descrip FROM studentc.career WHERE code = :facu";
+          $parametros = "";
+          $parametros[0] = $arr_json['fa'] . $arr_json['ca'];
+          $result = $this->db->query($query, $esParam = true, $parametros);
+          $arr_asoc = $this->db->fetch_array($result);
+          $arr_json['carrera'] = utf8_encode($arr_asoc['DESCRIP']);
 
-            $query = "SELECT lname, fname FROM appgral.person WHERE person = :person";
+          $query = "SELECT lname, fname FROM appgral.person WHERE person = :person";
 
-            $parametros = "";
-            $parametros[0] = $person;
+          $parametros = "";
+          $parametros[0] = $person;
 
-            $result = $this->db->query($query, $esParam = true, $parametros);
+          $result = $this->db->query($query, $esParam = true, $parametros);
 
-            $arr_asoc = $this->db->fetch_array($result);
+          $arr_asoc = $this->db->fetch_array($result);
 
-            $arr_json['nombreyapellido'] = utf8_encode($arr_asoc['LNAME'] . ", " . $arr_asoc['FNAME']);
-        }
-*/
+          $arr_json['nombreyapellido'] = utf8_encode($arr_asoc['LNAME'] . ", " . $arr_asoc['FNAME']);
+          }
+         */
         return $arr_json;
     }
 

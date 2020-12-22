@@ -47,7 +47,7 @@ class CajaTesoreria {
     protected $cheques;
 
     function __construct($db, $idsesion = null) {
-        
+
         $this->db = $db;
 
         if ($idsesion != null) {
@@ -63,7 +63,6 @@ class CajaTesoreria {
             $result = $this->db->query($query, true, $parametros);
 
             $this->loadData($this->db->fetch_array($result));
-                   
         }
     }
 
@@ -74,10 +73,10 @@ class CajaTesoreria {
      * @return numeric->id de registro insertado
      */
     function iniciarSesionCaja($datos, $fecha) {
-        
-        
-        /*CON LOS DATOS QUE ME PASO , CHEQUEO SI EL USUARIO TIENE UNA CAJA ABIERTA*/
-        
+
+
+        /* CON LOS DATOS QUE ME PASO , CHEQUEO SI EL USUARIO TIENE UNA CAJA ABIERTA */
+
         /* INSERTO UN REGISTRO EN LA TABLA DE SESIONES */
         $query = "INSERT INTO SESIONCAJA"
                 . "(IDSESION,IDPERSON,IDSESIONUSUARIO , FECHAAPERTURA,NROCAJA,TURNO,FONDOAPERTURA ,NOMBREUSUARIO ,IDSUCURSAL )VALUES("
@@ -129,8 +128,7 @@ class CajaTesoreria {
 
         return $this->db->query($sql, true, $params);
     }
-    
-    
+
     /**
      * checkSesionActiva chequea que no exista sesion abierta
      *
@@ -140,30 +138,27 @@ class CajaTesoreria {
      * @return bool
      *
      */
-    function checkSesionActiva($person){
+    function checkSesionActiva($person) {
 
         $monto_efectivo = $datos[0];
-        
+
         $params = array(
             $person
         );
-        
-        $query='select max(idsesion) idsesion from '
+
+        $query = 'select max(idsesion) idsesion from '
                 . 'SESIONCAJA WHERE IDPERSON = :person AND FECHACIERRE IS NULL';
-        
+
         $res = $this->db->query($query, true, $params);
-        
-        $res =$this->db->fetch_array($res);
-                
-        if(isset($res["IDSESION"])){
-            
+
+        $res = $this->db->fetch_array($res);
+
+        if (isset($res["IDSESION"])) {
+
             return $res["IDSESION"];
-            
-        }else{
+        } else {
             return null;
         }
-       
-       
     }
 
     /**
@@ -171,90 +166,88 @@ class CajaTesoreria {
      *
      * @return array
      */
-    function getBalanceCaja() {        
+    function getBalanceCaja() {
 
-        $salida=array();
-        $salida['EFECTIVO']     =0;
-        $salida['CREDITO']      =0;
-        $salida['DEBITO']       =0;
-        $salida['IMPORCHEQ']    =0;
-        $salida['CHEQUES']      =0;
-        
+        $salida = array();
+        $salida['EFECTIVO'] = 0;
+        $salida['CREDITO'] = 0;
+        $salida['DEBITO'] = 0;
+        $salida['IMPORCHEQ'] = 0;
+        $salida['CHEQUES'] = 0;
+
         //Si no hay fecha de apertura es por que no se inicio la caja correctamente
         //por ende no tiene movimientos ni nada
-        if($this->getFechaApertura()){
-            
-        $e = date_create($this->getFechaApertura());
+        if ($this->getFechaApertura()) {
 
-        $fecha = date_format($e, 'd/m/y');
-        
-        $efectivo       =0;
-        $tarjetacredito =0;
-        $tarjetadebito  =0;
-        $cheque         =0;
+            $e = date_create($this->getFechaApertura());
 
-        // selecciono todos los recibos que esten cancelados , impresos o duplicados del dia de hoy de la cajera
-        $query = "select * FROM movimientos " . "WHERE ESTADO IN (2,3,4)
+            $fecha = date_format($e, 'd/m/y');
+
+            $efectivo = 0;
+            $tarjetacredito = 0;
+            $tarjetadebito = 0;
+            $cheque = 0;
+
+            // selecciono todos los recibos que esten cancelados , impresos o duplicados del dia de hoy de la cajera
+            $query = "select * FROM movimientos " . "WHERE ESTADO IN (2,3,4)
         AND NROCAJERA = " . $this->getUsuarioActual() . "
         AND to_char(FECHATRANS,'dd/mm/yy') =  '" . $fecha . "' AND idcaja = '" . $this->getNumero() . "'";
 
-        // recorro los recibos
-        $datos_caja = $this->db->query($query);
-        
-        $cont=0;
-        
-        while ($fila = $this->db->fetch_array($datos_caja)) {
+            // recorro los recibos
+            $datos_caja = $this->db->query($query);
 
-            $salida['MOVIMIENTOS'][$cont] = $fila;
-            $cont+=1;
-        }
-        
-        
-       //OBTENGO VALORES DE EFECTIVOS CHEQUES , Y TARJETAS
-        $query = "select recibos_caja.* , PAGOSRECIBOS.*,nvl(CHEQUES.IMPORCHEQ,0) as IMPORCHEQ
+            $cont = 0;
+
+            while ($fila = $this->db->fetch_array($datos_caja)) {
+
+                $salida['MOVIMIENTOS'][$cont] = $fila;
+                $cont+=1;
+            }
+
+
+            //OBTENGO VALORES DE EFECTIVOS CHEQUES , Y TARJETAS
+            $query = "select recibos_caja.* , PAGOSRECIBOS.*,nvl(CHEQUES.IMPORCHEQ,0) as IMPORCHEQ
             FROM recibos_caja 
             JOIN PAGOSRECIBOS on recibos_caja.NRORECIBO = PAGOSRECIBOS.NRORECIBO
             LEFT JOIN CHEQUES ON PAGOSRECIBOS.IDCHEQ1 = CHEQUES.ID OR PAGOSRECIBOS.IDCHEQ2 = CHEQUES.ID 
             WHERE TO_CHAR(recibos_caja.fecha,'dd/mm/yy') = '$fecha' AND recibos_caja.IDCAJERAGENERO = " . $this->getUsuarioActual() . " 
-            AND recibos_caja.IDCAJA = ".$this->getNumero()." 
-            AND (recibos_caja.estado = 2 OR recibos_caja.estado = 4 )";           
-        
-        // recorro los recibos
-        $data= $this->db->query($query);
-        
-        $cont=0;        
-       
-        while ($fila2 = $this->db->fetch_array($data)){
+            AND recibos_caja.IDCAJA = " . $this->getNumero() . " 
+            AND (recibos_caja.estado = 2 OR recibos_caja.estado = 4 )";
 
-            $cheque=$cheque+intval($fila2['IMPORCHEQ']);        
-            
-            $efectivo+=$fila2['MONTOEFECTIVO'];
-            
-            if($fila2['TIPOTAR'] == 1){
-                $tarjetacredito+=$fila2['IMPORTETARJ'];
+            // recorro los recibos
+            $data = $this->db->query($query);
+
+            $cont = 0;
+
+            while ($fila2 = $this->db->fetch_array($data)) {
+
+                $cheque = $cheque + intval($fila2['IMPORCHEQ']);
+
+                $efectivo+=$fila2['MONTOEFECTIVO'];
+
+                if ($fila2['TIPOTAR'] == 1) {
+                    $tarjetacredito+=$fila2['IMPORTETARJ'];
+                }
+
+                if ($fila2['TIPOTAR'] == 2) {
+                    $tarjetadebito+=$fila2['IMPORTETARJ'];
+                }
+
+                $salida['RECIBOS'][$cont] = $fila2;
+
+                $cont+=1;
             }
-            
-            if($fila2['TIPOTAR'] == 2){
-                $tarjetadebito+=$fila2['IMPORTETARJ'];
-            }                                
-            
-            $salida['RECIBOS'][$cont] = $fila2;
-            
-            $cont+=1;
+
+            $salida['EFECTIVO'] = $efectivo;
+            $salida['CREDITO'] = $tarjetacredito;
+            $salida['DEBITO'] = $tarjetadebito;
+            $salida['IMPORCHEQ'] = $cheque;
+
+            return $salida;
+        } else {
+
+            return false;
         }
-       
-        $salida['EFECTIVO']     =$efectivo;
-        $salida['CREDITO']      =$tarjetacredito;
-        $salida['DEBITO']       =$tarjetadebito;
-        $salida['IMPORCHEQ']    =$cheque;
-        
-        return $salida;
-        
-      }else{
-          
-          return false;
-          
-      }
     }
 
     /**
@@ -305,7 +298,7 @@ class CajaTesoreria {
      *        	return objet alumno
      */
     public function loadData($fila) {
-        
+
         $this->setId($fila['IDSESION']);
         $this->setNumero($fila['NROCAJA']);
         $this->setCaja($fila['NROCAJA']);
@@ -396,7 +389,6 @@ class CajaTesoreria {
     /**
      * *************SETTERS*****************
      */
-    
     function setPagoEfectivo($pagoEfectivo) {
         $this->pagoEfectivo = $pagoEfectivo;
     }

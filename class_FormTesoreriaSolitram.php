@@ -64,20 +64,20 @@ class FormTesoreriaSolitram extends Formularios {
         }
 
         // Si tipo es null pero id no , devolvemos los datos del form
-        if (($tipo == null || $tipo == '') && ($id != null || $id != '')) {
+        if (($tipo == null || $tipo == '') && ($id != null && $id != '')) {
 
             $parametros = array(
                 $id
             );
 
             $query = "SELECT
-				    formulariotesoreria.*,
-				    formulario.*
-				FROM
-				    tesoreria.formulariotesoreria
-				    JOIN tesoreria.formulario ON formulariotesoreria.idformulario = formulario.id
-				WHERE
-				    formulariotesoreria.idformulario =:id";
+                            formulariotesoreria.*,
+                            formulario.*
+                        FROM
+                            tesoreria.formulariotesoreria
+                            JOIN tesoreria.formulario ON formulariotesoreria.idformulario = formulario.id
+                        WHERE
+                            formulariotesoreria.idformulario =:id";
 
             $result = $this->db->query($query, true, $parametros);
 

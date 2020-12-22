@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Archivo principar de la clase.
  *
@@ -11,170 +12,149 @@
  */
 require_once ("/web/html/classesUSAL/class_Personas.php");
 
-class DerechosVarios
-{
-	protected $db;
-	protected $idderechosvarios;
-	protected $descripcion;
-	protected $estado;
-	protected $cod_cobol;
-	protected $importe;
+class DerechosVarios {
 
-	public function __construct($db, $id = null)
-	{
-		$this->db = $db;
+    protected $db;
+    protected $idderechosvarios;
+    protected $descripcion;
+    protected $estado;
+    protected $cod_cobol;
+    protected $importe;
 
-		if ($id != null && trim ($id) != '')
-		{
+    public function __construct($db, $id = null) {
+        $this->db = $db;
 
-			$parametros = array (
-				$id
-			);
+        if ($id != null || trim($id) != '') {
 
-			$query = "SELECT * FROM CAJADERECHOSVARIOS WHERE IDDERECHOSVARIOS = $id";
+            $parametros = array(
+                $id
+            );
 
-			$result = $this->db->query ($query, true, $parametros);
+            $query = "SELECT * FROM CAJADERECHOSVARIOS WHERE to_char(IDDERECHOSVARIOS) = to_char($id)";
 
-			$this->loadData ($this->db->fetch_array ($result));
-		}
-		else
-		{
-			$this->getAll ();
-		}
-	}
+            $result = $this->db->query($query, true, $parametros);
 
-	/**
-	 * Devuelve todos los registros de la tabla
-	 *
-	 * @return array Array con los resultados de
-	 */
-	public function getAll()
-	{
+            $this->loadData($this->db->fetch_array($result));
+            
+        } else {
+            
+            return( $this->getAll());
+           
+        }
+    }
 
-		// TODO: Implement getAll() method.
-		$query = "SELECT * FROM cajaderechosvarios WHERE estado = 1";
+    /**
+     * Devuelve todos los registros de la tabla
+     *
+     * @return array Array con los resultados de
+     */
+    public function getAll() {
 
-		$result = $this->db->query ($query);
+        // TODO: Implement getAll() method.
+        $query = "SELECT * FROM cajaderechosvarios WHERE estado = 1";
+ 
+        $result = $this->db->query($query);
 
-		while ($fila = $this->db->fetch_array ($result))
-		{
+        while ($fila = $this->db->fetch_array($result)) {
+        
+            $salida[] = $fila;
+        }
+       
+        return $salida;
+    }
 
-			$salida[] = $fila;
-		}
+    /**
+     * Registra los pagos de los derechos varios
+     * realizados por un usuario administrador de tesoreria
+     *
+     * @param String $datos
+     */
+    public function registrarPagoDerecho($datos) {
+        if ($datos) {
 
-		return $salida;
-	}
+            $insercion = $this->db->realizarInsert($datos, 'SOLITRAMPAGOSDVARIOS');
 
-	/**
-	 * Registra los pagos de los derechos varios
-	 * realizados por un usuario administrador de tesoreria
-	 *
-	 * @param String $datos
-	 */
-	public function registrarPagoDerecho($datos)
-	{
-		if ($datos)
-		{
+            return $insercion;
+        }
+    }
 
-			$insercion = $this->db->realizarInsert ($datos, 'SOLITRAMPAGOSDVARIOS');
+    /**
+     * Carga propiedades del objeta que vienen desde la DB
+     *
+     * @param array $fila
+     *        	return objet derechos varios
+     *
+     */
+    public function loadData($fila) {
+        if (isset($fila['IDDERECHOSVARIOS'])) {
+            $this->set_idderechosvarios($fila['IDDERECHOSVARIOS']);
+        }
 
-			return $insercion;
-		}
-	}
+        if (isset($fila['DESCRIPCION'])) {
+            $this->set_descripcion($fila['DESCRIPCION']);
+        }
 
-	/**
-	 * Carga propiedades del objeta que vienen desde la DB
-	 *
-	 * @param array $fila
-	 *        	return objet derechos varios
-	 *
-	 */
-	public function loadData($fila)
-	{
-		if (isset ($fila['IDDERECHOSVARIOS']))
-		{
-			$this->set_idderechosvarios ($fila['IDDERECHOSVARIOS']);
-		}
+        if (isset($fila['COD_COBOL'])) {
+            $this->set_cod_cobol($fila['COD_COBOL']);
+        }
 
-		if (isset ($fila['DESCRIPCION']))
-		{
-			$this->set_descripcion ($fila['DESCRIPCION']);
-		}
+        if (isset($fila['ESTADO'])) {
+            $this->set_estado($fila['ESTADO']);
+        }
 
-		if (isset ($fila['COD_COBOL']))
-		{
-			$this->set_cod_cobol ($fila['COD_COBOL']);
-		}
+        if (isset($fila['IMPORTE'])) {
+            $this->set_importe($fila['IMPORTE']);
+        }
+    }
 
-		if (isset ($fila['ESTADO']))
-		{
-			$this->set_estado ($fila['ESTADO']);
-		}
+    /**
+     * ******GETER*******
+     */
+    function get_db() {
+        return $this->db;
+    }
 
-		if (isset ($fila['IMPORTE']))
-		{
-			$this->set_importe ($fila['IMPORTE']);
-		}
-	}
+    function get_idderechosvarios() {
+        return $this->idderechosvarios;
+    }
 
-	/**
-	 * ******GETER*******
-	 */
-	function get_db()
-	{
-		return $this->db;
-	}
+    function get_descripcion() {
+        return $this->descripcion;
+    }
 
-	function get_idderechosvarios()
-	{
-		return $this->idderechosvarios;
-	}
+    function get_estado() {
+        return $this->estado;
+    }
 
-	function get_descripcion()
-	{
-		return $this->descripcion;
-	}
+    function get_cod_cobol() {
+        return $this->cod_cobol;
+    }
 
-	function get_estado()
-	{
-		return $this->estado;
-	}
+    function get_importe() {
+        return $this->importe;
+    }
 
-	function get_cod_cobol()
-	{
-		return $this->cod_cobol;
-	}
+    /**
+     * ******GETER*******
+     */
+    function set_idderechosvarios($idderechosvarios) {
+        $this->idderechosvarios = $idderechosvarios;
+    }
 
-	function get_importe()
-	{
-		return $this->importe;
-	}
+    function set_descripcion($descripcion) {
+        $this->descripcion = $descripcion;
+    }
 
-	/**
-	 * ******GETER*******
-	 */
-	function set_idderechosvarios($idderechosvarios)
-	{
-		$this->idderechosvarios = $idderechosvarios;
-	}
+    function set_estado($estado) {
+        $this->estado = $estado;
+    }
 
-	function set_descripcion($descripcion)
-	{
-		$this->descripcion = $descripcion;
-	}
+    function set_cod_cobol($cod_cobol) {
+        $this->cod_cobol = $cod_cobol;
+    }
 
-	function set_estado($estado)
-	{
-		$this->estado = $estado;
-	}
+    function set_importe($importe) {
+        $this->importe = $importe;
+    }
 
-	function set_cod_cobol($cod_cobol)
-	{
-		$this->cod_cobol = $cod_cobol;
-	}
-
-	function set_importe($importe)
-	{
-		$this->importe = $importe;
-	}
 }

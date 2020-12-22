@@ -10,7 +10,6 @@
  * @version 0.1 version inicial del archivo.
  *
  */
-
 /*
  * Querido programador:
  *
@@ -35,236 +34,222 @@
  * @since 2.0 Los campos booleanos $cuentaAcademica, $cuentaAdministrativa, $cuentaAlumno, $cuentaDocente, $cuentaExterno, $cuentaGenerica y $cuentaOperador convierten en una lista que contiene los que correapondan para cada cuenta.
  * @since 0.1 version inicial
  */
-class Cuentas
-{
-	/**
-	 * Cuenta de la persona (nombre de usuario) <Br>
-	 * Hay que tener en cuenta que un usuario puede tener mas de una cuenta por
-	 * lo que convendria que este campo sea un array para permitir guardar todas alli.
-	 *
-	 * @var string <Br>
-	 *      @ubicacionBase portal.usuario_web.cuenta - VARCHAR2(120 BYTE)
-	 *      <Br>
-	 *
-	 * @internal Este campo deberia estar siempre en minuscula.
-	 *           $cuenta = strtolower($cuenta);
-	 */
-	protected $cuenta = "";
+class Cuentas {
 
-	/**
-	 * Id de la Cuenta de la persona.
-	 *
-	 * @var int <Br>
-	 *      @ubicacionBase portal.usuario_web.id - NUMBER(10,0)
-	 */
-	protected $idCuenta = "";
+    /**
+     * Cuenta de la persona (nombre de usuario) <Br>
+     * Hay que tener en cuenta que un usuario puede tener mas de una cuenta por
+     * lo que convendria que este campo sea un array para permitir guardar todas alli.
+     *
+     * @var string <Br>
+     *      @ubicacionBase portal.usuario_web.cuenta - VARCHAR2(120 BYTE)
+     *      <Br>
+     *
+     * @internal Este campo deberia estar siempre en minuscula.
+     *           $cuenta = strtolower($cuenta);
+     */
+    protected $cuenta = "";
 
-	/**
-	 * Direccion de mail relacionada a la cuenta de la persona.
-	 *
-	 * @var string <Br>
-	 *      @ubicacionBase portal.usuario_web.email - VARCHAR2(200 BYTE)
-	 */
-	protected $emailCuenta = "";
+    /**
+     * Id de la Cuenta de la persona.
+     *
+     * @var int <Br>
+     *      @ubicacionBase portal.usuario_web.id - NUMBER(10,0)
+     */
+    protected $idCuenta = "";
 
-	/**
-	 * Array con las diferentes posibilidades de tipo de cuenta.
-	 *
-	 * @var boolean[] Va a tener los tipos de cuenta como indices y true o false segun corresponda.
-	 */
-	protected $tipoCuenta = array ();
+    /**
+     * Direccion de mail relacionada a la cuenta de la persona.
+     *
+     * @var string <Br>
+     *      @ubicacionBase portal.usuario_web.email - VARCHAR2(200 BYTE)
+     */
+    protected $emailCuenta = "";
 
-	/**
-	 * Frace de seguridad de la cuenta de la persona utilizada
-	 * para la recuperacion de contraseñas.
-	 *
-	 * @var string <Br>
-	 *      @ubicacionBase portal.usuario_web.frase - VARCHAR2(250 BYTE)
-	 */
-	protected $fraseDeSeguridad = "";
+    /**
+     * Array con las diferentes posibilidades de tipo de cuenta.
+     *
+     * @var boolean[] Va a tener los tipos de cuenta como indices y true o false segun corresponda.
+     */
+    protected $tipoCuenta = array();
 
-	/**
-	 * Fecha de vencimiento de la cuenta de la persona
-	 *
-	 * @var string - Date $vencimiento
-	 *      @ubicacionBase portal.usuario_web.fecha_venc - DATE
-	 */
-	protected $vencimiento = "";
+    /**
+     * Frace de seguridad de la cuenta de la persona utilizada
+     * para la recuperacion de contraseñas.
+     *
+     * @var string <Br>
+     *      @ubicacionBase portal.usuario_web.frase - VARCHAR2(250 BYTE)
+     */
+    protected $fraseDeSeguridad = "";
 
-	/**
-	 * Fecha de alta de la cuenta de la persona
-	 *
-	 * @var string - Date $alta
-	 *      @ubicacionBase portal.usuario_web.fecha_alta - DATE
-	 */
-	protected $alta = "";
+    /**
+     * Fecha de vencimiento de la cuenta de la persona
+     *
+     * @var string - Date $vencimiento
+     *      @ubicacionBase portal.usuario_web.fecha_venc - DATE
+     */
+    protected $vencimiento = "";
 
-	/**
-	 * Fecha de baja de la cuenta de la persona
-	 *
-	 * @var string - Date $baja
-	 *      @ubicacionBase portal.usuario_web.fecha_baja - DATE
-	 */
-	protected $baja = "";
+    /**
+     * Fecha de alta de la cuenta de la persona
+     *
+     * @var string - Date $alta
+     *      @ubicacionBase portal.usuario_web.fecha_alta - DATE
+     */
+    protected $alta = "";
 
-	/**
-	 * Geter del atributo cuenta
-	 *
-	 * @return string
-	 */
-	public function getCuenta()
-	{
-		return $this->cuenta;
-	}
+    /**
+     * Fecha de baja de la cuenta de la persona
+     *
+     * @var string - Date $baja
+     *      @ubicacionBase portal.usuario_web.fecha_baja - DATE
+     */
+    protected $baja = "";
 
-	/**
-	 * Seter del atributo $cuenta
-	 *
-	 * @param string $cuenta
-	 */
-	public function setCuenta($cuenta)
-	{
-		$this->cuenta = $cuenta;
-	}
+    /**
+     * Geter del atributo cuenta
+     *
+     * @return string
+     */
+    public function getCuenta() {
+        return $this->cuenta;
+    }
 
-	/**
-	 * Geter del atributo idCuenta
-	 *
-	 * @return int
-	 */
-	public function getIdCuenta()
-	{
-		return $this->idCuenta;
-	}
+    /**
+     * Seter del atributo $cuenta
+     *
+     * @param string $cuenta
+     */
+    public function setCuenta($cuenta) {
+        $this->cuenta = $cuenta;
+    }
 
-	/**
-	 * Seter del atributo $idCuenta
-	 *
-	 * @param int $idCuenta
-	 */
-	public function setIdCuenta($idCuenta)
-	{
-		$this->idCuenta = $idCuenta;
-	}
+    /**
+     * Geter del atributo idCuenta
+     *
+     * @return int
+     */
+    public function getIdCuenta() {
+        return $this->idCuenta;
+    }
 
-	/**
-	 * Geter del atributo emailCuenta
-	 *
-	 * @return string
-	 */
-	public function getEmailCuenta()
-	{
-		return $this->emailCuenta;
-	}
+    /**
+     * Seter del atributo $idCuenta
+     *
+     * @param int $idCuenta
+     */
+    public function setIdCuenta($idCuenta) {
+        $this->idCuenta = $idCuenta;
+    }
 
-	/**
-	 * Seter del atributo $emailCuenta
-	 *
-	 * @param string $emailCuenta
-	 */
-	public function setEmailCuenta($emailCuenta)
-	{
-		$this->emailCuenta = $emailCuenta;
-	}
+    /**
+     * Geter del atributo emailCuenta
+     *
+     * @return string
+     */
+    public function getEmailCuenta() {
+        return $this->emailCuenta;
+    }
 
-	/**
-	 * Geter del atributo tipoCuenta
-	 *
-	 * @return multitype:boolean
-	 */
-	public function getTipoCuenta()
-	{
-		return $this->tipoCuenta;
-	}
+    /**
+     * Seter del atributo $emailCuenta
+     *
+     * @param string $emailCuenta
+     */
+    public function setEmailCuenta($emailCuenta) {
+        $this->emailCuenta = $emailCuenta;
+    }
 
-	/**
-	 * Seter del atributo $tipoCuenta
-	 *
-	 * @param multitype:boolean $tipoCuenta
-	 */
-	public function setTipoCuenta($tipoCuenta)
-	{
-		$this->tipoCuenta = $tipoCuenta;
-	}
+    /**
+     * Geter del atributo tipoCuenta
+     *
+     * @return multitype:boolean
+     */
+    public function getTipoCuenta() {
+        return $this->tipoCuenta;
+    }
 
-	/**
-	 * Geter del atributo fraseDeSeguridad
-	 *
-	 * @return string
-	 */
-	public function getFraseDeSeguridad()
-	{
-		return $this->fraseDeSeguridad;
-	}
+    /**
+     * Seter del atributo $tipoCuenta
+     *
+     * @param multitype:boolean $tipoCuenta
+     */
+    public function setTipoCuenta($tipoCuenta) {
+        $this->tipoCuenta = $tipoCuenta;
+    }
 
-	/**
-	 * Seter del atributo fraseDeSeguridad
-	 *
-	 * @param string $fraseDeSeguridad
-	 */
-	public function setFraseDeSeguridad($fraseDeSeguridad)
-	{
-		$this->fraseDeSeguridad = $fraseDeSeguridad;
-	}
+    /**
+     * Geter del atributo fraseDeSeguridad
+     *
+     * @return string
+     */
+    public function getFraseDeSeguridad() {
+        return $this->fraseDeSeguridad;
+    }
 
-	/**
-	 * Geter del atributo vencimiento
-	 *
-	 * @return string
-	 */
-	public function getVencimiento()
-	{
-		return $this->vencimiento;
-	}
+    /**
+     * Seter del atributo fraseDeSeguridad
+     *
+     * @param string $fraseDeSeguridad
+     */
+    public function setFraseDeSeguridad($fraseDeSeguridad) {
+        $this->fraseDeSeguridad = $fraseDeSeguridad;
+    }
 
-	/**
-	 * Seter del atributo $vencimiento
-	 *
-	 * @param string $vencimiento
-	 */
-	public function setVencimiento($vencimiento)
-	{
-		$this->vencimiento = $vencimiento;
-	}
+    /**
+     * Geter del atributo vencimiento
+     *
+     * @return string
+     */
+    public function getVencimiento() {
+        return $this->vencimiento;
+    }
 
-	/**
-	 * Geter del atributo alta
-	 *
-	 * @return string
-	 */
-	public function getAlta()
-	{
-		return $this->alta;
-	}
+    /**
+     * Seter del atributo $vencimiento
+     *
+     * @param string $vencimiento
+     */
+    public function setVencimiento($vencimiento) {
+        $this->vencimiento = $vencimiento;
+    }
 
-	/**
-	 * Seter del atributo $alta
-	 *
-	 * @param string $alta
-	 */
-	public function setAlta($alta)
-	{
-		$this->alta = $alta;
-	}
+    /**
+     * Geter del atributo alta
+     *
+     * @return string
+     */
+    public function getAlta() {
+        return $this->alta;
+    }
 
-	/**
-	 * Geter del atributo baja
-	 *
-	 * @return string
-	 */
-	public function getBaja()
-	{
-		return $this->baja;
-	}
+    /**
+     * Seter del atributo $alta
+     *
+     * @param string $alta
+     */
+    public function setAlta($alta) {
+        $this->alta = $alta;
+    }
 
-	/**
-	 * Seter del atributo $baja
-	 *
-	 * @param string $baja
-	 */
-	public function setBaja($baja)
-	{
-		$this->baja = $baja;
-	}
+    /**
+     * Geter del atributo baja
+     *
+     * @return string
+     */
+    public function getBaja() {
+        return $this->baja;
+    }
+
+    /**
+     * Seter del atributo $baja
+     *
+     * @param string $baja
+     */
+    public function setBaja($baja) {
+        $this->baja = $baja;
+    }
+
 }
+
 ?>

@@ -11,7 +11,6 @@
  * @name class_Doc_Dnis.php
  * @version 0.1 version inicial del archivo.
  */
-
 /*
  * Querido programador:
  *
@@ -31,41 +30,34 @@ require_once ("class_Documentos.php");
  *
  * @author iberlot
  */
-class Dnis extends Documentos
-{
+class Dnis extends Documentos {
 
-	public function __construct($doc_num, $db = null)
-	{
-		if (!isset ($db) or empty ($db) or $db == null)
-		{
-			if (!$this->db = Sitios::openConnection ())
-			{
-				global $db;
+    public function __construct($doc_num, $db = null) {
+        if (!isset($db) or empty($db) or $db == null) {
+            if (!$this->db = Sitios::openConnection()) {
+                global $db;
 
-				if (isset ($db) and !empty ($db) and $db != null)
-				{
-					$this->db = &$db;
-				}
-			}
-		}
-		else
-		{
-			$this->db = &$db;
-		}
+                if (isset($db) and ! empty($db) and $db != null) {
+                    $this->db = $db;
+                }
+            }
+        } else {
+            $this->db = $db;
+        }
 
-		$this->setDocNumero ($doc_num);
-		$this->setDocTipo ("DNI");
-	}
+        $this->setDocNumero($doc_num);
+        $this->setDocTipo("DNI");
+    }
 
-	/**
-	 *
-	 * @param
-	 *        	string a cargar en la variable $docNumero
-	 */
-	public function setDocNumero($docNumero)
-	{
-		$docNumero = preg_replace ("/[^0-9]/", "", $docNumero);
+    /**
+     *
+     * @param
+     *        	string a cargar en la variable $docNumero
+     */
+    public function setDocNumero($docNumero) {
+        $docNumero = preg_replace("/[^0-9]/", "", $docNumero);
 
-		$this->docNumero = $docNumero;
-	}
+        $this->docNumero = $docNumero;
+    }
+
 }

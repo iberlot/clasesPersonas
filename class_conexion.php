@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * @author iberlot <@> iberlot@usal.edu.ar
@@ -9,7 +10,6 @@
  * @package
  * @project
  */
-
 /*
  * Querido programador:
  *
@@ -25,37 +25,36 @@
  */
 require_once ("/web/html/classes/class_db.php");
 
-class Conexion
-{
-	private static $db = null;
+class Conexion {
 
-	private function __construct()
-	{
-	}
+    private static $db = null;
 
-	/**
-	 * Conexion a la BD
-	 */
-	public static function openConnection()
-	{
-		$host = "ACADEMICA.DESARROLLO";
+    private function __construct() {
+        
+    }
 
-		$user = "tesoreria";
-		$pass = "tesoreria";
-		// $base = "tesoreria";
+    /**
+     * Conexion a la BD
+     */
+    public static function openConnection() {
+        $host = "ACADEMICA.DESARROLLO";
 
-		// $dsn = "oracle:host=$host;dbname=$base;charset=WE8MSWIN1252";
+        $user = "tesoreria";
+        $pass = "tesoreria";
+        // $base = "tesoreria";
+        // $dsn = "oracle:host=$host;dbname=$base;charset=WE8MSWIN1252";
 
-		$db = new class_db ($host, $user, $pass, '', 'WE8MSWIN1252', 'oracle');
+        $db = new class_db($host, $user, $pass, '', 'WE8MSWIN1252', 'oracle');
 
-		// $linkOracle_class->debug=TRUE;
+        // $linkOracle_class->debug=TRUE;
 
-		$db->debug = FALSE;
+        $db->debug = FALSE;
 
-		$db->connect ();
+        $db->connect();
 
-		return $db;
-	}
+        return $db;
+    }
+
 }
 
 ?>

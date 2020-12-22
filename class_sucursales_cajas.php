@@ -26,136 +26,121 @@
  *
  * Manejo de caja del sistema tesoreria
  */
-class SucursalesCajas
-{
-	protected $db;
-	protected $idsucursal;
-	protected $nombre;
-	protected $direccion;
-	protected $localidad;
-	protected $telefono;
+class SucursalesCajas {
 
-	function __construct($db, $idsucursal = null)
-	{
-		$this->db = $db;
-	}
+    protected $db;
+    protected $idsucursal;
+    protected $nombre;
+    protected $direccion;
+    protected $localidad;
+    protected $telefono;
 
-	function getAll()
-	{
-		$query = " select * from SUCURSALESCAJAS";
+    function __construct($db, $idsucursal = null) {
+        $this->db = $db;
+    }
 
-		$result = $this->db->query ($query);
+    function getAll() {
+        $query = " select * from SUCURSALESCAJAS";
 
-		while ($fila = $this->db->fetch_array ($result))
-		{
+        $result = $this->db->query($query);
 
-			$salida[] = $fila;
-		}
+        while ($fila = $this->db->fetch_array($result)) {
 
-		return $salida;
-	}
+            $salida[] = $fila;
+        }
 
-	/**
-	 *
-	 * @FIXME para esta funcion deberia exisitr una clase aparte
-	 * @return array
-	 */
-	function getAllItemsMenu()
-	{
-		$query = " SELECT * FROM opcionesmenucajatesoreria";
+        return $salida;
+    }
 
-		$result = $this->db->query ($query);
+    /**
+     *
+     * @FIXME para esta funcion deberia exisitr una clase aparte
+     * @return array
+     */
+    function getAllItemsMenu() {
+        $query = " SELECT * FROM opcionesmenucajatesoreria";
 
-		while ($fila = $this->db->fetch_array ($result))
-		{
+        $result = $this->db->query($query);
 
-			$salida[] = $fila;
-		}
+        while ($fila = $this->db->fetch_array($result)) {
 
-		return $salida;
-	}
+            $salida[] = $fila;
+        }
 
-	/**
-	 * loadData
-	 * Carga propiedades del objeta que vienen desde la DB
-	 *
-	 * IDSUCURSAL
-	 * NOMBRE
-	 * DIRECCION
-	 * LOCALIDAD
-	 * TELEFONO
-	 *
-	 * @param array $fila
-	 *        	return objet sucursales
-	 */
-	public function loadData($fila)
-	{
-		$this->setIdsucursal ($fila['IDSUCURSAL']);
-		$this->setNombre ($fila['NOMBRE']);
-		$this->setDireccion ($fila['DIRECCION']);
-		$this->setLocalidad ($fila['LOCALIDAD']);
-		$this->setTelefono ($fila['TELEFONO']);
-	}
+        return $salida;
+    }
 
-	/* * GETTERS* */
-	function getDb()
-	{
-		return $this->db;
-	}
+    /**
+     * loadData
+     * Carga propiedades del objeta que vienen desde la DB
+     *
+     * IDSUCURSAL
+     * NOMBRE
+     * DIRECCION
+     * LOCALIDAD
+     * TELEFONO
+     *
+     * @param array $fila
+     *        	return objet sucursales
+     */
+    public function loadData($fila) {
+        $this->setIdsucursal($fila['IDSUCURSAL']);
+        $this->setNombre($fila['NOMBRE']);
+        $this->setDireccion($fila['DIRECCION']);
+        $this->setLocalidad($fila['LOCALIDAD']);
+        $this->setTelefono($fila['TELEFONO']);
+    }
 
-	function getIdsucursal()
-	{
-		return $this->idsucursal;
-	}
+    /*     * GETTERS* */
 
-	function getNombre()
-	{
-		return $this->nombre;
-	}
+    function getDb() {
+        return $this->db;
+    }
 
-	function getDireccion()
-	{
-		return $this->direccion;
-	}
+    function getIdsucursal() {
+        return $this->idsucursal;
+    }
 
-	function getLocalidad()
-	{
-		return $this->localidad;
-	}
+    function getNombre() {
+        return $this->nombre;
+    }
 
-	function getTelefono()
-	{
-		return $this->telefono;
-	}
+    function getDireccion() {
+        return $this->direccion;
+    }
 
-	/* * GETTERS* */
-	function setDb($db)
-	{
-		$this->db = $db;
-	}
+    function getLocalidad() {
+        return $this->localidad;
+    }
 
-	function setIdsucursal($idsucursal)
-	{
-		$this->idsucursal = $idsucursal;
-	}
+    function getTelefono() {
+        return $this->telefono;
+    }
 
-	function setNombre($nombre)
-	{
-		$this->nombre = $nombre;
-	}
+    /*     * GETTERS* */
 
-	function setDireccion($direccion)
-	{
-		$this->direccion = $direccion;
-	}
+    function setDb($db) {
+        $this->db = $db;
+    }
 
-	function setLocalidad($localidad)
-	{
-		$this->localidad = $localidad;
-	}
+    function setIdsucursal($idsucursal) {
+        $this->idsucursal = $idsucursal;
+    }
 
-	function setTelefono($telefono)
-	{
-		$this->telefono = $telefono;
-	}
+    function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+
+    function setDireccion($direccion) {
+        $this->direccion = $direccion;
+    }
+
+    function setLocalidad($localidad) {
+        $this->localidad = $localidad;
+    }
+
+    function setTelefono($telefono) {
+        $this->telefono = $telefono;
+    }
+
 }
